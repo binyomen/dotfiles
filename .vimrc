@@ -1,3 +1,12 @@
+" Vundle stuff
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+call vundle#end()
+filetype plugin indent on
+
 " easy editing of vimrc file
 nmap <silent> <leader>ev :tabe $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
