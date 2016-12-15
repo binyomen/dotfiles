@@ -5,3 +5,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 set number
 set nowrap
 set showmatch
+
+" remaps
+imap hh <Esc>
+nnoremap ; :
