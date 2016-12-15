@@ -9,3 +9,8 @@ set showmatch
 " remaps
 imap hh <Esc>
 nnoremap ; :
+
+" search
+set ignorecase
+set smartcase
+set incsearch
