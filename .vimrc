@@ -23,3 +23,7 @@ set shiftwidth=4
 set shiftround
 set autoindent
 set smarttab
+
+" show whitespace
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
