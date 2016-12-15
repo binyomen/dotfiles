@@ -27,3 +27,10 @@ set smarttab
 " show whitespace
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
+
+set history=1000
+set undolevels=1000
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title
+set visualbell
+set noerrorbells
