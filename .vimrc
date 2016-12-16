@@ -45,3 +45,15 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set title
 set visualbell
 set noerrorbells
+
+" custom functions
+
+" toggle between number and relativenumber
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
