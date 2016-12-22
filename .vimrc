@@ -57,3 +57,8 @@ function! ToggleNumber()
         set relativenumber
     endif
 endfunc
+
+" format json
+function! FormatJson()
+    %!python -m json.tool
+endfunc
