@@ -155,3 +155,8 @@ bar {
         status_command i3status
 }
 
+
+##########################################################
+# BELOW ARE LOCAL CONFIGURATIONS FOR THE CURRENT MACHINE #
+##########################################################
+
