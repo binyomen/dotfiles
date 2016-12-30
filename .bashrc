@@ -117,5 +117,5 @@ if ! shopt -oq posix; then
 fi
 
 function geni3conf {
-    cat ~/.config/i3/config.base ~/.config/i3/config.local > ~/.config/i3/config
+    cat ~/.config/i3/config.global ~/.config/i3/config.local > ~/.config/i3/config
 }
