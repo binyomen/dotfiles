@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# generate the configuration file for i3 given a global configuration
+# file and a local configuration file
 function geni3conf {
     cat ~/.config/i3/config.global ~/.config/i3/config.local > ~/.config/i3/config
 }
