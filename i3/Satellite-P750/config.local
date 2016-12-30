@@ -1,0 +1,2 @@
+# set up multiple monitors
+exec xrandr --output VGA-1 --auto --left-of LVDS-1
