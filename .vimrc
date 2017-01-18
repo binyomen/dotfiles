@@ -27,6 +27,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 set number
 set nowrap
 set showmatch
+set backspace=indent,eol,start
 syntax on
 
 " remaps
