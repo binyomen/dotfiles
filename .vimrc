@@ -17,6 +17,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'PProvost/vim-ps1'
 call vundle#end()
 filetype plugin indent on
 
