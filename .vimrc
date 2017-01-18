@@ -39,6 +39,9 @@ set smarttab
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+" run bash from vim
+nmap <silent> <leader>ba :! bash<CR>
+
 set history=1000
 set undolevels=1000
 set wildignore=*.swp,*.bak,*.pyc,*.class
