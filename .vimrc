@@ -21,6 +21,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 set number
 set nowrap
 set showmatch
+syntax on
 
 " remaps
 imap hh <Esc>
