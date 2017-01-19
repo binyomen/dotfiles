@@ -19,6 +19,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'PProvost/vim-ps1'
 Plugin 'scrooloose/nerdtree'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 filetype plugin indent on
 
@@ -30,11 +31,15 @@ set number
 set nowrap
 set showmatch
 set backspace=indent,eol,start
-syntax on
 
 " remaps
 imap hh <Esc>
 nnoremap ; :
+
+" color scheme
+syntax on
+set background=dark
+colorscheme solarized
 
 " search
 set ignorecase
