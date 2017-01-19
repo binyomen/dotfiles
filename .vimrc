@@ -20,6 +20,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'PProvost/vim-ps1'
 Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'chaoren/vim-wordmotion'
 call vundle#end()
 filetype plugin indent on
 
