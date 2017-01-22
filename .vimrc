@@ -11,7 +11,9 @@ endif
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'OmniSharp/omnisharp-vim'
+if has("win32")
+    Plugin 'OmniSharp/omnisharp-vim'
+endif
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
