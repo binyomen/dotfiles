@@ -38,6 +38,7 @@ set backspace=indent,eol,start
 " remaps
 imap hh <Esc>
 nnoremap ; :
+vnoremap ; :
 
 " color scheme
 syntax on
