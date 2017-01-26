@@ -35,6 +35,16 @@ set nowrap
 set showmatch
 set backspace=indent,eol,start
 
+" vim-wordmotion configuration
+let g:wordmotion_mappings = {
+\ 'w': '<C-w>',
+\ 'b': '<C-b>',
+\ 'e': '<C-e>',
+\ 'ge': 'g<C-e>',
+\ 'aw': 'a<C-w>',
+\ 'iw': 'i<C-w>'
+\}
+
 " remaps
 imap hh <Esc>
 nnoremap ; :
