@@ -1,4 +1,6 @@
-" Vundle stuff
+" vim:fdm=marker
+
+" Vundle stuff {{{
 set nocompatible
 filetype off
 if has("win32")
@@ -25,17 +27,12 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'chaoren/vim-wordmotion'
 call vundle#end()
 filetype plugin indent on
-
-" easy editing of vimrc file
+" }}}
+" easy editing of vimrc file {{{
 nmap <silent> <leader>ev :tabe $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-set number
-set nowrap
-set showmatch
-set backspace=indent,eol,start
-
-" vim-wordmotion configuration
+" }}}
+" vim-wordmotion configuration {{{
 let g:wordmotion_mappings = {
 \ 'w': '<C-w>',
 \ 'b': '<C-b>',
@@ -44,23 +41,23 @@ let g:wordmotion_mappings = {
 \ 'aw': 'a<C-w>',
 \ 'iw': 'i<C-w>'
 \}
-
-" remaps
+" }}}
+" remaps {{{
 imap hh <Esc>
 nnoremap ; :
 vnoremap ; :
-
-" color scheme
+" }}}
+" color scheme {{{
 syntax on
 set background=dark
 colorscheme solarized
-
-" search
+" }}}
+" search {{{
 set ignorecase
 set smartcase
 set incsearch
-
-" tabs
+" }}}
+" tabs {{{
 set expandtab
 set tabstop=4
 set softtabstop=4
@@ -68,23 +65,27 @@ set shiftwidth=4
 set shiftround
 set autoindent
 set smarttab
-
-" show whitespace
+" }}}
+" show whitespace {{{
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-
-" run bash from vim
+" }}}
+" run bash from vim {{{
 nmap <silent> <leader>ba :! bash<CR>
-
+" }}}
+" misc. settings {{{
+set number
+set nowrap
+set showmatch
+set backspace=indent,eol,start
 set history=1000
 set undolevels=1000
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title
 set visualbell
 set noerrorbells
-
-" custom functions
-
+" }}}
+" custom functions {{{
 " toggle between number and relativenumber
 function! ToggleNumber()
     if(&relativenumber == 1)
@@ -99,3 +100,4 @@ endfunc
 function! FormatJson()
     %!python -m json.tool
 endfunc
+" }}}
