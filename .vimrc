@@ -28,9 +28,15 @@ Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 call vundle#end()
 filetype plugin indent on
 " }}}
-" easy editing of vimrc file {{{
-nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
-nmap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
+" leader keys {{{
+:let mapleader = "," " semicolon is the leader key
+" }}}
+" remaps {{{
+inoremap hh <Esc>| " use "hh" to get out of input mode
+nnoremap <space> :| " remap space to : in normal mode for ease of use
+nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease of use
+nnoremap <BS> :w<CR>| " remap backspace to save
+nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
 " vim-wordmotion configuration {{{
 " require CTRL key to perform CamelCase motion
@@ -43,10 +49,9 @@ let g:wordmotion_mappings = {
 \ 'iw': 'i<C-w>'
 \}
 " }}}
-" remaps {{{
-imap hh <Esc>| " use "hh" to get out of input mode
-nnoremap ; :| " remap ; to : in normal mode for ease of use
-vnoremap ; :| " remap ; to : in visual mode for ease of use
+" easy editing of vimrc file {{{
+nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
+nmap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
 " }}}
 " color scheme {{{
 syntax on " turn on syntax highlighting
