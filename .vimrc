@@ -38,6 +38,10 @@ nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease o
 nnoremap <BS> :w<CR>| " remap backspace to save
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
+" plugin configuration {{{
+" solarized configuration {{{
+let g:solarized_italic=0
+" }}}
 " vim-wordmotion configuration {{{
 " require CTRL key to perform CamelCase motion
 let g:wordmotion_mappings = {
@@ -48,6 +52,7 @@ let g:wordmotion_mappings = {
 \ 'aw': 'a<C-w>',
 \ 'iw': 'i<C-w>'
 \}
+" }}}
 " }}}
 " easy editing of vimrc file {{{
 nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
