@@ -25,6 +25,7 @@ Plugin 'PProvost/vim-ps1' " Powershell syntax highlighting
 Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
+Plugin 'vim-airline/vim-airline' " a statusline plugin
 call vundle#end()
 filetype plugin indent on
 " }}}
@@ -52,6 +53,9 @@ let g:wordmotion_mappings = {
 \ 'aw': 'a<C-w>',
 \ 'iw': 'i<C-w>'
 \}
+" }}}
+" vim-airline configuration {{{
+set laststatus=2 " show the statusline all the time, rather than only when a split is created
 " }}}
 " }}}
 " easy editing of vimrc file {{{
