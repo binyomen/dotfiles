@@ -95,6 +95,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class " file patterns to ignore when expandin
 set title " title of window set to titlename/currently edited file
 set visualbell " use visual bell instead of beeping
 set noerrorbells " don't ring the bell for error messages
+set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
