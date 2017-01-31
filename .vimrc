@@ -3,7 +3,7 @@
 " Vundle stuff {{{
 set nocompatible
 filetype off
-if has("win32")
+if has('win32')
     set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
     call vundle#begin('$USERPROFILE/vimfiles/bundle/')
 else
@@ -13,7 +13,7 @@ endif
 Plugin 'VundleVim/Vundle.vim' " the plugin which runs Vundle
 Plugin 'scrooloose/nerdcommenter' " commenting functionality
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy search
-if has("win32")
+if has('win32')
     Plugin 'OmniSharp/omnisharp-vim' " C# syntax-highlighting, code completion, etc.
 endif
 Plugin 'tpope/vim-dispatch' " async builds, needed for OmniSharp's server
