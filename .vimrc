@@ -41,7 +41,12 @@ nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
 " plugin configuration {{{
 " solarized configuration {{{
-let g:solarized_italic=0
+syntax on " turn on syntax highlighting
+set background=dark " use the dark background theme for solarized
+let g:solarized_italic=0 " don't italicize text in solarized (it sometimes draws weird in gVim)
+if !has('gui_running')
+    let g:solarized_termcolors=256 " make sure to use 256 color mode if running in a terminal
+endif
 " }}}
 " vim-wordmotion configuration {{{
 " require CTRL key to perform CamelCase motion
@@ -63,8 +68,6 @@ nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
 nmap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
 " }}}
 " color scheme {{{
-syntax on " turn on syntax highlighting
-set background=dark " use the dark background theme for solarized
 colorscheme solarized " set the color scheme to use solarized
 " }}}
 " search {{{
