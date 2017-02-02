@@ -26,6 +26,7 @@ Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plugin 'vim-airline/vim-airline' " a statusline plugin
+Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 call vundle#end()
 filetype plugin indent on
 " }}}
