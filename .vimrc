@@ -13,7 +13,7 @@ endif
 Plugin 'VundleVim/Vundle.vim' " the plugin which runs Vundle
 Plugin 'scrooloose/nerdcommenter' " commenting functionality
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy search
-if has('win32')
+if has('python')
     Plugin 'OmniSharp/omnisharp-vim' " C# syntax-highlighting, code completion, etc.
 endif
 Plugin 'tpope/vim-dispatch' " async builds, needed for OmniSharp's server
