@@ -18,6 +18,7 @@ Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plugin 'vim-airline/vim-airline' " a statusline plugin
+Plugin 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 Plugin 'Valloric/YouCompleteMe' " code completion engine
 call vundle#end()
@@ -55,6 +56,7 @@ let g:wordmotion_mappings = {
 " }}}
 " vim-airline configuration {{{
 set laststatus=2 " show the statusline all the time, rather than only when a split is created
+let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
 " }}}
 " }}}
 " easy editing of vimrc file {{{
