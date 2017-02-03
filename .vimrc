@@ -13,20 +13,13 @@ endif
 Plugin 'VundleVim/Vundle.vim' " the plugin which runs Vundle
 Plugin 'scrooloose/nerdcommenter' " commenting functionality
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy search
-if has('python')
-    Plugin 'OmniSharp/omnisharp-vim' " C# syntax-highlighting, code completion, etc.
-endif
-Plugin 'tpope/vim-dispatch' " async builds, needed for OmniSharp's server
-Plugin 'vim-syntastic/syntastic' " syntax checking
-Plugin 'ervandew/supertab' " uses <TAB> for completion
-Plugin 'SirVer/ultisnips' " snippet functionality
-Plugin 'honza/vim-snippets' " snippets for ultisnips
 Plugin 'PProvost/vim-ps1' " Powershell syntax highlighting
 Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plugin 'vim-airline/vim-airline' " a statusline plugin
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
+Plugin 'Valloric/YouCompleteMe' " code completion engine
 call vundle#end()
 filetype plugin indent on
 " }}}
