@@ -57,6 +57,10 @@ let g:wordmotion_mappings = {
 " vim-airline configuration {{{
 set laststatus=2 " show the statusline all the time, rather than only when a split is created
 let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
+set encoding=utf8 " make sure we're using the correct encoding for the symbols
+if has('gui_running')
+    set guifont=Ubuntu_Mono_derivative_Powerlin:h11
+endif
 " }}}
 " }}}
 " easy editing of vimrc file {{{
