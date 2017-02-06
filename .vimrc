@@ -62,6 +62,7 @@ set encoding=utf8 " make sure we're using the correct encoding for the symbols
 if has('gui_running')
     set guifont=Ubuntu_Mono_derivative_Powerlin:h11
 endif
+let g:airline_theme='dark'
 " }}}
 " }}}
 " easy editing of vimrc file {{{
