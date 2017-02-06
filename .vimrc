@@ -21,6 +21,7 @@ Plugin 'vim-airline/vim-airline' " a statusline plugin
 Plugin 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 Plugin 'Valloric/YouCompleteMe' " code completion engine
+Plugin 'tpope/vim-fugitive' " git plugin
 call vundle#end()
 filetype plugin indent on
 " }}}
