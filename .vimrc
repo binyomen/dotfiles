@@ -69,6 +69,9 @@ if has('gui_running')
 endif
 let g:airline_theme='dark'
 " }}}
+" YouCompleteMe configuration {{{
+let g:ycm_goto_buffer_command='new-tab'
+" }}}
 " }}}
 " easy editing of vimrc file {{{
 nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
