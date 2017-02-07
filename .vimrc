@@ -36,8 +36,10 @@ nnoremap <BS> :w<CR>| " remap backspace to save
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 nnoremap H ^| " H moves to first non-blank character of line
 vnoremap H ^| " H moves to first non-blank character of line
-nnoremap L g_| " L moves to last character of line
-vnoremap L g_| " L moves to last character of line
+onoremap H ^| " H moves to first non-blank character of line
+nnoremap L g_| " L moves to last non-blank character of line
+vnoremap L g_| " L moves to last non-blank character of line
+onoremap L g_| " L moves to last non-blank character of line
 " }}}
 " plugin configuration {{{
 " solarized configuration {{{
