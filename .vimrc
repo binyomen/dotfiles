@@ -34,6 +34,8 @@ nnoremap <space> :| " remap space to : in normal mode for ease of use
 nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease of use
 nnoremap <BS> :w<CR>| " remap backspace to save
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
+nnoremap H ^| " H moves to first non-blank character of line
+nnoremap L $| " L moves to last character of line
 " }}}
 " plugin configuration {{{
 " solarized configuration {{{
