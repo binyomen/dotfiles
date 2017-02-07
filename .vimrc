@@ -70,7 +70,7 @@ endif
 let g:airline_theme='dark'
 " }}}
 " YouCompleteMe configuration {{{
-let g:ycm_goto_buffer_command='new-tab'
+let g:ycm_goto_buffer_command='new-or-existing-tab'
 " }}}
 " }}}
 " easy editing of vimrc file {{{
