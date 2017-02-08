@@ -41,6 +41,8 @@ onoremap H ^| " H moves to first non-blank character of line
 nnoremap L g_| " L moves to last non-blank character of line
 vnoremap L g_| " L moves to last non-blank character of line
 onoremap L g_| " L moves to last non-blank character of line
+nnoremap \ <c-y>| " use backslash to scroll up
+nnoremap = <c-e>| " use equals to scroll down
 " }}}
 " plugin configuration {{{
 " solarized configuration {{{
