@@ -31,6 +31,7 @@ filetype plugin indent on
 " remaps {{{
 inoremap hh <Esc>| " use "hh" to get out of input mode
 nnoremap <space> :| " remap space to : in normal mode for ease of use
+vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease of use
 nnoremap <BS> :w<CR>| " remap backspace to save
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
