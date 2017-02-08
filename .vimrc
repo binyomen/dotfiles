@@ -46,8 +46,8 @@ vnoremap L g_| " L moves to last non-blank character of line
 onoremap L g_| " L moves to last non-blank character of line
 " }}}
 " easier scrolling/scrolling that doesn't conflict with existing mappings {{{
-nnoremap <c-h> <c-y>| " scroll up
-nnoremap <c-n> <c-e>| " scroll down
+nnoremap <c-h> <c-e>| " scroll down
+nnoremap <c-n> <c-y>| " scroll up
 " }}}
 " }}}
 " plugin configuration {{{
