@@ -38,12 +38,8 @@ nnoremap <BS> :w<CR>| " remap backspace to save
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
 " use H and L to go to beginning and end of lines {{{
-nnoremap H ^| " H moves to first non-blank character of line
-vnoremap H ^| " H moves to first non-blank character of line
-onoremap H ^| " H moves to first non-blank character of line
-nnoremap L g_| " L moves to last non-blank character of line
-vnoremap L g_| " L moves to last non-blank character of line
-onoremap L g_| " L moves to last non-blank character of line
+noremap H ^| " H moves to first non-blank character of line
+noremap L g_| " L moves to last non-blank character of line
 " }}}
 " easier scrolling/scrolling that doesn't conflict with existing mappings {{{
 nnoremap <c-h> <c-e>| " scroll down
