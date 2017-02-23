@@ -30,7 +30,8 @@ filetype plugin indent on
 " }}}
 " remaps {{{
 " easier remappings of common commands {{{
-inoremap hh <Esc>| " use "hh" to get out of input mode
+inoremap uu <Esc>| " use "uu" to exit insert mode
+inoremap hh <Esc>:w<CR>| " use "hh" to exit insert mode and save
 nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease of use
