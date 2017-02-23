@@ -48,11 +48,12 @@ nnoremap <c-n> <c-y>| " scroll up
 " }}}
 " }}}
 " autocmds {{{
-" fixes the problem detailed at http://stackoverflow.com/questions/21280457/stop-vim-from-dynamically-updating-folds {{{
+" fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
 " Without this, folds open and close at will as you type code.
 augroup fixfolds
-    autocmd InsertEnter,WinLeave * let g:oldfoldmethod=&l:foldmethod | setlocal foldmethod=manual
-    autocmd InsertLeave,WinEnter * let &l:foldmethod=g:oldfoldmethod
+    autocmd!
+    autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+    autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 augroup END
 " }}}
 " }}}
