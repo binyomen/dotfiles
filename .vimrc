@@ -93,8 +93,8 @@ let g:ycm_goto_buffer_command='new-or-existing-tab'
 " }}}
 " }}}
 " easy editing of vimrc file {{{
-nmap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
-nmap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
+nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
 " }}}
 " color scheme {{{
 colorscheme solarized " set the color scheme to use solarized
@@ -118,7 +118,7 @@ set list " display whitespace characters
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace characters to display ('trail' is for trailing spaces, and 'extends' is for when the line extends beyond the right end of the screen)
 " }}}
 " run bash from vim {{{
-nmap <silent> <leader>ba :! bash<CR>| " a shortcut for running bash
+nnoremap <silent> <leader>ba :! bash<CR>| " a shortcut for running bash
 " }}}
 " misc. settings {{{
 set number " show line numbers
