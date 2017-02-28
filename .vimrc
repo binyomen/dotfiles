@@ -132,6 +132,7 @@ set title " title of window set to titlename/currently edited file
 set visualbell " use visual bell instead of beeping
 set noerrorbells " don't ring the bell for error messages
 set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
+set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
