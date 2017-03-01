@@ -20,7 +20,9 @@ Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plugin 'vim-airline/vim-airline' " a statusline plugin
 Plugin 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
-Plugin 'Valloric/YouCompleteMe' " code completion engine
+if has('python') || has('python3')
+    Plugin 'Valloric/YouCompleteMe' " code completion engine
+endif
 Plugin 'tpope/vim-fugitive' " git plugin
 Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
 call vundle#end()
