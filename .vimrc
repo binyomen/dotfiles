@@ -93,6 +93,9 @@ let g:airline_theme='dark'
 " YouCompleteMe configuration {{{
 let g:ycm_goto_buffer_command='new-or-existing-tab'
 " }}}
+" vim-fugitive configuration {{{
+nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
+" }}}
 " }}}
 " easy editing of vimrc file {{{
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
