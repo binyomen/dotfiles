@@ -1,0 +1,3 @@
+[core]
+    excludesfile = /home/beweedon/.gitignore
+    editor = vim
