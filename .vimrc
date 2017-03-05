@@ -39,7 +39,8 @@ inoremap hh <Esc>:w<CR>| " use "hh" to exit insert mode and save
 nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <space><space> :wq<CR>| " remap space twice to save and quit for ease of use
-nnoremap <BS> :w<CR>| " remap backspace to save
+nnoremap <BS> :w<CR>| " remap backspace to save in normal mode
+vnoremap <BS> :w<CR>| " remap backspace to save in visual mode
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
 " use H and L to go to beginning and end of lines {{{
