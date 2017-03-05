@@ -25,6 +25,7 @@ if has('python') || has('python3')
 endif
 Plugin 'tpope/vim-fugitive' " git plugin
 Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
+Plugin 'Rykka/riv.vim' " restructuredtext features
 call vundle#end()
 filetype plugin indent on
 " }}}
