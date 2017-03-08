@@ -93,7 +93,9 @@ endif
 let g:airline_theme='dark'
 " }}}
 " YouCompleteMe configuration {{{
-let g:ycm_goto_buffer_command='new-or-existing-tab'
+let g:ycm_goto_buffer_command='new-or-existing-tab' " GoTo opens in new tab, unless what's being gone to is in an existing tab
+let g:ycm_autoclose_preview_window_after_completion=1 " close the preview window when a completion is selected
+nnoremap <leader>yg :YcmCompleter GoTo<CR>| " perform a GoTo operation
 " }}}
 " vim-fugitive configuration {{{
 nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
