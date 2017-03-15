@@ -44,8 +44,11 @@ vnoremap <BS> :w<CR>| " remap backspace to save in visual mode
 nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " }}}
 " use H and L to go to beginning and end of lines {{{
-noremap H ^| " H moves to first non-blank character of line
-noremap L g_| " L moves to last non-blank character of line
+" NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
+" configuration to be able to make use of these mappings. If a better way to
+" deal with this is found, it will be changed.
+nmap H ^| " H moves to first non-blank character of line
+nmap L g_| " L moves to last non-blank character of line
 " }}}
 " easier scrolling/scrolling that doesn't conflict with existing mappings {{{
 nnoremap <c-h> <c-e>| " scroll down
@@ -59,6 +62,25 @@ augroup fixfolds
     autocmd!
     autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
     autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+augroup END
+" }}}
+" }}}
+" filetype configuration {{{
+" .txt files {{{
+augroup txt_files
+    autocmd!
+    autocmd FileType text setlocal wrap linebreak " set linewrapping
+    autocmd FileType text setlocal spell spelllang=en_us " use the en_us dictionary
+
+    " standard motion commands should move by wrapped lines
+    autocmd FileType text noremap <buffer> <silent> k gk
+    autocmd FileType text noremap <buffer> <silent> j gj
+    autocmd FileType text noremap <buffer> <silent> 0 g0
+    autocmd FileType text noremap <buffer> <silent> $ g$
+    autocmd FileType text noremap <buffer> <silent> ^ g^
+    "autocmd FileType text noremap <buffer> <silent> g_ gg_| " TODO: is there a linewrapping version of g_?
+    autocmd FileType text onoremap <silent> j gj
+    autocmd FileType text onoremap <silent> k gk
 augroup END
 " }}}
 " }}}
