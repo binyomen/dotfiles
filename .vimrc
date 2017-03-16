@@ -47,8 +47,8 @@ nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
 " configuration to be able to make use of these mappings. If a better way to
 " deal with this is found, it will be changed.
-nmap H ^| " H moves to first non-blank character of line
-nmap L g_| " L moves to last non-blank character of line
+map H ^| " H moves to first non-blank character of line
+map L g_| " L moves to last non-blank character of line
 " }}}
 " easier scrolling/scrolling that doesn't conflict with existing mappings {{{
 nnoremap <c-h> <c-e>| " scroll down
