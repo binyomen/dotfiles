@@ -47,8 +47,8 @@ nnoremap <CR><CR> :q<CR>| " remap enter twice to quit
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
 " configuration to be able to make use of these mappings. If a better way to
 " deal with this is found, it will be changed.
-map H ^| " H moves to first non-blank character of line
-map L g_| " L moves to last non-blank character of line
+noremap H ^| " H moves to first non-blank character of line
+noremap L g_| " L moves to last non-blank character of line
 " }}}
 " easier scrolling/scrolling that doesn't conflict with existing mappings {{{
 nnoremap <c-h> <c-e>| " scroll down
@@ -78,9 +78,9 @@ augroup txt_files
     autocmd FileType text noremap <buffer> <silent> 0 g0
     autocmd FileType text noremap <buffer> <silent> $ g$
     autocmd FileType text noremap <buffer> <silent> ^ g^
+    autocmd FileType text noremap <buffer> <silent> H g^
+    autocmd FileType text noremap <buffer> <silent> L g$| " TODO: this should be changed to gg_ or whatever the linewrapping version of g_ is
     "autocmd FileType text noremap <buffer> <silent> g_ gg_| " TODO: is there a linewrapping version of g_?
-    autocmd FileType text onoremap <silent> j gj
-    autocmd FileType text onoremap <silent> k gk
 augroup END
 " }}}
 " }}}
