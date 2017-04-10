@@ -1,3 +1,4 @@
+##### IMPORT MODULES #####
 # PSReadLine
 Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
@@ -9,3 +10,6 @@ Import-Module posh-git
 . "~\Documents\WindowsPowerShell\Get-ChildItem-Color\Get-ChildItem-Color.ps1"
 Set-Alias l Get-ChildItem-Color -Option AllScope
 Set-Alias ls Get-ChildItem-Format-Wide -Option AllScope
+
+# Start in the home directory.
+Set-Location ~
