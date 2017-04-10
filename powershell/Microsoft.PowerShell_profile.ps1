@@ -25,7 +25,7 @@ function prompt {
     {
         $curPath = "~" + $curPath.SubString($Home.Length)
     }
-    Write-Host ($curPath + " ") -ForegroundColor Green -NoNewline
+    Write-Host $curPath -ForegroundColor Green -NoNewline
 
     Write-VcsStatus
 
@@ -38,4 +38,3 @@ function prompt {
     }
     "$($promptChar * ($nestedPromptLevel + 1)) "
 }
-$global:GitPromptSettings.BeforeText = '['
