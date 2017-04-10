@@ -21,8 +21,8 @@ function prompt {
     $origLastExitCode = $LASTEXITCODE
 
     # Display the username and computername
-    Write-Host "$env:UserName@$env:ComputerName" -ForegroundColor Blue -NoNewline
-    Write-Host ":" -ForegroundColor Blue -NoNewline
+    Write-Host "$env:UserName@$env:ComputerName" -ForegroundColor DarkGreen -NoNewline
+    Write-Host ":" -ForegroundColor White -NoNewline
 
     # Display the path
     $curPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
@@ -30,7 +30,7 @@ function prompt {
     {
         $curPath = "~" + $curPath.SubString($Home.Length)
     }
-    Write-Host $curPath -ForegroundColor Green -NoNewline
+    Write-Host $curPath -ForegroundColor Cyan -NoNewline
 
     # Display the Git status text
     Write-VcsStatus
