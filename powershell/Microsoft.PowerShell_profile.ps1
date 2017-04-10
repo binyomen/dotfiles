@@ -30,6 +30,12 @@ function prompt {
     Write-VcsStatus
 
     $LASTEXITCODE = $origLastExitCode
-    "$('>' * ($nestedPromptLevel + 1)) "
+
+    If ($nestedPromptLevel -eq 0) {
+        $promptChar = "$"
+    } Else {
+        $promptChar = ">"
+    }
+    "$($promptChar * ($nestedPromptLevel + 1)) "
 }
 $global:GitPromptSettings.BeforeText = '['
