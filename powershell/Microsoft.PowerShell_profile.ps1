@@ -20,6 +20,11 @@ Set-Location ~
 function prompt {
     $origLastExitCode = $LASTEXITCODE
 
+    # Display the username and computername
+    Write-Host "$env:UserName@$env:ComputerName" -ForegroundColor Blue -NoNewline
+    Write-Host ":" -ForegroundColor Blue -NoNewline
+
+    # Display the path
     $curPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
     if ($curPath.ToLower().StartsWith($Home.ToLower()))
     {
@@ -27,10 +32,12 @@ function prompt {
     }
     Write-Host $curPath -ForegroundColor Green -NoNewline
 
+    # Display the Git status text
     Write-VcsStatus
 
     $LASTEXITCODE = $origLastExitCode
 
+    # Display the prompt character
     If ($nestedPromptLevel -eq 0) {
         $promptChar = "$"
     } Else {
