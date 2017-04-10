@@ -45,3 +45,7 @@ function prompt {
     }
     "$($promptChar * ($nestedPromptLevel + 1)) "
 }
+
+# Aliases
+# lo will use the original pipeable Get-ChildItem functionality
+Set-Alias lo Get-ChildItem -Option AllScope
