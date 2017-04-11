@@ -35,7 +35,9 @@ function prompt {
     # The conditional prevents the posh-git module from being loaded every time
     # PowerShell is started. This way, it's only loaded the first time a git
     # repo is entered.
-    if (git rev-parse --is-inside-work-tree) {
+    # The (Get-Module posh-git) condition defaults to using Write-VcsStatus
+    # once posh-git is loaded, though, since it's faster than "git rev-parse".
+    if ((Get-Module posh-git) -or (git rev-parse --is-inside-work-tree)) {
         Write-VcsStatus
     }
 
