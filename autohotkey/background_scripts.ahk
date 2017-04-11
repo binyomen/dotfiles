@@ -12,3 +12,10 @@ Capslock::Ctrl
 ; Map right Alt to Enter, and disable Enter
 RAlt::Enter
 Enter::Return
+
+; ======================================= ;
+
+; Open PowerShell with Win+Enter
+#Enter::
+    Run *RunAs PowerShell
+Return
