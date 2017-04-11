@@ -32,7 +32,12 @@ function prompt {
     Write-Host $currPath -ForegroundColor Cyan -NoNewline
 
     # Display the Git status text
-    Write-VcsStatus
+    # The conditional prevents the posh-git module from being loaded every time
+    # PowerShell is started. This way, it's only loaded the first time a git
+    # repo is entered.
+    if (git rev-parse --is-inside-work-tree) {
+        Write-VcsStatus
+    }
 
     $LASTEXITCODE = $origLastExitCode
 
