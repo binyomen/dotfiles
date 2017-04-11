@@ -24,12 +24,12 @@ function prompt {
     Write-Host ":" -ForegroundColor White -NoNewline
 
     # Display the path
-    $curPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
-    if ($curPath.ToLower().StartsWith($Home.ToLower()))
+    $currPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
+    if ($currPath.ToLower().StartsWith($Home.ToLower()))
     {
-        $curPath = "~" + $curPath.SubString($Home.Length)
+        $currPath = "~" + $currPath.SubString($Home.Length)
     }
-    Write-Host $curPath -ForegroundColor Cyan -NoNewline
+    Write-Host $currPath -ForegroundColor Cyan -NoNewline
 
     # Display the Git status text
     Write-VcsStatus
