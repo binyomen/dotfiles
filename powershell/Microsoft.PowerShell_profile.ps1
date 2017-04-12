@@ -35,9 +35,7 @@ function prompt {
     # The conditional prevents the posh-git module from being loaded every time
     # PowerShell is started. This way, it's only loaded the first time a git
     # repo is entered.
-    # The (Get-Module posh-git) condition defaults to using Write-VcsStatus
-    # once posh-git is loaded, though, since it's faster than "git rev-parse".
-    if ((Get-Module posh-git) -or (git rev-parse --is-inside-work-tree)) {
+    if (Get-GitDirectory) {
         Write-VcsStatus
     }
 
@@ -55,3 +53,22 @@ function prompt {
 # Aliases
 # lo will use the original pipeable Get-ChildItem functionality
 Set-Alias lo Get-ChildItem -Option AllScope
+
+##### FUNCTIONS #####
+
+# An efficient alternative to "git rev-parse" to determine if you're in a git
+# repo, and if so, what its path is.
+function Get-GitDirectory {
+    [OutputType([String])]
+    $currDir = Get-Item -Path "."
+    while ($currDir) {
+        $gitDirPath = Join-Path $currDir.FullName ".git"
+        if (Test-Path -LiteralPath $gitDirPath -PathType Container) {
+            return $gitDirPath
+        }
+        $currDir = $currDir.Parent
+    }
+    return $null
+}
+
+#####################
