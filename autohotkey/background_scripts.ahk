@@ -7,15 +7,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 +Capslock::Capslock
 Capslock::Ctrl
 
-; ======================================= ;
-
 ; Map right Alt to Enter, and disable Enter
 RAlt::Enter
 Enter::Return
 
-; ======================================= ;
-
 ; Open PowerShell with Win+Enter
 #Enter::
     Run *RunAs PowerShell
+Return
+
+; Open Git Bash with Win+\
+#\::
+    Run *RunAs "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git Bash.lnk"
 Return
