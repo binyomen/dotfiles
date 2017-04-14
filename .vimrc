@@ -112,7 +112,8 @@ set encoding=utf8 " make sure we're using the correct encoding for the symbols
 if has('gui_running')
     set guifont=Ubuntu_Mono_derivative_Powerlin:h11
 endif
-let g:airline_theme='dark'
+let g:airline_theme='dark' " set the airline theme to dark
+noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 " }}}
 " YouCompleteMe configuration {{{
 let g:ycm_goto_buffer_command='new-or-existing-tab' " GoTo opens in new tab, unless what's being gone to is in an existing tab
