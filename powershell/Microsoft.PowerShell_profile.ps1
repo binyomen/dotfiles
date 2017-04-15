@@ -70,5 +70,3 @@ function Get-GitDirectory {
     }
     return $null
 }
-
-#####################
