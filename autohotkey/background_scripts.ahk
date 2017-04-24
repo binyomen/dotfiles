@@ -20,3 +20,8 @@ Return
 #\::
     Run *RunAs "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git Bash.lnk"
 Return
+
+; Open Bash for Windows with Win+Backspace
+#Backspace::
+    Run Bash ~
+Return
