@@ -3,6 +3,9 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+; Get the USERPROFILE value from the environment
+EnvGet, USERPROFILE, USERPROFILE
+
 ; Map Shift+Capslock to Capslock and Capslock to Ctrl
 +Capslock::Capslock
 Capslock::Ctrl
@@ -24,4 +27,9 @@ Return
 ; Open Bash for Windows with Win+Backspace
 #Backspace::
     Run Bash ~
+Return
+
+; Open Clink with Win+RShift
+#RShift::
+    Run *RunAs "C:\Program Files (x86)\clink\0.4.8\clink.bat", %USERPROFILE%
 Return
