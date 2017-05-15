@@ -83,6 +83,12 @@ augroup txt_files
     "autocmd FileType text noremap <buffer> <silent> g_ gg_| " TODO: is there a linewrapping version of g_?
 augroup END
 " }}}
+" gitcommit files {{{
+augroup gitcommit_files
+    autocmd!
+    autocmd FileType gitcommit setlocal spell
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " solarized configuration {{{
