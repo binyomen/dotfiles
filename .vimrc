@@ -93,6 +93,7 @@ augroup END
 " plugin configuration {{{
 " ctrlp configuration {{{
 let g:ctrlp_working_path_mode='w'
+let g:ctrlp_by_filename=1
 " }}}
 " solarized configuration {{{
 syntax on " turn on syntax highlighting
