@@ -91,6 +91,9 @@ augroup END
 " }}}
 " }}}
 " plugin configuration {{{
+" ctrlp configuration {{{
+let g:ctrlp_working_path_mode='w'
+" }}}
 " solarized configuration {{{
 syntax on " turn on syntax highlighting
 set background=dark " use the dark background theme for solarized
