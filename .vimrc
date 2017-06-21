@@ -146,6 +146,7 @@ colorscheme solarized " set the color scheme to use solarized
 set ignorecase " make search case insensitive
 set smartcase " ignore case if only lowercase characters used in search text
 set incsearch " show search results incrementally as you type
+set gdefault " always do global substitutions
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
