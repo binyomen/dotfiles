@@ -26,6 +26,7 @@ endif
 Plugin 'tpope/vim-fugitive' " git plugin
 Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
 Plugin 'Rykka/riv.vim' " restructuredtext features
+Plugin 'fatih/vim-go' " Go plugin
 call vundle#end()
 filetype plugin indent on
 " }}}
