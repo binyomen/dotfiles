@@ -135,6 +135,9 @@ nnoremap <leader>yg :YcmCompleter GoTo<CR>| " perform a GoTo operation
 " vim-fugitive configuration {{{
 nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 " }}}
+" vim-go configuration {{{
+let g:go_fmt_experimental=1 " use an experimental function which won't close folds every time gofmt is run
+" }}}
 " }}}
 " easy editing of vimrc file {{{
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
