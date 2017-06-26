@@ -1,6 +1,7 @@
 ##### CONFIGURE/LIST MODULES #####
 # PSReadLine
 Set-PSReadlineOption -EditMode Emacs
+Set-PSReadlineOption -BellStyle Visual
 
 # posh-git
 # No config yet
