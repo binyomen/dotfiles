@@ -94,7 +94,7 @@ augroup END
 augroup go_files
     autocmd!
     autocmd FileType go set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
-    autocmd BufWritePost,FileWritePost *.go execute 'Lint'| " execute the Lint command on write
+    autocmd BufWritePost,FileWritePost *.go execute 'normal! m"' | execute 'Lint' | execute 'normal! `"'| " execute the Lint command on write
 augroup END
 " }}}
 " }}}
