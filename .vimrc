@@ -90,6 +90,13 @@ augroup gitcommit_files
     autocmd FileType gitcommit setlocal spell
 augroup END
 " }}}
+" go files {{{
+augroup go_files
+    autocmd!
+    autocmd FileType go set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
+    autocmd BufWritePost,FileWritePost *.go execute 'Lint'| " execute the Lint command on write
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " ctrlp configuration {{{
