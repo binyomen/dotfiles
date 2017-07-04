@@ -27,11 +27,13 @@ Plugin 'tpope/vim-fugitive' " git plugin
 Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
 Plugin 'Rykka/riv.vim' " restructuredtext features
 Plugin 'fatih/vim-go' " Go plugin
+Plugin 'lervag/vimtex' " LaTeX plugin
 call vundle#end()
 filetype plugin indent on
 " }}}
 " leader keys {{{
-:let mapleader = "," " semicolon is the leader key
+let mapleader = ',' " semicolon is the leader key
+let maplocalleader = '\\' " backslash is the localleader key
 " }}}
 " remaps {{{
 " easier remappings of common commands {{{
@@ -144,6 +146,20 @@ nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 " }}}
 " vim-go configuration {{{
 let g:go_fmt_experimental=1 " use an experimental function which won't close folds every time gofmt is run
+" }}}
+" vimtex configuration {{{
+let g:vimtex_view_general_viewer='SumatraPDF' " set the PDF viewer
+" set the viewer's options
+let g:vimtex_view_general_options
+    \ = '-reuse-instance -forward-search @tex @line @pdf'
+    \ . ' -inverse-search "gvim --servername ' . v:servername
+    \ . ' --remote-send \"^<C-\^>^<C-n^>'
+    \ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
+    \ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
+    \ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
+    \ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
+let g:vimtex_view_general_options_latexmk='-reuse-instance' " set latexmk's options
+let g:vimtex_fold_enabled=1
 " }}}
 " }}}
 " easy editing of vimrc file {{{
