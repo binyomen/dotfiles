@@ -28,6 +28,7 @@ Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
 Plugin 'Rykka/riv.vim' " restructuredtext features
 Plugin 'fatih/vim-go' " Go plugin
 Plugin 'lervag/vimtex' " LaTeX plugin
+Plugin 'rust-lang/rust.vim' " Rust plugin
 call vundle#end()
 filetype plugin indent on
 " }}}
@@ -160,6 +161,9 @@ let g:vimtex_view_general_options
     \ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
 let g:vimtex_view_general_options_latexmk='-reuse-instance' " set latexmk's options
 let g:vimtex_fold_enabled=1
+" }}}
+" rust.vim configuration {{{
+let g:rustfmt_autosave=1 " run rustfmt on save
 " }}}
 " }}}
 " easy editing of vimrc file {{{
