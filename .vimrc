@@ -29,6 +29,7 @@ Plugin 'Rykka/riv.vim' " restructuredtext features
 Plugin 'fatih/vim-go' " Go plugin
 Plugin 'lervag/vimtex' " LaTeX plugin
 Plugin 'rust-lang/rust.vim' " Rust plugin
+Plugin 'editorconfig/editorconfig-vim' " .editorconfig support
 call vundle#end()
 filetype plugin indent on
 " }}}
