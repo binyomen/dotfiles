@@ -148,6 +148,7 @@ nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 " }}}
 " vim-go configuration {{{
 let g:go_fmt_experimental=1 " use an experimental function which won't close folds every time gofmt is run
+let g:go_fmt_command='goimports' " use goimports rather than gofmt for formatting on save
 " }}}
 " vimtex configuration {{{
 let g:vimtex_view_general_viewer='SumatraPDF' " set the PDF viewer
