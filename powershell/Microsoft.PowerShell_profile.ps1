@@ -51,10 +51,6 @@ function prompt {
     "$($promptChar * ($nestedPromptLevel + 1)) "
 }
 
-# Aliases
-# lo will use the original pipeable Get-ChildItem functionality
-Set-Alias lo Get-ChildItem -Option AllScope
-
 ##### FUNCTIONS #####
 
 # An efficient alternative to "git rev-parse" to determine if you're in a git
