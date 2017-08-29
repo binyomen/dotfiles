@@ -101,6 +101,12 @@ augroup go_files
     autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
 augroup END
 " }}}
+" markdown files {{{
+augroup markdown_files
+    autocmd!
+    autocmd FileType markdown set formatoptions+=a " automatically wrap lines
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " ctrlp configuration {{{
