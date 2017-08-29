@@ -97,14 +97,14 @@ augroup END
 " go files {{{
 augroup go_files
     autocmd!
-    autocmd FileType go set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
+    autocmd FileType go setlocal rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
     autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
 augroup END
 " }}}
 " markdown files {{{
 augroup markdown_files
     autocmd!
-    autocmd FileType markdown set formatoptions+=a " automatically wrap lines
+    autocmd FileType markdown setlocal formatoptions+=a " automatically wrap lines
 augroup END
 " }}}
 " }}}
