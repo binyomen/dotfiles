@@ -10,3 +10,5 @@
     prompt = false
 [commit]
     verbose = true
+[alias]
+    dcw = diff --color-words
