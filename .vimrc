@@ -108,6 +108,12 @@ augroup markdown_files
     autocmd FileType markdown setlocal spell " turn on spellcheck
 augroup END
 " }}}
+" tex files {{{
+augroup tex_files
+    autocmd!
+    autocmd FileType tex setlocal spell " turn on spellcheck
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " ctrlp configuration {{{
