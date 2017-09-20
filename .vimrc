@@ -207,6 +207,9 @@ set smarttab " be smart about how you use shiftwidth vs tabstop or softtabstop I
 set list " display whitespace characters
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace characters to display ('trail' is for trailing spaces, and 'extends' is for when the line extends beyond the right end of the screen)
 " }}}
+" gui settings {{{
+set guioptions= " disable all gui elements
+" }}}
 " run bash from vim {{{
 nnoremap <silent> <leader>ba :! bash<CR>| " a shortcut for running bash
 " }}}
@@ -225,7 +228,6 @@ set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
 set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
 set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
 set wildmenu " visually cycle through command line completions
-set guioptions=rL " the only gui elements displayed should be the scrollbars
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
