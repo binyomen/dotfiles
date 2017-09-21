@@ -69,6 +69,12 @@ augroup fixfolds
     autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 augroup END
 " }}}
+" highlight word under cursor {{{
+augroup highlight_word_under_cursor
+    autocmd!
+    autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+augroup END
+" }}}
 " }}}
 " filetype configuration {{{
 " .txt files {{{
