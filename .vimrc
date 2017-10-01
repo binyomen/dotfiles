@@ -110,7 +110,6 @@ augroup END
 " markdown files {{{
 augroup markdown_files
     autocmd!
-    autocmd FileType markdown setlocal formatoptions+=a " automatically wrap lines
     autocmd FileType markdown setlocal spell " turn on spellcheck
 augroup END
 " }}}
