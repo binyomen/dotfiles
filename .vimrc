@@ -234,6 +234,7 @@ set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-le
 set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
 set wildmenu " visually cycle through command line completions
 set cursorline " highlight the current line
+set cursorcolumn " highlight the current column
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
