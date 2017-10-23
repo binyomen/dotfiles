@@ -30,6 +30,7 @@ Plugin 'fatih/vim-go' " Go plugin
 Plugin 'lervag/vimtex' " LaTeX plugin
 Plugin 'rust-lang/rust.vim' " Rust plugin
 Plugin 'editorconfig/editorconfig-vim' " .editorconfig support
+Plugin 'severin-lemaignan/vim-minimap' " show a minimap for the current buffer
 call vundle#end()
 filetype plugin indent on
 " }}}
