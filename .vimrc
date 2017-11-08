@@ -122,6 +122,9 @@ augroup END
 " }}}
 " }}}
 " plugin configuration {{{
+" nerdcommenter configuration {{{
+let g:NERDSpaceDelims=1 " add spaces after comment delimiters by default
+" }}}
 " ctrlp configuration {{{
 let g:ctrlp_working_path_mode='w'
 let g:ctrlp_by_filename=1
