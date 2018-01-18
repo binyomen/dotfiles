@@ -7,9 +7,8 @@ Set-PSReadlineOption -BellStyle Visual
 # No config yet
 
 # Get-ChildItem-Color
-. "~\Documents\WindowsPowerShell\Get-ChildItem-Color\Get-ChildItem-Color.ps1"
-Set-Alias l Get-ChildItem-Color -Option AllScope
-Set-Alias ls Get-ChildItem-Format-Wide -Option AllScope
+Set-Alias l Get-ChildItemColor -Option AllScope
+Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
 
 ##################################
 
