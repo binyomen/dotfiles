@@ -12,8 +12,10 @@ Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
 
 ##################################
 
-# Start in the home directory
-Set-Location ~
+# Start in the home directory if not invoked with arguments
+if ([Environment]::GetCommandLineArgs().Length -eq 1) {
+    Set-Location ~
+}
 
 # Customize prompt
 function prompt {
