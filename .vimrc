@@ -189,7 +189,6 @@ let g:vimtex_fold_enabled=1
 " }}}
 " rust.vim configuration {{{
 let g:rustfmt_autosave=1 " run rustfmt on save
-let g:rustfmt_command='rustfmt +nightly' " temporarily use rustfmt nightly until we have a version of Rust that can use normal rustfmt
 " }}}
 " }}}
 " easy editing of vimrc file {{{
