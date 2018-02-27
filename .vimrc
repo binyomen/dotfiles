@@ -61,6 +61,10 @@ noremap L g_| " L moves to last non-blank character of line
 nnoremap <c-h> <c-e>| " scroll down
 nnoremap <c-n> <c-y>| " scroll up
 " }}}
+" do case sensitive search with * and # {{{
+noremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
+noremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
