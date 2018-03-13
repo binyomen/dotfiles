@@ -32,6 +32,7 @@ Plugin 'rust-lang/rust.vim' " Rust plugin
 Plugin 'editorconfig/editorconfig-vim' " .editorconfig support
 Plugin 'severin-lemaignan/vim-minimap' " show a minimap for the current buffer
 Plugin 'cespare/vim-toml' " TOML syntax highlighting
+Plugin 'pangloss/vim-javascript' " javascript syntax highlighting and indentation improvements
 call vundle#end()
 filetype plugin indent on
 " }}}
