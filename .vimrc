@@ -17,8 +17,10 @@ Plugin 'PProvost/vim-ps1' " Powershell syntax highlighting
 Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
-Plugin 'vim-airline/vim-airline' " a statusline plugin
-Plugin 'vim-airline/vim-airline-themes' " themes for vim-airline
+if !exists('g:gui_oni')
+    Plugin 'vim-airline/vim-airline' " a statusline plugin
+    Plugin 'vim-airline/vim-airline-themes' " themes for vim-airline
+endif
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 if has('python') || has('python3')
     Plugin 'Valloric/YouCompleteMe' " code completion engine
@@ -155,16 +157,18 @@ let g:wordmotion_mappings = {
 \}
 " }}}
 " vim-airline configuration {{{
-set laststatus=2 " show the statusline all the time, rather than only when a split is created
-let g:airline#extensions#tabline#enabled=1 " use the tabline
-let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
-let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
-set encoding=utf8 " make sure we're using the correct encoding for the symbols
-if has('gui_running')
-    set guifont=Ubuntu_Mono_derivative_Powerlin:h11
+if !exists('g:gui_oni')
+    set laststatus=2 " show the statusline all the time, rather than only when a split is created
+    let g:airline#extensions#tabline#enabled=1 " use the tabline
+    let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
+    let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
+    set encoding=utf8 " make sure we're using the correct encoding for the symbols
+    if has('gui_running')
+        set guifont=Ubuntu_Mono_derivative_Powerlin:h11
+    endif
+    let g:airline_theme='dark' " set the airline theme to dark
+    noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 endif
-let g:airline_theme='dark' " set the airline theme to dark
-noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 " }}}
 " YouCompleteMe configuration {{{
 let g:ycm_goto_buffer_command='new-or-existing-tab' " GoTo opens in new tab, unless what's being gone to is in an existing tab
