@@ -249,6 +249,7 @@ set wildmode=longest,full " in command line, first <tab> press complete to longe
 set wildmenu " visually cycle through command line completions
 set cursorline " highlight the current line
 set cursorcolumn " highlight the current column
+set nojoinspaces " don't add an extra space after a period for J and gq
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
