@@ -1,6 +1,7 @@
 {
     "editor.renderWhitespace": "all",
     "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
 
     // vscodevim configuration
     "vim.cmdLineInitialColon": true,
