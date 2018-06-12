@@ -1,0 +1,50 @@
+{
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespace": true,
+
+    // vscodevim configuration
+    "vim.cmdLineInitialColon": true,
+    "vim.easymotion": true,
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["h", "h"],
+            "after": ["<esc>"],
+            "commands": [
+                {
+                    "command": "workbench.action.files.save",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["u", "u"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": ["<space>"],
+            "after": [":"]
+        },
+        {
+            "before": ["<backspace>"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.files.save",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+        {
+            "before": ["L"],
+            "after": ["g", "_"]
+        }
+    ]
+}
