@@ -1,5 +1,6 @@
 {
     "editor.renderWhitespace": "all",
+    "editor.rulers": [80, 120],
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
 
