@@ -16,8 +16,7 @@
             "after": ["<esc>"],
             "commands": [
                 {
-                    "command": "workbench.action.files.save",
-                    "args": []
+                    "command": "workbench.action.files.save"
                 }
             ]
         },
@@ -33,11 +32,9 @@
         },
         {
             "before": ["<backspace>"],
-            "after": [],
             "commands": [
                 {
-                    "command": "workbench.action.files.save",
-                    "args": []
+                    "command": "workbench.action.files.save"
                 }
             ]
         },
@@ -51,7 +48,6 @@
         },
         {
             "before": ["<C-n>"],
-            "after": [],
             "commands": [
                 {
                     "command": "scrollLineUp"
@@ -60,7 +56,6 @@
         },
         {
             "before": ["<C-h>"],
-            "after": [],
             "commands": [
                 {
                     "command": "scrollLineDown"
