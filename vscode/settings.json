@@ -6,7 +6,8 @@
     "vim.cmdLineInitialColon": true,
     "vim.easymotion": true,
     "vim.handleKeys": {
-        "<C-f>": false
+        "<C-f>": false,
+        "<C-k>": false,
     },
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
