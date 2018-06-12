@@ -5,6 +5,9 @@
     // vscodevim configuration
     "vim.cmdLineInitialColon": true,
     "vim.easymotion": true,
+    "vim.handleKeys": {
+        "<C-f>": false
+    },
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
     "vim.insertModeKeyBindingsNonRecursive": [
