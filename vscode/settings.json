@@ -48,6 +48,24 @@
         {
             "before": ["L"],
             "after": ["g", "_"]
+        },
+        {
+            "before": ["<C-n>"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "scrollLineUp"
+                }
+            ]
+        },
+        {
+            "before": ["<C-h>"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "scrollLineDown"
+                }
+            ]
         }
     ]
 }
