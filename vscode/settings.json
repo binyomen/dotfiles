@@ -10,6 +10,7 @@
     "vim.handleKeys": {
         "<C-f>": false,
         "<C-k>": false,
+        "<C-t>": false,
     },
     "vim.useSystemClipboard": true,
     "vim.visualstar": true,
