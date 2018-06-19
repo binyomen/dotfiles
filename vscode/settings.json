@@ -29,7 +29,45 @@
             "after": ["<Esc>"]
         }
     ],
-    "vim.otherModesKeyBindingsNonRecursive": [
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<space>"],
+            "after": [":"]
+        },
+        {
+            "before": ["<backspace>"],
+            "commands": [
+                {
+                    "command": "workbench.action.files.save"
+                }
+            ]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+        {
+            "before": ["L"],
+            "after": ["g", "_"]
+        },
+        {
+            "before": ["<C-n>"],
+            "commands": [
+                {
+                    "command": "scrollLineUp"
+                }
+            ]
+        },
+        {
+            "before": ["<C-h>"],
+            "commands": [
+                {
+                    "command": "scrollLineDown"
+                }
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
         {
             "before": ["<space>"],
             "after": [":"]
