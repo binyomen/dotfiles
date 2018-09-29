@@ -3,6 +3,7 @@
     "editor.renderWhitespace": "all",
     "editor.rulers": [80, 120],
     "files.trimTrailingWhitespace": true,
+    "latex-workshop.view.pdf.viewer": "tab",
     "terminal.integrated.shell.windows": "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
 
     // vscodevim configuration
