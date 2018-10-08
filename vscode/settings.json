@@ -7,7 +7,6 @@
     "terminal.integrated.shell.windows": "c:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
 
     // vscodevim configuration
-    "vim.cmdLineInitialColon": true,
     "vim.easymotion": true,
     "vim.handleKeys": {
         "<C-f>": false,
