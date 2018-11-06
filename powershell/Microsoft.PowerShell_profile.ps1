@@ -58,6 +58,10 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module $ChocolateyProfile
 }
 
+if (Test-Path "~\.local_profile.ps1") {
+    . "~\.local_profile.ps1"
+}
+
 ##### FUNCTIONS #####
 
 # An efficient alternative to "git rev-parse" to determine if you're in a git
