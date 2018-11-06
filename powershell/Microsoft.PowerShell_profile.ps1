@@ -52,6 +52,12 @@ function prompt {
     "$($promptChar * ($nestedPromptLevel + 1)) "
 }
 
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+    Import-Module $ChocolateyProfile
+}
+
 ##### FUNCTIONS #####
 
 # An efficient alternative to "git rev-parse" to determine if you're in a git
@@ -67,10 +73,4 @@ function Get-GitDirectory {
         $currDir = $currDir.Parent
     }
     return $null
-}
-
-# Chocolatey profile
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-    Import-Module "$ChocolateyProfile"
 }
