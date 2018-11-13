@@ -6,10 +6,6 @@ Set-PSReadlineOption -BellStyle Visual
 # posh-git
 # No config yet
 
-# Get-ChildItem-Color
-Set-Alias l Get-ChildItemColor -Option AllScope
-Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
-
 ##################################
 
 # Start in the home directory if not invoked with arguments
