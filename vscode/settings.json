@@ -1,5 +1,6 @@
 {
     "breadcrumbs.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
     "editor.renderWhitespace": "all",
     "editor.rulers": [80, 120],
     "editor.tabCompletion": "on",
