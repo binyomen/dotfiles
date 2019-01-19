@@ -158,7 +158,7 @@ bar {
 ##### Volume control #####
 
 # Path to volume control, without trailing slash
-set $volumepath ~/i3-volume
+set $volumepath ~/dotfiles/i3/i3-volume
 
 # Command for the status line (used with -t, requires -u)
 #   ie: i3blocks, i3status
