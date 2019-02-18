@@ -145,4 +145,11 @@ fi
 function geni3conf {
     cat ~/.config/i3/config.global ~/.config/i3/config.local > ~/.config/i3/config
 }
+
+# delete all docker containers and images
+# https://techoverflow.net/2013/10/22/docker-remove-all-images-and-containers/
+function cleardocker {
+    sudo docker rm $(sudo docker ps -a -q)
+    sudo docker rmi $(sudo docker images -q)
+}
 # }}}
