@@ -149,7 +149,7 @@ function geni3conf {
 # delete all docker containers and images
 # https://techoverflow.net/2013/10/22/docker-remove-all-images-and-containers/
 function cleardocker {
-    sudo docker rm $(sudo docker ps -a -q)
-    sudo docker rmi $(sudo docker images -q)
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
 }
 # }}}
