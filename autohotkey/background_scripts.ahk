@@ -10,9 +10,8 @@ EnvGet, USERPROFILE, USERPROFILE
 +Capslock::Capslock
 Capslock::Ctrl
 
-; Map right Alt to Enter, and disable Enter
+; Map right Alt to Enter
 RAlt::Enter
-Enter::Return
 
 ; Open PowerShell with Win+Enter
 #Enter::
