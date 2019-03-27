@@ -54,6 +54,9 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module $ChocolateyProfile
 }
 
+# Enable access to the HKEY_USERS registry hive
+New-PSDrive -PSProvider Registry -Name HKU -Root HKEY_USERS > $null
+
 if (Test-Path "~\.local_profile.ps1") {
     . "~\.local_profile.ps1"
 }
