@@ -10,9 +10,6 @@ EnvGet, USERPROFILE, USERPROFILE
 +Capslock::Capslock
 Capslock::Ctrl
 
-; Map right Alt to Enter
-RAlt::Enter
-
 ; Open PowerShell with Win+Enter
 #Enter::
     Run *RunAs PowerShell
