@@ -6,10 +6,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; Get the USERPROFILE value from the environment
 EnvGet, USERPROFILE, USERPROFILE
 
-; Map Shift+Capslock to Capslock and Capslock to Ctrl
-+Capslock::Capslock
-Capslock::Ctrl
-
 ; Open PowerShell with Win+Enter
 #Enter::
     Run *RunAs PowerShell
