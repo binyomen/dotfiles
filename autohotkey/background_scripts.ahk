@@ -8,7 +8,7 @@ EnvGet, USERPROFILE, USERPROFILE
 
 ; Open PowerShell with Win+Enter
 #Enter::
-    Run *RunAs PowerShell
+    Run *RunAs shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App
 Return
 
 ; Open Git Bash with Win+\
