@@ -18,7 +18,7 @@ Return
 
 ; Open Bash for Windows with Win+Backspace
 #Backspace::
-    Run Bash ~
+    Run ubuntu
 Return
 
 ; Open Clink with Win+RShift
