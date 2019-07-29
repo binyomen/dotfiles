@@ -204,13 +204,13 @@
     "profiles" :
     [
         {
-            "acrylicOpacity" : 0.5,
+            "acrylicOpacity" : 0.9,
             "background" : "#012456",
             "closeOnExit" : true,
             "colorScheme" : "Campbell",
             "commandline" : "powershell.exe",
             "cursorColor" : "#FFFFFF",
-            "cursorShape" : "bar",
+            "cursorShape" : "filledBox",
             "fontFace" : "Consolas",
             "fontSize" : 10,
             "guid" : "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -220,7 +220,7 @@
             "padding" : "0, 0, 0, 0",
             "snapOnInput" : true,
             "startingDirectory" : "%USERPROFILE%",
-            "useAcrylic" : false
+            "useAcrylic" : true
         },
         {
             "acrylicOpacity" : 0.75,
@@ -228,7 +228,7 @@
             "colorScheme" : "Campbell",
             "commandline" : "cmd.exe",
             "cursorColor" : "#FFFFFF",
-            "cursorShape" : "bar",
+            "cursorShape" : "filledBox",
             "fontFace" : "Consolas",
             "fontSize" : 10,
             "guid" : "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
