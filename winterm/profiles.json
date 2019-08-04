@@ -204,7 +204,7 @@
     "profiles" :
     [
         {
-            "acrylicOpacity" : 0.9,
+            "acrylicOpacity" : 0.75,
             "background" : "#012456",
             "closeOnExit" : true,
             "colorScheme" : "Campbell",
