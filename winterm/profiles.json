@@ -208,7 +208,7 @@
             "background" : "#012456",
             "closeOnExit" : true,
             "colorScheme" : "Campbell",
-            "commandline" : "powershell.exe",
+            "commandline" : "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
             "cursorColor" : "#FFFFFF",
             "cursorShape" : "filledBox",
             "fontFace" : "Consolas",
