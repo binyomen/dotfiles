@@ -13,8 +13,8 @@ endif
 Plugin 'VundleVim/Vundle.vim' " the plugin which runs Vundle
 Plugin 'scrooloose/nerdcommenter' " commenting functionality
 Plugin 'ctrlpvim/ctrlp.vim' " fuzzy search
-Plugin 'PProvost/vim-ps1' " Powershell syntax highlighting
-Plugin 'scrooloose/nerdtree' " filesystem explorer
+" Plugin 'PProvost/vim-ps1' " Powershell syntax highlighting
+" Plugin 'scrooloose/nerdtree' " filesystem explorer
 Plugin 'altercation/vim-colors-solarized' " the solarized color scheme
 Plugin 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 if !exists('g:gui_oni')
@@ -23,18 +23,18 @@ if !exists('g:gui_oni')
 endif
 Plugin 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 if has('python') || has('python3')
-    Plugin 'Valloric/YouCompleteMe' " code completion engine
+    " Plugin 'Valloric/YouCompleteMe' " code completion engine
 endif
-Plugin 'tpope/vim-fugitive' " git plugin
-Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
-Plugin 'Rykka/riv.vim' " restructuredtext features
-Plugin 'fatih/vim-go' " Go plugin
-Plugin 'lervag/vimtex' " LaTeX plugin
-Plugin 'rust-lang/rust.vim' " Rust plugin
-Plugin 'editorconfig/editorconfig-vim' " .editorconfig support
-Plugin 'severin-lemaignan/vim-minimap' " show a minimap for the current buffer
-Plugin 'cespare/vim-toml' " TOML syntax highlighting
-Plugin 'pangloss/vim-javascript' " javascript syntax highlighting and indentation improvements
+" Plugin 'tpope/vim-fugitive' " git plugin
+" Plugin 'tmhedberg/SimpylFold' " syntax folding for Python
+" Plugin 'Rykka/riv.vim' " restructuredtext features
+" Plugin 'fatih/vim-go' " Go plugin
+" Plugin 'lervag/vimtex' " LaTeX plugin
+" Plugin 'rust-lang/rust.vim' " Rust plugin
+" Plugin 'editorconfig/editorconfig-vim' " .editorconfig support
+" Plugin 'severin-lemaignan/vim-minimap' " show a minimap for the current buffer
+" Plugin 'cespare/vim-toml' " TOML syntax highlighting
+" Plugin 'pangloss/vim-javascript' " javascript syntax highlighting and indentation improvements
 call vundle#end()
 filetype plugin indent on
 " }}}
