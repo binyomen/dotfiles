@@ -152,6 +152,10 @@ function cleardocker {
     docker rm $(docker ps -a -q)
     docker rmi $(docker images -q)
 }
+
+function dut {
+    ls -A | tr '\n' '\0' | sudo du -hs --files0-from=- | sort -hr
+}
 # }}}
 
 export NVM_DIR="$HOME/.nvm"
