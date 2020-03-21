@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+ls -A | tr '\n' '\0' | sudo du -hs --files0-from=- | sort -hr

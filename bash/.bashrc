@@ -139,25 +139,3 @@ if ! shopt -oq posix; then
   fi
 fi
 # }}}
-# custom functions {{{
-# generate the configuration file for i3 given a global configuration
-# file and a local configuration file
-function geni3conf {
-    cat ~/.config/i3/config.global ~/.config/i3/config.local > ~/.config/i3/config
-}
-
-# delete all docker containers and images
-# https://techoverflow.net/2013/10/22/docker-remove-all-images-and-containers/
-function cleardocker {
-    docker rm $(docker ps -a -q)
-    docker rmi $(docker images -q)
-}
-
-function dut {
-    ls -A | tr '\n' '\0' | sudo du -hs --files0-from=- | sort -hr
-}
-# }}}
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
