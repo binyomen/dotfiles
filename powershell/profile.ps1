@@ -37,6 +37,10 @@ function prompt {
         Write-VcsStatus
     }
 
+    if ($PSVersionTable.PSEdition -eq "Desktop") {
+        Write-Host "[Desktop]" -NoNewline -ForegroundColor Red
+    }
+
     # Display the prompt character
     If ($nestedPromptLevel -eq 0) {
         $promptChar = "$"
