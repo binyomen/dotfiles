@@ -37,15 +37,16 @@ function prompt {
         Write-VcsStatus
     }
 
-    $LASTEXITCODE = $origLastExitCode
-
     # Display the prompt character
     If ($nestedPromptLevel -eq 0) {
         $promptChar = "$"
     } Else {
         $promptChar = ">"
     }
-    "$($promptChar * ($nestedPromptLevel + 1)) "
+    $promptCharText = "$($promptChar * ($nestedPromptLevel + 1)) "
+
+    $LASTEXITCODE = $origLastExitCode
+    $promptCharText
 }
 
 # Chocolatey profile
