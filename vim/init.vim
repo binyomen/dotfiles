@@ -8,6 +8,7 @@ Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plug 'vim-airline/vim-airline' " a statusline plugin
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'airblade/vim-gitgutter' " display git status for each line
 call plug#end()
 " }}}
 " leader keys {{{
