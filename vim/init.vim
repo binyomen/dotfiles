@@ -7,7 +7,7 @@ Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
 Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plug 'vim-airline/vim-airline' " a statusline plugin
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins', 'on': ['Denite'] }
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 " }}}
 " leader keys {{{
