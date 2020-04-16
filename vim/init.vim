@@ -7,6 +7,7 @@ Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
 Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 Plug 'vim-airline/vim-airline' " a statusline plugin
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins', 'on': ['Denite'] }
 call plug#end()
 " }}}
 " leader keys {{{
@@ -119,7 +120,7 @@ let g:wordmotion_mappings = {
 \ 'iw': 'i<C-w>'
 \}
 " }}}
-" vim-airline configuration {{{
+" vim-airline {{{
 set laststatus=2 " show the statusline all the time, rather than only when a split is created
 let g:airline#extensions#tabline#enabled=1 " use the tabline
 let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
@@ -128,6 +129,47 @@ set encoding=utf8 " make sure we're using the correct encoding for the symbols
 set guifont=Ubuntu_Mono_derivative_Powerlin:h11
 let g:airline_theme='dark' " set the airline theme to dark
 noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
+" }}}
+" denite {{{
+" use ripgrep for file content search
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts',
+      \ ['--hidden', '--vimgrep', '--smart-case'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+" settings while in the filtered list
+autocmd FileType denite call s:denite_settings()
+function! s:denite_settings() abort
+    nnoremap <silent><buffer><expr> <CR>
+            \ denite#do_map('do_action', 'open')
+    nnoremap <silent><buffer><expr> <C-t>
+            \ denite#do_map('do_action', 'tabswitch')
+    nnoremap <silent><buffer><expr> <C-v>
+            \ denite#do_map('do_action', 'vsplit')
+    nnoremap <silent><buffer><expr> p
+            \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> <Esc>
+            \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> q
+            \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+            \ denite#do_map('open_filter_buffer')
+endfunction
+
+" settings while in the filter edit
+autocmd FileType denite-filter call s:denite_filter_settings()
+function! s:denite_filter_settings() abort
+    nnoremap <silent><buffer><expr> <Esc>
+            \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> q
+            \ denite#do_map('quit')
+endfunction
+
+nnoremap <C-p> :Denite file/rec -start-filter<CR>| " search for file names
+nnoremap <leader>/ :Denite -start-filter grep:::!<CR>| " search for file contents in interactive mode
 " }}}
 " }}}
 " easy editing of vimrc file {{{
