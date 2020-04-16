@@ -1,5 +1,14 @@
 " vim:fdm=marker
 
+" plugins {{{
+call plug#begin(stdpath('data') . '/plugged')
+Plug 'scrooloose/nerdcommenter' " commenting functionality
+Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
+Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
+Plug 'vim-airline/vim-airline' " a statusline plugin
+Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+call plug#end()
+" }}}
 " leader keys {{{
 let mapleader = ',' " semicolon is the leader key
 let maplocalleader = '\\' " backslash is the localleader key
@@ -91,9 +100,42 @@ augroup tex_files
 augroup END
 " }}}
 " }}}
+" plugin configuration {{{
+" nerdcommenter {{{
+let g:NERDSpaceDelims=1 " add spaces after comment delimiters by default
+" }}}
+" NeoSolarized {{{
+set termguicolors " enables 24-bit RGB color in the TUI
+set background=dark " use the dark background theme for NeoSolarized
+" }}}
+" vim-wordmotion {{{
+" require CTRL key to perform CamelCase motion
+let g:wordmotion_mappings = {
+\ 'w': '<C-w>',
+\ 'b': '<C-b>',
+\ 'e': '<C-e>',
+\ 'ge': 'g<C-e>',
+\ 'aw': 'a<C-w>',
+\ 'iw': 'i<C-w>'
+\}
+" }}}
+" vim-airline configuration {{{
+set laststatus=2 " show the statusline all the time, rather than only when a split is created
+let g:airline#extensions#tabline#enabled=1 " use the tabline
+let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
+let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
+set encoding=utf8 " make sure we're using the correct encoding for the symbols
+set guifont=Ubuntu_Mono_derivative_Powerlin:h11
+let g:airline_theme='dark' " set the airline theme to dark
+noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
+" }}}
+" }}}
 " easy editing of vimrc file {{{
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
+" }}}
+" color scheme {{{
+colorscheme NeoSolarized " set the color scheme to use NeoSolarized
 " }}}
 " search {{{
 set ignorecase " make search case insensitive
