@@ -146,9 +146,9 @@ call denite#custom#var('grep', 'final_opts', [])
 autocmd FileType denite call s:denite_settings()
 function! s:denite_settings() abort
     nnoremap <silent><buffer><expr> <CR>
-            \ denite#do_map('do_action', 'open')
-    nnoremap <silent><buffer><expr> <C-t>
             \ denite#do_map('do_action', 'tabswitch')
+    nnoremap <silent><buffer><expr> <C-e>
+            \ denite#do_map('do_action', 'open')
     nnoremap <silent><buffer><expr> <C-v>
             \ denite#do_map('do_action', 'vsplit')
     nnoremap <silent><buffer><expr> p
