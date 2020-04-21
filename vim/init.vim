@@ -9,6 +9,7 @@ Plug 'vim-airline/vim-airline' " a statusline plugin
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter' " display git status for each line
+Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
 call plug#end()
 " }}}
 " leader keys {{{
