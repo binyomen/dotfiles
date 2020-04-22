@@ -44,6 +44,12 @@ nnoremap <c-n> <c-y>| " scroll up
 noremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
 noremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
 " }}}
+" use <leader>t for :wincmd {{{
+noremap <leader>th :wincmd h<CR>
+noremap <leader>tj :wincmd j<CR>
+noremap <leader>tk :wincmd k<CR>
+noremap <leader>tl :wincmd l<CR>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
