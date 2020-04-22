@@ -9,6 +9,7 @@ Plug 'vim-airline/vim-airline' " a statusline plugin
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter' " display git status for each line
+Plug 'tpope/vim-fugitive' " general git plugin
 Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
 Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 call plug#end()
@@ -173,6 +174,9 @@ endfunction
 
 nnoremap <C-p> :Denite file/rec -start-filter<CR>| " search for file names
 nnoremap <leader>/ :Denite -start-filter grep:::!<CR>| " search for file contents in interactive mode
+" }}}
+" vim-fugitive {{{
+nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 " }}}
 " }}}
 " easy editing of vimrc file {{{
