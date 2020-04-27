@@ -73,7 +73,6 @@ augroup END
 augroup txt_files
     autocmd!
     autocmd FileType text setlocal wrap linebreak " set linewrapping
-    autocmd FileType text setlocal spell spelllang=en_us " use the en_us dictionary
 
     " standard motion commands should move by wrapped lines
     autocmd FileType text noremap <buffer> <silent> k gk
@@ -86,29 +85,11 @@ augroup txt_files
     "autocmd FileType text noremap <buffer> <silent> g_ gg_| " TODO: is there a linewrapping version of g_?
 augroup END
 " }}}
-" gitcommit files {{{
-augroup gitcommit_files
-    autocmd!
-    autocmd FileType gitcommit setlocal spell
-augroup END
-" }}}
 " go files {{{
 augroup go_files
     autocmd!
     autocmd FileType go setlocal rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
     autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
-augroup END
-" }}}
-" markdown files {{{
-augroup markdown_files
-    autocmd!
-    autocmd FileType markdown setlocal spell " turn on spellcheck
-augroup END
-" }}}
-" tex files {{{
-augroup tex_files
-    autocmd!
-    autocmd FileType tex setlocal spell " turn on spellcheck
 augroup END
 " }}}
 " }}}
@@ -230,6 +211,7 @@ set wildmenu " visually cycle through command line completions
 set cursorline " highlight the current line
 set cursorcolumn " highlight the current column
 set nojoinspaces " don't add an extra space after a period for J and gq
+set spell " always have spellchecking on
 " }}}
 " custom functions {{{
 " toggle between number and relativenumber
