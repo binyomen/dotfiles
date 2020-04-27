@@ -12,6 +12,7 @@ Plug 'airblade/vim-gitgutter' " display git status for each line
 Plug 'tpope/vim-fugitive' " general git plugin
 Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
 Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
+Plug 'dag/vim-fish' " fish syntax highlighting etc.
 call plug#end()
 " }}}
 " leader keys {{{
