@@ -213,7 +213,7 @@ set cursorcolumn " highlight the current column
 set nojoinspaces " don't add an extra space after a period for J and gq
 set spell " always have spellchecking on
 " }}}
-" custom functions {{{
+" custom functions and commands {{{
 " toggle between number and relativenumber
 function! ToggleNumber()
     if(&relativenumber == 1)
@@ -228,4 +228,10 @@ endfunc
 function! FormatJson()
     %!python -m json.tool
 endfunc
+
+" open file in tabs
+function! OpenAll(arguments)
+    execute 'args ' . a:arguments . ' | argdo set eventignore-=Syntax | tabe'
+endfunc
+command! -nargs=+ -complete=file OpenAll call OpenAll('<args>')
 " }}}
