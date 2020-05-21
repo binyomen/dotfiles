@@ -199,19 +199,13 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace charact
 " }}}
 " misc. settings {{{
 set number " show line numbers
-set nowrap " don't wrap lines
 set showmatch " show matching bracket when one is inserted
-set backspace=indent,eol,start " be able to backspace beyond the point where insert mode was entered
-set history=1000 " the length of the : command history
-set undolevels=1000 " maximum number of changes that can be undone
 set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
 set title " title of window set to titlename/currently edited file
 set visualbell " use visual bell instead of beeping
-set noerrorbells " don't ring the bell for error messages
 set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
 set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
 set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
-set wildmenu " visually cycle through command line completions
 set cursorline " highlight the current line
 set cursorcolumn " highlight the current column
 set nojoinspaces " don't add an extra space after a period for J and gq
