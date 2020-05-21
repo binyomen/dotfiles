@@ -132,6 +132,10 @@ call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
+" use scantree.py (which comes with denite) for file search
+" I think it's supposed to be faster? Also, it uses `wildignore`.
+call denite#custom#var('file/rec', 'command', ['scantree.py', '--path', ':directory'])
+
 " settings while in the filtered list
 autocmd FileType denite call s:denite_settings()
 function! s:denite_settings() abort
@@ -200,7 +204,7 @@ set showmatch " show matching bracket when one is inserted
 set backspace=indent,eol,start " be able to backspace beyond the point where insert mode was entered
 set history=1000 " the length of the : command history
 set undolevels=1000 " maximum number of changes that can be undone
-set wildignore=*.swp,*.bak,*.pyc,*.class " file patterns to ignore when expanding wildcards
+set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
 set title " title of window set to titlename/currently edited file
 set visualbell " use visual bell instead of beeping
 set noerrorbells " don't ring the bell for error messages
