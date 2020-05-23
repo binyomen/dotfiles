@@ -202,6 +202,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace charact
 " }}}
 " misc. settings {{{
 set number " show line numbers
+set nowrap " don't wrap lines
 set showmatch " show matching bracket when one is inserted
 set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
 set title " title of window set to titlename/currently edited file
