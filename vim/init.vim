@@ -51,6 +51,9 @@ noremap <leader>tj :wincmd j<CR>
 noremap <leader>tk :wincmd k<CR>
 noremap <leader>tl :wincmd l<CR>
 " }}}
+" use <leader>hh to clear search highlighting {{{
+noremap <leader>hh :nohlsearch<CR>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
