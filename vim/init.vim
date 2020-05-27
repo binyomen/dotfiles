@@ -118,6 +118,7 @@ let g:wordmotion_mappings = {
 " vim-airline {{{
 set laststatus=2 " show the statusline all the time, rather than only when a split is created
 let g:airline#extensions#tabline#enabled=1 " use the tabline
+let g:airline#extensions#tabline#show_buffers=0 " don't show buffers when there's only one tab open
 let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
 let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
 set encoding=utf8 " make sure we're using the correct encoding for the symbols
