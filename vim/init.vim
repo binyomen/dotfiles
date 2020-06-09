@@ -54,6 +54,9 @@ noremap <leader>tl :wincmd l<CR>
 " use <leader>hh to clear search highlighting {{{
 noremap <leader>hh :nohlsearch<CR>
 " }}}
+" use <leader>r to reload the buffer with :edit {{{
+noremap <leader>r :edit<CR>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
