@@ -14,6 +14,7 @@ Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
 Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 Plug 'dag/vim-fish' " fish syntax highlighting etc.
 Plug 'tmhedberg/SimpylFold' " syntax folding for Python
+Plug 'cespare/vim-toml' " TOML syntax highlighting
 call plug#end()
 " }}}
 " leader keys {{{
