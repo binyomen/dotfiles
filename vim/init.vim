@@ -173,8 +173,10 @@ function! s:denite_filter_settings() abort
             \ denite#do_map('quit')
 endfunction
 
-nnoremap <C-p> :Denite file/rec -start-filter<CR>| " search for file names
-nnoremap <leader>/ :Denite -start-filter grep:::!<CR>| " search for file contents in interactive mode
+nnoremap <C-p> :<C-u>Denite file/rec -start-filter<CR>| " search for file names
+nnoremap <leader>/ :<C-u>Denite -start-filter -filter-updatetime=0 grep:::!<CR>| " search for file contents in interactive mode
+nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>| " search for the word under the cursor
+nnoremap <leader>dr :<C-u>Denite -resume -refresh -cursor-pos=+1<CR>| " continue the last denite search
 " }}}
 " vim-fugitive {{{
 nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
