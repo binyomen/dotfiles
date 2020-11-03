@@ -128,7 +128,11 @@ let g:airline#extensions#tabline#show_buffers=0 " don't show buffers when there'
 let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
 let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
 set encoding=utf8 " make sure we're using the correct encoding for the symbols
-set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+if exists('g:fvim_loaded')
+    set guifont=Ubuntu\ Mono\ derivative\ Powerline:h18
+else
+    set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+endif
 let g:airline_theme='dark' " set the airline theme to dark
 noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 " }}}
