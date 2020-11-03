@@ -15,6 +15,7 @@ Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 Plug 'dag/vim-fish' " fish syntax highlighting etc.
 Plug 'tmhedberg/SimpylFold' " syntax folding for Python
 Plug 'cespare/vim-toml' " TOML syntax highlighting
+Plug 'rust-lang/rust.vim' " Rust plugin
 call plug#end()
 " }}}
 " leader keys {{{
@@ -180,6 +181,9 @@ nnoremap <leader>dr :<C-u>Denite -resume -refresh -cursor-pos=+1<CR>| " continue
 " }}}
 " vim-fugitive {{{
 nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
+" }}}
+" rust.vim configuration {{{
+let g:rustfmt_autosave=1 " run rustfmt on save
 " }}}
 " }}}
 " easy editing of vimrc file {{{
