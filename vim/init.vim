@@ -188,6 +188,7 @@ nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 " }}}
 " rust.vim configuration {{{
 let g:rustfmt_autosave=1 " run rustfmt on save
+let g:rust_recommended_style=0 " don't force textwidth=99
 " }}}
 " }}}
 " editor configuration {{{
