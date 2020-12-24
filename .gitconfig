@@ -10,6 +10,8 @@
     tool = vimdiff
 [difftool]
     prompt = false
+[init]
+    defaultBranch = main
 [merge]
     tool = vimdiff
 [pull]
