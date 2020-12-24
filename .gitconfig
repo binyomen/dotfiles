@@ -1,14 +1,14 @@
+[alias]
+    dcw = diff --color-words
+[commit]
+    verbose = true
 [core]
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
     editor = nvim
-[merge]
-    tool = vimdiff
 [diff]
     tool = vimdiff
 [difftool]
     prompt = false
-[commit]
-    verbose = true
-[alias]
-    dcw = diff --color-words
+[merge]
+    tool = vimdiff
