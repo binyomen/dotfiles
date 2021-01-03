@@ -16,6 +16,7 @@ Plug 'dag/vim-fish' " fish syntax highlighting etc.
 Plug 'tmhedberg/SimpylFold' " syntax folding for Python
 Plug 'cespare/vim-toml' " TOML syntax highlighting
 Plug 'rust-lang/rust.vim' " Rust plugin
+Plug 'leafgarland/typescript-vim' " typescript syntax highlighting
 call plug#end()
 " }}}
 " leader keys {{{
