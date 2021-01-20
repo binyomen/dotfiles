@@ -17,6 +17,7 @@ Plug 'tmhedberg/SimpylFold' " syntax folding for Python
 Plug 'cespare/vim-toml' " TOML syntax highlighting
 Plug 'rust-lang/rust.vim' " Rust plugin
 Plug 'leafgarland/typescript-vim' " typescript syntax highlighting
+Plug 'jelera/vim-javascript-syntax' " javascript syntax highlighting
 call plug#end()
 " }}}
 " leader keys {{{
