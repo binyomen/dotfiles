@@ -3,13 +3,12 @@
 argparse --name syncto 'n/dry-run' -- $argv
 or exit
 
-set -l include $argv[1]
-set -l from $argv[2]
-set -l to $argv[3]
+set -l from $argv[1]
+set -l to $argv[2]
 
 set -l dry_run
 if [ -n "$_flag_n" ]
     set dry_run n
 end
 
-rsync -avzuh"$dry_run" --progress --include="$include" --include='*/' --exclude='*' "$from" "$to"
+rsync -avzuh"$dry_run" --progress "$from" "$to"
