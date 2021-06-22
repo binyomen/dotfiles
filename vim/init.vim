@@ -79,6 +79,12 @@ augroup highlight_word_under_cursor
     autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 augroup END
 " }}}
+" turn off spelling in the terminal {{{
+augroup terminal_nospell
+    autocmd!
+    autocmd TermOpen * setlocal nospell
+augroup END
+" }}}
 " }}}
 " filetype configuration {{{
 " .txt files {{{
