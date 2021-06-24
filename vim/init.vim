@@ -111,6 +111,12 @@ augroup go_files
     autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
 augroup END
 " }}}
+" xaml files {{{
+augroup xaml_files
+    autocmd!
+    autocmd BufNewFile,BufRead *.xaml set ft=xml " XAML is basically just XML
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " nerdcommenter {{{
