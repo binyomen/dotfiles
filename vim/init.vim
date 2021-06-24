@@ -19,6 +19,7 @@ Plug 'rust-lang/rust.vim' " Rust plugin
 Plug 'leafgarland/typescript-vim' " typescript syntax highlighting
 Plug 'jelera/vim-javascript-syntax' " javascript syntax highlighting
 Plug 'ElmCast/elm-vim' " Elm plugin
+Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 call plug#end()
 " }}}
 " leader keys {{{
