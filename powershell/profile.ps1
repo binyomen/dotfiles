@@ -34,7 +34,7 @@ function prompt {
     # PowerShell is started. This way, it's only loaded the first time a git
     # repo is entered.
     if (Get-GitDirectory) {
-        Write-VcsStatus
+        Write-Host "$(Write-VcsStatus)" -NoNewline
     }
 
     if ($PSVersionTable.PSEdition -eq "Desktop") {
