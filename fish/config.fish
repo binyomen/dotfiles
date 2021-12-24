@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 
 set -x PATH $PATH ~/bin
+set -x EDITOR nvim
 
 # I need to add spaces after the default prompt symbols so they don't look
 # cramped in a monospace font.
