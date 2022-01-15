@@ -1,5 +1,7 @@
 [alias]
     dcw = diff --color-words
+    dc = diff --cached
+    dcwc = diff --color-words --cached
 [commit]
     verbose = true
 [core]
