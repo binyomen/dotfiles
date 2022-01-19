@@ -117,6 +117,14 @@ augroup xaml_files
     autocmd BufNewFile,BufRead *.xaml set ft=xml " XAML is basically just XML
 augroup END
 " }}}
+" html files {{{
+augroup html_files
+    autocmd!
+    autocmd FileType html setlocal tabstop=2 " tabs count as 2 spaces
+    autocmd FileType html setlocal softtabstop=2 " tabs count as 2 spaces while performing editing operations (yeah, I don't really understand this either)
+    autocmd FileType html setlocal shiftwidth=2 " number of spaces used for autoindent
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " nerdcommenter {{{
