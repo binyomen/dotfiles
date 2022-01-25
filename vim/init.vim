@@ -125,6 +125,15 @@ augroup html_files
     autocmd FileType html setlocal shiftwidth=2 " number of spaces used for autoindent
 augroup END
 " }}}
+" help files {{{
+augroup help_files
+    autocmd!
+    " make concealed characters in help files visible
+    autocmd FileType help setlocal conceallevel=0
+    autocmd FileType help hi link HelpBar Normal
+    autocmd FileType help hi link HelpStar Normal
+augroup END
+" }}}
 " }}}
 " plugin configuration {{{
 " nerdcommenter {{{
