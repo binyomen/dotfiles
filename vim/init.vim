@@ -64,8 +64,8 @@ noremap <leader>hh :nohlsearch<CR>
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
 " }}}
-" make gf open in a new tab rather than a new buffer {{{
-noremap gf <c-w>gf
+" make gf open in a new tab rather than a new buffer, and open the file even if it doesn't exist {{{
+noremap gf :tabe <cfile><cr>
 " }}}
 " }}}
 " autocmds {{{
