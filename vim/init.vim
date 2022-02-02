@@ -64,6 +64,9 @@ noremap <leader>hh :nohlsearch<CR>
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
 " }}}
+" make gf open in a new tab rather than a new buffer {{{
+noremap gf <c-w>gf
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
