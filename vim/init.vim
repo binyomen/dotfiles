@@ -67,6 +67,9 @@ noremap <leader>r :edit<CR>
 " make gf open in a new tab rather than a new buffer, and open the file even if it doesn't exist {{{
 noremap gf :tabe <cfile><cr>
 " }}}
+" remap ':' to ',' so that you can move backwards for f and t {{{
+noremap : ,
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
