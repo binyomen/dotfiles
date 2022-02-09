@@ -370,7 +370,7 @@ if exists('g:started_by_firenvim')
     set showtabline=0 " disable tabline in the browser
     set nonumber " disable line numbers
     set wrap " enable line wrapping
-    set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+    set guifont=Ubuntu_Mono_derivative_Powerlin:h12
 
     let g:firenvim_config = {} " initialize a default config
     let g:firenvim_config['localSettings'] = {}
