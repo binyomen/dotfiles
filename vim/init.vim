@@ -5,8 +5,10 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'scrooloose/nerdcommenter' " commenting functionality
 Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
 Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
-Plug 'vim-airline/vim-airline' " a statusline plugin
-Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+if !exists('g:started_by_firenvim')
+    Plug 'vim-airline/vim-airline' " a statusline plugin
+    Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+endif
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter' " display git status for each line
 Plug 'tpope/vim-fugitive' " general git plugin
@@ -20,6 +22,7 @@ Plug 'leafgarland/typescript-vim' " typescript syntax highlighting
 Plug 'jelera/vim-javascript-syntax' " javascript syntax highlighting
 Plug 'ElmCast/elm-vim' " Elm plugin
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in browsers
 call plug#end()
 " }}}
 " leader keys {{{
@@ -290,6 +293,12 @@ if exists('g:fvim_loaded')
     " If this command is executed on a standalone instance,
     " the embedded process will be terminated anyway.
     " FVimDetach
+endif
+" }}}
+" firenvim {{{
+if exists('g:started_by_firenvim')
+  set laststatus=0 " disable statusline in the browser
+  set showtabline=0 " disable tabline in the browser
 endif
 " }}}
 " }}}
