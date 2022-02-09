@@ -8,10 +8,10 @@ Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 if !exists('g:started_by_firenvim')
     Plug 'vim-airline/vim-airline' " a statusline plugin
     Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'airblade/vim-gitgutter' " display git status for each line
+    Plug 'tpope/vim-fugitive' " general git plugin
 endif
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'airblade/vim-gitgutter' " display git status for each line
-Plug 'tpope/vim-fugitive' " general git plugin
 Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
 Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
 Plug 'dag/vim-fish' " fish syntax highlighting etc.
@@ -164,74 +164,143 @@ let g:wordmotion_mappings = {
 \}
 " }}}
 " vim-airline {{{
-set laststatus=2 " show the statusline all the time, rather than only when a split is created
-let g:airline#extensions#tabline#enabled=1 " use the tabline
-let g:airline#extensions#tabline#show_buffers=0 " don't show buffers when there's only one tab open
-let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
-let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
-set encoding=utf8 " make sure we're using the correct encoding for the symbols
-if exists('g:fvim_loaded')
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline:h18
-else
-    set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+if !exists('g:started_by_firenvim')
+    set laststatus=2 " show the statusline all the time, rather than only when a split is created
+    let g:airline#extensions#tabline#enabled=1 " use the tabline
+    let g:airline#extensions#tabline#show_buffers=0 " don't show buffers when there's only one tab open
+    let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
+    let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
+    set encoding=utf8 " make sure we're using the correct encoding for the symbols
+    if exists('g:fvim_loaded')
+        set guifont=Ubuntu\ Mono\ derivative\ Powerline:h18
+    else
+        set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+    endif
+    let g:airline_theme='dark' " set the airline theme to dark
+    noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 endif
-let g:airline_theme='dark' " set the airline theme to dark
-noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 " }}}
 " denite {{{
-" use ripgrep for file content search
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts',
-      \ ['--hidden', '--vimgrep', '--smart-case'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
+if !exists('g:started_by_firenvim')
+    " use ripgrep for file content search
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts',
+        \ ['--hidden', '--vimgrep', '--smart-case'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
 
-" use scantree.py (which comes with denite) for file search
-" I think it's supposed to be faster? Also, it uses `wildignore`.
-call denite#custom#var('file/rec', 'command', ['scantree.py', '--path', ':directory'])
+    " use scantree.py (which comes with denite) for file search
+    " I think it's supposed to be faster? Also, it uses `wildignore`.
+    call denite#custom#var('file/rec', 'command', ['scantree.py', '--path', ':directory'])
 
-" settings while in the filtered list
-autocmd FileType denite call s:denite_settings()
-function! s:denite_settings() abort
-    nnoremap <silent><buffer><expr> <CR>
-            \ denite#do_map('do_action', 'tabswitch')
-    nnoremap <silent><buffer><expr> <C-e>
-            \ denite#do_map('do_action', 'open')
-    nnoremap <silent><buffer><expr> <C-v>
-            \ denite#do_map('do_action', 'vsplit')
-    nnoremap <silent><buffer><expr> p
-            \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> <Esc>
-            \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> q
-            \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i
-            \ denite#do_map('open_filter_buffer')
-endfunction
+    " settings while in the filtered list
+    autocmd FileType denite call s:denite_settings()
+    function! s:denite_settings() abort
+        nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action', 'tabswitch')
+        nnoremap <silent><buffer><expr> <C-e>
+                \ denite#do_map('do_action', 'open')
+        nnoremap <silent><buffer><expr> <C-v>
+                \ denite#do_map('do_action', 'vsplit')
+        nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+        nnoremap <silent><buffer><expr> <Esc>
+                \ denite#do_map('quit')
+        nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+        nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+    endfunction
 
-" settings while in the filter edit
-autocmd FileType denite-filter call s:denite_filter_settings()
-function! s:denite_filter_settings() abort
-    nnoremap <silent><buffer><expr> <Esc>
-            \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> q
-            \ denite#do_map('quit')
-endfunction
+    " settings while in the filter edit
+    autocmd FileType denite-filter call s:denite_filter_settings()
+    function! s:denite_filter_settings() abort
+        nnoremap <silent><buffer><expr> <Esc>
+                \ denite#do_map('quit')
+        nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+    endfunction
 
-nnoremap <C-p> :<C-u>Denite file/rec -start-filter<CR>| " search for file names
-nnoremap <leader>/ :<C-u>Denite -start-filter -filter-updatetime=0 grep:::!<CR>| " search for file contents in interactive mode
-nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>| " search for the word under the cursor
-nnoremap <leader>dr :<C-u>Denite -resume -refresh -cursor-pos=+1<CR>| " continue the last denite search
+    nnoremap <C-p> :<C-u>Denite file/rec -start-filter<CR>| " search for file names
+    nnoremap <leader>/ :<C-u>Denite -start-filter -filter-updatetime=0 grep:::!<CR>| " search for file contents in interactive mode
+    nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>| " search for the word under the cursor
+    nnoremap <leader>dr :<C-u>Denite -resume -refresh -cursor-pos=+1<CR>| " continue the last denite search
+endif
 " }}}
 " vim-fugitive {{{
-nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
+if !exists('g:started_by_firenvim')
+    nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
+endif
 " }}}
 " rust.vim configuration {{{
 let g:rustfmt_autosave=1 " run rustfmt on save
 let g:rust_recommended_style=0 " don't force textwidth=99
 " }}}
+" }}}
+" easy editing of vimrc file {{{
+nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
+" }}}
+" color scheme {{{
+colorscheme NeoSolarized " set the color scheme to use NeoSolarized
+" }}}
+" search {{{
+set ignorecase " make search case insensitive
+set smartcase " ignore case if only lowercase characters used in search text
+set incsearch " show search results incrementally as you type
+set gdefault " always do global substitutions
+" }}}
+" tabs {{{
+set expandtab " tabs are expanded to spaces
+set tabstop=4 " tabs count as 4 spaces
+set softtabstop=4 " tabs count as 4 spaces while performing editing operations (yeah, I don't really understand this either)
+set shiftwidth=4 " number of spaces used for autoindent
+set shiftround " should round indents to multiple of shiftwidth
+set autoindent " automatically indent lines
+set smarttab " be smart about how you use shiftwidth vs tabstop or softtabstop I think
+" }}}
+" show whitespace {{{
+set list " display whitespace characters
+set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace characters to display ('trail' is for trailing spaces, and 'extends' is for when the line extends beyond the right end of the screen)
+" }}}
+" misc. settings {{{
+set number " show line numbers
+set nowrap " don't wrap lines
+set showmatch " show matching bracket when one is inserted
+set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
+set title " title of window set to titlename/currently edited file
+set visualbell " use visual bell instead of beeping
+set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
+set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
+set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
+set cursorline " highlight the current line
+set cursorcolumn " highlight the current column
+set nojoinspaces " don't add an extra space after a period for J and gq
+set spell " always have spellchecking on
+" }}}
+" custom functions and commands {{{
+" toggle between number and relativenumber
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" format json
+function! FormatJson()
+    %!python -m json.tool
+endfunc
+
+" open file in tabs
+function! OpenAll(arguments)
+    execute 'args ' . a:arguments . ' | argdo set eventignore-=Syntax | tabe'
+endfunc
+command! -nargs=+ -complete=file OpenAll call OpenAll('<args>')
 " }}}
 " editor configuration {{{
 " fvim {{{
@@ -297,71 +366,15 @@ endif
 " }}}
 " firenvim {{{
 if exists('g:started_by_firenvim')
-  set laststatus=0 " disable statusline in the browser
-  set showtabline=0 " disable tabline in the browser
+    set laststatus=0 " disable statusline in the browser
+    set showtabline=0 " disable tabline in the browser
+    set nonumber " disable line numbers
+    set wrap " enable line wrapping
+    set guifont=Ubuntu_Mono_derivative_Powerlin:h14
+
+    let g:firenvim_config = {} " initialize a default config
+    let g:firenvim_config['localSettings'] = {}
+    let g:firenvim_config['localSettings']['.*'] = { 'takeover': 'never' } " never take over the text area automatically
 endif
 " }}}
-" }}}
-" easy editing of vimrc file {{{
-nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
-" }}}
-" color scheme {{{
-colorscheme NeoSolarized " set the color scheme to use NeoSolarized
-" }}}
-" search {{{
-set ignorecase " make search case insensitive
-set smartcase " ignore case if only lowercase characters used in search text
-set incsearch " show search results incrementally as you type
-set gdefault " always do global substitutions
-" }}}
-" tabs {{{
-set expandtab " tabs are expanded to spaces
-set tabstop=4 " tabs count as 4 spaces
-set softtabstop=4 " tabs count as 4 spaces while performing editing operations (yeah, I don't really understand this either)
-set shiftwidth=4 " number of spaces used for autoindent
-set shiftround " should round indents to multiple of shiftwidth
-set autoindent " automatically indent lines
-set smarttab " be smart about how you use shiftwidth vs tabstop or softtabstop I think
-" }}}
-" show whitespace {{{
-set list " display whitespace characters
-set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace characters to display ('trail' is for trailing spaces, and 'extends' is for when the line extends beyond the right end of the screen)
-" }}}
-" misc. settings {{{
-set number " show line numbers
-set nowrap " don't wrap lines
-set showmatch " show matching bracket when one is inserted
-set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
-set title " title of window set to titlename/currently edited file
-set visualbell " use visual bell instead of beeping
-set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
-set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
-set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
-set cursorline " highlight the current line
-set cursorcolumn " highlight the current column
-set nojoinspaces " don't add an extra space after a period for J and gq
-set spell " always have spellchecking on
-" }}}
-" custom functions and commands {{{
-" toggle between number and relativenumber
-function! ToggleNumber()
-    if(&relativenumber == 1)
-        set norelativenumber
-        set number
-    else
-        set relativenumber
-    endif
-endfunc
-
-" format json
-function! FormatJson()
-    %!python -m json.tool
-endfunc
-
-" open file in tabs
-function! OpenAll(arguments)
-    execute 'args ' . a:arguments . ' | argdo set eventignore-=Syntax | tabe'
-endfunc
-command! -nargs=+ -complete=file OpenAll call OpenAll('<args>')
 " }}}
