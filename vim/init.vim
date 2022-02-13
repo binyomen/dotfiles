@@ -25,6 +25,7 @@ Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in browsers
 Plug 'tpope/vim-repeat' " repeatable plugin actions
 Plug 'inkarkat/vim-ReplaceWithRegister' " easy replacement without overwriting registers
+Plug 'christoomey/vim-system-copy' " easy copying/pasting to/from the system clipboard
 call plug#end()
 " }}}
 " leader keys {{{
@@ -233,10 +234,16 @@ if !exists('g:started_by_firenvim')
     nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
 endif
 " }}}
-" rust.vim configuration {{{
+" rust.vim {{{
 let g:rustfmt_autosave=1 " run rustfmt on save
 let g:rust_recommended_style=0 " don't force textwidth=99
 " }}}
+" vim-system-copy
+if has('win32')
+    " This is necessary to work on Windows, since uname isn't defined.
+    let g:system_copy#copy_command = 'clip'
+    let g:system_copy#paste_command ='paste'
+endif
 " }}}
 " easy editing of vimrc file {{{
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
