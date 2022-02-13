@@ -24,6 +24,7 @@ Plug 'ElmCast/elm-vim' " Elm plugin
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in browsers
 Plug 'tpope/vim-repeat' " repeatable plugin actions
+Plug 'inkarkat/vim-ReplaceWithRegister' " easy replacement without overwriting registers
 call plug#end()
 " }}}
 " leader keys {{{
