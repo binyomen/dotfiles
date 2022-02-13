@@ -23,6 +23,7 @@ Plug 'jelera/vim-javascript-syntax' " javascript syntax highlighting
 Plug 'ElmCast/elm-vim' " Elm plugin
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in browsers
+Plug 'tpope/vim-repeat' " repeatable plugin actions
 call plug#end()
 " }}}
 " leader keys {{{
