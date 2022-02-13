@@ -2,7 +2,7 @@
 
 " plugins {{{
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'scrooloose/nerdcommenter' " commenting functionality
+Plug 'tpope/vim-commentary' " commenting functionality
 Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
 Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 if !exists('g:started_by_firenvim')
@@ -146,9 +146,6 @@ augroup END
 " }}}
 " }}}
 " plugin configuration {{{
-" nerdcommenter {{{
-let g:NERDSpaceDelims=1 " add spaces after comment delimiters by default
-" }}}
 " NeoSolarized {{{
 set termguicolors " enables 24-bit RGB color in the TUI
 set background=dark " use the dark background theme for NeoSolarized
