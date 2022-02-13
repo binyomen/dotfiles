@@ -26,6 +26,11 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in bro
 Plug 'tpope/vim-repeat' " repeatable plugin actions
 Plug 'inkarkat/vim-ReplaceWithRegister' " easy replacement without overwriting registers
 Plug 'christoomey/vim-system-copy' " easy copying/pasting to/from the system clipboard
+Plug 'kana/vim-textobj-user' " framework for creating custom text objects
+Plug 'kana/vim-textobj-entire' " text object of the entire buffer
+Plug 'kana/vim-textobj-indent' " text object of an indented block
+Plug 'kana/vim-textobj-lastpat' " text object of the last search pattern
+Plug 'kana/vim-textobj-line' " text object of the current line
 call plug#end()
 " }}}
 " leader keys {{{
@@ -238,12 +243,13 @@ endif
 let g:rustfmt_autosave=1 " run rustfmt on save
 let g:rust_recommended_style=0 " don't force textwidth=99
 " }}}
-" vim-system-copy
+" vim-system-copy {{{
 if has('win32')
     " This is necessary to work on Windows, since uname isn't defined.
     let g:system_copy#copy_command = 'clip'
     let g:system_copy#paste_command ='paste'
 endif
+" }}}
 " }}}
 " easy editing of vimrc file {{{
 nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
