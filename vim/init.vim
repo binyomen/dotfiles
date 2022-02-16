@@ -87,6 +87,10 @@ noremap <leader>h H
 noremap <leader>m M
 noremap <leader>l L
 " }}}
+" swap meanings of ` and ' since one is easier to hit than the other {{{
+noremap ` '
+noremap ' `
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
