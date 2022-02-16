@@ -69,8 +69,8 @@ noremap <leader>tj :wincmd j<CR>
 noremap <leader>tk :wincmd k<CR>
 noremap <leader>tl :wincmd l<CR>
 " }}}
-" use <leader>hh to clear search highlighting {{{
-noremap <leader>hh :nohlsearch<CR>
+" use <leader>nn to clear search highlighting {{{
+noremap <leader>nn :nohlsearch<CR>
 " }}}
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
@@ -80,6 +80,11 @@ noremap gf :tabe <cfile><cr>
 " }}}
 " remap ':' to ',' so that you can move backwards for f and t {{{
 noremap : ,
+" }}}
+" <leader>h, <leader>m, and <leader>l for moving the cursor to the top, middle, and bottom of the screen {{{
+noremap <leader>h H
+noremap <leader>m M
+noremap <leader>l L
 " }}}
 " }}}
 " autocmds {{{
