@@ -94,6 +94,16 @@ noremap ' `
 " remap <c-^> to M, which has more editor support {{{
 nnoremap M <c-^>
 " }}}
+" easy switching between cpp and header files {{{
+function! s:toggle_c() abort
+    if expand('%:e') == 'h'
+        edit %<.cpp
+    elseif expand('%:e') == 'cpp'
+        edit %<.h
+    endif
+endfunction
+nnoremap <leader>ch :call <sid>toggle_c()<cr>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
