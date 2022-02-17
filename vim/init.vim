@@ -283,38 +283,40 @@ if has('win32')
 endif
 " }}}
 " gitsigns {{{
-lua << END
-require('gitsigns').setup {
-    on_attach = function(bufnr)
-        local function map(mode, lhs, rhs, opts)
-            opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-            vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-        end
+if !exists('g:started_by_firenvim')
+    lua << END
+        require('gitsigns').setup {
+            on_attach = function(bufnr)
+                local function map(mode, lhs, rhs, opts)
+                    local opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+                    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+                end
 
-        -- Navigation
-        map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
-        map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
+                -- Navigation
+                map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
+                map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
 
-        -- Actions
-        map('n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-        map('v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-        map('n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-        map('v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-        map('n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
-        map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-        map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
-        map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
-        map('n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
-        map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
-        map('n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
-        map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
+                -- Actions
+                map('n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                map('v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                map('n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                map('v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                map('n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
+                map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
+                map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
+                map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
+                map('n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
+                map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
+                map('n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
+                map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
 
-        -- Text object
-        map('o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-        map('x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-    end
-}
+                -- Text object
+                map('o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                map('x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+            end
+        }
 END
+endif
 " }}}
 " }}}
 " easy editing of vimrc file {{{
