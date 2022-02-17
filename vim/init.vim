@@ -91,6 +91,9 @@ noremap <leader>l L
 noremap ` '
 noremap ' `
 " }}}
+" remap <c-^> to M, which has more editor support {{{
+nnoremap M <c-^>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
