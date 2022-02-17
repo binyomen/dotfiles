@@ -4,7 +4,6 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'tpope/vim-commentary' " commenting functionality
 Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
-Plug 'chaoren/vim-wordmotion' " supports CamelCase motion in words
 if !exists('g:started_by_firenvim')
     Plug 'vim-airline/vim-airline' " a statusline plugin
     Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
@@ -179,17 +178,6 @@ augroup END
 " NeoSolarized {{{
 set termguicolors " enables 24-bit RGB color in the TUI
 set background=dark " use the dark background theme for NeoSolarized
-" }}}
-" vim-wordmotion {{{
-" require CTRL key to perform CamelCase motion
-let g:wordmotion_mappings = {
-\ 'w': '<C-w>',
-\ 'b': '<C-b>',
-\ 'e': '<C-e>',
-\ 'ge': 'g<C-e>',
-\ 'aw': 'a<C-w>',
-\ 'iw': 'i<C-w>'
-\}
 " }}}
 " vim-airline {{{
 if !exists('g:started_by_firenvim')
