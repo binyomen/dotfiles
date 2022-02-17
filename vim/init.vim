@@ -76,8 +76,8 @@ noremap <leader>nn :nohlsearch<CR>
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
 " }}}
-" make gf open in a new tab rather than a new buffer, and open the file even if it doesn't exist {{{
-noremap gf :tabe <cfile><cr>
+" make gf open the file even if it doesn't exist {{{
+noremap gf :e <cfile><cr>
 " }}}
 " remap ':' to ',' so that you can move backwards for f and t {{{
 noremap : ,
@@ -194,9 +194,6 @@ let g:wordmotion_mappings = {
 " vim-airline {{{
 if !exists('g:started_by_firenvim')
     set laststatus=2 " show the statusline all the time, rather than only when a split is created
-    let g:airline#extensions#tabline#enabled=1 " use the tabline
-    let g:airline#extensions#tabline#show_buffers=0 " don't show buffers when there's only one tab open
-    let g:airline#extensions#tabline#fnamemod=":t" " only display filenames in tabs
     let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
     set encoding=utf8 " make sure we're using the correct encoding for the symbols
     if exists('g:fvim_loaded')
@@ -227,8 +224,6 @@ if !exists('g:started_by_firenvim')
     autocmd FileType denite call s:denite_settings()
     function! s:denite_settings() abort
         nnoremap <silent><buffer><expr> <CR>
-                \ denite#do_map('do_action', 'tabswitch')
-        nnoremap <silent><buffer><expr> <C-e>
                 \ denite#do_map('do_action', 'open')
         nnoremap <silent><buffer><expr> <C-v>
                 \ denite#do_map('do_action', 'vsplit')
@@ -365,12 +360,6 @@ endfunc
 function! FormatJson()
     %!python -m json.tool
 endfunc
-
-" open file in tabs
-function! OpenAll(arguments)
-    execute 'args ' . a:arguments . ' | argdo set eventignore-=Syntax | tabe'
-endfunc
-command! -nargs=+ -complete=file OpenAll call OpenAll('<args>')
 " }}}
 " editor configuration {{{
 " fvim {{{
@@ -437,7 +426,6 @@ endif
 " firenvim {{{
 if exists('g:started_by_firenvim')
     set laststatus=0 " disable statusline in the browser
-    set showtabline=0 " disable tabline in the browser
     set nonumber " disable line numbers
     set norelativenumber " also necessary to disable line numbers
     set wrap " enable line wrapping
