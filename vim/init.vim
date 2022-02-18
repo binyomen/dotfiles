@@ -31,6 +31,7 @@ Plug 'kana/vim-textobj-entire' " text object of the entire buffer
 Plug 'kana/vim-textobj-indent' " text object of an indented block
 Plug 'kana/vim-textobj-lastpat' " text object of the last search pattern
 Plug 'kana/vim-textobj-line' " text object of the current line
+Plug 'stefandtw/quickfix-reflector.vim' " edits in the quickfix window get reflected in the actual buffers
 call plug#end()
 " }}}
 " leader keys {{{
@@ -335,11 +336,26 @@ set gdefault " always do global substitutions
 
 " search the file system using ripgrep
 if executable("rg")
-  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
-  set grepformat=%f:%l:%c:%m
+    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+    set grepformat=%f:%l:%c:%m
 endif
 
 command! -nargs=+ Grep execute 'silent grep! <args>' | copen
+
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
+
+nnoremap <leader>co :copen<cr>
+nnoremap <leader>cc :cclose<cr>
+
+function! QuickfixMapping()
+    nnoremap <buffer> K :cprev<cr>zz<c-w>w
+    nnoremap <buffer> J :cnext<cr>zz<c-w>w
+endfunction
+augroup quickfix
+    autocmd!
+    autocmd filetype qf call QuickfixMapping()
+augroup END
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
