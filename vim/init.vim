@@ -332,6 +332,14 @@ set ignorecase " make search case insensitive
 set smartcase " ignore case if only lowercase characters used in search text
 set incsearch " show search results incrementally as you type
 set gdefault " always do global substitutions
+
+" search the file system using ripgrep
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+  set grepformat=%f:%l:%c:%m
+endif
+
+command! -nargs=+ Grep grep <args> | copen
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
