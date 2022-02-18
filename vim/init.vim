@@ -339,7 +339,7 @@ if executable("rg")
   set grepformat=%f:%l:%c:%m
 endif
 
-command! -nargs=+ Grep grep <args> | copen
+command! -nargs=+ Grep execute 'silent grep! <args>' | copen
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
