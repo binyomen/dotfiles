@@ -94,6 +94,7 @@ nnoremap <leader>tR <c-w>R
 nnoremap <leader>ts <c-w>s
 nnoremap <leader>tv <c-w>v
 nnoremap <leader>to <c-w>o
+nnoremap <leader>tc <c-w>c
 " }}}
 " use <leader>nn to clear search highlighting {{{
 noremap <leader>nn :nohlsearch<CR>
