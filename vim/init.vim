@@ -7,7 +7,6 @@ Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
 if !exists('g:started_by_firenvim')
     Plug 'vim-airline/vim-airline' " a statusline plugin
     Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
-    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'tpope/vim-fugitive' " general git plugin
     Plug 'nvim-lua/plenary.nvim' " general lua helpers
     Plug 'lewis6991/gitsigns.nvim' " display git status for each line
@@ -220,53 +219,6 @@ if !exists('g:started_by_firenvim')
     noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
 endif
 " }}}
-" denite {{{
-if !exists('g:started_by_firenvim')
-    " use ripgrep for file content search
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-        \ ['--hidden', '--vimgrep', '--smart-case'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-
-    " use scantree.py (which comes with denite) for file search
-    " I think it's supposed to be faster? Also, it uses `wildignore`.
-    call denite#custom#var('file/rec', 'command', ['scantree.py', '--path', ':directory'])
-
-    " settings while in the filtered list
-    autocmd FileType denite call s:denite_settings()
-    function! s:denite_settings() abort
-        nnoremap <silent><buffer><expr> <CR>
-                \ denite#do_map('do_action', 'open')
-        nnoremap <silent><buffer><expr> <C-v>
-                \ denite#do_map('do_action', 'vsplit')
-        nnoremap <silent><buffer><expr> p
-                \ denite#do_map('do_action', 'preview')
-        nnoremap <silent><buffer><expr> <Esc>
-                \ denite#do_map('quit')
-        nnoremap <silent><buffer><expr> q
-                \ denite#do_map('quit')
-        nnoremap <silent><buffer><expr> i
-                \ denite#do_map('open_filter_buffer')
-    endfunction
-
-    " settings while in the filter edit
-    autocmd FileType denite-filter call s:denite_filter_settings()
-    function! s:denite_filter_settings() abort
-        nnoremap <silent><buffer><expr> <Esc>
-                \ denite#do_map('quit')
-        nnoremap <silent><buffer><expr> q
-                \ denite#do_map('quit')
-    endfunction
-
-    nnoremap <C-p> :<C-u>Denite file/rec -start-filter<CR>| " search for file names
-    nnoremap <leader>/ :<C-u>Denite -start-filter -filter-updatetime=0 grep:::!<CR>| " search for file contents in interactive mode
-    nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>| " search for the word under the cursor
-    nnoremap <leader>dr :<C-u>Denite -resume -refresh -cursor-pos=+1<CR>| " continue the last denite search
-endif
-" }}}
 " vim-fugitive {{{
 if !exists('g:started_by_firenvim')
     nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
@@ -357,6 +309,10 @@ augroup quickfix
 augroup END
 
 set path+=** " Search recursively by default.
+
+nnoremap <leader>/ :Grep<space>
+nnoremap <leader>8 :Grep -w <cword><cr>
+nnoremap <leader>f :find<space>
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
@@ -376,7 +332,7 @@ set number " show line numbers
 set relativenumber " show relative line numbers
 set nowrap " don't wrap lines
 set showmatch " show matching bracket when one is inserted
-set wildignore+=.git " ignore the .git directory when expanding wildcards, also works with denite file/rec
+set wildignore+=.git " ignore the .git directory when expanding wildcards
 set title " title of window set to titlename/currently edited file
 set visualbell " use visual bell instead of beeping
 set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
