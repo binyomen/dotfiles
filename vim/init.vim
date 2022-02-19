@@ -273,8 +273,9 @@ endif
 " }}}
 " }}}
 " easy editing of vimrc file {{{
-nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>| " open .vimrc in new tab
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>| " resource .vimrc
+nnoremap <silent> <leader>ve :tabe $MYVIMRC<cr>| " open .vimrc in new tab
+nnoremap <silent> <leader>vs :so $MYVIMRC<cr>| " resource .vimrc
+nnoremap <silent> <leader>vl :execute ':tabe ' . stdpath('config') . '/lua/'<cr>| " open lua scripts directory
 " }}}
 " color scheme {{{
 colorscheme NeoSolarized " set the color scheme to use NeoSolarized
