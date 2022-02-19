@@ -29,7 +29,6 @@ Plug 'christoomey/vim-system-copy' " easy copying/pasting to/from the system cli
 Plug 'kana/vim-textobj-user' " framework for creating custom text objects
 Plug 'kana/vim-textobj-entire' " text object of the entire buffer
 Plug 'kana/vim-textobj-indent' " text object of an indented block
-Plug 'kana/vim-textobj-lastpat' " text object of the last search pattern
 Plug 'kana/vim-textobj-line' " text object of the current line
 Plug 'stefandtw/quickfix-reflector.vim' " edits in the quickfix window get reflected in the actual buffers
 call plug#end()
