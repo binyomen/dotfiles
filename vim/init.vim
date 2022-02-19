@@ -1,37 +1,7 @@
 " vim:fdm=marker
 
-" plugins {{{
-call plug#begin(stdpath('data') . '/plugged')
-Plug 'tpope/vim-commentary' " commenting functionality
-Plug 'iCyMind/NeoSolarized' " the solarized color scheme for neovim
-if !exists('g:started_by_firenvim')
-    Plug 'vim-airline/vim-airline' " a statusline plugin
-    Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
-    Plug 'tpope/vim-fugitive' " general git plugin
-    Plug 'nvim-lua/plenary.nvim' " general lua helpers
-    Plug 'lewis6991/gitsigns.nvim' " display git status for each line
-endif
-Plug 'PProvost/vim-ps1' " Powershell syntax highlighting and folding
-Plug 'tpope/vim-surround' " surround text in quotes, HTML tags, etc.
-Plug 'dag/vim-fish' " fish syntax highlighting etc.
-Plug 'tmhedberg/SimpylFold' " syntax folding for Python
-Plug 'cespare/vim-toml' " TOML syntax highlighting
-Plug 'rust-lang/rust.vim' " Rust plugin
-Plug 'leafgarland/typescript-vim' " typescript syntax highlighting
-Plug 'jelera/vim-javascript-syntax' " javascript syntax highlighting
-Plug 'ElmCast/elm-vim' " Elm plugin
-Plug 'editorconfig/editorconfig-vim' " .editorconfig support
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } " usage in browsers
-Plug 'tpope/vim-repeat' " repeatable plugin actions
-Plug 'inkarkat/vim-ReplaceWithRegister' " easy replacement without overwriting registers
-Plug 'christoomey/vim-system-copy' " easy copying/pasting to/from the system clipboard
-Plug 'kana/vim-textobj-user' " framework for creating custom text objects
-Plug 'kana/vim-textobj-entire' " text object of the entire buffer
-Plug 'kana/vim-textobj-indent' " text object of an indented block
-Plug 'kana/vim-textobj-line' " text object of the current line
-Plug 'stefandtw/quickfix-reflector.vim' " edits in the quickfix window get reflected in the actual buffers
-call plug#end()
-" }}}
+lua require 'plugins'
+
 " leader keys {{{
 let mapleader = ',' " semicolon is the leader key
 let maplocalleader = '\\' " backslash is the localleader key
@@ -198,78 +168,6 @@ augroup help_files
     autocmd FileType help hi link HelpBar Normal
     autocmd FileType help hi link HelpStar Normal
 augroup END
-" }}}
-" }}}
-" plugin configuration {{{
-" NeoSolarized {{{
-set termguicolors " enables 24-bit RGB color in the TUI
-set background=dark " use the dark background theme for NeoSolarized
-" }}}
-" vim-airline {{{
-if !exists('g:started_by_firenvim')
-    set laststatus=2 " show the statusline all the time, rather than only when a split is created
-    let g:airline_powerline_fonts=1 " use the fonts that give you the cool arrows in the status line
-    set encoding=utf8 " make sure we're using the correct encoding for the symbols
-    if exists('g:fvim_loaded')
-        set guifont=Ubuntu\ Mono\ derivative\ Powerline:h18
-    else
-        set guifont=Ubuntu_Mono_derivative_Powerlin:h14
-    endif
-    let g:airline_theme='dark' " set the airline theme to dark
-    noremap <c-l> :AirlineRefresh<cr><c-l>| " Refresh vim-airline when Ctrl+L is pressed in addition to the display
-endif
-" }}}
-" vim-fugitive {{{
-if !exists('g:started_by_firenvim')
-    nnoremap <leader>gd :Gvdiff<CR>| " display a diff view of the current file
-endif
-" }}}
-" rust.vim {{{
-let g:rustfmt_autosave=1 " run rustfmt on save
-let g:rust_recommended_style=0 " don't force textwidth=99
-" }}}
-" vim-system-copy {{{
-if has('win32')
-    " This is necessary to work on Windows, since uname isn't defined.
-    let g:system_copy#copy_command = 'clip'
-    let g:system_copy#paste_command ='paste'
-endif
-" }}}
-" gitsigns {{{
-if !exists('g:started_by_firenvim')
-    lua << END
-        require('gitsigns').setup {
-            on_attach = function(bufnr)
-                local function map(mode, lhs, rhs, opts)
-                    local opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-                    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-                end
-
-                -- Navigation
-                map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
-                map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
-
-                -- Actions
-                map('n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                map('v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                map('n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                map('v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                map('n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
-                map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-                map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
-                map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
-                map('n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
-                map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
-                map('n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
-                map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
-
-                -- Text object
-                map('o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-                map('x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-            end
-        }
-END
-endif
 " }}}
 " }}}
 " easy editing of vimrc file {{{
