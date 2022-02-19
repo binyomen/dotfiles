@@ -12,6 +12,10 @@ vim.cmd([[
     augroup end
 ]])
 
+local function not_firenvim()
+    return not vim.g.started_by_firenvim
+end
+
 return require('packer').startup {
     function()
         -- Packer itself.
@@ -23,13 +27,16 @@ return require('packer').startup {
         use 'tpope/vim-repeat' -- Repeatable plugin actions.
         use 'inkarkat/vim-ReplaceWithRegister' -- Easy replacement without overwriting registers.
         -- Easy copying/pasting to/from the system clipboard.
-        use {'christoomey/vim-system-copy', config = function()
-            if vim.fn.has('win32') then
-                -- This is necessary to work on Windows, since uname isn't defined.
-                vim.g['system_copy#copy_command'] = 'clip'
-                vim.g['system_copy#paste_command'] = 'paste'
-            end
-        end}
+        use {
+            'christoomey/vim-system-copy',
+            config = function()
+                if vim.fn.has('win32') then
+                    -- This is necessary to work on Windows, since uname isn't defined.
+                    vim.g['system_copy#copy_command'] = 'clip'
+                    vim.g['system_copy#paste_command'] = 'paste'
+                end
+            end,
+        }
         use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
         use 'kana/vim-textobj-entire' -- Text object of the entire buffer.
         use 'kana/vim-textobj-indent' -- Text object of an indented block.
@@ -37,13 +44,18 @@ return require('packer').startup {
 
         -- User interface stuff.
         -- The solarized color scheme for neovim.
-        use {'iCyMind/NeoSolarized', config = function()
-            vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI.
-            vim.opt.background = 'dark' -- Use the dark background theme for NeoSolarized.
-        end}
-        if not vim.g.started_by_firenvim then
-            -- A statusline plugin.
-            use {'vim-airline/vim-airline', config = function()
+        use {
+            'iCyMind/NeoSolarized',
+            config = function()
+                vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI.
+                vim.opt.background = 'dark' -- Use the dark background theme for NeoSolarized.
+            end,
+        }
+        -- A statusline plugin.
+        use {
+            'vim-airline/vim-airline',
+            cond = not_firenvim,
+            config = function()
                 vim.opt.laststatus = 2 -- Show the statusline all the time, rather than only when a split is created.
                 vim.g.airline_powerline_fonts = 1 -- Use the fonts that give you the cool arrows in the status line.
                 vim.opt.encoding = 'utf8' -- Make sure we're using the correct encoding for the symbols.
@@ -54,52 +66,59 @@ return require('packer').startup {
                 end
                 vim.g.airline_theme = 'dark' -- Set the airline theme to dark.
                 require('util').map('n', '<c-l>', ':AirlineRefresh<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
-            end}
-            use 'vim-airline/vim-airline-themes' -- Themes for vim-airline.
-        end
+            end,
+        }
+        -- Themes for vim-airline.
+        use {
+            'vim-airline/vim-airline-themes',
+            cond = not_firenvim,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
-        if not vim.g.started_by_firenvim then
-            -- General git plugin.
-            use {'tpope/vim-fugitive', config = function()
+        -- General git plugin.
+        use {
+            'tpope/vim-fugitive',
+            cond = not_firenvim,
+            config = function()
                 require('util').map('n', '<leader>gd', ':Gvdiff<cr>') -- Display a diff view of the current file.
-            end}
-            -- Display git status for each line.
-            use {
-                'lewis6991/gitsigns.nvim',
-                requires = {'nvim-lua/plenary.nvim'},
-                config = function()
-                    require('gitsigns').setup {
-                        on_attach = function(bufnr)
-                            local util = require 'util'
+            end,
+        }
+        -- Display git status for each line.
+        use {
+            'lewis6991/gitsigns.nvim',
+            cond = not_firenvim,
+            requires = {'nvim-lua/plenary.nvim'},
+            config = function()
+                require('gitsigns').setup {
+                    on_attach = function(bufnr)
+                        local util = require 'util'
 
-                            -- Navigation
-                            util.bufnr_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
-                            util.bufnr_map(bufnr, 'n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
+                        -- Navigation
+                        util.bufnr_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
+                        util.bufnr_map(bufnr, 'n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
 
-                            -- Actions
-                            util.bufnr_map(bufnr, 'n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                            util.bufnr_map(bufnr, 'v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                            util.bufnr_map(bufnr, 'v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
-                            util.bufnr_map(bufnr, 'n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
+                        -- Actions
+                        util.bufnr_map(bufnr, 'n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                        util.bufnr_map(bufnr, 'v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        util.bufnr_map(bufnr, 'v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
+                        util.bufnr_map(bufnr, 'n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
 
-                            -- Text object
-                            util.bufnr_map(bufnr, 'o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-                            util.bufnr_map(bufnr, 'x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-                        end
-                    }
-                end
-            }
-        end
+                        -- Text object
+                        util.bufnr_map(bufnr, 'o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                        util.bufnr_map(bufnr, 'x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                    end
+                }
+            end,
+        }
 
         -- File types.
         use 'PProvost/vim-ps1' -- PowerShell syntax highlighting and folding.
@@ -107,14 +126,18 @@ return require('packer').startup {
         use 'tmhedberg/SimpylFold' -- Syntax folding for Python.
         use 'cespare/vim-toml' -- TOML syntax highlighting.
         -- Rust plugin.
-        use {'rust-lang/rust.vim', config = function()
-            vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
-            vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
-        end}
+        use {
+            'rust-lang/rust.vim',
+            config = function()
+                vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
+                vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
+            end,
+        }
         use 'leafgarland/typescript-vim' -- Typescript syntax highlighting.
         use 'jelera/vim-javascript-syntax' -- Javascript syntax highlighting.
         use 'ElmCast/elm-vim' -- Elm plugin.
 
+        -- Misc.
         use 'editorconfig/editorconfig-vim' -- .editorconfig support.
         use 'stefandtw/quickfix-reflector.vim' -- Edits in the quickfix window get reflected in the actual buffers.
     end,
