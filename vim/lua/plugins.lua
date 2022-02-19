@@ -121,21 +121,42 @@ return require('packer').startup {
         }
 
         -- File types.
-        use 'PProvost/vim-ps1' -- PowerShell syntax highlighting and folding.
-        use 'dag/vim-fish' -- Fish syntax highlighting etc.
-        use 'tmhedberg/SimpylFold' -- Syntax folding for Python.
-        use 'cespare/vim-toml' -- TOML syntax highlighting.
-        -- Rust plugin.
+        use {
+            'PProvost/vim-ps1',
+            ft = 'ps1',
+        }
+        use {
+            'dag/vim-fish',
+            ft = 'fish',
+        }
+        use {
+            'tmhedberg/SimpylFold',
+            ft = 'python',
+        }
+        use {
+            'cespare/vim-toml',
+            ft = 'toml',
+        }
         use {
             'rust-lang/rust.vim',
+            ft = 'rust',
             config = function()
                 vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
                 vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
             end,
         }
-        use 'leafgarland/typescript-vim' -- Typescript syntax highlighting.
-        use 'jelera/vim-javascript-syntax' -- Javascript syntax highlighting.
-        use 'ElmCast/elm-vim' -- Elm plugin.
+        use {
+            'leafgarland/typescript-vim',
+            ft = 'typescript',
+        }
+        use {
+            'jelera/vim-javascript-syntax',
+            ft = 'javascript',
+        }
+        use {
+            'ElmCast/elm-vim',
+            ft = 'elm',
+        }
 
         -- Misc.
         use 'editorconfig/editorconfig-vim' -- .editorconfig support.
