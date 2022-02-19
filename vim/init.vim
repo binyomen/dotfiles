@@ -356,6 +356,8 @@ augroup quickfix
     autocmd!
     autocmd filetype qf call QuickfixMapping()
 augroup END
+
+set path+=** " Search recursively by default.
 " }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
