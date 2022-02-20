@@ -33,37 +33,10 @@ noremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
 noremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
 " }}}
 " use <leader>t for <c-w> {{{
+nnoremap <leader>t <c-w>
 
-" Move between windows.
-nnoremap <leader>th <c-w>h
-nnoremap <leader>tj <c-w>j
-nnoremap <leader>tk <c-w>k
-nnoremap <leader>tl <c-w>l
-nnoremap <leader>tb <c-w>b
-nnoremap <leader>tt <c-w>t
-nnoremap <leader>tw <c-w>w
-nnoremap <leader>tW <c-w>W
-
-" Resize windows.
-nnoremap <leader>t= <c-w>=
-nnoremap <leader>t_ <c-w>_
-nnoremap <leader>t\| <c-w>\|
 nnoremap + <c-w>>
 nnoremap - <c-w><
-
-" Move windows.
-nnoremap <leader>tH <c-w>H
-nnoremap <leader>tJ <c-w>J
-nnoremap <leader>tK <c-w>K
-nnoremap <leader>tL <c-w>L
-nnoremap <leader>tr <c-w>r
-nnoremap <leader>tR <c-w>R
-
-" Open and close windows.
-nnoremap <leader>ts <c-w>s
-nnoremap <leader>tv <c-w>v
-nnoremap <leader>to <c-w>o
-nnoremap <leader>tc <c-w>c
 " }}}
 " use <leader>nn to clear search highlighting {{{
 noremap <leader>nn :nohlsearch<CR>
