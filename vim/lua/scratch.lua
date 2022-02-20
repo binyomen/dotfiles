@@ -36,6 +36,6 @@ vim.cmd [[
     augroup end
 ]]
 
-util.map('n', '<leader>sb', ':lua scratch.open_scratch_buffer()<cr>')
+util.map('n', '<leader>bs', ':lua scratch.open_scratch_buffer()<cr>')
 
 return M
