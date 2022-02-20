@@ -41,6 +41,7 @@ return require('packer').startup {
         use 'kana/vim-textobj-entire' -- Text object of the entire buffer.
         use 'kana/vim-textobj-indent' -- Text object of an indented block.
         use 'kana/vim-textobj-line' -- Text object of the current line.
+        use 'glts/vim-textobj-comment' -- Text object of a comment block.
 
         -- User interface stuff.
         -- The solarized color scheme for neovim.
