@@ -55,9 +55,16 @@ return require('packer').startup {
         use {
             'vim-airline/vim-airline',
             cond = not_firenvim,
+            requires = 'vim-airline/vim-airline-themes',
+            setup = function()
+                -- Use the fonts that give you the cool arrows in the status
+                -- line. This must be loaded in setup, since it seems we won't
+                -- actually use the powerline fonts if we set this after
+                -- vim-airline has been loaded.
+                vim.g.airline_powerline_fonts = 1
+            end,
             config = function()
                 vim.opt.laststatus = 2 -- Show the statusline all the time, rather than only when a split is created.
-                vim.g.airline_powerline_fonts = 1 -- Use the fonts that give you the cool arrows in the status line.
                 vim.opt.encoding = 'utf8' -- Make sure we're using the correct encoding for the symbols.
                 if vim.g.fvim_loaded then
                     vim.opt.guifont = 'Ubuntu Mono derivative Powerline:h18'
@@ -67,11 +74,6 @@ return require('packer').startup {
                 vim.g.airline_theme = 'dark' -- Set the airline theme to dark.
                 require('util').map('n', '<c-l>', ':AirlineRefresh<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
             end,
-        }
-        -- Themes for vim-airline.
-        use {
-            'vim-airline/vim-airline-themes',
-            cond = not_firenvim,
         }
 
         -- External integration.
