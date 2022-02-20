@@ -96,6 +96,12 @@ augroup terminal_nospell
     autocmd TermOpen * setlocal nospell
 augroup END
 " }}}
+" Briefly highlight text on yank. {{{
+augroup highlight_on_yank
+    autocmd!
+    autocmd TextYankPost * lua vim.highlight.on_yank {higroup = 'Search'}
+augroup end
+" }}}
 " }}}
 " filetype configuration {{{
 " .txt files {{{
