@@ -190,12 +190,14 @@ if executable("rg")
     set grepformat=%f:%l:%c:%m
 endif
 
-command! -nargs=+ Grep execute 'silent grep! <args>' | copen
+command! -nargs=0 COpen copen | normal! <c-w>J
+
+command! -nargs=+ Grep execute 'silent grep! <args>' | COpen
 
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
 
-nnoremap <leader>co :copen<cr>
+nnoremap <leader>co :COpen<cr>
 nnoremap <leader>cc :cclose<cr>
 
 function! QuickfixMapping()
