@@ -181,13 +181,13 @@ nnoremap ]q :cnext<cr>
 nnoremap <leader>co :COpen<cr>
 nnoremap <leader>cc :cclose<cr>
 
-function! QuickfixMapping()
+function! s:QuickfixMapping()
     nnoremap <buffer> K :cprev<cr>zz<c-w>w
     nnoremap <buffer> J :cnext<cr>zz<c-w>w
 endfunction
 augroup quickfix
     autocmd!
-    autocmd filetype qf call QuickfixMapping()
+    autocmd filetype qf call <sid>QuickfixMapping()
 augroup END
 
 set path+=** " Search recursively by default.
