@@ -37,6 +37,8 @@ nnoremap <leader>t <c-w>
 
 nnoremap + <c-w>>
 nnoremap - <c-w><
+nnoremap <c-=> <c-w>+
+nnoremap <c--> <c-w>-
 " }}}
 " use <leader>nn to clear search highlighting {{{
 noremap <leader>nn :nohlsearch<CR>
