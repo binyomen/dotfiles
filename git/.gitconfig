@@ -5,6 +5,7 @@
 [commit]
     verbose = true
 [core]
+    autocrlf = input
     excludesfile = ~/.gitignore
     attributesfile = ~/.gitattributes
     editor = nvim
