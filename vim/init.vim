@@ -151,10 +151,11 @@ augroup help_files
 augroup END
 " }}}
 " }}}
-" easy editing of vimrc file {{{
+" easy editing of configuration files {{{
 nnoremap <silent> <leader>ve :edit $MYVIMRC<cr>| " open .vimrc in new tab
-nnoremap <silent> <leader>vs :so $MYVIMRC<cr>| " resource .vimrc
+nnoremap <silent> <leader>vs :source $MYVIMRC<cr>| " resource .vimrc
 nnoremap <silent> <leader>vl :execute 'silent edit ' . stdpath('config') . '/lua/'<cr>| " open lua scripts directory
+nnoremap <silent> <leader>vp :execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>| " open plugin directory
 " }}}
 " color scheme {{{
 colorscheme NeoSolarized " set the color scheme to use NeoSolarized
@@ -230,8 +231,6 @@ set spell " always have spellchecking on
 function! FormatJson()
     %!python -m json.tool
 endfunc
-
-command! -nargs=0 Plugins execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'
 " }}}
 " editor configuration {{{
 " fvim {{{
