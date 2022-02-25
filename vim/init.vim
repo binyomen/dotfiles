@@ -225,6 +225,7 @@ set cursorline " highlight the current line
 set cursorcolumn " highlight the current column
 set nojoinspaces " don't add an extra space after a period for J and gq
 set spell " always have spellchecking on
+set fileformats=unix,dos " Set Unix line endings as the default.
 " }}}
 " errorformat {{{
 set errorformat=%[0-9]%\\+>%f(%l)\ :\ %m " build.exe errors
