@@ -1,6 +1,4 @@
--- Make this a global module so that we can call back into it from vim script.
-scratch = {}
-local M = scratch
+local M = {}
 
 local util = require 'util'
 
@@ -32,10 +30,10 @@ end
 vim.cmd [[
     augroup scratch_buffer
         autocmd!
-        autocmd BufNewFile __SCRATCH__ lua scratch.setup_scratch_buffer()
+        autocmd BufNewFile __SCRATCH__ lua require('scratch').setup_scratch_buffer()
     augroup end
 ]]
 
-util.map('n', '<leader>bs', ':lua scratch.open_scratch_buffer()<cr>')
+util.map('n', '<leader>bs', ':lua require("scratch").open_scratch_buffer()<cr>')
 
 return M
