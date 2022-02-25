@@ -160,43 +160,9 @@ nnoremap <silent> <leader>vp :execute 'silent edit ' . stdpath('data') . '/site/
 " color scheme {{{
 colorscheme NeoSolarized " set the color scheme to use NeoSolarized
 " }}}
-" search {{{
-set ignorecase " make search case insensitive
-set smartcase " ignore case if only lowercase characters used in search text
-set incsearch " show search results incrementally as you type
-set gdefault " always do global substitutions
 
-" search the file system using ripgrep
-if executable("rg")
-    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
-    set grepformat=%f:%l:%c:%m
-endif
+lua require 'search'
 
-command! -nargs=0 COpen copen | normal! <c-w>J
-
-command! -nargs=+ Grep execute 'silent grep! <args>' | COpen
-
-nnoremap [q :cprev<cr>
-nnoremap ]q :cnext<cr>
-
-nnoremap <leader>co :COpen<cr>
-nnoremap <leader>cc :cclose<cr>
-
-function! s:QuickfixMapping()
-    nnoremap <buffer> K :cprev<cr>zz<c-w>w
-    nnoremap <buffer> J :cnext<cr>zz<c-w>w
-endfunction
-augroup quickfix
-    autocmd!
-    autocmd filetype qf call <sid>QuickfixMapping()
-augroup END
-
-set path+=** " Search recursively by default.
-
-nnoremap <leader>/ :Grep<space>
-nnoremap <leader>8 :Grep -w <cword><cr>
-nnoremap <leader>f :find<space>
-" }}}
 " tabs {{{
 set expandtab " tabs are expanded to spaces
 set tabstop=4 " tabs count as 4 spaces
