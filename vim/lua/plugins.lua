@@ -26,17 +26,6 @@ return require('packer').startup {
         use 'tpope/vim-surround' -- Surround text in quotes, HTML tags, etc.
         use 'tpope/vim-repeat' -- Repeatable plugin actions.
         use 'inkarkat/vim-ReplaceWithRegister' -- Easy replacement without overwriting registers.
-        -- Easy copying/pasting to/from the system clipboard.
-        use {
-            'christoomey/vim-system-copy',
-            config = function()
-                if vim.fn.has('win32') then
-                    -- This is necessary to work on Windows, since uname isn't defined.
-                    vim.g['system_copy#copy_command'] = 'clip'
-                    vim.g['system_copy#paste_command'] = 'paste'
-                end
-            end,
-        }
         use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
         use 'kana/vim-textobj-entire' -- Text object of the entire buffer.
         use 'kana/vim-textobj-indent' -- Text object of an indented block.
