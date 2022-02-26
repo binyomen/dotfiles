@@ -286,5 +286,6 @@ endif
 " }}}
 " }}}
 
+lua require 'case'
 lua require 'clipboard'
 lua require 'scratch'
