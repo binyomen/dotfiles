@@ -15,7 +15,7 @@ end
 
 vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
 
-function M.Grep(args)
+function M.grep(args)
     -- Expand anything like wildcards or <cword>. This is important for storing
     -- in last_grep_args, and doing it here guarantees we pass the same
     -- arguments to grep as we store.
@@ -32,7 +32,7 @@ function M.Grep(args)
     vim.cmd('execute "silent grep! ' .. args .. '"')
     vim.cmd 'COpen'
 end
-vim.cmd 'command! -nargs=* Grep lua require("search").Grep("<args>")'
+vim.cmd 'command! -nargs=* Grep lua require("search").grep("<args>")'
 
 util.map('n', '[q', ':cprev<cr>')
 util.map('n', ']q', ':cnext<cr>')
