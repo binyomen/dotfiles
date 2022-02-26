@@ -21,23 +21,23 @@ local function is_visual_motion(motion)
         motion == VISUAL_BLOCK_MOTION
 end
 
-function M.copy(motion)
+local function do_normal_command(motion, normal_command)
     local command
     if motion == LINE_MOTION then
-        command = string.format(
-            'silent %d,%dy *',
-            vim.fn.line("'["),
-            vim.fn.line("']")
-        )
+        command = string.format("silent normal! '[V']%s", normal_command)
     elseif motion == CHAR_MOTION then
-        command = 'silent normal! `[v`]"*y'
+        command = string.format('silent normal! `[v`]%s', normal_command)
     elseif is_visual_motion(motion) then
-        command = string.format('silent normal! `<%s`>"*y', motion)
+        command = string.format('silent normal! `<%s`>%s', motion, normal_command)
     else
         error(string.format('Invalid motion: %s', motion))
     end
 
     vim.cmd(command)
+end
+
+function M.copy(motion)
+    do_normal_command(motion, '"*y')
 end
 
 vim.cmd [[
@@ -47,25 +47,7 @@ vim.cmd [[
 ]]
 
 function M.paste(motion)
-    local command
-    if motion == LINE_MOTION then
-        -- First delete the lines.
-        vim.cmd(string.format(
-            'silent %d,%dd',
-            vim.fn.line("'["),
-            vim.fn.line("']")
-        ))
-
-        command = 'normal! "*P'
-    elseif motion == CHAR_MOTION then
-        command = 'normal! `[v`]"*p'
-    elseif is_visual_motion(motion) then
-        command = string.format('normal! `<%s`>"*p', motion)
-    else
-        error(string.format('Invalid motion: %s', motion))
-    end
-
-    vim.cmd(command)
+    do_normal_command(motion, '"*p')
 end
 
 vim.cmd [[
