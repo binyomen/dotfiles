@@ -21,10 +21,8 @@ function M.open_scratch_buffer()
         vim.api.nvim_buf_set_name(buf, SCRATCH_BUFFER_NAME)
     end
 
-    -- The scratch buffer now exists. Switch to it. We need to use `edit`
-    -- rather than `buffer` because with buffer, the 'buflisted' option won't
-    -- be set.
-    vim.cmd(string.format('edit #%d', buf))
+    -- The scratch buffer now exists. Switch to it.
+    vim.cmd(string.format('buffer %d', buf))
 end
 
 util.map('n', '<leader>bs', ':lua require("scratch").open_scratch_buffer()<cr>')
