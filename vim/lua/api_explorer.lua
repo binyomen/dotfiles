@@ -1,5 +1,9 @@
 local M = {}
 
+local util = require 'util'
+
+local win
+local buf
 local current_obj = _G
 
 local function value_to_string(value)
@@ -20,7 +24,7 @@ local function create_line(o, max_key_length)
     return string.format('%s%s = %s', o.key, spaces, value_to_string(o.value))
 end
 
-local function draw(buf)
+local function draw()
     -- Temporarily allow us to modify the buffer.
     vim.api.nvim_buf_set_option(buf, 'modifiable', true)
 
@@ -45,11 +49,27 @@ local function draw(buf)
     vim.api.nvim_buf_set_option(buf, 'modifiable', false)
 end
 
+local function set_mappings()
+    local mappings = {
+        q = 'close()',
+        ['<cr>'] = 'nav_to()',
+    }
+
+    for lhs, rhs in pairs(mappings) do
+        util.bufnr_map(
+            buf,
+            'n',
+            lhs,
+            ':lua require("api_explorer").' .. rhs .. '<cr>',
+            {nowait = true})
+    end
+end
+
 function M.open()
     vim.cmd 'vnew'
-    local win = vim.api.nvim_get_current_win()
+    win = vim.api.nvim_get_current_win()
 
-    local buf = vim.api.nvim_create_buf(false --[[listed]], true --[[scratch]])
+    buf = vim.api.nvim_create_buf(false --[[listed]], true --[[scratch]])
     vim.api.nvim_win_set_buf(win, buf)
 
     vim.api.nvim_buf_set_name(buf, string.format('Api Explorer [%d]', buf))
@@ -61,9 +81,34 @@ function M.open()
     vim.api.nvim_win_set_option(win, 'spell', false)
     vim.api.nvim_win_set_option(win, 'wrap', false)
 
-    draw(buf)
+    draw()
 
     vim.cmd(string.format('buffer %d', buf))
+
+    set_mappings()
+end
+
+function M.close()
+    if win and vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true --[[force]])
+    end
+end
+
+function M.nav_to()
+    local line = vim.api.nvim_get_current_line()
+
+    local key = ''
+    for i = 1,line:len() do
+        local c = line:sub(i, i)
+        if c == ' ' then
+            break
+        else
+            key = key .. c
+        end
+    end
+
+    current_obj = current_obj[key]
+    draw()
 end
 
 vim.cmd 'command! -nargs=0 ApiExplorer lua require("api_explorer").open()'
