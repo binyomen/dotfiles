@@ -74,6 +74,9 @@ function! s:toggle_c() abort
 endfunction
 nnoremap <leader>ch :call <sid>toggle_c()<cr>
 " }}}
+" search help for word under cursor {{{
+nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
