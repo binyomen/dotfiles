@@ -40,9 +40,6 @@ nnoremap - <c-w><
 nnoremap <c-=> <c-w>+
 nnoremap <c--> <c-w>-
 " }}}
-" use <leader>nn to clear search highlighting {{{
-noremap <leader>nn :nohlsearch<CR>
-" }}}
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
 " }}}

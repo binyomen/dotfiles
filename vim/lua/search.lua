@@ -6,6 +6,7 @@ vim.opt.ignorecase = true -- Make search case insensitive.
 vim.opt.smartcase = true -- Ignore case if only lowercase characters are used in search text.
 vim.opt.incsearch = true -- Show search results incrementally as you type.
 vim.opt.gdefault = true -- Always do global substitutions.
+vim.opt.hlsearch = false -- Don't highlight searches by default.
 
 -- Search the file system using ripgrep.
 if vim.fn.executable('rg') then
@@ -50,6 +51,13 @@ vim.cmd [[
         autocmd!
         autocmd filetype qf call <sid>QuickfixMapping()
     augroup end
+
+    " Only highlight searches while actually typing the search.
+    augroup search_highlight
+        autocmd!
+        autocmd CmdlineEnter /,\? :set hlsearch
+        autocmd CmdlineLeave /,\? :set nohlsearch
+    augroup end
 ]]
 
 vim.opt.path:append('**') -- Search recursively by default.
@@ -58,5 +66,8 @@ util.map('n', '<leader>/', ':Grep ', {silent = false})
 util.map('n', '<leader><leader>/', ':Grep<cr>')
 util.map('n', '<leader>8', ':Grep -w <cword><cr>')
 util.map('n', '<leader>f', ':find ', {silent = false})
+
+-- Toggle search highlighting.
+util.map('n', '<leader>sh', ':set hlsearch!<cr>')
 
 return M
