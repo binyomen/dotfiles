@@ -289,6 +289,7 @@ endif
 " }}}
 " }}}
 
+lua require 'api_explorer'
 lua require 'case'
 lua require 'clipboard'
 lua require 'scratch'
