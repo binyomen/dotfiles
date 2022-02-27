@@ -2,13 +2,41 @@ local M = {}
 
 local current_obj = _G
 
+local function value_to_string(value)
+    local t = type(value)
+    if t == 'string' then
+        return string.format('%q', value)
+    elseif t == 'number' then
+        return string.format('%g', value)
+    elseif t == 'function' or t == 'table' then
+        return string.format('<%s>', value)
+    else
+        error(string.format('Unsupported type: %s', t))
+    end
+end
+
+local function create_line(o, max_key_length)
+    local spaces = string.rep(' ', max_key_length - o.key:len())
+    return string.format('%s%s = %s', o.key, spaces, value_to_string(o.value))
+end
+
 local function draw(buf)
     -- Temporarily allow us to modify the buffer.
     vim.api.nvim_buf_set_option(buf, 'modifiable', true)
 
-    local lines = {}
+    -- Get a list of fields sorted by key.
+    local max_key_length = 0
+    local sorted_lines = {}
     for key, value in pairs(current_obj) do
-        table.insert(lines, key)
+        max_key_length = math.max(max_key_length, key:len())
+        table.insert(sorted_lines, {key = key, value = value})
+    end
+    table.sort(sorted_lines, function(a, b) return a.key < b.key end)
+
+    -- Generate a line for each field.
+    local lines = {}
+    for _, o in ipairs(sorted_lines) do
+        table.insert(lines, create_line(o, max_key_length))
     end
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, true --[[strict_indexing]], lines)
