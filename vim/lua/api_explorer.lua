@@ -35,8 +35,12 @@ local function value_to_string(value)
         return string.format('%q', value)
     elseif t == 'number' then
         return string.format('%g', value)
+    elseif t == 'boolean' then
+        return string.format('%s', value)
     elseif t == 'function' or t == 'table' then
         return string.format('<%s>', value)
+    elseif t == 'userdata' then
+        return string.format('%s (userdata)', value)
     else
         error(string.format('Unsupported type: %s', t))
     end
@@ -45,6 +49,18 @@ end
 local function create_line(o, max_key_length)
     local spaces = string.rep(' ', max_key_length - o.key_string:len())
     return string.format('%s%s = %s', o.key_string, spaces, value_to_string(o.value))
+end
+
+local function search_help(key)
+    if type(key) == 'string' then
+        local result, msg = pcall(function() vim.cmd(string.format('help %s', key)) end)
+        if not result then
+            local msg = msg:gsub('^.+:[0-9]+: Vim%(help%):', '')
+            vim.api.nvim_err_writeln(msg)
+        end
+    else
+        vim.api.nvim_err_writeln(string.format('No help for item: %s', key))
+    end
 end
 
 local function render(instance)
@@ -132,10 +148,16 @@ function M.nav_to()
     local instance = query_instance()
 
     local line_number = vim.api.nvim_win_get_cursor(instance.win)[1]
-
     local key = instance.lines[line_number].key
-    instance.current_table = instance.current_table[key]
-    render(instance)
+
+    local child = instance.current_table[key]
+    if type(child) == 'table' then
+        instance.current_table = child
+        instance.lines = {}
+        render(instance)
+    else
+        search_help(key)
+    end
 end
 
 vim.cmd 'command! -nargs=0 ApiExplorer lua require("api_explorer").open()'
