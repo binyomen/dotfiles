@@ -5,7 +5,13 @@ local util = require 'util'
 local instances = {}
 
 local function create_instance(win, buf)
-    local instance = {win = win, buf = buf, current_table = _G}
+    local instance = {
+        win = win,
+        buf = buf,
+        current_table = _G,
+        lines = {},
+    }
+
     instances[win] = instance
     return instance
 end
@@ -37,7 +43,7 @@ local function create_line(o, max_key_length)
     return string.format('%s%s = %s', o.key, spaces, value_to_string(o.value))
 end
 
-local function draw(instance)
+local function render(instance)
     -- Temporarily allow us to modify the buffer.
     vim.api.nvim_buf_set_option(instance.buf, 'modifiable', true)
 
@@ -54,6 +60,7 @@ local function draw(instance)
     local lines = {}
     for _, o in ipairs(sorted_lines) do
         table.insert(lines, create_line(o, max_key_length))
+        table.insert(instance.lines, o)
     end
 
     vim.api.nvim_buf_set_lines(instance.buf, 0, -1, true --[[strict_indexing]], lines)
@@ -96,7 +103,7 @@ function M.open()
 
     local instance = create_instance(win, buf)
 
-    draw(instance)
+    render(instance)
 
     vim.cmd(string.format('buffer %d', buf))
 
@@ -117,21 +124,13 @@ function M.close(win)
 end
 
 function M.nav_to()
-    local line = vim.api.nvim_get_current_line()
-
-    local key = ''
-    for i = 1,line:len() do
-        local c = line:sub(i, i)
-        if c == ' ' then
-            break
-        else
-            key = key .. c
-        end
-    end
-
     local instance = query_instance()
+
+    local line_number = vim.api.nvim_win_get_cursor(instance.win)[1]
+
+    local key = instance.lines[line_number].key
     instance.current_table = instance.current_table[key]
-    draw(instance)
+    render(instance)
 end
 
 vim.cmd 'command! -nargs=0 ApiExplorer lua require("api_explorer").open()'
