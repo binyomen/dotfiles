@@ -8,12 +8,20 @@ local function create_instance(win, buf)
     local instance = {
         win = win,
         buf = buf,
-        current_table = _G,
+        node = {name = '_G', tabl = _G, parent = nil},
         lines = {},
     }
 
     instances[win] = instance
     return instance
+end
+
+local function create_child_node(parent, name, tabl)
+    return {
+        name = string.format('%s.%s', parent.name, name),
+        tabl = tabl,
+        parent = parent,
+    }
 end
 
 local function query_instance(win)
@@ -67,18 +75,36 @@ local function render(instance)
     -- Temporarily allow us to modify the buffer.
     vim.api.nvim_buf_set_option(instance.buf, 'modifiable', true)
 
+    local node = instance.node
+
     -- Get a list of fields sorted by key.
     local max_key_length = 0
     local sorted_lines = {}
-    for key, value in pairs(instance.current_table) do
+    for key, value in pairs(node.tabl) do
         local key_string = key_to_string(key)
         max_key_length = math.max(max_key_length, key_string:len())
         table.insert(sorted_lines, {key = key, value = value, key_string = key_string})
     end
     table.sort(sorted_lines, function(a, b) return a.key_string < b.key_string end)
 
-    -- Generate a line for each field.
     local lines = {}
+    instance.lines = {}
+
+    -- First display the name of the current table.
+    table.insert(lines, string.format('=== %s ===', node.name))
+    table.insert(instance.lines, {ignore = true})
+
+    if node.parent ~= nil then
+        -- Then create the line for navigating up a level.
+        table.insert(lines, string.format('🠕 [%s]', node.parent.name))
+        table.insert(instance.lines, {up = node.parent.tabl})
+    end
+
+    -- Finally create a blank line.
+    table.insert(lines, '')
+    table.insert(instance.lines, {ignore = true})
+
+    -- Generate a line for each field.
     for _, o in ipairs(sorted_lines) do
         table.insert(lines, create_line(o, max_key_length))
         table.insert(instance.lines, {key = o.key, value = o.value})
@@ -151,15 +177,22 @@ function M.nav_to()
     local instance = query_instance()
 
     local line_number = vim.api.nvim_win_get_cursor(instance.win)[1]
-    local key = instance.lines[line_number].key
+    local line = instance.lines[line_number]
 
-    local child = instance.current_table[key]
-    if type(child) == 'table' then
-        instance.current_table = child
-        instance.lines = {}
+    if line.ignore then
+        return
+    elseif line.up then
+        instance.node = instance.node.parent
         render(instance)
     else
-        search_help(key)
+        local key = line.key
+        local child_tbl = instance.node.tabl[key]
+        if type(child_tbl) == 'table' then
+            instance.node = create_child_node(instance.node, key, child_tbl)
+            render(instance)
+        else
+            search_help(key)
+        end
     end
 end
 
