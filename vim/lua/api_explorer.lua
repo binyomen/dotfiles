@@ -25,6 +25,10 @@ local function clear_instance(instance)
     instances[instance.win] = nil
 end
 
+local function key_to_string(key)
+    return tostring(key)
+end
+
 local function value_to_string(value)
     local t = type(value)
     if t == 'string' then
@@ -39,8 +43,8 @@ local function value_to_string(value)
 end
 
 local function create_line(o, max_key_length)
-    local spaces = string.rep(' ', max_key_length - o.key:len())
-    return string.format('%s%s = %s', o.key, spaces, value_to_string(o.value))
+    local spaces = string.rep(' ', max_key_length - o.key_string:len())
+    return string.format('%s%s = %s', o.key_string, spaces, value_to_string(o.value))
 end
 
 local function render(instance)
@@ -51,16 +55,17 @@ local function render(instance)
     local max_key_length = 0
     local sorted_lines = {}
     for key, value in pairs(instance.current_table) do
-        max_key_length = math.max(max_key_length, key:len())
-        table.insert(sorted_lines, {key = key, value = value})
+        local key_string = key_to_string(key)
+        max_key_length = math.max(max_key_length, key_string:len())
+        table.insert(sorted_lines, {key = key, value = value, key_string = key_string})
     end
-    table.sort(sorted_lines, function(a, b) return a.key < b.key end)
+    table.sort(sorted_lines, function(a, b) return a.key_string < b.key_string end)
 
     -- Generate a line for each field.
     local lines = {}
     for _, o in ipairs(sorted_lines) do
         table.insert(lines, create_line(o, max_key_length))
-        table.insert(instance.lines, o)
+        table.insert(instance.lines, {key = o.key, value = o.value})
     end
 
     vim.api.nvim_buf_set_lines(instance.buf, 0, -1, true --[[strict_indexing]], lines)
