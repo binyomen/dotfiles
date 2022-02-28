@@ -86,6 +86,9 @@ local function render(instance)
 
     vim.api.nvim_buf_set_lines(instance.buf, 0, -1, true --[[strict_indexing]], lines)
 
+    -- Set the cursor to the top of the buffer.
+    vim.api.nvim_win_set_cursor(instance.win, {1, 0})
+
     -- Make the buffer non-modifiable again.
     vim.api.nvim_buf_set_option(instance.buf, 'modifiable', false)
 end
