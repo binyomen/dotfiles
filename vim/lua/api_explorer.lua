@@ -8,7 +8,12 @@ local function create_instance(win, buf)
     local instance = {
         win = win,
         buf = buf,
-        node = {name = '_G', tabl = _G, parent = nil},
+        node = {
+            name = '_G',
+            tabl = _G,
+            parent = nil,
+            cursor = {1, 0},
+        },
         lines = {},
     }
 
@@ -21,6 +26,7 @@ local function create_child_node(parent, name, tabl)
         name = string.format('%s.%s', parent.name, name),
         tabl = tabl,
         parent = parent,
+        cursor = {1, 0},
     }
 end
 
@@ -112,8 +118,8 @@ local function render(instance)
 
     vim.api.nvim_buf_set_lines(instance.buf, 0, -1, true --[[strict_indexing]], lines)
 
-    -- Set the cursor to the top of the buffer.
-    vim.api.nvim_win_set_cursor(instance.win, {1, 0})
+    -- Set the cursor to its last position in the node.
+    vim.api.nvim_win_set_cursor(instance.win, instance.node.cursor)
 
     -- Make the buffer non-modifiable again.
     vim.api.nvim_buf_set_option(instance.buf, 'modifiable', false)
@@ -177,8 +183,8 @@ end
 function M.nav_to()
     local instance = query_instance()
 
-    local line_number = vim.api.nvim_win_get_cursor(instance.win)[1]
-    local line = instance.lines[line_number]
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
 
     if line.ignore then
         return
@@ -188,6 +194,7 @@ function M.nav_to()
         local key = line.key
         local child_tbl = instance.node.tabl[key]
         if type(child_tbl) == 'table' then
+            instance.node.cursor = cursor
             instance.node = create_child_node(instance.node, key, child_tbl)
             render(instance)
         else
