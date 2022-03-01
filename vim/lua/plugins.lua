@@ -65,6 +65,9 @@ return require('packer').startup {
                 vim.g['airline#extensions#tabline#enabled'] = 1
                 vim.g['airline#extensions#tabline#fnamemod'] = ':t'
                 vim.g['airline#extensions#tabline#show_close_button'] = 0
+                vim.g['airline#extensions#tabline#buffer_nr_show'] = 1
+                vim.g['airline#extensions#tabline#buffer_nr_format'] = '%s '
+                vim.g.airline_theme = 'solarized'
                 require('util').map('n', '<c-l>', ':AirlineRefresh<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
             end,
         }
