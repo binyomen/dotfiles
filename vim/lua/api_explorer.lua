@@ -143,7 +143,7 @@ local function set_mappings(buf)
 end
 
 function M.open()
-    vim.cmd 'vnew'
+    vim.cmd 'vertical split'
     local win = vim.api.nvim_get_current_win()
 
     local buf = vim.api.nvim_create_buf(false --[[listed]], true --[[scratch]])
