@@ -58,8 +58,6 @@ return require('packer').startup {
                 vim.opt.encoding = 'utf8' -- Make sure we're using the correct encoding for the symbols.
                 if vim.g.fvim_loaded then
                     vim.opt.guifont = 'Ubuntu Mono derivative Powerline:h18'
-                else
-                    vim.opt.guifont = 'Ubuntu_Mono_derivative_Powerlin:h14'
                 end
                 vim.g.airline_theme = 'dark'
                 vim.g['airline#extensions#tabline#enabled'] = 1
@@ -69,6 +67,9 @@ return require('packer').startup {
                 vim.g['airline#extensions#tabline#buffer_nr_format'] = '%s '
                 vim.g.airline_theme = 'solarized'
                 require('util').map('n', '<c-l>', ':AirlineRefresh<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
+
+                -- Carry out more configuration in this separate module.
+                require 'airline'
             end,
         }
 
