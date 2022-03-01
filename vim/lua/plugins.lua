@@ -39,6 +39,7 @@ return require('packer').startup {
             config = function()
                 vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI.
                 vim.opt.background = 'dark' -- Use the dark background theme for NeoSolarized.
+                vim.g.neosolarized_contrast = 'high'
             end,
         }
         -- A statusline plugin.
