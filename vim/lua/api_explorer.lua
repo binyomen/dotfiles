@@ -10,7 +10,7 @@ local function create_instance(win, buf)
         buf = buf,
         node = {
             name = '_G',
-            tabl = _G,
+            tbl = _G,
             parent = nil,
             cursor = {1, 0},
         },
@@ -21,10 +21,10 @@ local function create_instance(win, buf)
     return instance
 end
 
-local function create_child_node(parent, name, tabl)
+local function create_child_node(parent, name, tbl)
     return {
         name = string.format('%s.%s', parent.name, name),
-        tabl = tabl,
+        tbl = tbl,
         parent = parent,
         cursor = {1, 0},
     }
@@ -86,7 +86,7 @@ local function render(instance)
     -- Get a list of fields sorted by key.
     local max_key_length = 0
     local sorted_lines = {}
-    for key, value in pairs(node.tabl) do
+    for key, value in pairs(node.tbl) do
         local key_string = key_to_string(key)
         max_key_length = math.max(max_key_length, key_string:len())
         table.insert(sorted_lines, {key = key, value = value, key_string = key_string})
@@ -103,7 +103,7 @@ local function render(instance)
     if node.parent ~= nil then
         -- Then create the line for navigating up a level.
         table.insert(lines, string.format('🠕 [%s]', node.parent.name))
-        table.insert(instance.lines, {up = node.parent.tabl})
+        table.insert(instance.lines, {up = node.parent.tbl})
     end
 
     -- Finally create a blank line.
@@ -192,7 +192,7 @@ function M.nav_to()
         M.nav_up(instance)
     else
         local key = line.key
-        local child_tbl = instance.node.tabl[key]
+        local child_tbl = instance.node.tbl[key]
         if type(child_tbl) == 'table' then
             instance.node.cursor = cursor
             instance.node = create_child_node(instance.node, key, child_tbl)
