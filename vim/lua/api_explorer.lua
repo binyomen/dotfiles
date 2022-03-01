@@ -123,6 +123,7 @@ local function set_mappings(buf)
     local mappings = {
         q = 'close()',
         ['<cr>'] = 'nav_to()',
+        ['u'] = 'nav_up()',
     }
 
     for lhs, rhs in pairs(mappings) do
@@ -182,8 +183,7 @@ function M.nav_to()
     if line.ignore then
         return
     elseif line.up then
-        instance.node = instance.node.parent
-        render(instance)
+        M.nav_up(instance)
     else
         local key = line.key
         local child_tbl = instance.node.tabl[key]
@@ -193,6 +193,16 @@ function M.nav_to()
         else
             search_help(key)
         end
+    end
+end
+
+function M.nav_up(instance)
+    local instance = instance or query_instance()
+    if instance.node.parent == nil then
+        vim.api.nvim_err_writeln('Already at top level.')
+    else
+        instance.node = instance.node.parent
+        render(instance)
     end
 end
 
