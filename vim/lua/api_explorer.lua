@@ -108,10 +108,17 @@ local function render(instance)
     table.insert(lines, string.format('=== %s ===', node.name))
     table.insert(instance.lines, {ignore = true})
 
+    -- Then create the line for navigating up a level.
     if node.parent ~= nil then
-        -- Then create the line for navigating up a level.
         table.insert(lines, string.format('🠕 [%s]', node.parent.name))
-        table.insert(instance.lines, {up = node.parent.tbl})
+        table.insert(instance.lines, {up = true})
+    end
+
+    -- Next display the metatable if available.
+    local node_metatable = getmetatable(node.tbl)
+    if node_metatable and not vim.tbl_isempty(node_metatable) then
+        table.insert(lines, '{{metatable}}')
+        table.insert(instance.lines, {metatable = true})
     end
 
     -- Finally create a blank line.
@@ -188,6 +195,12 @@ function M.close(win)
     end
 end
 
+local function nav_down(instance, child_name, child_tbl)
+    instance.node.cursor = vim.api.nvim_win_get_cursor(instance.win)
+    instance.node = create_child_node(instance.node, child_name, child_tbl)
+    render(instance)
+end
+
 function M.nav_to()
     local instance = query_instance()
 
@@ -198,13 +211,13 @@ function M.nav_to()
         return
     elseif line.up then
         M.nav_up(instance)
+    elseif line.metatable then
+        nav_down(instance, '{{metatable}}', getmetatable(instance.node.tbl))
     else
         local key = line.key
         local child_tbl = instance.node.tbl[key]
         if type(child_tbl) == 'table' then
-            instance.node.cursor = cursor
-            instance.node = create_child_node(instance.node, key, child_tbl)
-            render(instance)
+            nav_down(instance, key, child_tbl)
         else
             search_help(key)
         end
