@@ -39,25 +39,33 @@ local function clear_instance(instance)
     instances[instance.win] = nil
 end
 
+local function escape(s)
+    return s:gsub('\n', '\\n')
+end
+
 local function key_to_string(key)
-    return tostring(key)
+    return escape(tostring(key))
 end
 
 local function value_to_string(value)
     local t = type(value)
+
+    local s
     if t == 'string' then
-        return string.format('%q', value)
+        s = string.format('%q', value)
     elseif t == 'number' then
-        return string.format('%g', value)
+        s = string.format('%g', value)
     elseif t == 'boolean' then
-        return string.format('%s', value)
+        s = string.format('%s', value)
     elseif t == 'function' or t == 'table' then
-        return string.format('<%s>', value)
+        s = string.format('<%s>', value)
     elseif t == 'userdata' then
-        return string.format('%s (userdata)', value)
+        s = string.format('%s (userdata)', value)
     else
         error(string.format('Unsupported type: %s', t))
     end
+
+    return escape(s)
 end
 
 local function create_line(o, max_key_length)
