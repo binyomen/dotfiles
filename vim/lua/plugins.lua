@@ -67,12 +67,18 @@ return require('packer').startup {
                 vim.g['airline#extensions#tabline#buffer_nr_show'] = 1
                 vim.g['airline#extensions#tabline#buffer_nr_format'] = '%s '
                 vim.g.airline_theme = 'solarized'
-                require('util').map('n', '<c-l>', ':AirlineRefresh<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
+                require('util').map('n', '<c-l>', ':lua require("util").refresh_airline()<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
 
                 -- Carry out more configuration in this separate module.
                 require 'airline'
             end,
         }
+        use 'morhetz/gruvbox'
+        use 'tomasr/molokai'
+        use 'joshdick/onedark.vim'
+        use 'NLKNguyen/papercolor-theme'
+        use 'arcticicestudio/nord-vim'
+        use 'cocopon/iceberg.vim'
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.

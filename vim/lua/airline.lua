@@ -31,12 +31,7 @@ local function apply_style(style)
     vim.cmd(string.format('let g:airline_right_sep = "%s"', right_sep))
     vim.cmd(string.format('let g:airline_right_alt_sep = "%s"', right_alt_sep))
 
-
-    -- We need to call a bunch of extra commands to properly refresh the
-    -- statusline and tabline.
-    vim.cmd [[AirlineRefresh]]
-    vim.fn['airline#util#doautocmd']('BufMRUChange')
-    vim.fn['airline#extensions#tabline#redraw']()
+    util.refresh_airline()
 end
 
 function M.next_style()
