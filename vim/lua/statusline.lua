@@ -37,32 +37,178 @@ local mode_names = {
     t = 'terminal',
 }
 
-local function mode_name()
+local normal_colors = {
+    base = '%#StatusLine#',
+    mode = '%#Normal#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local operator_pending_colors = {
+    base = '%#StatusLine#',
+    mode = '%#Statement#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local visual_colors = {
+    base = '%#StatusLine#',
+    mode = '%#Search#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local select_colors = {
+    base = '%#StatusLine#',
+    mode = '%#IncSearch#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local insert_colors = {
+    base = '%#StatusLine#',
+    mode = '%#MoreMsg#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local replace_colors = {
+    base = '%#StatusLine#',
+    mode = '%#ErrorMsg#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local command_colors = {
+    base = '%#StatusLine#',
+    mode = '%#Question#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local terminal_colors = {
+    base = '%#StatusLine#',
+    mode = '%#Type#',
+    file = '%#Todo#',
+    file_type = '%#Directory#',
+    encoding = '%#Constant#',
+    file_info = '%#Identifier#',
+
+    tabline_active = '%#TabLineSel#',
+    tabline_inactive = '%#TabLine#',
+    tabline_fill = '%#TabLineFill#',
+}
+
+local mode_colors = {
+    n = normal_colors,
+    no = operator_pending_colors,
+    nov = operator_pending_colors,
+    noV = operator_pending_colors,
+    ['no'] = operator_pending_colors,
+    niI = normal_colors,
+    niR = normal_colors,
+    niV = normal_colors,
+    nt = normal_colors,
+    v = visual_colors,
+    vs = visual_colors,
+    V = visual_colors,
+    Vs = visual_colors,
+    [''] = visual_colors,
+    ['s'] = visual_colors,
+    s = select_colors,
+    S = select_colors,
+    [''] = select_colors,
+    i = insert_colors,
+    ic = insert_colors,
+    ix = insert_colors,
+    R = replace_colors,
+    Rc = replace_colors,
+    Rx = replace_colors,
+    Rv = replace_colors,
+    Rvc = replace_colors,
+    Rvx = replace_colors,
+    c = command_colors,
+    cv = command_colors,
+    r = command_colors,
+    rm = command_colors,
+    ['r?'] = command_colors,
+    ['!'] = command_colors,
+    t = terminal_colors,
+}
+
+local function get_colors()
     local mode = vim.api.nvim_get_mode().mode
-    return mode_names[mode]
+    return mode_colors[mode]
 end
 
-local function file_path()
-    return ' %f'
+local function mode_name(colors)
+    local mode = vim.api.nvim_get_mode().mode
+    return string.format('%s %s ', colors.mode, mode_names[mode])
 end
 
-local function flags()
-    return ' %m%r%h%w'
+local function file_path(colors)
+    return string.format('%s %%f ', colors.file)
 end
 
-local function file_type()
-    return '%y'
+local function flags(colors)
+    return string.format('%s %%m%%r%%h%%w ', colors.file)
 end
 
-local function encoding()
+local function file_type(colors)
+    return string.format('%s %%y ', colors.file_type)
+end
+
+local function encoding(colors)
     local encoding = vim.opt.fileencoding:get()
     local line_endings = vim.opt.fileformat:get()
 
-    return string.format(' %s[%s]', encoding, line_endings)
+    return string.format('%s %s[%s] ', colors.encoding, encoding, line_endings)
 end
 
-local function file_info()
-    return ' %P %l/%L col: %c'
+local function file_info(colors)
+    return string.format('%s %%P %%l/%%L col: %%c ', colors.file_info)
 end
 
 local function absolute_path_to_file_name(path)
@@ -70,19 +216,20 @@ local function absolute_path_to_file_name(path)
 end
 
 function M.active_statusline()
+    local colors = get_colors()
     return table.concat {
-        mode_name(),
-        file_path(),
-        flags(),
+        mode_name(colors),
+        file_path(colors),
+        flags(colors),
         '%=',
-        file_type(),
-        encoding(),
-        file_info(),
+        file_type(colors),
+        encoding(colors),
+        file_info(colors),
     }
 end
 
 function M.inactive_statusline()
-    return '%F'
+    return '%#StatusLineNC# %F '
 end
 
 local function render_buffers()
@@ -95,14 +242,15 @@ local function render_buffers()
     table.sort(bufs)
 
     local active_buf = vim.api.nvim_get_current_buf()
+    local colors = get_colors()
 
     local tabline = {}
     for _, buf in ipairs(bufs) do
         -- Choose the tab's highlighting.
         if buf == active_buf then
-            table.insert(tabline, '%#TabLineSel#')
+            table.insert(tabline, colors.tabline_active)
         else
-            table.insert(tabline, '%#TabLine#')
+            table.insert(tabline, colors.tabline_inactive)
         end
 
         -- Start the actual tab.
@@ -117,7 +265,7 @@ local function render_buffers()
     end
 
     -- Fill out the empty space in the tabline.
-    table.insert(tabline, '%#TabLineFill#%T')
+    table.insert(tabline, colors.tabline_fill)
 
     return table.concat(tabline)
 end
@@ -129,9 +277,9 @@ local function render_tabs()
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
         -- Choose the tab's highlighting.
         if tab == active_tab then
-            table.insert(tabline, '%#TabLineSel#')
+            table.insert(tabline, colors.tabline_active)
         else
-            table.insert(tabline, '%#TabLine#')
+            table.insert(tabline, colors.tabline_inactive)
         end
 
         -- Start the actual tab.
@@ -148,7 +296,7 @@ local function render_tabs()
     end
 
     -- Fill out the empty space in the tabline.
-    table.insert(tabline, '%#TabLineFill#%T')
+    table.insert(tabline, colors.tabline_fill)
 
     return table.concat(tabline)
 end
