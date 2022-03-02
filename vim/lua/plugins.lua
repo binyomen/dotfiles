@@ -33,44 +33,12 @@ return require('packer').startup {
         use 'glts/vim-textobj-comment' -- Text object of a comment block.
 
         -- User interface stuff.
-        -- The solarized color scheme for neovim.
         use {
             'iCyMind/NeoSolarized',
             config = function()
                 vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI.
                 vim.opt.background = 'dark' -- Use the dark background theme for NeoSolarized.
                 vim.g.neosolarized_contrast = 'high'
-            end,
-        }
-        -- A statusline plugin.
-        use {
-            'vim-airline/vim-airline',
-            cond = not_firenvim,
-            requires = 'vim-airline/vim-airline-themes',
-            setup = function()
-                -- Use the fonts that give you the cool arrows in the status
-                -- line. This must be loaded in setup, since it seems we won't
-                -- actually use the powerline fonts if we set this after
-                -- vim-airline has been loaded.
-                vim.g.airline_powerline_fonts = 1
-            end,
-            config = function()
-                vim.opt.laststatus = 2 -- Show the statusline all the time, rather than only when a split is created.
-                vim.opt.encoding = 'utf8' -- Make sure we're using the correct encoding for the symbols.
-                if vim.g.fvim_loaded then
-                    vim.opt.guifont = 'Ubuntu Mono derivative Powerline:h18'
-                end
-                vim.g.airline_theme = 'dark'
-                vim.g['airline#extensions#tabline#enabled'] = 1
-                vim.g['airline#extensions#tabline#fnamemod'] = ':t'
-                vim.g['airline#extensions#tabline#show_close_button'] = 0
-                vim.g['airline#extensions#tabline#buffer_nr_show'] = 1
-                vim.g['airline#extensions#tabline#buffer_nr_format'] = '%s '
-                vim.g.airline_theme = 'solarized'
-                require('util').map('n', '<c-l>', ':lua require("util").refresh_airline()<cr><c-l>') -- Refresh vim-airline when Ctrl+L is pressed in addition to the display.
-
-                -- Carry out more configuration in this separate module.
-                require 'airline'
             end,
         }
         use 'morhetz/gruvbox'
