@@ -259,7 +259,6 @@ local function render_buffers()
             table.insert(bufs, buf)
         end
     end
-    table.sort(bufs)
 
     local active_buf = vim.api.nvim_get_current_buf()
     local colors = get_colors()
