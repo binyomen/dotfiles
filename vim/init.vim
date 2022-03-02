@@ -208,6 +208,8 @@ set errorformat+=%-G%.%#
 function! FormatJson()
     %!python -m json.tool
 endfunc
+
+command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim
 " }}}
 " editor configuration {{{
 " fvim {{{
