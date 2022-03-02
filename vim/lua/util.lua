@@ -45,9 +45,13 @@ local function parse_color(color_string)
 end
 
 function M.create_highlight_group(name, options)
-    local fg = options.fg and string.format('guifg=%s', parse_color(options.fg)) or ''
-    local bg = options.bg and string.format('guibg=%s', parse_color(options.bg)) or ''
-    local gui = options.gui and string.format('gui=%s', parse_color(options.gui)) or ''
+    local fg = options.fg and parse_color(options.fg) or ''
+    local bg = options.bg and parse_color(options.bg) or ''
+    local gui = options.gui and parse_color(options.gui) or ''
+
+    local fg = fg == '' and fg or string.format('guifg=%s', fg)
+    local bg = bg == '' and bg or string.format('guibg=%s', bg)
+    local gui = gui == '' and gui or string.format('gui=%s', gui)
 
     vim.cmd(string.format('highlight %s %s %s %s', name, fg, bg, gui))
 end
