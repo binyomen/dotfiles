@@ -1,6 +1,6 @@
 local M = {}
 
-local mode_names = {
+local MODE_NAMES = {
     n = 'normal',
     no = 'operator pending',
     nov = 'operator pending',
@@ -37,7 +37,7 @@ local mode_names = {
     t = 'terminal',
 }
 
-local normal_colors = {
+local NORMAL_COLORS = {
     base = '%#StatusLine#',
     mode = '%#Normal#',
     file = '%#Todo#',
@@ -50,7 +50,7 @@ local normal_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local operator_pending_colors = {
+local OPERATOR_PENDING_COLORS = {
     base = '%#StatusLine#',
     mode = '%#Statement#',
     file = '%#Todo#',
@@ -63,7 +63,7 @@ local operator_pending_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local visual_colors = {
+local VISUAL_COLORS = {
     base = '%#StatusLine#',
     mode = '%#Search#',
     file = '%#Todo#',
@@ -76,7 +76,7 @@ local visual_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local select_colors = {
+local SELECT_COLORS = {
     base = '%#StatusLine#',
     mode = '%#IncSearch#',
     file = '%#Todo#',
@@ -89,7 +89,7 @@ local select_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local insert_colors = {
+local INSERT_COLORS = {
     base = '%#StatusLine#',
     mode = '%#MoreMsg#',
     file = '%#Todo#',
@@ -102,7 +102,7 @@ local insert_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local replace_colors = {
+local REPLACE_COLORS = {
     base = '%#StatusLine#',
     mode = '%#ErrorMsg#',
     file = '%#Todo#',
@@ -115,7 +115,7 @@ local replace_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local command_colors = {
+local COMMAND_COLORS = {
     base = '%#StatusLine#',
     mode = '%#Question#',
     file = '%#Todo#',
@@ -128,7 +128,7 @@ local command_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local terminal_colors = {
+local TERMINAL_COLORS = {
     base = '%#StatusLine#',
     mode = '%#Type#',
     file = '%#Todo#',
@@ -141,51 +141,51 @@ local terminal_colors = {
     tabline_fill = '%#TabLineFill#',
 }
 
-local mode_colors = {
-    n = normal_colors,
-    no = operator_pending_colors,
-    nov = operator_pending_colors,
-    noV = operator_pending_colors,
-    ['no'] = operator_pending_colors,
-    niI = normal_colors,
-    niR = normal_colors,
-    niV = normal_colors,
-    nt = normal_colors,
-    v = visual_colors,
-    vs = visual_colors,
-    V = visual_colors,
-    Vs = visual_colors,
-    [''] = visual_colors,
-    ['s'] = visual_colors,
-    s = select_colors,
-    S = select_colors,
-    [''] = select_colors,
-    i = insert_colors,
-    ic = insert_colors,
-    ix = insert_colors,
-    R = replace_colors,
-    Rc = replace_colors,
-    Rx = replace_colors,
-    Rv = replace_colors,
-    Rvc = replace_colors,
-    Rvx = replace_colors,
-    c = command_colors,
-    cv = command_colors,
-    r = command_colors,
-    rm = command_colors,
-    ['r?'] = command_colors,
-    ['!'] = command_colors,
-    t = terminal_colors,
+local MODE_COLORS = {
+    n = NORMAL_COLORS,
+    no = OPERATOR_PENDING_COLORS,
+    nov = OPERATOR_PENDING_COLORS,
+    noV = OPERATOR_PENDING_COLORS,
+    ['no'] = OPERATOR_PENDING_COLORS,
+    niI = NORMAL_COLORS,
+    niR = NORMAL_COLORS,
+    niV = NORMAL_COLORS,
+    nt = NORMAL_COLORS,
+    v = VISUAL_COLORS,
+    vs = VISUAL_COLORS,
+    V = VISUAL_COLORS,
+    Vs = VISUAL_COLORS,
+    [''] = VISUAL_COLORS,
+    ['s'] = VISUAL_COLORS,
+    s = SELECT_COLORS,
+    S = SELECT_COLORS,
+    [''] = SELECT_COLORS,
+    i = INSERT_COLORS,
+    ic = INSERT_COLORS,
+    ix = INSERT_COLORS,
+    R = REPLACE_COLORS,
+    Rc = REPLACE_COLORS,
+    Rx = REPLACE_COLORS,
+    Rv = REPLACE_COLORS,
+    Rvc = REPLACE_COLORS,
+    Rvx = REPLACE_COLORS,
+    c = COMMAND_COLORS,
+    cv = COMMAND_COLORS,
+    r = COMMAND_COLORS,
+    rm = COMMAND_COLORS,
+    ['r?'] = COMMAND_COLORS,
+    ['!'] = COMMAND_COLORS,
+    t = TERMINAL_COLORS,
 }
 
 local function get_colors()
     local mode = vim.api.nvim_get_mode().mode
-    return mode_colors[mode]
+    return MODE_COLORS[mode]
 end
 
 local function mode_name(colors)
     local mode = vim.api.nvim_get_mode().mode
-    return string.format('%s   %s   ', colors.mode, mode_names[mode]:upper())
+    return string.format('%s   %s   ', colors.mode, MODE_NAMES[mode]:upper())
 end
 
 local function file_path(colors)
