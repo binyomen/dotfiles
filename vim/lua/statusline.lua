@@ -292,6 +292,7 @@ end
 
 local function render_tabs()
     local active_tab = vim.api.nvim_get_current_tabpage()
+    local colors = get_colors()
 
     local tabline = {}
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
