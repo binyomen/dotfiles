@@ -88,7 +88,7 @@ end
 local function render_buffers()
     local bufs = {}
     for buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(buf) then
+        if vim.api.nvim_buf_is_valid(buf) then
             table.insert(bufs, buf)
         end
     end
