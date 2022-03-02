@@ -65,6 +65,10 @@ local function file_info()
     return ' %P %l/%L col: %c'
 end
 
+local function absolute_path_to_file_name(path)
+    return vim.fn.fnamemodify(path, ':t')
+end
+
 function M.active_statusline()
     return table.concat {
         mode_name(),
@@ -81,8 +85,36 @@ function M.inactive_statusline()
     return '%F'
 end
 
--- Show the statusline all the time, rather than only when a split is created.
-vim.opt.laststatus = 2
+function M.tabline()
+    local active_tab = vim.api.nvim_get_current_tabpage()
+
+    local tabline = {}
+    for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+        -- Choose the tab's highlighting.
+        if tab == active_tab then
+            table.insert(tabline, '%#TabLineSel#')
+        else
+            table.insert(tabline, '%#TabLine#')
+        end
+
+        -- Start the actual tab.
+        table.insert(tabline, string.format('%%%dT', tab))
+
+        -- Label the tab.
+        local win = vim.api.nvim_tabpage_get_win(tab)
+        local buf = vim.api.nvim_win_get_buf(win)
+        local name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
+        if name == '' then
+            name = '[No Name]'
+        end
+        table.insert(tabline, string.format(' %s ', name))
+    end
+
+    -- Fill out the rest of the tabline.
+    table.insert(tabline, '%#TabLineFill#%T')
+
+    return table.concat(tabline)
+end
 
 vim.cmd [[
 augroup statusline
@@ -91,5 +123,10 @@ augroup statusline
     autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
 augroup end
 ]]
+
+-- Show the statusline all the time, rather than only when a split is created.
+vim.opt.laststatus = 2
+
+vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
 
 return M
