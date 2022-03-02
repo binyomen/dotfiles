@@ -87,8 +87,8 @@ end
 
 local function render_buffers()
     local bufs = {}
-    for buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_valid(buf) then
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) then
             table.insert(bufs, buf)
         end
     end
@@ -97,7 +97,7 @@ local function render_buffers()
     local active_buf = vim.api.nvim_get_current_buf()
 
     local tabline = {}
-    for buf in ipairs(bufs) do
+    for _, buf in ipairs(bufs) do
         -- Choose the tab's highlighting.
         if buf == active_buf then
             table.insert(tabline, '%#TabLineSel#')
