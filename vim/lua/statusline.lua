@@ -1,5 +1,25 @@
 local M = {}
 
+local util = require 'util'
+
+local HIGHLIGHT_GROUPS = {
+    __NormalMode = {fg = 'white', bg = '!Directory.fg'},
+    __OperatorPendingMode = {fg = 'white', bg = '!Statement.fg'},
+    __VisualMode = {fg = 'white', bg = '!Search.fg'},
+    __SelectMode = {fg = 'white', bg = '!IncSearch.fg'},
+    __InsertMode = {fg = 'white', bg = '!DiffAdd.fg'},
+    __ReplaceMode = {fg = 'white', bg = '!ErrorMsg.fg'},
+    __CommandMode = {fg = 'white', bg = '!Question.fg'},
+    __TerminalMode = {fg = 'white', bg = '!Type.fg'},
+}
+
+-- Define highlight groups based off of the current color scheme.
+function M.set_highlight_groups()
+    for group, options in pairs(HIGHLIGHT_GROUPS) do
+        util.create_highlight_group(group, options)
+    end
+end
+
 local MODE_NAMES = {
     n = 'normal',
     no = 'operator pending',
@@ -39,7 +59,7 @@ local MODE_NAMES = {
 
 local NORMAL_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#Normal#',
+    mode = '%#__NormalMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -52,7 +72,7 @@ local NORMAL_COLORS = {
 
 local OPERATOR_PENDING_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#Statement#',
+    mode = '%#__OperatorPendingMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -65,7 +85,7 @@ local OPERATOR_PENDING_COLORS = {
 
 local VISUAL_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#Search#',
+    mode = '%#__VisualMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -78,7 +98,7 @@ local VISUAL_COLORS = {
 
 local SELECT_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#IncSearch#',
+    mode = '%#__SelectMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -91,7 +111,7 @@ local SELECT_COLORS = {
 
 local INSERT_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#MoreMsg#',
+    mode = '%#__InsertMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -104,7 +124,7 @@ local INSERT_COLORS = {
 
 local REPLACE_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#ErrorMsg#',
+    mode = '%#__ReplaceMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -117,7 +137,7 @@ local REPLACE_COLORS = {
 
 local COMMAND_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#Question#',
+    mode = '%#__CommandMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -130,7 +150,7 @@ local COMMAND_COLORS = {
 
 local TERMINAL_COLORS = {
     base = '%#StatusLine#',
-    mode = '%#Type#',
+    mode = '%#__TerminalMode#',
     file = '%#Todo#',
     file_type = '%#Directory#',
     encoding = '%#Constant#',
@@ -322,6 +342,11 @@ augroup statusline
     autocmd!
     autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
     autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
+augroup end
+
+augroup statusline_highlight_groups
+    autocmd!
+    autocmd ColorScheme * lua require('statusline').set_highlight_groups()
 augroup end
 ]]
 
