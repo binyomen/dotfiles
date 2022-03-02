@@ -275,7 +275,6 @@ endif
 " }}}
 " firenvim {{{
 if exists('g:started_by_firenvim')
-    set laststatus=0 " disable statusline in the browser
     set nonumber " disable line numbers
     set norelativenumber " also necessary to disable line numbers
     set wrap " enable line wrapping

@@ -351,12 +351,14 @@ augroup statusline_highlight_groups
 augroup end
 ]]
 
--- Show the statusline all the time, rather than only when a split is created.
-vim.opt.laststatus = 2
-
--- Always show the tabline.
-vim.opt.showtabline = 2
-
 vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
+
+if vim.g.started_by_firenvim then
+    vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
+else
+    vim.opt.laststatus = 2
+    vim.opt.showtabline = 2
+end
 
 return M
