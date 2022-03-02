@@ -86,7 +86,12 @@ function M.inactive_statusline()
 end
 
 local function render_buffers()
-    local bufs = vim.api.nvim_list_bufs()
+    local bufs = {}
+    for buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) then
+            table.insert(bufs, buf)
+        end
+    end
     table.sort(bufs)
 
     local active_buf = vim.api.nvim_get_current_buf()
