@@ -85,7 +85,39 @@ function M.inactive_statusline()
     return '%F'
 end
 
-function M.tabline()
+local function render_buffers()
+    local bufs = vim.api.nvim_list_bufs()
+    table.sort(bufs)
+
+    local active_buf = vim.api.nvim_get_current_buf()
+
+    local tabline = {}
+    for buf in ipairs(bufs) do
+        -- Choose the tab's highlighting.
+        if buf == active_buf then
+            table.insert(tabline, '%#TabLineSel#')
+        else
+            table.insert(tabline, '%#TabLine#')
+        end
+
+        -- Start the actual tab.
+        table.insert(tabline, string.format('%%%dT', buf))
+
+        -- Label the tab.
+        local name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
+        if name == '' then
+            name = '[No Name]'
+        end
+        table.insert(tabline, string.format(' %d %s ', buf, name))
+    end
+
+    -- Fill out the empty space in the tabline.
+    table.insert(tabline, '%#TabLineFill#%T')
+
+    return table.concat(tabline)
+end
+
+local function render_tabs()
     local active_tab = vim.api.nvim_get_current_tabpage()
 
     local tabline = {}
@@ -110,10 +142,26 @@ function M.tabline()
         table.insert(tabline, string.format(' %s ', name))
     end
 
-    -- Fill out the rest of the tabline.
+    -- Fill out the empty space in the tabline.
     table.insert(tabline, '%#TabLineFill#%T')
 
     return table.concat(tabline)
+end
+
+function M.tabline()
+    if #vim.api.nvim_list_tabpages() == 1 then
+        -- Just render the buffers if we only have one tab.
+        return render_buffers()
+    else
+        -- If we have multiple tabs, render the tabs first, then the buffers on
+        -- the right.
+        local tabline = {}
+        table.insert(tabline, render_tabs())
+        table.insert(tabline, '%=')
+        table.insert(tabline, render_buffers())
+
+        return table.concat(tabline)
+    end
 end
 
 vim.cmd [[
@@ -126,6 +174,9 @@ augroup end
 
 -- Show the statusline all the time, rather than only when a split is created.
 vim.opt.laststatus = 2
+
+-- Always show the tabline.
+vim.opt.showtabline = 2
 
 vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
 
