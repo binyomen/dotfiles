@@ -185,7 +185,7 @@ end
 
 local function mode_name(colors)
     local mode = vim.api.nvim_get_mode().mode
-    return string.format('%s %s ', colors.mode, mode_names[mode]:upper())
+    return string.format('%s   %s   ', colors.mode, mode_names[mode]:upper())
 end
 
 local function file_path(colors)
