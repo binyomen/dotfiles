@@ -90,10 +90,10 @@ augroup highlight_word_under_cursor
     autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 augroup END
 " }}}
-" turn off spelling in the terminal {{{
-augroup terminal_nospell
+" turn on spelling by default for certain file types {{{
+augroup spell_file_types
     autocmd!
-    autocmd TermOpen * setlocal nospell
+    autocmd FileType gitcommit,html,markdown,text setlocal spell
 augroup END
 " }}}
 " Briefly highlight text on yank. {{{
@@ -190,7 +190,6 @@ set wildmode=longest,full " in command line, first <tab> press complete to longe
 set cursorline " highlight the current line
 set cursorcolumn " highlight the current column
 set nojoinspaces " don't add an extra space after a period for J and gq
-set spell " always have spellchecking on
 set fileformats=unix,dos " Set Unix line endings as the default.
 
 " Open new splits on the right and bottom, not left and top.
