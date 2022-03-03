@@ -8,7 +8,7 @@ local themes = {
     'gruvbox',
     'molokai',
     'onedark',
-    'papercolor',
+    'PaperColor',
     'nord',
     'iceberg',
 }
