@@ -209,6 +209,8 @@ function! FormatJson()
 endfunc
 
 command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim
+
+command! -nargs=0 SynName echo synIDattr(synID(line("."), col("."), 1), 'name')
 " }}}
 " editor configuration {{{
 " fvim {{{
