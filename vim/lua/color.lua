@@ -13,6 +13,16 @@ local HIGHLIGHTS = {
         __StatuslinePrimaryReplace = {fg = 'white', bg = '!IncSearch.fg'},
         __StatuslineSecondaryReplace = {fg = 'white', bg = '#a53e12'},
     },
+    gruvbox = {
+        __StatuslinePrimaryNormal = {fg = 'black', bg = '!GruvboxBlue.fg'},
+        __StatuslineSecondaryNormal = {fg = 'black', bg = '#678e7f'},
+        __StatuslinePrimaryInsert = {fg = 'black', bg = '!GruvboxAqua.fg'},
+        __StatuslineSecondaryInsert = {fg = 'black', bg = '#71af5a'},
+        __StatuslinePrimaryVisual = {fg = 'black', bg = '!GruvboxYellow.fg'},
+        __StatuslineSecondaryVisual = {fg = 'black', bg = '#efa906'},
+        __StatuslinePrimaryReplace = {fg = 'black', bg = '!GruvboxOrange.fg'},
+        __StatuslineSecondaryReplace = {fg = 'black', bg = '#df6501'},
+    },
 }
 
 -- Define highlight groups based off of the current color scheme.
