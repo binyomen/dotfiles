@@ -83,11 +83,11 @@ local function encoding(colors)
     local encoding = vim.opt.fileencoding:get()
     local line_endings = vim.opt.fileformat:get()
 
-    return string.format('%s %s[%s] ', colors.primary, encoding, line_endings)
+    return string.format('%s %s[%s] ', colors.secondary, encoding, line_endings)
 end
 
 local function file_info(colors)
-    return string.format('%s %%P %%l/%%L col: %%c ', colors.secondary)
+    return string.format('%s %%P %%l/%%L col: %%c ', colors.primary)
 end
 
 local function absolute_path_to_file_name(path)
