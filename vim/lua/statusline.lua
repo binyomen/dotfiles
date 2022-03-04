@@ -1,172 +1,36 @@
 local M = {}
 
-local util = require 'util'
-
-local HIGHLIGHT_GROUPS = {
-    __NormalMode = {fg = 'white', bg = '!Directory.fg'},
-    __OperatorPendingMode = {fg = 'white', bg = '!Statement.fg'},
-    __VisualMode = {fg = 'white', bg = '!Search.fg'},
-    __SelectMode = {fg = 'white', bg = '!IncSearch.fg'},
-    __InsertMode = {fg = 'white', bg = '!DiffAdd.fg'},
-    __ReplaceMode = {fg = 'white', bg = '!ErrorMsg.fg'},
-    __CommandMode = {fg = 'white', bg = '!Question.fg'},
-    __TerminalMode = {fg = 'white', bg = '!Type.fg'},
-}
-
--- Define highlight groups based off of the current color scheme.
-function M.set_highlight_groups()
-    for group, options in pairs(HIGHLIGHT_GROUPS) do
-        util.create_highlight_group(group, options)
-    end
+local function redraw_tabline()
+    -- For some reason :redrawtabline doesn't work....
+    vim.cmd [[let &ro = &ro]]
 end
 
-local MODE_NAMES = {
-    n = 'normal',
-    no = 'operator pending',
-    nov = 'operator pending',
-    noV = 'operator pending',
-    ['no'] = 'operator pending',
-    niI = 'normal',
-    niR = 'normal',
-    niV = 'normal',
-    nt = 'normal',
-    v = 'visual',
-    vs = 'visual',
-    V = 'visual line',
-    Vs = 'visual line',
-    [''] = 'visual block',
-    ['s'] = 'visual block',
-    s = 'select',
-    S = 'select line',
-    [''] = 'select block',
-    i = 'insert',
-    ic = 'insert',
-    ix = 'insert',
-    R = 'replace',
-    Rc = 'replace',
-    Rx = 'replace',
-    Rv = 'virtual replace',
-    Rvc = 'virtual replace',
-    Rvx = 'virtual replace',
-    c = 'command',
-    cv = 'vim ex',
-    r = 'prompt',
-    rm = 'prompt',
-    ['r?'] = 'confirm',
-    ['!'] = 'shell',
-    t = 'terminal',
-}
-
 local NORMAL_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__NormalMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
-}
-
-local OPERATOR_PENDING_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__OperatorPendingMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
+    primary = '%#__StatuslinePrimaryNormal#',
+    secondary = '%#__StatuslineSecondaryNormal#',
 }
 
 local VISUAL_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__VisualMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
-}
-
-local SELECT_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__SelectMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
+    primary = '%#__StatuslinePrimaryVisual#',
+    secondary = '%#__StatuslineSecondaryVisual#',
 }
 
 local INSERT_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__InsertMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
+    primary = '%#__StatuslinePrimaryInsert#',
+    secondary = '%#__StatuslineSecondaryInsert#',
 }
 
 local REPLACE_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__ReplaceMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
-}
-
-local COMMAND_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__CommandMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
-}
-
-local TERMINAL_COLORS = {
-    base = '%#StatusLine#',
-    mode = '%#__TerminalMode#',
-    file = '%#Todo#',
-    file_type = '%#Directory#',
-    encoding = '%#Constant#',
-    file_info = '%#Identifier#',
-
-    tabline_active = '%#TabLineSel#',
-    tabline_inactive = '%#TabLine#',
-    tabline_fill = '%#TabLineFill#',
+    primary = '%#__StatuslinePrimaryReplace#',
+    secondary = '%#__StatuslineSecondaryReplace#',
 }
 
 local MODE_COLORS = {
     n = NORMAL_COLORS,
-    no = OPERATOR_PENDING_COLORS,
-    nov = OPERATOR_PENDING_COLORS,
-    noV = OPERATOR_PENDING_COLORS,
-    ['no'] = OPERATOR_PENDING_COLORS,
+    no = NORMAL_COLORS,
+    nov = NORMAL_COLORS,
+    noV = NORMAL_COLORS,
+    ['no'] = NORMAL_COLORS,
     niI = NORMAL_COLORS,
     niR = NORMAL_COLORS,
     niV = NORMAL_COLORS,
@@ -177,9 +41,9 @@ local MODE_COLORS = {
     Vs = VISUAL_COLORS,
     [''] = VISUAL_COLORS,
     ['s'] = VISUAL_COLORS,
-    s = SELECT_COLORS,
-    S = SELECT_COLORS,
-    [''] = SELECT_COLORS,
+    s = VISUAL_COLORS,
+    S = VISUAL_COLORS,
+    [''] = VISUAL_COLORS,
     i = INSERT_COLORS,
     ic = INSERT_COLORS,
     ix = INSERT_COLORS,
@@ -189,13 +53,13 @@ local MODE_COLORS = {
     Rv = REPLACE_COLORS,
     Rvc = REPLACE_COLORS,
     Rvx = REPLACE_COLORS,
-    c = COMMAND_COLORS,
-    cv = COMMAND_COLORS,
-    r = COMMAND_COLORS,
-    rm = COMMAND_COLORS,
-    ['r?'] = COMMAND_COLORS,
-    ['!'] = COMMAND_COLORS,
-    t = TERMINAL_COLORS,
+    c = INSERT_COLORS,
+    cv = INSERT_COLORS,
+    r = INSERT_COLORS,
+    rm = INSERT_COLORS,
+    ['r?'] = INSERT_COLORS,
+    ['!'] = INSERT_COLORS,
+    t = INSERT_COLORS,
 }
 
 local function get_colors()
@@ -203,32 +67,27 @@ local function get_colors()
     return MODE_COLORS[mode]
 end
 
-local function mode_name(colors)
-    local mode = vim.api.nvim_get_mode().mode
-    return string.format('%s   %s   ', colors.mode, MODE_NAMES[mode]:upper())
+local function file_type(colors)
+    return string.format('%s %%y ', colors.primary)
 end
 
 local function file_path(colors)
-    return string.format('%s %%f ', colors.file)
+    return string.format('%s %%f ', colors.secondary)
 end
 
 local function flags(colors)
-    return string.format('%s %%m%%r%%h%%w ', colors.file)
-end
-
-local function file_type(colors)
-    return string.format('%s %%y ', colors.file_type)
+    return string.format('%s %%m%%r%%h%%w ', colors.secondary)
 end
 
 local function encoding(colors)
     local encoding = vim.opt.fileencoding:get()
     local line_endings = vim.opt.fileformat:get()
 
-    return string.format('%s %s[%s] ', colors.encoding, encoding, line_endings)
+    return string.format('%s %s[%s] ', colors.primary, encoding, line_endings)
 end
 
 local function file_info(colors)
-    return string.format('%s %%P %%l/%%L col: %%c ', colors.file_info)
+    return string.format('%s %%P %%l/%%L col: %%c ', colors.secondary)
 end
 
 local function absolute_path_to_file_name(path)
@@ -236,13 +95,16 @@ local function absolute_path_to_file_name(path)
 end
 
 function M.active_statusline()
+    -- Force the tabline to redraw, since it won't always when things like the
+    -- mode change.
+    redraw_tabline()
+
     local colors = get_colors()
     return table.concat {
-        mode_name(colors),
+        file_type(colors),
         file_path(colors),
         flags(colors),
         '%=',
-        file_type(colors),
         encoding(colors),
         file_info(colors),
     }
@@ -267,9 +129,9 @@ local function render_buffers()
     for _, buf in ipairs(bufs) do
         -- Choose the tab's highlighting.
         if buf == active_buf then
-            table.insert(tabline, colors.tabline_active)
+            table.insert(tabline, colors.primary)
         else
-            table.insert(tabline, colors.tabline_inactive)
+            table.insert(tabline, colors.secondary)
         end
 
         -- Start the actual tab.
@@ -284,7 +146,7 @@ local function render_buffers()
     end
 
     -- Fill out the empty space in the tabline.
-    table.insert(tabline, colors.tabline_fill)
+    table.insert(tabline, colors.secondary)
 
     return table.concat(tabline)
 end
@@ -297,9 +159,9 @@ local function render_tabs()
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
         -- Choose the tab's highlighting.
         if tab == active_tab then
-            table.insert(tabline, colors.tabline_active)
+            table.insert(tabline, colors.primary)
         else
-            table.insert(tabline, colors.tabline_inactive)
+            table.insert(tabline, colors.secondary)
         end
 
         -- Start the actual tab.
@@ -316,7 +178,7 @@ local function render_tabs()
     end
 
     -- Fill out the empty space in the tabline.
-    table.insert(tabline, colors.tabline_fill)
+    table.insert(tabline, colors.secondary)
 
     return table.concat(tabline)
 end
@@ -338,18 +200,12 @@ function M.tabline()
 end
 
 vim.cmd [[
-augroup statusline
-    autocmd!
-    autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
-    autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
-augroup end
-
-augroup statusline_highlight_groups
-    autocmd!
-    autocmd ColorScheme * lua require('statusline').set_highlight_groups()
-augroup end
+    augroup statusline
+        autocmd!
+        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
+        autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
+    augroup end
 ]]
-
 vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
 
 if vim.g.started_by_firenvim then
