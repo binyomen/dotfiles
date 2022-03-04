@@ -2,7 +2,7 @@ local M = {}
 
 local function redraw_tabline()
     -- For some reason :redrawtabline doesn't work....
-    vim.cmd [[let &ro = &ro]]
+    vim.opt_local.readonly = vim.opt_local.readonly
 end
 
 local NORMAL_COLORS = {
