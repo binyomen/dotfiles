@@ -68,7 +68,8 @@ local function get_colors()
 end
 
 local function file_type(colors)
-    return string.format('%s %%y ', colors.primary)
+    local ft = vim.opt_local.filetype:get():upper()
+    return string.format('%s   %s   ', colors.primary, ft)
 end
 
 local function file_path(colors)
