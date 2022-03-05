@@ -2,88 +2,79 @@ local M = {}
 
 local util = require 'util'
 
-local HIGHLIGHTS = {
+local STATUSLINE_HIGHLIGHTS = {
     NeoSolarized = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.bg', bg = '!Function.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Function.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.bg', bg = '!Constant.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!Constant.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.bg', bg = '!Search.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!Search.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.bg', bg = '!IncSearch.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!IncSearch.fg', bg = '!StatusLine.bg', gui = 'bold'},
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!Constant.fg',
+        visual_accent = '!Search.fg',
+        replace_accent = '!IncSearch.fg',
     },
     gruvbox = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.fg', bg = '!GruvboxBlue.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!GruvboxBlue.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.fg', bg = '!GruvboxAqua.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!GruvboxAqua.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.fg', bg = '!GruvboxYellow.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!GruvboxYellow.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.fg', bg = '!GruvboxOrange.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!GruvboxOrange.fg', bg = '!StatusLine.fg', gui = 'bold'},
+        base = '!StatusLine.fg',
+        normal_accent = '!GruvboxBlue.fg',
+        insert_accent = '!GruvboxAqua.fg',
+        visual_accent = '!GruvboxYellow.fg',
+        replace_accent = '!GruvboxOrange.fg',
     },
     molokai = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.fg', bg = '!Type.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Type.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.fg', bg = '!Function.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!Function.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.fg', bg = '!String.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!String.fg', bg = '!StatusLine.fg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.fg', bg = '!Operator.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!Operator.fg', bg = '!StatusLine.fg', gui = 'bold'},
+        base = '!StatusLine.fg',
+        normal_accent = '!Type.fg',
+        insert_accent = '!Function.fg',
+        visual_accent = '!String.fg',
+        replace_accent = '!Operator.fg',
     },
     onedark = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.bg', bg = '!Function.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Function.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.bg', bg = '!String.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!String.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.bg', bg = '!Type.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!Type.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.bg', bg = '!Identifier.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!Identifier.fg', bg = '!StatusLine.bg', gui = 'bold'},
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
     },
     PaperColor = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.bg', bg = '!Operator.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Operator.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.bg', bg = '!Include.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!Include.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.bg', bg = '!String.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!String.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.bg', bg = '!Constant.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!Constant.fg', bg = '!StatusLine.bg', gui = 'bold'},
+        base = '!StatusLine.bg',
+        normal_accent = '!Operator.fg',
+        insert_accent = '!Include.fg',
+        visual_accent = '!String.fg',
+        replace_accent = '!Constant.fg',
     },
     nord = {
-        __StatuslinePrimaryNormal = {fg = '!StatusLine.bg', bg = '!Function.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Function.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!StatusLine.bg', bg = '!String.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!String.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!StatusLine.bg', bg = '!SpecialChar.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!SpecialChar.fg', bg = '!StatusLine.bg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!StatusLine.bg', bg = '!Number.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!Number.fg', bg = '!StatusLine.bg', gui = 'bold'},
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!SpecialChar.fg',
+        replace_accent = '!Number.fg',
     },
     iceberg = {
-        __StatuslinePrimaryNormal = {fg = '!TabLine.fg', bg = '!Function.fg', gui = 'bold'},
-        __StatuslineSecondaryNormal = {fg = '!Function.fg', bg = '!TabLine.fg', gui = 'bold'},
-        __StatuslinePrimaryInsert = {fg = '!TabLine.fg', bg = '!Special.fg', gui = 'bold'},
-        __StatuslineSecondaryInsert = {fg = '!Special.fg', bg = '!TabLine.fg', gui = 'bold'},
-        __StatuslinePrimaryVisual = {fg = '!TabLine.fg', bg = '!Title.fg', gui = 'bold'},
-        __StatuslineSecondaryVisual = {fg = '!Title.fg', bg = '!TabLine.fg', gui = 'bold'},
-        __StatuslinePrimaryReplace = {fg = '!TabLine.fg', bg = '!Constant.fg', gui = 'bold'},
-        __StatuslineSecondaryReplace = {fg = '!Constant.fg', bg = '!TabLine.fg', gui = 'bold'},
+        base = '!TabLine.fg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!Special.fg',
+        visual_accent = '!Title.fg',
+        replace_accent = '!Constant.fg',
     },
 }
+
+local function create_statusline_highlight(mode, base, accent)
+    local primary_group = string.format('__StatuslinePrimary%s', mode)
+    M.create_highlight_group(primary_group, {fg = base, bg = accent, gui = 'bold'})
+
+    local secondary_group = string.format('__StatuslineSecondary%s', mode)
+    M.create_highlight_group(secondary_group, {fg = accent, bg = base, gui = 'bold'})
+end
+
+local function create_statusline_highlights(highlights)
+    create_statusline_highlight('Normal', highlights.base, highlights.normal_accent)
+    create_statusline_highlight('Insert', highlights.base, highlights.insert_accent)
+    create_statusline_highlight('Visual', highlights.base, highlights.visual_accent)
+    create_statusline_highlight('Replace', highlights.base, highlights.replace_accent)
+end
 
 -- Define highlight groups based off of the current color scheme.
 function M.set_highlight_groups()
     local colorscheme = vim.g.colors_name
-    for name, highlights in pairs(HIGHLIGHTS) do
+    for name, highlights in pairs(STATUSLINE_HIGHLIGHTS) do
         if name == colorscheme then
-            for group, options in pairs(highlights) do
-                M.create_highlight_group(group, options)
-            end
-
+            create_statusline_highlights(highlights)
             break
         end
     end
