@@ -52,6 +52,34 @@ local STATUSLINE_HIGHLIGHTS = {
         visual_accent = '!Title.fg',
         replace_accent = '!Constant.fg',
     },
+    one = {
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Number.fg',
+        replace_accent = '!Identifier.fg',
+    },
+    OceanicNext = {
+        base = '!StatusLine.fg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Label.fg',
+        replace_accent = '!Statement.fg',
+    },
+    palenight = {
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
+    },
+    onehalfdark = {
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
+    },
 }
 
 local function create_statusline_highlight(mode, base, accent)

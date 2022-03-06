@@ -47,6 +47,10 @@ return require('packer').startup {
         use 'NLKNguyen/papercolor-theme'
         use 'arcticicestudio/nord-vim'
         use 'cocopon/iceberg.vim'
+        use 'rakr/vim-one'
+        use 'mhartington/oceanic-next'
+        use 'drewtempelmeyer/palenight.vim'
+        use {'sonph/onehalf', rtp = 'vim'}
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.

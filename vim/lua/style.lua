@@ -11,6 +11,10 @@ local themes = {
     'PaperColor',
     'nord',
     'iceberg',
+    'one',
+    'OceanicNext',
+    'palenight',
+    'onehalfdark',
 }
 
 util.map('n', '<leader>ns', ':lua require("style").next_theme()<cr>')
