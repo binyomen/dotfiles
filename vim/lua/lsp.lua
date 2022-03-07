@@ -37,6 +37,7 @@ for _, lsp in pairs(servers) do
                 },
                 diagnostics = {
                     globals = {'vim'},
+                    disable = {'redefined-local'},
                 },
                 workspace = {
                     library = vim.api.nvim_get_runtime_file('', true),

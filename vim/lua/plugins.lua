@@ -4,6 +4,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
     vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
+local packer = require 'packer'
+local use = packer.use
+
 -- Automatically compile packer when plugins.lua is changed.
 vim.cmd([[
     augroup packer_auto_compile
