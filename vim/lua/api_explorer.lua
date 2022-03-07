@@ -148,7 +148,7 @@ local function set_mappings(buf)
     }
 
     for lhs, rhs in pairs(mappings) do
-        util.bufnr_map(
+        util.buf_map(
             buf,
             'n',
             lhs,

@@ -73,28 +73,35 @@ return require('packer').startup {
                         local util = require 'util'
 
                         -- Navigation
-                        util.bufnr_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
-                        util.bufnr_map(bufnr, 'n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
+                        util.buf_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
+                        util.buf_map(bufnr, 'n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
 
                         -- Actions
-                        util.bufnr_map(bufnr, 'n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                        util.bufnr_map(bufnr, 'v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                        util.bufnr_map(bufnr, 'v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
-                        util.bufnr_map(bufnr, 'n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                        util.buf_map(bufnr, 'v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        util.buf_map(bufnr, 'v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
+                        util.buf_map(bufnr, 'n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
 
                         -- Text object
-                        util.bufnr_map(bufnr, 'o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-                        util.bufnr_map(bufnr, 'x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                        util.buf_map(bufnr, 'o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                        util.buf_map(bufnr, 'x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
                     end
                 }
+            end,
+        }
+
+        use {
+            'neovim/nvim-lspconfig',
+            config = function()
+                require 'lsp'
             end,
         }
 
