@@ -25,26 +25,24 @@ local function on_attach(_, buf)
     util.buf_map(buf, 'n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
 end
 
-local servers = {'sumneko_lua'}
-for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup {
-        on_attach = on_attach,
-        settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = vim.split(package.path, ';'),
-                },
-                diagnostics = {
-                    globals = {'vim'},
-                    disable = {'redefined-local'},
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file('', true),
-                },
+local lspconfig = require 'lspconfig'
+lspconfig.sumneko_lua.setup {
+    on_attach = on_attach,
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                globals = {'vim'},
+                disable = {'redefined-local'},
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
             },
         },
-    }
-end
+    },
+}
 
 return M
