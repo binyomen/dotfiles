@@ -25,6 +25,6 @@ function M.open_scratch_buffer()
     vim.cmd(string.format('buffer %d', buf))
 end
 
-util.map('n', '<leader>bs', ':lua require("scratch").open_scratch_buffer()<cr>')
+util.map('n', '<leader>bs', [[<cmd>lua require('buffer').open_scratch_buffer()<cr>]])
 
 return M
