@@ -24,11 +24,11 @@ end
 local function do_normal_command(motion, normal_command)
     local command
     if motion == LINE_MOTION then
-        command = string.format("silent normal! '[V']%s", normal_command)
+        command = string.format([[silent normal! '[V']%s]], normal_command)
     elseif motion == CHAR_MOTION then
-        command = string.format('silent normal! `[v`]%s', normal_command)
+        command = string.format([[silent normal! `[v`]%s]], normal_command)
     elseif is_visual_motion(motion) then
-        command = string.format('silent normal! `<%s`>%s', motion, normal_command)
+        command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
     else
         error(string.format('Invalid motion: %s', motion))
     end
@@ -65,16 +65,16 @@ function M.paste_after()
 end
 
 function M.paste_line()
-  vim.cmd 'put *'
+  vim.cmd [[put *]]
 end
 
-util.map('x', 'cy', '<cmd>lua require("clipboard").copy(vim.fn.visualmode())<cr>')
-util.map('n', 'cy', '<cmd>set opfunc=__clipboard__copy_opfunc<cr>g@')
-util.map('n', 'cY', '<cmd>set opfunc=__clipboard__copy_opfunc | execute "normal! " . v:count1 . "g@_"<cr>')
-util.map('x', 'cp', '<cmd>lua require("clipboard").paste(vim.fn.visualmode())<cr>')
-util.map('n', 'cp', '<cmd>set opfunc=__clipboard__paste_opfunc<cr>g@')
-util.map('n', 'cpP', '<cmd>lua require("clipboard").paste_before()<cr>')
-util.map('n', 'cpp', '<cmd>lua require("clipboard").paste_after()<cr>')
-util.map('n', 'cP', '<cmd>lua require("clipboard").paste_line()<cr>')
+util.map('x', 'cy', [[<cmd>lua require('clipboard').copy(vim.fn.visualmode())<cr>]])
+util.map('n', 'cy', [[<cmd>set opfunc=__clipboard__copy_opfunc<cr>g@]])
+util.map('n', 'cY', [[<cmd>set opfunc=__clipboard__copy_opfunc | execute 'normal! ' . v:count1 . 'g@_'<cr>]])
+util.map('x', 'cp', [[<cmd>lua require('clipboard').paste(vim.fn.visualmode())<cr>]])
+util.map('n', 'cp', [[<cmd>set opfunc=__clipboard__paste_opfunc<cr>g@]])
+util.map('n', 'cpP', [[<cmd>lua require('clipboard').paste_before()<cr>]])
+util.map('n', 'cpp', [[<cmd>lua require('clipboard').paste_after()<cr>]])
+util.map('n', 'cP', [[<cmd>lua require('clipboard').paste_line()<cr>]])
 
 return M
