@@ -27,4 +27,7 @@ end
 
 util.map('n', '<leader>bs', [[<cmd>lua require('buffer').open_scratch_buffer()<cr>]])
 
+util.map('n', '<leader>bn', [[<cmd>bn<cr>]])
+util.map('n', '<leader>bp', [[<cmd>bp<cr>]])
+
 return M
