@@ -8,6 +8,10 @@ vim.opt.incsearch = true -- Show search results incrementally as you type.
 vim.opt.gdefault = true -- Always do global substitutions.
 vim.opt.hlsearch = false -- Don't highlight searches by default.
 
+-- Do case sensitive search with * and #.
+util.map('', '*', [[/\<<C-R>=expand('<cword>')<CR>\><CR>]])
+util.map('', '#', [[?\<<C-R>=expand('<cword>')<CR>\><CR>]])
+
 -- Search the file system using ripgrep.
 if vim.fn.executable('rg') then
     vim.opt.grepprg = 'rg --vimgrep --smart-case --hidden'
