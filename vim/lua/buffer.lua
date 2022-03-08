@@ -27,7 +27,17 @@ end
 
 util.map('n', '<leader>bs', [[<cmd>lua require('buffer').open_scratch_buffer()<cr>]])
 
+function M.delete_buffer()
+    local buf = vim.v.count
+
+    -- Marking the buffer as unlisted and unloading it has the same effect as
+    -- the :bdelete command.
+    vim.api.nvim_buf_set_option(buf, 'buflisted', false)
+    vim.api.nvim_buf_delete(buf, {unload = true})
+end
+
 util.map('n', '<leader>bn', [[<cmd>bn<cr>]])
 util.map('n', '<leader>bp', [[<cmd>bp<cr>]])
+util.map('n', '<leader>bd', [[<cmd>lua require('buffer').delete_buffer()<cr>]])
 
 return M
