@@ -14,22 +14,4 @@ function M.buf_map(buf, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(buf, mode, lhs, rhs, opts)
 end
 
-function M.split(str, sep)
-    local tokens = {}
-    local currentToken = ''
-    for i = 1,str:len() do
-        local c = str:sub(i, i)
-        if c == sep then
-            table.insert(tokens, currentToken)
-            currentToken = ''
-        else
-            currentToken = currentToken .. c
-        end
-    end
-
-    table.insert(tokens, currentToken)
-
-    return tokens
-end
-
 return M

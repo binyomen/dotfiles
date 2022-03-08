@@ -118,7 +118,7 @@ function M.color_from_group(group)
 end
 
 function M.color_from_group_specifier(color_string)
-    local tokens = util.split(color_string, '.')
+    local tokens = vim.split(color_string, '.', {plain = true})
     local group = tokens[1]
     local specifier = tokens[2]
 
