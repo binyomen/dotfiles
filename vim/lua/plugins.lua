@@ -39,9 +39,9 @@ return require('packer').startup {
         use {
             'iCyMind/NeoSolarized',
             config = function()
-                vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI.
-                vim.opt.background = 'dark' -- Use the dark background theme for NeoSolarized.
                 vim.g.neosolarized_contrast = 'high'
+
+                require('color').on_colorscheme_loaded()
             end,
         }
         use 'morhetz/gruvbox'

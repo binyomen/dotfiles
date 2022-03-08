@@ -157,9 +157,6 @@ nnoremap <silent> <leader>vs :source $MYVIMRC<cr>| " resource .vimrc
 nnoremap <silent> <leader>vl :execute 'silent edit ' . stdpath('config') . '/lua/'<cr>| " open lua scripts directory
 nnoremap <silent> <leader>vp :execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>| " open plugin directory
 " }}}
-" color scheme {{{
-colorscheme NeoSolarized " set the color scheme to use NeoSolarized
-" }}}
 
 lua require 'search'
 

@@ -145,6 +145,13 @@ function M.create_highlight_group(name, options)
     vim.cmd(string.format('highlight %s %s %s %s', name, fg, bg, gui))
 end
 
+function M.on_colorscheme_loaded()
+    vim.opt.termguicolors = true
+    vim.opt.background = 'dark'
+
+    vim.cmd [[colorscheme NeoSolarized]]
+end
+
 vim.cmd [[
     augroup statusline_highlight_groups
         autocmd!
