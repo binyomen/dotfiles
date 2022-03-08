@@ -26,6 +26,7 @@ local function on_attach(_, buf)
 end
 
 local lspconfig = require 'lspconfig'
+
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
@@ -41,6 +42,15 @@ lspconfig.sumneko_lua.setup {
             workspace = {
                 library = vim.api.nvim_get_runtime_file('', true),
             },
+        },
+    },
+}
+
+lspconfig.rls.setup {
+    on_attach = on_attach,
+    settings = {
+        rust = {
+            clippy_preference = 'on',
         },
     },
 }
