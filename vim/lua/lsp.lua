@@ -55,4 +55,8 @@ lspconfig.rls.setup {
     },
 }
 
+lspconfig.vimls.setup {
+    on_attach = on_attach,
+}
+
 return M
