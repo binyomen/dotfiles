@@ -14,6 +14,7 @@ nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <BS> :w<CR>| " remap backspace to save in normal mode
 vnoremap <BS> :w<CR>| " remap backspace to save in visual mode
+inoremap <c-t> <c-x><c-o>| " Easier omnifunc mapping.
 " }}}
 " use H and L to go to beginning and end of lines {{{
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
