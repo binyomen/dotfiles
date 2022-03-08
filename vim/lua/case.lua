@@ -38,7 +38,7 @@ vim.cmd [[
     endfunction
 ]]
 
-util.map('n', '<leader>cu', ':set opfunc=__clipboard__lowercase_opfunc<cr>g@')
-util.map('n', '<leader>cU', ':set opfunc=__clipboard__uppercase_opfunc<cr>g@')
+util.map('n', '<leader>cu', [['<cmd>set opfunc=__clipboard__lowercase_opfunc<cr>' . v:count1 . 'g@']], {expr = true})
+util.map('n', '<leader>cU', [['<cmd>set opfunc=__clipboard__uppercase_opfunc<cr>' . v:count1 . 'g@']], {expr = true})
 
 return M
