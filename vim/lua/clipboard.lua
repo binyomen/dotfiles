@@ -56,6 +56,14 @@ vim.cmd [[
     endfunction
 ]]
 
+function M.paste_before()
+    vim.cmd [[normal! "*P]]
+end
+
+function M.paste_after()
+    vim.cmd [[normal! "*p]]
+end
+
 function M.paste_line()
   vim.cmd 'put *'
 end
@@ -65,6 +73,8 @@ util.map('n', 'cy', ':set opfunc=__clipboard__copy_opfunc<cr>g@')
 util.map('n', 'cY', ':set opfunc=__clipboard__copy_opfunc | execute "normal! " . v:count1 . "g@_"<cr>')
 util.map('x', 'cp', ':lua require("clipboard").paste(vim.fn.visualmode())<cr>')
 util.map('n', 'cp', ':set opfunc=__clipboard__paste_opfunc<cr>g@')
+util.map('n', 'cpP', ':lua require("clipboard").paste_before()<cr>')
+util.map('n', 'cpp', ':lua require("clipboard").paste_after()<cr>')
 util.map('n', 'cP', ':lua require("clipboard").paste_line()<cr>')
 
 return M
