@@ -97,53 +97,11 @@ augroup highlight_on_yank
     autocmd TextYankPost * lua vim.highlight.on_yank {higroup = 'Search'}
 augroup end
 " }}}
-" }}}
-" filetype configuration {{{
-" .txt files {{{
-augroup txt_files
+" Close preview window after completion has finished. {{{
+augroup close_preview_window
     autocmd!
-    autocmd FileType text setlocal wrap linebreak " set linewrapping
-
-    " standard motion commands should move by wrapped lines
-    autocmd FileType text noremap <buffer> <silent> k gk
-    autocmd FileType text noremap <buffer> <silent> j gj
-    autocmd FileType text noremap <buffer> <silent> 0 g0
-    autocmd FileType text noremap <buffer> <silent> $ g$
-    autocmd FileType text noremap <buffer> <silent> ^ g^
-    autocmd FileType text noremap <buffer> <silent> H g^
-    autocmd FileType text noremap <buffer> <silent> L g$| " TODO: this should be changed to gg_ or whatever the linewrapping version of g_ is
-    "autocmd FileType text noremap <buffer> <silent> g_ gg_| " TODO: is there a linewrapping version of g_?
-augroup END
-" }}}
-" go files {{{
-augroup go_files
-    autocmd!
-    autocmd FileType go setlocal rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
-    autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
-augroup END
-" }}}
-" xaml files {{{
-augroup xaml_files
-    autocmd!
-    autocmd BufNewFile,BufRead *.xaml set ft=xml " XAML is basically just XML
-augroup END
-" }}}
-" html files {{{
-augroup html_files
-    autocmd!
-    autocmd FileType html setlocal tabstop=2 " tabs count as 2 spaces
-    autocmd FileType html setlocal softtabstop=2 " tabs count as 2 spaces while performing editing operations (yeah, I don't really understand this either)
-    autocmd FileType html setlocal shiftwidth=2 " number of spaces used for autoindent
-augroup END
-" }}}
-" help files {{{
-augroup help_files
-    autocmd!
-    " make concealed characters in help files visible
-    autocmd FileType help setlocal conceallevel=0
-    autocmd FileType help hi link HelpBar Normal
-    autocmd FileType help hi link HelpStar Normal
-augroup END
+    autocmd CompleteDone * pclose
+augroup end
 " }}}
 " }}}
 " easy editing of configuration files {{{
@@ -285,5 +243,6 @@ lua require 'case'
 lua require 'clipboard'
 lua require 'color'
 lua require 'buffer'
+lua require 'filetypes'
 lua require 'statusline'
 lua require 'style'
