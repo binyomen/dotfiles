@@ -14,7 +14,15 @@ nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <BS> :w<CR>| " remap backspace to save in normal mode
 vnoremap <BS> :w<CR>| " remap backspace to save in visual mode
-inoremap <c-t> <c-x><c-o>| " Easier omnifunc mapping.
+
+function! s:omnifunc_map() abort
+    if g:in_completion_menu
+        return ''
+    else
+        return ''
+    endif
+endfunction
+inoremap <expr> <c-t> <sid>omnifunc_map()| " Easier omnifunc mapping.
 " }}}
 " use H and L to go to beginning and end of lines {{{
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
@@ -98,9 +106,11 @@ augroup highlight_on_yank
 augroup end
 " }}}
 " Close preview window after completion has finished. {{{
+let g:in_completion_menu = 0
 augroup close_preview_window
     autocmd!
-    autocmd CompleteDone * pclose
+    autocmd CompleteChanged * let g:in_completion_menu = 1
+    autocmd CompleteDone * pclose | let g:in_completion_menu = 0
 augroup end
 " }}}
 " }}}
