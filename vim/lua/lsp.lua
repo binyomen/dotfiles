@@ -1,5 +1,6 @@
 local M = {}
 
+local lspconfig = require 'lspconfig'
 local util = require 'util'
 
 util.map('n', '<leader><space>e', '<cmd>lua vim.diagnostic.open_float()<cr>')
@@ -25,26 +26,26 @@ local function on_attach(_, buf)
     util.buf_map(buf, 'n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
 end
 
-local lspconfig = require 'lspconfig'
-
-lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-                path = vim.split(package.path, ';'),
-            },
-            diagnostics = {
-                globals = {'vim'},
-                disable = {'redefined-local'},
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
+if LOCAL_CONFIG.use_nvim_lua_ls then
+    lspconfig.sumneko_lua.setup {
+        on_attach = on_attach,
+        settings = {
+            Lua = {
+                runtime = {
+                    version = 'LuaJIT',
+                    path = vim.split(package.path, ';'),
+                },
+                diagnostics = {
+                    globals = {'vim'},
+                    disable = {'redefined-local'},
+                },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file('', true),
+                },
             },
         },
-    },
-}
+    }
+end
 
 lspconfig.rls.setup {
     on_attach = on_attach,

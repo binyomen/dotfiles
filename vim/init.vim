@@ -1,5 +1,7 @@
 " vim:fdm=marker
 
+lua require('local_config').load_configs()
+
 lua require 'plugins'
 
 " leader keys {{{
