@@ -25,22 +25,18 @@ function M.configure_html()
 end
 
 function M.configure_help()
-    local function deferred()
-        -- If conceallevel is 2, it means the help ftplugin has been loaded and
-        -- we can apply our settings without them being overridden. If not,
-        -- defer and try again.
-        if vim.opt_local.conceallevel:get() ~= 2 then
-            vim.defer_fn(deferred, 10)
-            return
-        end
-
-        -- Make concealed characters in help files visible.
-        vim.opt_local.conceallevel = 0
-        vim.cmd [[highlight link HelpBar Normal]]
-        vim.cmd [[highlight link HelpStar Normal]]
+    -- If conceallevel is 2, it means the help ftplugin has been loaded and we
+    -- can apply our settings without them being overridden. If not, defer and
+    -- try again.
+    if vim.opt_local.conceallevel:get() ~= 2 then
+        vim.defer_fn(M.configure_help, 10)
+        return
     end
 
-    deferred()
+    -- Make concealed characters in help files visible.
+    vim.opt_local.conceallevel = 0
+    vim.cmd [[highlight link HelpBar Normal]]
+    vim.cmd [[highlight link HelpStar Normal]]
 end
 
 vim.cmd [[
