@@ -36,6 +36,7 @@ function M.delete_buffer()
     vim.api.nvim_buf_delete(buf, {unload = true})
 end
 
+util.map('n', '<leader>bt', [['<cmd>' . v:count . 'b<cr>']], {expr = true})
 util.map('n', '<leader>bn', [['<cmd>' . v:count1 . 'bn<cr>']], {expr = true})
 util.map('n', '<leader>bp', [['<cmd>' . v:count1 . 'bp<cr>']], {expr = true})
 util.map('n', '<leader>bd', [[<cmd>lua require('buffer').delete_buffer()<cr>]])
