@@ -142,6 +142,29 @@ local function find_local_configs()
     return remove_untrusted_configs(configs)
 end
 
+local function merge_configs(c1, c2)
+    local result = vim.deepcopy(c1)
+
+    for key, value in pairs(c2) do
+        if result[key] == nil then
+            result[key] = value
+        elseif vim.tbl_islist(value) then
+            local new_list = result[key]
+            for _, item in ipairs(value) do
+                table.insert(new_list, item)
+            end
+
+            result[key] = new_list
+        elseif type(value) == 'table' then
+            result[key] = merge_configs(result[key], value)
+        else
+            result[key] = value
+        end
+    end
+
+    return result
+end
+
 function M.load_configs()
     if _G.LOCAL_CONFIG ~= nil then
         return
@@ -158,7 +181,7 @@ function M.load_configs()
         -- Restrict what the local config script has access to.
         setfenv(f, CONFIG_ENV)
 
-        result = vim.tbl_extend('force', result, f())
+        result = merge_configs(result, f())
     end
 
     _G.LOADED_CONFIGS = configs
