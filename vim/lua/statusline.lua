@@ -115,6 +115,18 @@ function M.inactive_statusline()
     return '%#StatusLineNC# %F '
 end
 
+local function render_single_tab(tabline, colors, is_active, name)
+    -- Choose the tab's highlighting.
+    if is_active then
+        table.insert(tabline, colors.primary)
+    else
+        table.insert(tabline, colors.secondary)
+    end
+
+    -- Label the tab.
+    table.insert(tabline, string.format(' %s ', name))
+end
+
 local function render_buffers()
     local bufs = {}
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -128,22 +140,17 @@ local function render_buffers()
 
     local tabline = {}
     for _, buf in ipairs(bufs) do
-        -- Choose the tab's highlighting.
-        if buf == active_buf then
-            table.insert(tabline, colors.primary)
-        else
-            table.insert(tabline, colors.secondary)
-        end
-
-        -- Start the actual tab.
-        table.insert(tabline, string.format('%%%dT', buf))
-
-        -- Label the tab.
         local name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
         if name == '' then
             name = '[No Name]'
         end
-        table.insert(tabline, string.format(' %d %s ', buf, name))
+
+        -- Label the tab with the buffer number and name.
+        render_single_tab(
+            tabline,
+            colors,
+            buf == active_buf,
+            string.format('%d %s', buf, name))
     end
 
     -- Fill out the empty space in the tabline.
@@ -158,24 +165,19 @@ local function render_tabs()
 
     local tabline = {}
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-        -- Choose the tab's highlighting.
-        if tab == active_tab then
-            table.insert(tabline, colors.primary)
-        else
-            table.insert(tabline, colors.secondary)
-        end
-
-        -- Start the actual tab.
-        table.insert(tabline, string.format('%%%dT', tab))
-
-        -- Label the tab.
         local win = vim.api.nvim_tabpage_get_win(tab)
         local buf = vim.api.nvim_win_get_buf(win)
         local name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
         if name == '' then
             name = '[No Name]'
         end
-        table.insert(tabline, string.format(' %s ', name))
+
+        -- Label the tab with the buffer name.
+        render_single_tab(
+            tabline,
+            colors,
+            tab == active_tab,
+            name)
     end
 
     -- Fill out the empty space in the tabline.
