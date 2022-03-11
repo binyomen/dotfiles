@@ -115,7 +115,7 @@ function M.inactive_statusline()
     return '%#StatusLineNC# %F '
 end
 
-local function render_single_tab(tabline, colors, is_active, name)
+local function render_single_tab(tabline, colors, buf, is_active, name)
     -- Choose the tab's highlighting.
     if is_active then
         table.insert(tabline, colors.primary)
@@ -123,8 +123,11 @@ local function render_single_tab(tabline, colors, is_active, name)
         table.insert(tabline, colors.secondary)
     end
 
+    local is_modified = vim.api.nvim_buf_get_option(buf, 'modified')
+    local modified_string = is_modified and ' ●' or ''
+
     -- Label the tab.
-    table.insert(tabline, string.format(' %s ', name))
+    table.insert(tabline, string.format(' %s%s ', name, modified_string))
 end
 
 local function render_buffers()
@@ -149,6 +152,7 @@ local function render_buffers()
         render_single_tab(
             tabline,
             colors,
+            buf,
             buf == active_buf,
             string.format('%d %s', buf, name))
     end
@@ -176,6 +180,7 @@ local function render_tabs()
         render_single_tab(
             tabline,
             colors,
+            buf,
             tab == active_tab,
             name)
     end
