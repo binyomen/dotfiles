@@ -87,7 +87,7 @@ local function create_statusline_highlight(mode, base, accent)
     M.create_highlight_group(primary_group, {fg = base, bg = accent, gui = 'bold'})
 
     local secondary_group = string.format('__StatuslineSecondary%s', mode)
-    M.create_highlight_group(secondary_group, {fg = accent, bg = base, gui = 'bold'})
+    M.create_highlight_group(secondary_group, {fg = accent, bg = base})
 end
 
 local function create_statusline_highlights(highlights)
