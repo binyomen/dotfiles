@@ -33,8 +33,6 @@ local function ensure_trust_file()
 end
 
 local function read_file(file_name)
-    ensure_trust_file()
-
     local f = assert(io.open(file_name))
     local contents = assert(f:read('*a'))
     f:close()
@@ -43,11 +41,13 @@ local function read_file(file_name)
 end
 
 local function read_trust_file()
+    ensure_trust_file()
     local contents = read_file(TRUST_FILE)
     return vim.json.decode(contents)
 end
 
 local function write_trust_file(o)
+    ensure_trust_file()
     local f = assert(io.open(TRUST_FILE, 'w'))
     assert(f:write(vim.json.encode(o)))
     f:close()
@@ -59,9 +59,9 @@ local function trust(config)
     if not o[config] then
         local contents = read_file(config)
         o[config] = {is_trusted = true, checksum = vim.fn.sha256(contents)}
-    end
 
-    write_trust_file(o)
+        write_trust_file(o)
+    end
 end
 
 local function distrust(config)
@@ -69,19 +69,32 @@ local function distrust(config)
 
     if not o[config] then
         o[config] = {is_trusted = false}
+        write_trust_file(o)
     end
-
-    write_trust_file(o)
 end
 
 local function is_trusted(config)
     local o = read_trust_file()
-    return o[config] and o.is_trusted
+    if not o[config] or not o[config].is_trusted then
+        return false
+    end
+
+    local current_checksum = vim.fn.sha256(read_file(config))
+    if current_checksum ~= o[config].checksum then
+        -- The checksums don't match anymore. Remove the object from the file
+        -- and return false.
+        o[config] = nil
+        write_trust_file(o)
+
+        return false
+    end
+
+    return true
 end
 
 local function is_untrusted(config)
     local o = read_trust_file()
-    return o[config] and not o.is_trusted
+    return o[config] and not o[config].is_trusted
 end
 
 -- Currently only one config per directory is supported.
