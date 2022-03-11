@@ -3,6 +3,7 @@ local M = {}
 local CONFIG_ENV = {}
 
 _G.LOCAL_CONFIG = nil
+_G.LOADED_CONFIGS = nil
 
 -- Currently only one config is supported.
 local function add_configs_for_dir(dir, configs)
@@ -12,6 +13,19 @@ local function add_configs_for_dir(dir, configs)
         f:close()
         table.insert(configs, file_name)
     end
+end
+
+local function remove_untrusted_configs(configs)
+    local final_configs = {}
+
+    for _, config in ipairs(configs) do
+        local choice = vim.fn.confirm(config, '&Ignore for now\n&Trust\n&Distrust', 1)
+        if choice == 2 then
+            table.insert(final_configs, config)
+        end
+    end
+
+    return final_configs
 end
 
 local function find_local_configs()
@@ -26,7 +40,7 @@ local function find_local_configs()
         dir = vim.fn.fnamemodify(dir, ':h')
     end
 
-    return configs
+    return remove_untrusted_configs(configs)
 end
 
 function M.load_configs()
@@ -48,6 +62,7 @@ function M.load_configs()
         result = vim.tbl_extend('force', result, f())
     end
 
+    _G.LOADED_CONFIGS = configs
     _G.LOCAL_CONFIG = result
 end
 
