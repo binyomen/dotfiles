@@ -60,4 +60,11 @@ lspconfig.vimls.setup {
     on_attach = on_attach,
 }
 
+if LOCAL_CONFIG.language_servers then
+    for _, server in ipairs(LOCAL_CONFIG.language_servers) do
+        lspconfig[server.name] = server.default_options
+        lspconfig[server.name].setup(server.setup_options)
+    end
+end
+
 return M
