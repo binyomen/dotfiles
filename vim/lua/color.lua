@@ -1,7 +1,5 @@
 local M = {}
 
-local util = require 'util'
-
 local STATUSLINE_HIGHLIGHTS = {
     NeoSolarized = {
         base = '!StatusLine.bg',
