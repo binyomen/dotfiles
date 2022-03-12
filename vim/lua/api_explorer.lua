@@ -182,7 +182,9 @@ function M.open()
     set_mappings(buf)
 end
 
-function M.close(win)
+function M.close(win, already_closed)
+    local already_closed = already_closed or false
+
     local instance = query_instance(win)
     if instance == nil then
         return
@@ -190,7 +192,7 @@ function M.close(win)
 
     clear_instance(instance)
 
-    if instance.win and vim.api.nvim_win_is_valid(instance.win) then
+    if not already_closed and instance.win and vim.api.nvim_win_is_valid(instance.win) then
         vim.api.nvim_win_close(instance.win, true --[[force]])
     end
 end
@@ -239,7 +241,7 @@ vim.cmd 'command! -nargs=0 ApiExplorer lua require("api_explorer").open()'
 vim.cmd [[
     augroup api_explorer
         autocmd!
-        autocmd WinClosed * lua require("api_explorer").close(tonumber(vim.fn.expand("<amatch>")))
+        autocmd WinClosed * lua require("api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
     augroup end
 ]]
 
