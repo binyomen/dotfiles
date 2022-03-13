@@ -140,7 +140,7 @@ lua << END
 END
 
 " Open one of the lua configuration files.
-command! -nargs=1 -complete=custom,v:lua.__complete_lua_files LuaFiles execute 'edit ' . stdpath('config') . '/lua/<args>'
+command! -nargs=1 -complete=custom,v:lua.__complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>'
 " }}}
 
 lua require 'search'
