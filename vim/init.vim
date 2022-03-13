@@ -121,6 +121,26 @@ nnoremap <silent> <leader>ve :edit $MYVIMRC<cr>| " open .vimrc in new tab
 nnoremap <silent> <leader>vs :source $MYVIMRC<cr>| " resource .vimrc
 nnoremap <silent> <leader>vl :execute 'silent edit ' . stdpath('config') . '/lua/'<cr>| " open lua scripts directory
 nnoremap <silent> <leader>vp :execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>| " open plugin directory
+
+lua << END
+    function _G.__complete_lua_files(arg_lead, cmd_line, cursor_pos)
+        local lua_path = string.format('%s/lua', vim.fn.stdpath('config'))
+        local files = vim.fn.globpath(lua_path, '**/*.lua', false, true)
+
+        local results = vim.tbl_map(
+            function(path)
+                return vim.fn.fnamemodify(path, ':t')
+            end,
+            files)
+
+        -- Returning as a newline separate string rather than a list means vim
+        -- will handle arg_lead for us.
+        return vim.fn.join(results, '\n')
+    end
+END
+
+" Open one of the lua configuration files.
+command! -nargs=1 -complete=custom,v:lua.__complete_lua_files LuaFiles execute 'edit ' . stdpath('config') . '/lua/<args>'
 " }}}
 
 lua require 'search'
