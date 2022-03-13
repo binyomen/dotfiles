@@ -4,11 +4,11 @@ local util = require 'util'
 
 local current_theme = 1
 local themes = {
+    'PaperColor',
     'NeoSolarized',
     'gruvbox',
     'molokai',
     'onedark',
-    'PaperColor',
     'nord',
     'iceberg',
     'one',

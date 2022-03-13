@@ -40,14 +40,16 @@ return require('packer').startup {
             'iCyMind/NeoSolarized',
             config = function()
                 vim.g.neosolarized_contrast = 'high'
-
+            end,
+        }
+        use 'tomasr/molokai'
+        use 'joshdick/onedark.vim'
+        use {
+            'NLKNguyen/papercolor-theme',
+            config = function()
                 require('color').on_colorscheme_loaded()
             end,
         }
-        use 'morhetz/gruvbox'
-        use 'tomasr/molokai'
-        use 'joshdick/onedark.vim'
-        use 'NLKNguyen/papercolor-theme'
         use 'arcticicestudio/nord-vim'
         use 'cocopon/iceberg.vim'
         use 'rakr/vim-one'
