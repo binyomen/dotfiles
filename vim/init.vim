@@ -137,10 +137,24 @@ lua << END
         -- will handle arg_lead for us.
         return vim.fn.join(results, '\n')
     end
+
+    function _G.__lua_source()
+        local buffer_path = vim.fn.expand('%')
+        local extension = vim.fn.fnamemodify(buffer_path, ':e')
+        if extension ~= 'lua' then
+            vim.notify('LuaSource is only supported on lua files.', vim.log.levels.ERROR)
+            return
+        end
+
+        local module_name = vim.fn.fnamemodify(buffer_path, ':t:r')
+        package.loaded[module_name] = nil
+        require(module_name)
+    end
 END
 
 " Open one of the lua configuration files.
 command! -nargs=1 -complete=custom,v:lua.__complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>'
+command! -nargs=0 LuaSource lua __lua_source()
 " }}}
 
 lua require 'search'
