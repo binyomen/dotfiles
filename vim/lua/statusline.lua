@@ -81,10 +81,12 @@ local function flags(colors)
 end
 
 local function encoding(colors)
-    local encoding = vim.opt.fileencoding:get()
-    local line_endings = vim.opt.fileformat:get()
+    local encoding = vim.opt_local.fileencoding:get()
+    local line_endings = vim.opt_local.fileformat:get()
+    local eol = vim.opt_local.endofline:get()
+    local eol_text = eol and '' or ' NOEOL'
 
-    return string.format('%s %s[%s] ', colors.secondary, encoding, line_endings)
+    return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
 end
 
 local function file_info(colors)
