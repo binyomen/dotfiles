@@ -1,0 +1,43 @@
+local M = {}
+
+local util = require 'util'
+
+function M.complete_lua_files(--[[arg_lead, cmd_line, cursor_pos]])
+    local lua_path = string.format('%s/lua', vim.fn.stdpath('config'))
+    local files = vim.fn.globpath(lua_path, '**/*.lua', false, true)
+
+    local results = vim.tbl_map(
+        function(path)
+            return vim.fn.fnamemodify(path, ':t')
+        end,
+        files)
+
+    -- Returning as a newline separate string rather than a list means vim
+    -- will handle arg_lead for us.
+    return vim.fn.join(results, '\n')
+end
+
+function M.lua_source()
+    local buffer_path = vim.fn.expand('%')
+    local extension = vim.fn.fnamemodify(buffer_path, ':e')
+    if extension ~= 'lua' then
+        vim.notify('LuaSource is only supported on lua files.', vim.log.levels.ERROR)
+        return
+    end
+
+    local module_name = vim.fn.fnamemodify(buffer_path, ':t:r')
+    package.loaded[module_name] = nil
+    require(module_name)
+end
+
+-- Open one of the lua configuration files.
+vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>' ]]
+
+vim.cmd [[command! -nargs=0 LuaSource lua require('config').lua_source()]]
+
+util.map('n', '<leader>ve', [[<cmd>edit $MYVIMRC<cr>]])
+util.map('n', '<leader>vs', [[<cmd>source $MYVIMRC<cr>]])
+util.map('n', '<leader>vl', [[<cmd>execute 'silent edit ' . stdpath('config') . '/lua/'<cr>]])
+util.map('n', '<leader>vp', [[<cmd>execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
+
+return M

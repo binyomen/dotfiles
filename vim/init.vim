@@ -116,48 +116,6 @@ augroup close_preview_window
 augroup end
 " }}}
 " }}}
-" easy editing of configuration files {{{
-nnoremap <silent> <leader>ve :edit $MYVIMRC<cr>| " open .vimrc in new tab
-nnoremap <silent> <leader>vs :source $MYVIMRC<cr>| " resource .vimrc
-nnoremap <silent> <leader>vl :execute 'silent edit ' . stdpath('config') . '/lua/'<cr>| " open lua scripts directory
-nnoremap <silent> <leader>vp :execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>| " open plugin directory
-
-lua << END
-    function _G.__complete_lua_files(arg_lead, cmd_line, cursor_pos)
-        local lua_path = string.format('%s/lua', vim.fn.stdpath('config'))
-        local files = vim.fn.globpath(lua_path, '**/*.lua', false, true)
-
-        local results = vim.tbl_map(
-            function(path)
-                return vim.fn.fnamemodify(path, ':t')
-            end,
-            files)
-
-        -- Returning as a newline separate string rather than a list means vim
-        -- will handle arg_lead for us.
-        return vim.fn.join(results, '\n')
-    end
-
-    function _G.__lua_source()
-        local buffer_path = vim.fn.expand('%')
-        local extension = vim.fn.fnamemodify(buffer_path, ':e')
-        if extension ~= 'lua' then
-            vim.notify('LuaSource is only supported on lua files.', vim.log.levels.ERROR)
-            return
-        end
-
-        local module_name = vim.fn.fnamemodify(buffer_path, ':t:r')
-        package.loaded[module_name] = nil
-        require(module_name)
-    end
-END
-
-" Open one of the lua configuration files.
-command! -nargs=1 -complete=custom,v:lua.__complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>'
-command! -nargs=0 LuaSource lua __lua_source()
-" }}}
-
-lua require 'search'
 
 " tabs {{{
 set expandtab " tabs are expanded to spaces
@@ -287,7 +245,9 @@ endif
 lua require 'api_explorer'
 lua require 'clipboard'
 lua require 'color'
+lua require 'config'
 lua require 'buffer'
 lua require 'filetypes'
+lua require 'search'
 lua require 'statusline'
 lua require 'style'
