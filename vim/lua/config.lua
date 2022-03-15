@@ -30,13 +30,22 @@ function M.lua_source()
     require(module_name)
 end
 
+function M.source()
+    -- If we're in a lua file, source it first.
+    if vim.opt_local.filetype:get() == 'lua' then
+        M.lua_source()
+    end
+
+    vim.cmd [[source $MYVIMRC]]
+end
+
 -- Open one of the lua configuration files.
 vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>' ]]
 
 vim.cmd [[command! -nargs=0 LuaSource lua require('config').lua_source()]]
 
 util.map('n', '<leader>ve', [[<cmd>edit $MYVIMRC<cr>]])
-util.map('n', '<leader>vs', [[<cmd>source $MYVIMRC<cr>]])
+util.map('n', '<leader>vs', [[<cmd>lua require('config').source()<cr>]])
 util.map('n', '<leader>vl', [[<cmd>execute 'silent edit ' . stdpath('config') . '/lua/'<cr>]])
 util.map('n', '<leader>vp', [[<cmd>execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
 
