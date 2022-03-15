@@ -34,6 +34,14 @@ return require('packer').startup {
         use 'kana/vim-textobj-indent' -- Text object of an indented block.
         use 'kana/vim-textobj-line' -- Text object of the current line.
         use 'glts/vim-textobj-comment' -- Text object of a comment block.
+        use {
+            'junegunn/vim-easy-align',
+            config = function()
+                local util = require 'util'
+                util.map('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
+                util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
+            end,
+        }
 
         -- User interface stuff.
         use {
