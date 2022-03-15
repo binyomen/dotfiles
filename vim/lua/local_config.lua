@@ -1,5 +1,7 @@
 local M = {}
 
+local util = require 'util'
+
 local TRUST_DIR = string.format('%s/local_config', vim.fn.stdpath('data'))
 local TRUST_FILE = string.format('%s/trust.json', TRUST_DIR)
 
@@ -10,22 +12,12 @@ local CONFIG_ENV = {}
 _G.LOCAL_CONFIG = nil
 _G.LOADED_CONFIGS = nil
 
-local function file_exists(file_name)
-    local s = vim.loop.fs_stat(file_name)
-    return s ~= nil and s.type == 'file'
-end
-
-local function directory_exists(file_name)
-    local s = vim.loop.fs_stat(file_name)
-    return s ~= nil and s.type == 'directory'
-end
-
 local function ensure_trust_file()
-    if not directory_exists(TRUST_DIR) then
+    if not util.directory_exists(TRUST_DIR) then
         assert(vim.loop.fs_mkdir(TRUST_DIR, FILE_MODE))
     end
 
-    if not file_exists(TRUST_FILE) then
+    if not util.file_exists(TRUST_FILE) then
         local f = assert(io.open(TRUST_FILE, 'w'))
         assert(f:write('{}'))
         f:close()

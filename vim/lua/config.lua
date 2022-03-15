@@ -17,6 +17,16 @@ function M.complete_lua_files(--[[arg_lead, cmd_line, cursor_pos]])
     return vim.fn.join(results, '\n')
 end
 
+function M.try_open_lua_file(file_name)
+    local full_path = string.format('%s/lua/%s', vim.fn.stdpath('config'), file_name)
+    if not util.file_exists(full_path) then
+        vim.notify(string.format('File "%s" does not exist.', full_path), vim.log.levels.ERROR)
+        return
+    end
+
+    vim.cmd(string.format([[edit %s]], full_path))
+end
+
 function M.lua_source()
     local buffer_path = vim.fn.expand('%')
     local extension = vim.fn.fnamemodify(buffer_path, ':e')
@@ -40,7 +50,7 @@ function M.source()
 end
 
 -- Open one of the lua configuration files.
-vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.complete_lua_files LuaFiles execute 'find ' . stdpath('config') . '/lua/<args>' ]]
+vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.config.complete_lua_files LuaFiles lua require('config').try_open_lua_file(<q-args>)]]
 
 vim.cmd [[command! -nargs=0 LuaSource lua require('config').lua_source()]]
 

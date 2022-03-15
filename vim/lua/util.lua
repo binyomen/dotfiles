@@ -14,4 +14,14 @@ function M.buf_map(buf, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(buf, mode, lhs, rhs, opts)
 end
 
+function M.file_exists(path)
+    local s = vim.loop.fs_stat(path)
+    return s ~= nil and s.type == 'file'
+end
+
+function M.directory_exists(path)
+    local s = vim.loop.fs_stat(path)
+    return s ~= nil and s.type == 'directory'
+end
+
 return M
