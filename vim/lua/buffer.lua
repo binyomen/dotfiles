@@ -39,6 +39,9 @@ end
 util.map('n', '<leader>bt', [['<cmd>' . v:count . 'b<cr>']], {expr = true})
 util.map('n', '<leader>bn', [['<cmd>' . v:count1 . 'bn<cr>']], {expr = true})
 util.map('n', '<leader>bp', [['<cmd>' . v:count1 . 'bp<cr>']], {expr = true})
+util.map('n', '<leader>bf', [[<cmd>bf<cr>]])
+util.map('n', '<leader>bl', [[<cmd>bl<cr>]])
+
 util.map('n', '<leader>bd', [[<cmd>lua require('buffer').delete_buffer()<cr>]])
 
 return M
