@@ -136,6 +136,11 @@ function M.create_highlight_group(name, options)
     local bg = options.bg and parse_color(options.bg) or ''
     local gui = options.gui and parse_color(options.gui) or ''
 
+    -- If we have no settings to apply, don't create the highlight group.
+    if fg == '' and bg == '' and gui == '' then
+        return
+    end
+
     local fg = fg == '' and fg or string.format('guifg=%s', fg)
     local bg = bg == '' and bg or string.format('guibg=%s', bg)
     local gui = gui == '' and gui or string.format('gui=%s', gui)
