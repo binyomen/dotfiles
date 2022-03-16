@@ -27,6 +27,7 @@ local function on_attach(_, buf)
 end
 
 if LOCAL_CONFIG.use_nvim_lua_ls then
+    -- https://github.com/sumneko/lua-language-server
     lspconfig.sumneko_lua.setup {
         on_attach = on_attach,
         settings = {
@@ -47,6 +48,7 @@ if LOCAL_CONFIG.use_nvim_lua_ls then
     }
 end
 
+-- https://github.com/rust-lang/rls
 lspconfig.rls.setup {
     on_attach = on_attach,
     settings = {
@@ -56,6 +58,7 @@ lspconfig.rls.setup {
     },
 }
 
+-- https://github.com/iamcco/vim-language-server
 lspconfig.vimls.setup {
     on_attach = on_attach,
 }
