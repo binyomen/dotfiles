@@ -24,4 +24,11 @@ function M.directory_exists(path)
     return s ~= nil and s.type == 'directory'
 end
 
+function M.buf_delete(buf)
+    -- Marking the buffer as unlisted and unloading it has the same effect as
+    -- the :bdelete command.
+    vim.api.nvim_buf_set_option(buf, 'buflisted', false)
+    vim.api.nvim_buf_delete(buf, {unload = true})
+end
+
 return M
