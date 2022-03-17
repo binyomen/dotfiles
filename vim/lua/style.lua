@@ -6,7 +6,6 @@ local current_theme = 1
 local themes = {
     'PaperColor',
     'NeoSolarized',
-    'gruvbox',
     'molokai',
     'onedark',
     'nord',
