@@ -49,10 +49,17 @@ function M.source()
     vim.cmd [[source $MYVIMRC]]
 end
 
+function M.lua_echo(args)
+    local chunk = string.format('return %s', args)
+    local f = assert(loadstring(chunk))
+    print(vim.inspect(f()))
+end
+
 -- Open one of the lua configuration files.
 vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.config.complete_lua_files LuaFiles lua require('config').try_open_lua_file(<q-args>)]]
 
 vim.cmd [[command! -nargs=0 LuaSource lua require('config').lua_source()]]
+vim.cmd [[command! -nargs=* LuaEcho lua require('config').lua_echo(<q-args>)]]
 
 util.map('n', '<leader>ve', [[<cmd>edit $MYVIMRC<cr>]])
 util.map('n', '<leader>vs', [[<cmd>lua require('config').source()<cr>]])
