@@ -1,6 +1,6 @@
 local M = {}
 
-local STATUSLINE_HIGHLIGHTS = {
+local HIGHLIGHTS = {
     NeoSolarized = {
         base = '!StatusLine.bg',
         normal_accent = '!Function.fg',
@@ -35,6 +35,7 @@ local STATUSLINE_HIGHLIGHTS = {
         insert_accent = '!Include.fg',
         visual_accent = '!String.fg',
         replace_accent = '!Constant.fg',
+        cursor_over = 'Search',
     },
     nord = {
         base = '!StatusLine.bg',
@@ -82,7 +83,7 @@ local STATUSLINE_HIGHLIGHTS = {
 
 local function create_statusline_highlight(mode, base, accent)
     local primary_group = string.format('__StatuslinePrimary%s', mode)
-    M.create_highlight_group(primary_group, {fg = base, bg = accent, gui = 'bold'})
+    M.create_highlight_group(primary_group, {fg = base, bg = accent, bold = true})
 
     local secondary_group = string.format('__StatuslineSecondary%s', mode)
     M.create_highlight_group(secondary_group, {fg = accent, bg = base})
@@ -95,12 +96,28 @@ local function create_statusline_highlights(highlights)
     create_statusline_highlight('Replace', highlights.base, highlights.replace_accent)
 end
 
+local function create_cursor_over_highlight(highlights)
+    local color
+    if highlights.cursor_over then
+        if type(highlights.cursor_over) == 'string' then
+            color = M.color_from_group(highlights.cursor_over)
+        else
+            color = highlights.cursor_over
+        end
+    else
+        color = M.color_from_group('IncSearch')
+    end
+
+    M.create_highlight_group('__CursorOver', color)
+end
+
 -- Define highlight groups based off of the current color scheme.
 function M.set_highlight_groups()
     local colorscheme = vim.g.colors_name
-    for name, highlights in pairs(STATUSLINE_HIGHLIGHTS) do
+    for name, highlights in pairs(HIGHLIGHTS) do
         if name == colorscheme then
             create_statusline_highlights(highlights)
+            create_cursor_over_highlight(highlights)
             break
         end
     end
@@ -109,9 +126,35 @@ end
 function M.color_from_group(group)
     local synId = vim.fn.synIDtrans(vim.fn.hlID(group))
 
+    local function resolve_string_attr(attr)
+        if attr == '' then
+            return nil
+        else
+            return attr
+        end
+    end
+
+    local function resolve_boolean_attr(attr)
+        if attr == '1' then
+            return true
+        else
+            return nil
+        end
+    end
+
     return {
-        fg = vim.fn.synIDattr(synId, 'fg'),
-        bg = vim.fn.synIDattr(synId, 'bg'),
+        fg = resolve_string_attr(vim.fn.synIDattr(synId, 'fg')),
+        bg = resolve_string_attr(vim.fn.synIDattr(synId, 'bg')),
+        sp = resolve_string_attr(vim.fn.synIDattr(synId, 'sp')),
+        font = resolve_string_attr(vim.fn.synIDattr(synId, 'font')),
+        bold = resolve_boolean_attr(vim.fn.synIDattr(synId, 'bold')),
+        italic = resolve_boolean_attr(vim.fn.synIDattr(synId, 'italic')),
+        reverse = resolve_boolean_attr(vim.fn.synIDattr(synId, 'reverse')),
+        inverse = resolve_boolean_attr(vim.fn.synIDattr(synId, 'inverse')),
+        standout = resolve_boolean_attr(vim.fn.synIDattr(synId, 'standout')),
+        underline = resolve_boolean_attr(vim.fn.synIDattr(synId, 'underline')),
+        undercurl = resolve_boolean_attr(vim.fn.synIDattr(synId, 'undercurl')),
+        strikethrough = resolve_boolean_attr(vim.fn.synIDattr(synId, 'strikethrough')),
     }
 end
 
@@ -131,21 +174,48 @@ local function parse_color(color_string)
     end
 end
 
+local function expand_color_options(options)
+    options.fg = options.fg and parse_color(options.fg)
+    options.bg = options.bg and parse_color(options.bg)
+    options.sp = options.sp and parse_color(options.sp)
+end
+
+local function produce_gui_list(options)
+    local gui_list = {}
+
+    for _, field in ipairs({'bold', 'italic', 'reverse', 'inverse', 'standout', 'underline', 'undercurl', 'strikethrough'}) do
+        if options[field] then
+            table.insert(gui_list, field)
+        end
+    end
+
+    if vim.tbl_isempty(gui_list) then
+        return ''
+    else
+        return string.format('gui=%s', table.concat(gui_list, ','))
+    end
+end
+
 function M.create_highlight_group(name, options)
-    local fg = options.fg and parse_color(options.fg) or ''
-    local bg = options.bg and parse_color(options.bg) or ''
-    local gui = options.gui and parse_color(options.gui) or ''
+    expand_color_options(options)
 
     -- If we have no settings to apply, don't create the highlight group.
-    if fg == '' and bg == '' and gui == '' then
+    if vim.tbl_isempty(vim.tbl_keys(options)) then
         return
     end
 
-    local fg = fg == '' and fg or string.format('guifg=%s', fg)
-    local bg = bg == '' and bg or string.format('guibg=%s', bg)
-    local gui = gui == '' and gui or string.format('gui=%s', gui)
+    local fg_string = options.fg and string.format('guifg=%s', options.fg) or ''
+    local bg_string = options.bg and string.format('guibg=%s', options.bg) or ''
+    local sp_string = options.sp and string.format('guisp=%s', options.sp) or ''
+    local gui_string = produce_gui_list(options)
 
-    vim.cmd(string.format('highlight %s %s %s %s', name, fg, bg, gui))
+    vim.cmd(string.format(
+        'highlight %s %s %s %s %s',
+        name,
+        fg_string,
+        bg_string,
+        sp_string,
+        gui_string))
 end
 
 function M.on_colorscheme_loaded()

@@ -92,7 +92,7 @@ augroup END
 " highlight word under cursor {{{
 augroup highlight_word_under_cursor
     autocmd!
-    autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    autocmd CursorMoved * exe printf('match __CursorOver /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 augroup END
 " }}}
 " turn on spelling by default for certain file types {{{
