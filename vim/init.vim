@@ -46,7 +46,7 @@ nnoremap <c-=> <c-w>+
 nnoremap <c--> <c-w>-
 " }}}
 " use <leader>r to reload the buffer with :edit {{{
-noremap <leader>r :edit<CR>
+noremap <silent> <leader>r :edit<CR>
 " }}}
 " remap ':' to ',' so that you can move backwards for f and t {{{
 noremap : ,
@@ -71,7 +71,7 @@ function! s:toggle_c() abort
         edit %<.h
     endif
 endfunction
-nnoremap <leader>ch :call <sid>toggle_c()<cr>
+nnoremap <silent> <leader>ch :call <sid>toggle_c()<cr>
 " }}}
 " search help for word under cursor {{{
 nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
