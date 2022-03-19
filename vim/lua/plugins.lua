@@ -42,7 +42,6 @@ return require('packer').startup {
                 util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
             end,
         }
-        use 'tpope/vim-eunuch' -- Filesystem commands.
 
         -- User interface stuff.
         use {
@@ -68,7 +67,6 @@ return require('packer').startup {
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
-        -- General git plugin.
         use {
             'tpope/vim-fugitive',
             cond = not_firenvim,
@@ -76,7 +74,6 @@ return require('packer').startup {
                 require('util').map('n', '<leader>gd', ':Gvdiff<cr>') -- Display a diff view of the current file.
             end,
         }
-        -- Display git status for each line.
         use {
             'lewis6991/gitsigns.nvim',
             cond = not_firenvim,
@@ -111,7 +108,6 @@ return require('packer').startup {
                 }
             end,
         }
-
         use {
             'neovim/nvim-lspconfig',
             config = function()
@@ -164,6 +160,7 @@ return require('packer').startup {
             cond = function() return not LOCAL_CONFIG.no_editorconfig end,
         }
         use 'stefandtw/quickfix-reflector.vim' -- Edits in the quickfix window get reflected in the actual buffers.
+        use 'tpope/vim-eunuch' -- Filesystem commands.
     end,
     config = {
         profile = {

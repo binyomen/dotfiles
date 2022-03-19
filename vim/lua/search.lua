@@ -74,4 +74,7 @@ util.map('n', '<leader>f', ':find ', {silent = false})
 -- Toggle search highlighting.
 util.map('n', '<leader>sh', ':set hlsearch!<cr>')
 
+-- Make gf open the file even if it doesn't exist.
+util.map('n', 'gf', '<cmd>e <cfile><cr>')
+
 return M
