@@ -42,6 +42,7 @@ return require('packer').startup {
                 util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
             end,
         }
+        use 'tpope/vim-eunuch' -- Filesystem commands.
 
         -- User interface stuff.
         use {
