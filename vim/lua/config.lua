@@ -61,9 +61,10 @@ vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.config.complet
 vim.cmd [[command! -nargs=0 LSource lua require('config').lua_source()]]
 vim.cmd [[command! -nargs=* LEcho lua require('config').lua_echo(<q-args>)]]
 
-util.map('n', '<leader>ve', [[<cmd>edit $MYVIMRC<cr>]])
+util.map('n', '<leader>ve', [[<cmd>silent NormalizeEdit $MYVIMRC<cr>]])
 util.map('n', '<leader>vs', [[<cmd>lua require('config').source()<cr>]])
-util.map('n', '<leader>vl', [[<cmd>execute 'silent edit ' . stdpath('config') . '/lua/'<cr>]])
-util.map('n', '<leader>vp', [[<cmd>execute 'silent edit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
+
+util.map('n', '<leader>vl', [[<cmd>execute 'silent NormalizeEdit ' . stdpath('config') . '/lua/'<cr>]])
+util.map('n', '<leader>vp', [[<cmd>execute 'silent NormalizeEdit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
 
 return M

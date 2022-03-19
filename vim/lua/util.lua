@@ -31,4 +31,10 @@ function M.buf_delete(buf)
     vim.api.nvim_buf_delete(buf, {unload = true})
 end
 
+function M.normalize_path(path)
+    return vim.fn.simplify(vim.fn.resolve(vim.fn.expandcmd(path)))
+end
+
+vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('util').normalize_path(<q-args>)]]
+
 return M
