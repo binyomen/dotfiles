@@ -37,10 +37,20 @@ local function do_normal_command(motion, normal_command)
 end
 
 function M.copy(motion)
+    if motion == nil then
+        vim.opt.opfunc = 'v:lua.package.loaded.clipboard.copy'
+        return 'g@'
+    end
+
     do_normal_command(motion, '"*y')
 end
 
 function M.paste(motion)
+    if motion == nil then
+        vim.opt.opfunc = 'v:lua.package.loaded.clipboard.paste'
+        return 'g@'
+    end
+
     do_normal_command(motion, '"*p')
 end
 
@@ -59,10 +69,10 @@ function M.paste_line()
 end
 
 util.map('x', 'cy', [[:lua require('clipboard').copy(vim.fn.visualmode())<cr>]])
-util.map('n', 'cy', [['<cmd>set opfunc=v:lua.package.loaded.clipboard.copy<cr>' . v:count1 . 'g@']], {expr = true})
-util.map('n', 'cY', [['<cmd>set opfunc=v:lua.package.loaded.clipboard.copy<cr>' . v:count1 . 'g@_']], {expr = true})
+util.map('n', 'cy', [[v:lua.package.loaded.clipboard.copy()]], {expr = true})
+util.map('n', 'cY', [[v:lua.package.loaded.clipboard.copy() . '_']], {expr = true})
 util.map('x', 'cp', [[:lua require('clipboard').paste(vim.fn.visualmode())<cr>]])
-util.map('n', 'cp', [['<cmd>set opfunc=v:lua.package.loaded.clipboard.paste<cr>' . v:count1 . 'g@']], {expr = true})
+util.map('n', 'cp', [[v:lua.package.loaded.clipboard.paste()]], {expr = true})
 util.map('n', 'cpP', [[<cmd>lua require('clipboard').paste_before()<cr>]])
 util.map('n', 'cpp', [[<cmd>lua require('clipboard').paste_after()<cr>]])
 util.map('n', 'cP', [[<cmd>lua require('clipboard').paste_line()<cr>]])
