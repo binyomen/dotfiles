@@ -134,12 +134,12 @@ local function render_single_tab(tabline, colors, buf, is_active, name)
 end
 
 local function render_buffers()
-    local bufs = {}
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0 then
-            table.insert(bufs, buf)
-        end
-    end
+    local bufs = vim.tbl_filter(
+        function(buf)
+            return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
+        end,
+        vim.api.nvim_list_bufs()
+    )
 
     local active_buf = vim.api.nvim_get_current_buf()
     local colors = get_colors()
