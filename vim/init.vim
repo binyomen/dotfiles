@@ -106,12 +106,6 @@ augroup close_preview_window
     autocmd CompleteDone * pclose | let g:in_completion_menu = 0
 augroup end
 " }}}
-" delete no-name buffer when hidden {{{
-augroup no_name_delete
-    autocmd!
-    autocmd BufHidden {} lua local bufnr = vim.fn.expand('<abuf>') vim.schedule(function() require('util').buf_delete(bufnr) end)
-augroup end
-" }}}
 " }}}
 
 " tabs {{{

@@ -40,4 +40,22 @@ util.map('n', '<leader>bl', [[<cmd>bl<cr>]])
 
 util.map('n', '<leader>bd', [[<cmd>lua require('buffer').delete_buffer()<cr>]])
 
+function M.delete_no_name_buffer()
+    local buf = vim.fn.expand('<abuf>')
+
+    vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(buf) then
+            util.buf_delete(buf)
+        end
+    end)
+end
+
+-- Delete no-name buffer when hidden.
+vim.cmd [[
+    augroup no_name_delete
+        autocmd!
+        autocmd BufHidden {} lua require('buffer').delete_no_name_buffer()
+    augroup end
+]]
+
 return M
