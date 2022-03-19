@@ -92,12 +92,6 @@ augroup highlight_word_under_cursor
     autocmd CursorMoved * exe printf('match __CursorOver /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 augroup END
 " }}}
-" turn on spelling by default for certain file types {{{
-augroup spell_file_types
-    autocmd!
-    autocmd FileType gitcommit,html,markdown,text setlocal spell
-augroup END
-" }}}
 " Briefly highlight text on yank. {{{
 augroup highlight_on_yank
     autocmd!

@@ -61,6 +61,11 @@ vim.cmd [[
         autocmd!
         autocmd FileType help lua require('filetypes').configure_help()
     augroup end
+
+    augroup spell_file_types
+        autocmd!
+        autocmd FileType gitcommit,html,markdown,text setlocal spell
+    augroup end
 ]]
 
 return M
