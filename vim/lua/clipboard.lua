@@ -38,7 +38,7 @@ end
 
 function M.copy(motion)
     if motion == nil then
-        vim.opt.opfunc = 'v:lua.package.loaded.clipboard.copy'
+        vim.opt.opfunc = '__clipboard__copy_opfunc'
         return 'g@'
     end
 
@@ -47,7 +47,7 @@ end
 
 function M.paste(motion)
     if motion == nil then
-        vim.opt.opfunc = 'v:lua.package.loaded.clipboard.paste'
+        vim.opt.opfunc = '__clipboard__paste_opfunc'
         return 'g@'
     end
 
@@ -68,11 +68,24 @@ function M.paste_line()
     end
 end
 
+-- Currently neovim won't repeat properly if you set the opfunc to a lua
+-- function rather than a vim one. See
+-- https://github.com/neovim/neovim/issues/17503.
+vim.cmd [[
+    function! __clipboard__copy_opfunc(motion) abort
+        return v:lua.require('clipboard').copy(a:motion)
+    endfunction
+
+    function! __clipboard__paste_opfunc(motion) abort
+        return v:lua.require('clipboard').paste(a:motion)
+    endfunction
+]]
+
 util.map('x', 'cy', [[:lua require('clipboard').copy(vim.fn.visualmode())<cr>]])
-util.map('n', 'cy', [[v:lua.package.loaded.clipboard.copy()]], {expr = true})
-util.map('n', 'cY', [[v:lua.package.loaded.clipboard.copy() . '_']], {expr = true})
+util.map('n', 'cy', [[v:lua.require('clipboard').copy()]], {expr = true})
+util.map('n', 'cY', [[v:lua.require('clipboard').copy() . '_']], {expr = true})
 util.map('x', 'cp', [[:lua require('clipboard').paste(vim.fn.visualmode())<cr>]])
-util.map('n', 'cp', [[v:lua.package.loaded.clipboard.paste()]], {expr = true})
+util.map('n', 'cp', [[v:lua.require('clipboard').paste()]], {expr = true})
 util.map('n', 'cpP', [[<cmd>lua require('clipboard').paste_before()<cr>]])
 util.map('n', 'cpp', [[<cmd>lua require('clipboard').paste_after()<cr>]])
 util.map('n', 'cP', [[<cmd>lua require('clipboard').paste_line()<cr>]])
