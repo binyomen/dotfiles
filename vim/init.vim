@@ -76,10 +76,6 @@ nnoremap <silent> <leader>ch :call <sid>toggle_c()<cr>
 " search help for word under cursor {{{
 nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
 " }}}
-" swap last delected text with the currently selected text {{{
-" https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines
-xnoremap gx <esc>`.``gvP``P``
-" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
@@ -247,3 +243,4 @@ lua require 'filetypes'
 lua require 'search'
 lua require 'statusline'
 lua require 'style'
+lua require 'swap'
