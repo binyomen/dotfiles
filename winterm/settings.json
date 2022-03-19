@@ -13,7 +13,9 @@
     "keybindings": [],
     "profiles":
     {
-        "defaults": {},
+        "defaults": {
+            "bellStyle": "none"
+        },
         "list":
         [
             {
