@@ -48,9 +48,6 @@ nnoremap <c--> <c-w>-
 " use <leader>r to reload the buffer with :edit {{{
 noremap <leader>r :edit<CR>
 " }}}
-" make gf open the file even if it doesn't exist {{{
-noremap gf :e <cfile><cr>
-" }}}
 " remap ':' to ',' so that you can move backwards for f and t {{{
 noremap : ,
 " }}}
@@ -254,6 +251,7 @@ lua require 'clipboard'
 lua require 'color'
 lua require 'config'
 lua require 'buffer'
+lua require 'file'
 lua require 'filetypes'
 lua require 'search'
 lua require 'statusline'
