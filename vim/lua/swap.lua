@@ -22,6 +22,16 @@ util.map('n', '<leader>sW', [["_yiwmzaa<bs><esc>?\w\+\_W\+\%#<cr>:s/\(\%#\w\+\)\
 -- Push the current word to the left or right.
 util.map('n', '<leader>sl', [["_yiwaa<bs><esc>?\w\+\_W\+\%#<cr>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``]])
 util.map('n', '<leader>sr', [["_yiwaa<bs><esc>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``/\w\+\_W\+<cr>]])
+util.map('n', '<m-h>', '<leader>sl', {noremap = false})
+util.map('n', '<m-l>', '<leader>sr', {noremap = false})
+
+-- Push the current line up and down.
+util.map('n', '<m-k>', [[ddkP]])
+util.map('n', '<m-j>', [[ddp]])
+
+-- Push the current paragraph up and down.
+util.map('n', '<m-K>', [[dap{{p]])
+util.map('n', '<m-J>', [[dap}p]])
 
 local swap_first_state = nil
 
