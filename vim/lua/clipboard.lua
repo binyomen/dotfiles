@@ -8,30 +8,20 @@ local M = {}
 
 local util = require 'util'
 
-local LINE_MOTION = 'line'
-local CHAR_MOTION = 'char'
-local VISUAL_MOTION = 'v'
-local VISUAL_LINE_MOTION = 'V'
-local VISUAL_BLOCK_MOTION = ''
-
-local function is_visual_motion(motion)
-    return
-        motion == VISUAL_MOTION or
-        motion == VISUAL_LINE_MOTION or
-        motion == VISUAL_BLOCK_MOTION
-end
-
 local function do_normal_command(motion, normal_command)
     local command
-    if motion == LINE_MOTION then
-        command = string.format([[silent normal! '[V']%s]], normal_command)
-    elseif motion == CHAR_MOTION then
-        command = string.format([[silent normal! `[v`]%s]], normal_command)
-    elseif is_visual_motion(motion) then
-        command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
-    else
-        error(string.format('Invalid motion: %s', motion))
-    end
+
+    util.process_opfunc_command(motion, {
+        line = function()
+            command = string.format([[silent normal! '[V']%s]], normal_command)
+        end,
+        char = function()
+            command = string.format([[silent normal! `[v`]%s]], normal_command)
+        end,
+        visual = function()
+            command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
+        end,
+    })
 
     vim.cmd(command)
 end

@@ -37,4 +37,29 @@ end
 
 vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('util').normalize_path(<q-args>)]]
 
+local LINE_MOTION = 'line'
+local CHAR_MOTION = 'char'
+local VISUAL_MOTION = 'v'
+local VISUAL_LINE_MOTION = 'V'
+local VISUAL_BLOCK_MOTION = ''
+
+local function is_visual_motion(motion)
+    return
+        motion == VISUAL_MOTION or
+        motion == VISUAL_LINE_MOTION or
+        motion == VISUAL_BLOCK_MOTION
+end
+
+function M.process_opfunc_command(motion, cases)
+    if motion == LINE_MOTION then
+        cases.line(motion)
+    elseif motion == CHAR_MOTION then
+        cases.char(motion)
+    elseif is_visual_motion(motion) then
+        cases.visual(motion)
+    else
+        error(string.format('Invalid motion: %s', motion))
+    end
+end
+
 return M
