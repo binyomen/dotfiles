@@ -4,8 +4,8 @@ local M = {}
 -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines, with
 -- modifications by me.
 --
--- The trick for forncing undo to restore the cursor position (see
--- "aa<bs><esc>" in the mappings) is from
+-- The trick for forcing undo to restore the cursor position (see
+-- "ia<bs><esc>l" in the mappings) is from
 -- https://vim.fandom.com/wiki/Restore_the_cursor_position_after_undoing_text_change_made_by_a_script.
 
 local util = require 'util'
@@ -265,19 +265,23 @@ util.map('n', '<m-l>', '<leader>sr', {noremap = false})
 
 -- Swap current character with next and previous, keeping the cursor in the
 -- same place.
-util.map('n', '<leader>sc', [[xph]])
-util.map('n', '<leader>sC', [[xhPl]])
+util.map('n', '<leader>sc', 'xph')
+util.map('n', '<leader>sC', 'xhPl')
 
 -- Push the current character to the left and right.
-util.map('n', '<m-H>', [[xhP]])
-util.map('n', '<m-L>', [[xp]])
+util.map('n', '<m-H>', 'xhP')
+util.map('n', '<m-L>', 'xp')
+
+-- Push the current character up and down.
+util.map('n', '<m-K>', 'xkvpjPk')
+util.map('n', '<m-J>', 'xjvpkPj')
 
 -- Push the current line up and down.
-util.map('n', '<m-k>', [[ddkP]])
-util.map('n', '<m-j>', [[ddp]])
+util.map('n', '<m-k>', 'ddkP')
+util.map('n', '<m-j>', 'ddp')
 
 -- Push the current paragraph up and down.
-util.map('n', '<m-[>', [[dap{{p]])
-util.map('n', '<m-]>', [[dap}p]])
+util.map('n', '<m-[>', 'dap{{p')
+util.map('n', '<m-]>', 'dap}p')
 
 return M
