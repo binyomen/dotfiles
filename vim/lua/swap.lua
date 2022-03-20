@@ -15,16 +15,6 @@ local util = require 'util'
 util.map('n', '<leader>sc', [[xph]])
 util.map('n', '<leader>sC', [[xhPl]])
 
--- Swap current word with the next and previous, keeping the cursor in the same place.
-util.map('n', '<leader>sw', [["_yiwaa<bs><esc>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/g<cr>``]])
-util.map('n', '<leader>sW', [["_yiwmzaa<bs><esc>?\w\+\_W\+\%#<cr>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/g<cr>`z]])
-
--- Push the current word to the left or right.
-util.map('n', '<leader>sl', [["_yiwaa<bs><esc>?\w\+\_W\+\%#<cr>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``]])
-util.map('n', '<leader>sr', [["_yiwaa<bs><esc>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``/\w\+\_W\+<cr>]])
-util.map('n', '<m-h>', '<leader>sl', {noremap = false})
-util.map('n', '<m-l>', '<leader>sr', {noremap = false})
-
 -- Push the current line up and down.
 util.map('n', '<m-k>', [[ddkP]])
 util.map('n', '<m-j>', [[ddp]])
@@ -160,6 +150,37 @@ function M.swap(motion)
     end
 end
 
+local function move_word_keep_cursor(motion, opfunc, forward)
+    if motion == nil then
+        vim.opt.opfunc = opfunc
+        return 'g@l'
+    end
+
+    -- This is necessary to restore our cursor to the original position after
+    -- an undo.
+    vim.cmd [[execute "normal! ia\<bs>\<esc>l"]]
+
+    local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
+
+    local leader = vim.g.mapleader
+    vim.fn.execute(string.format('normal %sssiw', leader))
+
+    local flags = forward and 'z' or 'b'
+    vim.fn.search([[\w\+]], flags)
+
+    vim.fn.execute(string.format('normal %sssiw', leader))
+
+    vim.api.nvim_win_set_cursor(0 --[[window]], pos)
+end
+
+function M.next_word_keep_cursor(motion)
+    return move_word_keep_cursor(motion, '__swap__next_word_keep_cursor_opfunc', true)
+end
+
+function M.previous_word_keep_cursor(motion)
+    return move_word_keep_cursor(motion, '__swap__previous_word_keep_cursor_opfunc', false)
+end
+
 -- Currently neovim won't repeat properly if you set the opfunc to a lua
 -- function rather than a vim one. See
 -- https://github.com/neovim/neovim/issues/17503.
@@ -167,9 +188,26 @@ vim.cmd [[
     function! __swap__swap_opfunc(motion) abort
         return v:lua.require('swap').swap(a:motion)
     endfunction
+    function! __swap__next_word_keep_cursor_opfunc(motion) abort
+        return v:lua.require('swap').next_word_keep_cursor(a:motion)
+    endfunction
+    function! __swap__previous_word_keep_cursor_opfunc(motion) abort
+        return v:lua.require('swap').previous_word_keep_cursor(a:motion)
+    endfunction
 ]]
 
+-- Swap arbitrary text.
 util.map('x', '<leader>ss', [[:lua require('swap').swap(vim.fn.visualmode())<cr>]])
 util.map('n', '<leader>ss', [[v:lua.require('swap').swap()]], {expr = true})
+
+-- Swap current word with the next and previous, keeping the cursor in the same place.
+util.map('n', '<leader>sw', [[v:lua.require('swap').next_word_keep_cursor()]], {expr = true})
+util.map('n', '<leader>sW', [[v:lua.require('swap').previous_word_keep_cursor()]], {expr = true})
+
+-- Push the current word to the left or right.
+util.map('n', '<leader>sl', [["_yiwaa<bs><esc>?\w\+\_W\+\%#<cr>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``]])
+util.map('n', '<leader>sr', [["_yiwaa<bs><esc>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr>``/\w\+\_W\+<cr>]])
+util.map('n', '<m-h>', '<leader>sl', {noremap = false})
+util.map('n', '<m-l>', '<leader>sr', {noremap = false})
 
 return M
