@@ -184,6 +184,7 @@ local function move_word_keep_cursor(motion, opfunc, forward)
     vim.fn.execute(string.format('normal %sssiw', leader))
 
     vim.api.nvim_win_set_cursor(0 --[[window]], pos)
+    vim.opt.opfunc = opfunc
 end
 
 local function move_word(motion, opfunc, forward)
@@ -205,6 +206,8 @@ local function move_word(motion, opfunc, forward)
     vim.fn.search([[\w\+]], flags)
 
     vim.fn.execute(string.format('normal %sssiw', leader))
+
+    vim.opt.opfunc = opfunc
 end
 
 function M.next_word_keep_cursor(motion)
