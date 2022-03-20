@@ -43,7 +43,7 @@ local VISUAL_MOTION = 'v'
 local VISUAL_LINE_MOTION = 'V'
 local VISUAL_BLOCK_MOTION = ''
 
-local function is_visual_motion(motion)
+function M.is_visual_motion(motion)
     return
         motion == VISUAL_MOTION or
         motion == VISUAL_LINE_MOTION or
@@ -55,7 +55,7 @@ function M.process_opfunc_command(motion, cases)
         cases.line(motion)
     elseif motion == CHAR_MOTION then
         cases.char(motion)
-    elseif is_visual_motion(motion) then
+    elseif M.is_visual_motion(motion) then
         cases.visual(motion)
     else
         error(string.format('Invalid motion: %s', motion))
