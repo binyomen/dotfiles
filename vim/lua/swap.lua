@@ -30,8 +30,8 @@ util.map('n', '<m-k>', [[ddkP]])
 util.map('n', '<m-j>', [[ddp]])
 
 -- Push the current paragraph up and down.
-util.map('n', '<m-K>', [[dap{{p]])
-util.map('n', '<m-J>', [[dap}p]])
+util.map('n', '<m-[>', [[dap{{p]])
+util.map('n', '<m-]>', [[dap}p]])
 
 local swap_first_state = nil
 
