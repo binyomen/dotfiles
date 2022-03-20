@@ -35,7 +35,6 @@ local HIGHLIGHTS = {
         insert_accent = '!Include.fg',
         visual_accent = '!String.fg',
         replace_accent = '!Constant.fg',
-        cursor_over = 'Search',
     },
     nord = {
         base = '!StatusLine.bg',
@@ -105,7 +104,7 @@ local function create_cursor_over_highlight(highlights)
             color = highlights.cursor_over
         end
     else
-        color = M.color_from_group('IncSearch')
+        color = {bg = '!TabLine.bg', bold = true}
     end
 
     M.create_highlight_group('__CursorOver', color)
