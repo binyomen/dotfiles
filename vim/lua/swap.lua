@@ -268,6 +268,10 @@ util.map('n', '<m-l>', '<leader>sr', {noremap = false})
 util.map('n', '<leader>sc', [[xph]])
 util.map('n', '<leader>sC', [[xhPl]])
 
+-- Push the current character to the left and right.
+util.map('n', '<m-H>', [[xhP]])
+util.map('n', '<m-L>', [[xp]])
+
 -- Push the current line up and down.
 util.map('n', '<m-k>', [[ddkP]])
 util.map('n', '<m-j>', [[ddp]])
