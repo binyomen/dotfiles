@@ -22,7 +22,7 @@ function M.open_scratch_buffer()
     end
 
     -- The scratch buffer now exists. Switch to it.
-    vim.cmd(string.format('buffer %d', buf))
+    vim.api.nvim_set_current_buf(buf)
 end
 
 util.map('n', '<leader>bs', [[<cmd>lua require('buffer').open_scratch_buffer()<cr>]])
