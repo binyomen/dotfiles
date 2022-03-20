@@ -39,6 +39,10 @@ function M.configure_help()
     vim.cmd [[highlight link HelpStar Normal]]
 end
 
+function M.configure_markdown()
+    vim.opt_local.textwidth = 79
+end
+
 vim.cmd [[
     augroup txt_files
         autocmd!
@@ -60,6 +64,10 @@ vim.cmd [[
     augroup help_files
         autocmd!
         autocmd FileType help lua require('filetypes').configure_help()
+    augroup end
+    augroup markdown_files
+        autocmd!
+        autocmd FileType markdown lua require('filetypes').configure_markdown()
     augroup end
 
     augroup spell_file_types
