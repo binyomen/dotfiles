@@ -76,6 +76,9 @@ nnoremap <silent> <leader>ch :call <sid>toggle_c()<cr>
 " search help for word under cursor {{{
 nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
 " }}}
+" open GitHub short URLs for plugins {{{
+nnoremap <leader>gh <cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
