@@ -91,7 +91,11 @@ local function encoding(colors)
 end
 
 local function file_info(colors)
-    return string.format('%s %%P %%l/%%L col: %%c ', colors.primary)
+    local word_count_string = vim.g.show_word_count and
+        string.format('WC:%d ', vim.fn.wordcount().words) or
+        ''
+
+    return string.format('%s %s%%P %%l/%%L col: %%c ', colors.primary, word_count_string)
 end
 
 local function absolute_path_to_file_name(path)
