@@ -29,11 +29,6 @@ return require('packer').startup {
         use 'tpope/vim-surround' -- Surround text in quotes, HTML tags, etc.
         use 'tpope/vim-repeat' -- Repeatable plugin actions.
         use 'inkarkat/vim-ReplaceWithRegister' -- Easy replacement without overwriting registers.
-        use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
-        use 'kana/vim-textobj-entire' -- Text object of the entire buffer.
-        use 'kana/vim-textobj-indent' -- Text object of an indented block.
-        use 'kana/vim-textobj-line' -- Text object of the current line.
-        use 'glts/vim-textobj-comment' -- Text object of a comment block.
         use {
             'junegunn/vim-easy-align',
             config = function()
@@ -42,6 +37,33 @@ return require('packer').startup {
                 util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
             end,
         }
+
+        -- Custom text objects.
+        use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
+        use 'kana/vim-textobj-entire' -- ae/ie: The entire buffer.
+        use 'kana/vim-textobj-indent' -- ai/ii/aI/iI: Similarly indented groups.
+        use 'kana/vim-textobj-line' -- al/il: The current line.
+        use 'glts/vim-textobj-comment' -- ac/ic/aC: A comment block.
+        use 'Julian/vim-textobj-variable-segment' -- av/iv: Part of a camelCase or snake_case variable.
+        use { -- aq/iq/aQ/iQ: Columns of characters.
+            'idbrii/textobj-word-column.vim',
+            config = function()
+                vim.g.textobj_wordcolumn_no_default_key_mappings = 1
+
+                vim.fn['textobj#user#map']('wordcolumn', {
+                    word = {
+                        ['select-i'] = 'iq',
+                        ['select-a'] = 'aq',
+                    },
+                    WORD = {
+                        ['select-i'] = 'iQ',
+                        ['select-a'] = 'aQ',
+                    },
+                })
+            end,
+        }
+        use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
+        use 'thinca/vim-textobj-between' -- af/if: Between a given character.
 
         -- User interface stuff.
         use {
