@@ -77,4 +77,8 @@ util.map('n', '<leader>sh', ':set hlsearch!<cr>')
 -- Make gf open the file even if it doesn't exist.
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
 
+-- Search Duck Duck Go for the chosen text.
+util.map('n', '<leader>sd', [[<cmd>call netrw#BrowseX('https://duckduckgo.com/?q=' . expand('<cword>'), 0)<cr>]])
+util.map('x', '<leader>sd', [["zy<cmd>call netrw#BrowseX('https://duckduckgo.com/?q=' . @z, 0)<cr>]])
+
 return M
