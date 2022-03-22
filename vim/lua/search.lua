@@ -20,11 +20,12 @@ end
 
 vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
 
+M.last_grep_args = ''
 function M.grep(args)
-    -- Expand anything like wildcards or <cword>. This is important for storing
     -- in last_grep_args, and doing it here guarantees we pass the same
     -- arguments to grep as we store.
     local args = vim.fn.expandcmd(args)
+    -- Expand anything like wildcards or <cword>. This is important for storing
 
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
@@ -39,16 +40,16 @@ function M.grep(args)
 end
 vim.cmd 'command! -nargs=* Grep lua require("search").grep("<args>")'
 
-util.map('n', '[q', ':cprev<cr>')
-util.map('n', ']q', ':cnext<cr>')
+util.map('n', '[q', '<cmd>cprev<cr>')
+util.map('n', ']q', '<cmd>cnext<cr>')
 
-util.map('n', '<leader>co', ':COpen<cr>')
-util.map('n', '<leader>cc', ':cclose<cr>')
+util.map('n', '<leader>co', '<cmd>COpen<cr>')
+util.map('n', '<leader>cc', '<cmd>cclose<cr>')
 
 vim.cmd [[
     function! s:QuickfixMapping()
-        nnoremap <buffer> K :cprev<cr>zz<c-w>w
-        nnoremap <buffer> J :cnext<cr>zz<c-w>w
+        nnoremap <buffer> K <cmd>cprev<cr>zz<c-w>w
+        nnoremap <buffer> J <cmd>cnext<cr>zz<c-w>w
     endfunction
 
     augroup quickfix
@@ -67,12 +68,12 @@ vim.cmd [[
 vim.opt.path:append('**') -- Search recursively by default.
 
 util.map('n', '<leader>/', ':Grep ', {silent = false})
-util.map('n', '<leader><leader>/', ':Grep<cr>')
-util.map('n', '<leader>8', ':Grep -w <cword><cr>')
+util.map('n', '<leader><leader>/', '<cmd>Grep<cr>')
+util.map('n', '<leader>8', '<cmd>Grep -w <cword><cr>')
 util.map('n', '<leader>f', ':find ', {silent = false})
 
 -- Toggle search highlighting.
-util.map('n', '<leader>sh', ':set hlsearch!<cr>')
+util.map('n', '<leader>sh', '<cmd>set hlsearch!<cr>')
 
 -- Make gf open the file even if it doesn't exist.
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
