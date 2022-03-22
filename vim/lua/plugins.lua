@@ -136,6 +136,7 @@ return require('packer').startup {
                 require 'lsp'
             end,
         }
+        use 'ferrine/md-img-paste.vim'
 
         -- File types.
         use {
