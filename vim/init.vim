@@ -79,6 +79,9 @@ nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
 " open GitHub short URLs for plugins {{{
 nnoremap <leader>gh <cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>
 " }}}
+" fix the closest previous spelling mistake {{{
+nnoremap <silent> <leader>z= mz[s1z=`z
+" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
@@ -110,7 +113,6 @@ augroup close_preview_window
 augroup end
 " }}}
 " }}}
-
 " tabs {{{
 set expandtab " tabs are expanded to spaces
 set tabstop=4 " tabs count as 4 spaces
