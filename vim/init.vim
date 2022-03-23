@@ -79,9 +79,6 @@ nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
 " open GitHub short URLs for plugins {{{
 nnoremap <leader>gh <cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>
 " }}}
-" fix the closest previous spelling mistake {{{
-nnoremap <silent> <leader>z= mz[s1z=`z
-" }}}
 " }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
@@ -245,6 +242,7 @@ lua require 'color'
 lua require 'config'
 lua require 'buffer'
 lua require 'filetypes'
+lua require 'misc'
 lua require 'search'
 lua require 'statusline'
 lua require 'style'
