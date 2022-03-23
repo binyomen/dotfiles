@@ -62,4 +62,15 @@ function M.process_opfunc_command(motion, cases)
     end
 end
 
+-- `pos` should be (0, 0)-indexed.
+function M.get_extmark_from_pos(pos, namespace)
+    return vim.api.nvim_buf_set_extmark(
+        0 --[[buffer]],
+        namespace,
+        pos[1],
+        pos[2],
+        {}
+    )
+end
+
 return M
