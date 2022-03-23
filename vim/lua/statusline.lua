@@ -91,9 +91,15 @@ local function encoding(colors)
 end
 
 local function file_info(colors)
-    local word_count_string = vim.g.show_word_count and
-        string.format('WC:%d ', vim.fn.wordcount().words) or
-        ''
+    local word_count_string = ''
+    if vim.b.show_word_count then
+        if vim.b.word_count == nil then
+            -- Start with a reasonable default.
+            vim.b.word_count = vim.fn.wordcount().words
+        end
+
+        word_count_string = string.format('WC:%d ', vim.b.word_count)
+    end
 
     return string.format('%s %s%%P %%l/%%L col: %%c ', colors.primary, word_count_string)
 end
@@ -214,11 +220,21 @@ function M.tabline()
     end
 end
 
+function M.on_cursor_hold()
+    if not vim.b.show_word_count then
+        return
+    end
+
+    local result = vim.fn.searchcount({pattern = [[\w\+]], timeout = 0, maxcount = 0})
+    vim.b.word_count = result.total
+end
+
 vim.cmd [[
     augroup statusline
         autocmd!
         autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
         autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
+        autocmd CursorHold * lua require('statusline').on_cursor_hold()
     augroup end
 ]]
 vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]

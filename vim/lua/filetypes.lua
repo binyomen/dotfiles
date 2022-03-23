@@ -46,7 +46,7 @@ function M.configure_markdown()
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2
 
-    vim.g.show_word_count = true
+    vim.b.show_word_count = true
 
     util.buf_map(0, 'n', '<leader>p', [[<cmd>call mdip#MarkdownClipboardImage()<cr>]])
 end
