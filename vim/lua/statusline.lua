@@ -235,6 +235,7 @@ vim.cmd [[
         autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
         autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
         autocmd CursorHold * lua require('statusline').on_cursor_hold()
+        autocmd CursorHoldI * lua require('statusline').on_cursor_hold()
     augroup end
 ]]
 vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
