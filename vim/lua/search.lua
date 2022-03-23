@@ -79,7 +79,46 @@ util.map('n', '<leader>sh', '<cmd>set hlsearch!<cr>')
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
 
 -- Search Duck Duck Go for the chosen text.
-util.map('n', '<leader>sd', [[<cmd>call netrw#BrowseX('https://duckduckgo.com/?q=' . expand('<cword>'), 0)<cr>]])
-util.map('x', '<leader>sd', [["zy<cmd>call netrw#BrowseX('https://duckduckgo.com/?q=' . @z, 0)<cr>]])
+function M.duck_duck_go(motion)
+    if motion == nil then
+        vim.opt.opfunc = '__search__duck_duck_go_opfunc'
+        return 'g@'
+    end
+
+    local command
+    util.process_opfunc_command(motion, {
+        line = function()
+            command = [[silent normal! '[V']y]]
+        end,
+        char = function()
+            command = [[silent normal! `[v`]y]]
+        end,
+        visual = function()
+            command = string.format([[silent normal! `<%s`>y]], motion)
+        end,
+    })
+
+    local reg_backup = vim.fn.getreginfo('"')
+
+    vim.cmd(command)
+    local reg_content = vim.fn.getreg('"', 1, true --[[list]])
+    if #reg_content > 1 then
+        vim.notify('Cannot search multiple lines on Duck Duck Go.', vim.log.levels.ERROR)
+        return
+    end
+
+    vim.fn['netrw#BrowseX'](string.format('https://duckduckgo.com/?q=%s', reg_content[1]), 0)
+
+    vim.fn.setreg('"', reg_backup)
+end
+
+vim.cmd [[
+    function! __search__duck_duck_go_opfunc(motion) abort
+        return v:lua.require('search').duck_duck_go(a:motion)
+    endfunction
+]]
+
+util.map('x', '<leader>sd', [[:lua require('search').duck_duck_go(vim.fn.visualmode())<cr>]])
+util.map('n', '<leader>sd', [[v:lua.require('search').duck_duck_go()]], {expr = true})
 
 return M
