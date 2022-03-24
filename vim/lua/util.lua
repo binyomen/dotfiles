@@ -73,4 +73,19 @@ function M.get_extmark_from_pos(pos, namespace)
     )
 end
 
+function M.get_extmark_from_cursor(namespace)
+    local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
+    return M.get_extmark_from_pos({pos[1] - 1, pos[2]}, namespace)
+end
+
+function M.set_cursor_from_extmark(extmark, namespace)
+    local extmark_pos = vim.api.nvim_buf_get_extmark_by_id(
+        0 --[[buffer]],
+        namespace,
+        extmark,
+        {}
+    )
+    vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
+end
+
 return M

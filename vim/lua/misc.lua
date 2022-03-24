@@ -11,28 +11,42 @@ function M.fix_previous_spelling_mistake(motion)
         return 'g@l'
     end
 
-    local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
-    local extmark = util.get_extmark_from_pos({pos[1] - 1, pos[2]}, namespace)
+    local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and choose the first suggestion.
     vim.cmd 'silent normal! [s1z='
 
     -- Return to our previous position.
-    local extmark_pos = vim.api.nvim_buf_get_extmark_by_id(
-        0 --[[buffer]],
-        namespace,
-        extmark,
-        {}
-    )
-    vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
+    util.set_cursor_from_extmark(extmark, namespace)
+    vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
+end
+
+function M.mark_previous_spelling_mistake_good(motion)
+    if motion == nil then
+        vim.opt.opfunc = '__misc__mark_previous_spelling_mistake_good_opfunc'
+        return 'g@l'
+    end
+
+    local extmark = util.get_extmark_from_cursor(namespace)
+
+    -- Go back to the previous spelling mistake and mark it as good.
+    vim.cmd 'silent normal! [szg'
+
+    -- Return to our previous position.
+    util.set_cursor_from_extmark(extmark, namespace)
+    vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
 end
 
 vim.cmd [[
     function! __misc__fix_previous_spelling_mistake_opfunc(motion) abort
         return v:lua.require('misc').fix_previous_spelling_mistake(a:motion)
     endfunction
+    function! __misc__mark_previous_spelling_mistake_good_opfunc(motion) abort
+        return v:lua.require('misc').mark_previous_spelling_mistake_good(a:motion)
+    endfunction
 ]]
 
 util.map('n', '<leader>z=', [[v:lua.require('misc').fix_previous_spelling_mistake()]], {expr = true})
+util.map('n', '<leader>zg', [[v:lua.require('misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
 return M
