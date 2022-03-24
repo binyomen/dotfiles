@@ -49,4 +49,12 @@ vim.cmd [[
 util.map('n', '<leader>z=', [[v:lua.require('misc').fix_previous_spelling_mistake()]], {expr = true})
 util.map('n', '<leader>zg', [[v:lua.require('misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
+-- Highlight word under cursor.
+vim.cmd [[
+    augroup highlight_word_under_cursor
+        autocmd!
+        autocmd CursorMoved * exe printf('match __CursorOver /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    augroup END
+]]
+
 return M
