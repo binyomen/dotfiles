@@ -164,8 +164,7 @@ return require('packer').startup {
             end,
         }
         use {
-            'binyomen/typescript-vim',
-            branch = 'nvim_override',
+            'leafgarland/typescript-vim',
             ft = 'typescript',
         }
         use {
