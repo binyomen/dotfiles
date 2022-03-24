@@ -68,6 +68,16 @@ function M.configure_markdown()
         vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
     end
     deferred()
+
+    -- I'm tired we're just gonna do this a second after the buffer loads lol.
+    vim.defer_fn(
+        function()
+            vim.b.table_mode_corner = '+'
+            vim.b.table_mode_corner_corner = '+'
+            vim.b.table_mode_header_fillchar = '='
+        end,
+        1000
+    )
 end
 
 vim.cmd [[

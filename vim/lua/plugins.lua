@@ -64,6 +64,12 @@ return require('packer').startup {
         }
         use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
         use 'thinca/vim-textobj-between' -- af/if: Between a given character.
+        use {
+            'dhruvasagar/vim-table-mode',
+            config = function()
+                vim.g.table_mode_map_prefix = '<leader>0'
+            end,
+        }
 
         -- User interface stuff.
         use {
@@ -178,7 +184,6 @@ return require('packer').startup {
         use {
             'preservim/vim-markdown',
             ft = 'markdown',
-            requires = {'godlygeek/tabular'},
             config = function()
                 vim.g.vim_markdown_new_list_item_indent = 0
                 vim.g.vim_markdown_auto_insert_bullets = 0
