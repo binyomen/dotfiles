@@ -178,6 +178,7 @@ return require('packer').startup {
         use {
             'preservim/vim-markdown',
             ft = 'markdown',
+            requires = {'godlygeek/tabular'},
             config = function()
                 vim.g.vim_markdown_new_list_item_indent = 0
                 vim.g.vim_markdown_auto_insert_bullets = 0
