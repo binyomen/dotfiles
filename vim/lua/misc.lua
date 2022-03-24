@@ -50,11 +50,16 @@ util.map('n', '<leader>z=', [[v:lua.require('misc').fix_previous_spelling_mistak
 util.map('n', '<leader>zg', [[v:lua.require('misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
 -- Highlight word under cursor.
+function M.highlight_word_under_cursor()
+    vim.cmd [[exe printf('match __CursorOver /\V\<%s\>/', escape(expand('<cword>'), '/\'))]]
+end
+
 vim.cmd [[
     augroup highlight_word_under_cursor
         autocmd!
-        autocmd CursorMoved * exe printf('match __CursorOver /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-    augroup END
+        autocmd CursorMoved * lua require('misc').highlight_word_under_cursor()
+        autocmd CursorMovedI * lua require('misc').highlight_word_under_cursor()
+    augroup end
 ]]
 
 return M
