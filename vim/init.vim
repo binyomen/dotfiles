@@ -136,6 +136,10 @@ set diffopt+=vertical " Always open diffs in vertical splits.
 set notimeout " Don't time out waiting for mappings.
 set lazyredraw " Don't redraw the screen while executing mappings and commands
 
+" Give some room when the cursor is at the edges of the screen.
+set scrolloff=2
+set sidescrolloff=5
+
 " Open new splits on the right and bottom, not left and top.
 set splitright
 set splitbelow
