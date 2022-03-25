@@ -138,7 +138,7 @@ set lazyredraw " Don't redraw the screen while executing mappings and commands
 
 " Give some room when the cursor is at the edges of the screen.
 set scrolloff=2
-set sidescrolloff=5
+set sidescrolloff=3
 
 " Open new splits on the right and bottom, not left and top.
 set splitright
