@@ -50,28 +50,20 @@ function M.configure_markdown()
 
     util.buf_map(0, 'n', '<leader>p', [[<cmd>call mdip#MarkdownClipboardImage()<cr>]])
 
-    -- We defer this so that we set our values after vim-markdown sets theirs.
-    local function deferred()
-        if not vim.deep_equal(vim.opt_local.comments:get(), { 'b:>' }) then
-            vim.defer_fn(deferred, 10)
-            return
-        end
-
-        -- Don't automatically insert bullets when hitting enter in a list.
-        vim.opt_local.formatoptions:remove('r')
-
-        -- Don't use the indentexpr provided by vim-markdown, since it depends
-        -- on vim.g.vim_markdown_new_list_item_indent and as a result doesn't
-        -- work if you set that to zero.
-        vim.opt_local.indentexpr = ''
-
-        vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
-    end
-    deferred()
-
     -- I'm tired we're just gonna do this a second after the buffer loads lol.
     vim.defer_fn(
         function()
+            -- Don't automatically insert bullets when hitting enter in a list.
+            vim.opt_local.formatoptions:remove('r')
+
+            -- Don't use the indentexpr provided by vim-markdown, since it depends
+            -- on vim.g.vim_markdown_new_list_item_indent and as a result doesn't
+            -- work if you set that to zero.
+            vim.opt_local.indentexpr = ''
+
+            vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
+
+            -- Support org mode tables.
             vim.b.table_mode_corner = '+'
             vim.b.table_mode_corner_corner = '+'
             vim.b.table_mode_header_fillchar = '='
