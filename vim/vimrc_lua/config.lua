@@ -28,24 +28,9 @@ function M.try_open_lua_file(file_name)
     vim.cmd(string.format([[edit %s]], full_path))
 end
 
-function M.lua_source()
-    local buffer_path = vim.fn.expand('%')
-    local extension = vim.fn.fnamemodify(buffer_path, ':e')
-    if extension ~= 'lua' then
-        vim.notify('LSource is only supported on lua files.', vim.log.levels.ERROR)
-        return
-    end
-
-    local module_name = vim.fn.fnamemodify(buffer_path, ':t:r')
-    package.loaded[module_name] = nil
-    require(module_name)
-end
-
 function M.source()
-    -- If we're in a lua file, source it first.
-    if vim.opt_local.filetype:get() == 'lua' then
-        M.lua_source()
-    end
+    -- Reload all modules starting with "vimrc."
+    require('plenary.reload').reload_module('vimrc.')
 
     vim.cmd [[source $MYVIMRC]]
 end
@@ -62,7 +47,6 @@ end
 -- Open one of the lua configuration files.
 vim.cmd [[command! -nargs=1 -complete=custom,v:lua.package.loaded.config.complete_lua_files LFiles lua require('vimrc.config').try_open_lua_file(<q-args>)]]
 
-vim.cmd [[command! -nargs=0 LSource lua require('vimrc.config').lua_source()]]
 vim.cmd [[command! -nargs=* LEcho lua require('vimrc.config').lua_echo(<q-args>)]]
 
 util.map('n', '<leader>ve', [[<cmd>silent NormalizeEdit $MYVIMRC<cr>]])
