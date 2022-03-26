@@ -79,12 +79,7 @@ util.map('n', '<leader>sh', '<cmd>set hlsearch!<cr>')
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
 
 -- Search Duck Duck Go for the chosen text.
-function M.duck_duck_go(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__search__duck_duck_go_opfunc'
-        return 'g@'
-    end
-
+M.duck_duck_go = util.new_operator(function(motion)
     local command
     util.process_opfunc_command(motion, {
         line = function()
@@ -110,13 +105,7 @@ function M.duck_duck_go(motion)
     vim.fn['netrw#BrowseX'](string.format('https://duckduckgo.com/?q=%s', reg_content[1]), 0)
 
     vim.fn.setreg('"', reg_backup)
-end
-
-vim.cmd [[
-    function! __search__duck_duck_go_opfunc(motion) abort
-        return v:lua.require('vimrc.search').duck_duck_go(a:motion)
-    endfunction
-]]
+end)
 
 util.map('x', '<leader>sd', [[:lua require('vimrc.search').duck_duck_go(vim.fn.visualmode())<cr>]])
 util.map('n', '<leader>sd', [[v:lua.require('vimrc.search').duck_duck_go()]], {expr = true})

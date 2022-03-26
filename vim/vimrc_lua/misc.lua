@@ -5,12 +5,7 @@ local util = require 'vimrc.util'
 local namespace = vim.api.nvim_create_namespace('misc')
 
 -- Fix the closest previous spelling mistake.
-function M.fix_previous_spelling_mistake(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__misc__fix_previous_spelling_mistake_opfunc'
-        return 'g@l'
-    end
-
+M.fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and choose the first suggestion.
@@ -19,14 +14,9 @@ function M.fix_previous_spelling_mistake(motion)
     -- Return to our previous position.
     util.set_cursor_from_extmark(extmark, namespace)
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
-end
+end)
 
-function M.mark_previous_spelling_mistake_good(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__misc__mark_previous_spelling_mistake_good_opfunc'
-        return 'g@l'
-    end
-
+M.mark_previous_spelling_mistake_good = util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and mark it as good.
@@ -35,16 +25,7 @@ function M.mark_previous_spelling_mistake_good(motion)
     -- Return to our previous position.
     util.set_cursor_from_extmark(extmark, namespace)
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
-end
-
-vim.cmd [[
-    function! __misc__fix_previous_spelling_mistake_opfunc(motion) abort
-        return v:lua.require('vimrc.misc').fix_previous_spelling_mistake(a:motion)
-    endfunction
-    function! __misc__mark_previous_spelling_mistake_good_opfunc(motion) abort
-        return v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good(a:motion)
-    endfunction
-]]
+end)
 
 util.map('n', '<leader>z=', [[v:lua.require('vimrc.misc').fix_previous_spelling_mistake()]], {expr = true})
 util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good()]], {expr = true})
@@ -104,24 +85,13 @@ end
 -- This is the default setting.
 M.disable_center_mode()
 
-function M.toggle_center_mode(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__misc__toggle_center_mode_opfunc'
-        return 'g@l'
-    end
-
+M.toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
     if in_center_mode then
         M.disable_center_mode()
     else
         M.enable_center_mode()
     end
-end
-
-vim.cmd [[
-    function! __misc__toggle_center_mode_opfunc(motion) abort
-        return v:lua.require('vimrc.misc').toggle_center_mode(a:motion)
-    endfunction
-]]
+end)
 
 util.map('n', 'cm', [[v:lua.require('vimrc.misc').toggle_center_mode()]], {expr = true})
 

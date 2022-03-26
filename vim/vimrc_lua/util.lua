@@ -103,7 +103,7 @@ function M.unique_id()
 end
 
 M.opfuncs = {}
-local function create_operator(op, inherent_motion)
+local function create_operator(inherent_motion, op)
     local id = M.unique_id()
     local vim_function_name = string.format('__opfunc_%d', id)
 
@@ -123,6 +123,10 @@ local function create_operator(op, inherent_motion)
         end
 
         op(motion)
+
+        -- In case anything in `op` changes the opfunc, reset it so we can
+        -- still do repeat.
+        vim.opt.opfunc = vim_function_name
     end
 
     M.opfuncs[vim_function_name] = opfunc
@@ -130,7 +134,7 @@ local function create_operator(op, inherent_motion)
 end
 
 function M.new_operator(op)
-    return create_operator(op, '')
+    return create_operator('', op)
 end
 
 function M.new_operator_with_inherent_motion(inherent_motion, op)

@@ -144,25 +144,15 @@ local function perform_swap(motion)
     vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
 end
 
-function M.swap(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__swap__swap_opfunc'
-        return 'g@'
-    end
-
+M.swap = util.new_operator(function(motion)
     if swap_first_state == nil then
         select_swap_first(motion)
     else
         perform_swap(motion)
     end
-end
+end)
 
-local function move_word_keep_cursor(motion, opfunc, forward)
-    if motion == nil then
-        vim.opt.opfunc = opfunc
-        return 'g@l'
-    end
-
+local function move_word_keep_cursor(forward)
     -- This is necessary to restore our cursor to the original position after
     -- an undo.
     vim.cmd [[execute "normal! ia\<bs>\<esc>l"]]
@@ -184,15 +174,9 @@ local function move_word_keep_cursor(motion, opfunc, forward)
     vim.fn.execute(string.format('normal %sssiw', leader))
 
     vim.api.nvim_win_set_cursor(0 --[[window]], pos)
-    vim.opt.opfunc = opfunc
 end
 
-local function move_word(motion, opfunc, forward)
-    if motion == nil then
-        vim.opt.opfunc = opfunc
-        return 'g@l'
-    end
-
+local function move_word(forward)
     local leader = vim.g.mapleader
     vim.fn.execute(string.format('normal %sssiw', leader))
 
@@ -206,48 +190,23 @@ local function move_word(motion, opfunc, forward)
     vim.fn.search([[\w\+]], flags)
 
     vim.fn.execute(string.format('normal %sssiw', leader))
-
-    vim.opt.opfunc = opfunc
 end
 
-function M.next_word_keep_cursor(motion)
-    return move_word_keep_cursor(motion, '__swap__next_word_keep_cursor_opfunc', true)
-end
+M.next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
+    return move_word_keep_cursor(true)
+end)
 
-function M.previous_word_keep_cursor(motion)
-    return move_word_keep_cursor(motion, '__swap__previous_word_keep_cursor_opfunc', false)
-end
+M.previous_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
+    return move_word_keep_cursor(false)
+end)
 
-function M.next_word(motion)
-    return move_word(motion, '__swap__next_word_opfunc', true)
-end
+M.next_word = util.new_operator_with_inherent_motion('l', function()
+    return move_word(true)
+end)
 
-function M.previous_word(motion)
-    return move_word(motion, '__swap__previous_word_opfunc', false)
-end
-
--- Currently neovim won't repeat properly if you set the opfunc to a lua
--- function rather than a vim one. See
--- https://github.com/neovim/neovim/issues/17503.
-vim.cmd [[
-    function! __swap__swap_opfunc(motion) abort
-        return v:lua.require('vimrc.swap').swap(a:motion)
-    endfunction
-
-    function! __swap__next_word_keep_cursor_opfunc(motion) abort
-        return v:lua.require('vimrc.swap').next_word_keep_cursor(a:motion)
-    endfunction
-    function! __swap__previous_word_keep_cursor_opfunc(motion) abort
-        return v:lua.require('vimrc.swap').previous_word_keep_cursor(a:motion)
-    endfunction
-
-    function! __swap__next_word_opfunc(motion) abort
-        return v:lua.require('vimrc.swap').next_word(a:motion)
-    endfunction
-    function! __swap__previous_word_opfunc(motion) abort
-        return v:lua.require('vimrc.swap').previous_word(a:motion)
-    endfunction
-]]
+M.previous_word = util.new_operator_with_inherent_motion('l', function()
+    return move_word(false)
+end)
 
 -- Swap arbitrary text.
 util.map('x', '<leader>ss', [[:lua require('vimrc.swap').swap(vim.fn.visualmode())<cr>]])
