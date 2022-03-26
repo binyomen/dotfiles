@@ -198,6 +198,7 @@ return require('packer').startup {
         use 'stefandtw/quickfix-reflector.vim' -- Edits in the quickfix window get reflected in the actual buffers.
         use 'tpope/vim-eunuch' -- Filesystem commands.
         use 'milisims/nvim-luaref' -- Documentation for built-in Lua functions.
+        use 'nvim-lua/plenary.nvim' -- Useful utilities.
     end,
     config = {
         profile = {
