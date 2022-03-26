@@ -78,4 +78,51 @@ vim.cmd [[
     augroup end
 ]]
 
+-- Center mode.
+local in_center_mode
+function M.enable_center_mode()
+    vim.cmd [[
+        augroup center_mode
+            autocmd!
+            autocmd CursorMoved * normal! zz
+        augroup end
+    ]]
+    vim.cmd [[normal! zz]]
+
+    in_center_mode = true
+end
+
+function M.disable_center_mode()
+    -- Do this check since the below autocmd will fail if the group doesn't exist.
+    if in_center_mode then
+        vim.cmd [[autocmd! center_mode]]
+    end
+
+    in_center_mode = false
+end
+
+-- This is the default setting.
+M.disable_center_mode()
+
+function M.toggle_center_mode(motion)
+    if motion == nil then
+        vim.opt.opfunc = '__misc__toggle_center_mode_opfunc'
+        return 'g@l'
+    end
+
+    if in_center_mode then
+        M.disable_center_mode()
+    else
+        M.enable_center_mode()
+    end
+end
+
+vim.cmd [[
+    function! __misc__toggle_center_mode_opfunc(motion) abort
+        return v:lua.require('vimrc.misc').toggle_center_mode(a:motion)
+    endfunction
+]]
+
+util.map('n', 'cm', [[v:lua.require('vimrc.misc').toggle_center_mode()]], {expr = true})
+
 return M
