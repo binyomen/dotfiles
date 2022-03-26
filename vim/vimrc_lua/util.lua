@@ -102,4 +102,39 @@ function M.unique_id()
     return _G.__unique_id
 end
 
+M.opfuncs = {}
+local function create_operator(op, inherent_motion)
+    local id = M.unique_id()
+    local vim_function_name = string.format('__opfunc_%d', id)
+
+    -- Currently neovim won't repeat properly if you set the opfunc to a lua
+    -- function rather than a vim one. See
+    -- https://github.com/neovim/neovim/issues/17503.
+    vim.cmd(string.format([[
+        function! %s(motion) abort
+            call v:lua.require('vimrc.util').opfuncs.%s(a:motion)
+        endfunction
+    ]], vim_function_name, vim_function_name))
+
+    local opfunc = function(motion)
+        if motion == nil then
+            vim.opt.opfunc = vim_function_name
+            return 'g@' .. inherent_motion
+        end
+
+        op(motion)
+    end
+
+    M.opfuncs[vim_function_name] = opfunc
+    return opfunc
+end
+
+function M.new_operator(op)
+    return create_operator(op, '')
+end
+
+function M.new_operator_with_inherent_motion(inherent_motion, op)
+    return create_operator(inherent_motion, op)
+end
+
 return M

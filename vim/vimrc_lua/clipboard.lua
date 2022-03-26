@@ -26,23 +26,13 @@ local function do_normal_command(motion, normal_command)
     vim.cmd(command)
 end
 
-function M.copy(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__clipboard__copy_opfunc'
-        return 'g@'
-    end
-
+M.copy = util.new_operator(function(motion)
     do_normal_command(motion, '"*y')
-end
+end)
 
-function M.paste(motion)
-    if motion == nil then
-        vim.opt.opfunc = '__clipboard__paste_opfunc'
-        return 'g@'
-    end
-
+M.paste = util.new_operator(function(motion)
     do_normal_command(motion, '"*p')
-end
+end)
 
 function M.paste_before()
     vim.cmd(string.format([[normal! "*%dP]], vim.v.count1))
@@ -57,19 +47,6 @@ function M.paste_line()
         vim.cmd [[put *]]
     end
 end
-
--- Currently neovim won't repeat properly if you set the opfunc to a lua
--- function rather than a vim one. See
--- https://github.com/neovim/neovim/issues/17503.
-vim.cmd [[
-    function! __clipboard__copy_opfunc(motion) abort
-        return v:lua.require('vimrc.clipboard').copy(a:motion)
-    endfunction
-
-    function! __clipboard__paste_opfunc(motion) abort
-        return v:lua.require('vimrc.clipboard').paste(a:motion)
-    endfunction
-]]
 
 util.map('x', 'cy', [[:lua require('vimrc.clipboard').copy(vim.fn.visualmode())<cr>]])
 util.map('n', 'cy', [[v:lua.require('vimrc.clipboard').copy()]], {expr = true})
