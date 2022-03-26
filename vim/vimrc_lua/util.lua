@@ -37,11 +37,18 @@ end
 
 vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
 
+function M.replace_termcodes(s)
+    return vim.api.nvim_replace_termcodes(s, true --[[from_part]], true --[[do_lt]], true --[[special]])
+end
+
+-- A useful shortcut that looks like a string prefix in C++.
+_G.t = M.replace_termcodes
+
 local LINE_MOTION = 'line'
 local CHAR_MOTION = 'char'
 local VISUAL_MOTION = 'v'
 local VISUAL_LINE_MOTION = 'V'
-local VISUAL_BLOCK_MOTION = ''
+local VISUAL_BLOCK_MOTION = t'<c-v>'
 
 function M.is_visual_motion(motion)
     return
