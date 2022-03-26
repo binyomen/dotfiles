@@ -1,7 +1,7 @@
 local M = {}
 
 local lspconfig = require 'lspconfig'
-local util = require 'util'
+local util = require 'vimrc.util'
 
 util.map('n', '<leader><space>e', '<cmd>lua vim.diagnostic.open_float()<cr>')
 util.map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')

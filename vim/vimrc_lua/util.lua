@@ -35,7 +35,7 @@ function M.normalize_path(path)
     return vim.fn.simplify(vim.fn.resolve(vim.fn.expandcmd(path)))
 end
 
-vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('util').normalize_path(<q-args>)]]
+vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
 
 local LINE_MOTION = 'line'
 local CHAR_MOTION = 'char'

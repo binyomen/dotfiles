@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 vim.opt.ignorecase = true -- Make search case insensitive.
 vim.opt.smartcase = true -- Ignore case if only lowercase characters are used in search text.
@@ -22,10 +22,10 @@ vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
 
 M.last_grep_args = ''
 function M.grep(args)
+    -- Expand anything like wildcards or <cword>. This is important for storing
     -- in last_grep_args, and doing it here guarantees we pass the same
     -- arguments to grep as we store.
     local args = vim.fn.expandcmd(args)
-    -- Expand anything like wildcards or <cword>. This is important for storing
 
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
@@ -38,7 +38,7 @@ function M.grep(args)
     vim.cmd('execute "silent grep! ' .. args .. '"')
     vim.cmd 'COpen'
 end
-vim.cmd 'command! -nargs=* Grep lua require("search").grep("<args>")'
+vim.cmd 'command! -nargs=* Grep lua require("vimrc.search").grep("<args>")'
 
 util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
@@ -114,11 +114,11 @@ end
 
 vim.cmd [[
     function! __search__duck_duck_go_opfunc(motion) abort
-        return v:lua.require('search').duck_duck_go(a:motion)
+        return v:lua.require('vimrc.search').duck_duck_go(a:motion)
     endfunction
 ]]
 
-util.map('x', '<leader>sd', [[:lua require('search').duck_duck_go(vim.fn.visualmode())<cr>]])
-util.map('n', '<leader>sd', [[v:lua.require('search').duck_duck_go()]], {expr = true})
+util.map('x', '<leader>sd', [[:lua require('vimrc.search').duck_duck_go(vim.fn.visualmode())<cr>]])
+util.map('n', '<leader>sd', [[v:lua.require('vimrc.search').duck_duck_go()]], {expr = true})
 
 return M

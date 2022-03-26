@@ -227,7 +227,7 @@ end
 vim.cmd [[
     augroup statusline_highlight_groups
         autocmd!
-        autocmd ColorScheme * lua require('color').set_highlight_groups()
+        autocmd ColorScheme * lua require('vimrc.color').set_highlight_groups()
     augroup end
 ]]
 

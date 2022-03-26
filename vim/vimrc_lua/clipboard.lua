@@ -6,7 +6,7 @@
 
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local function do_normal_command(motion, normal_command)
     local command
@@ -63,21 +63,21 @@ end
 -- https://github.com/neovim/neovim/issues/17503.
 vim.cmd [[
     function! __clipboard__copy_opfunc(motion) abort
-        return v:lua.require('clipboard').copy(a:motion)
+        return v:lua.require('vimrc.clipboard').copy(a:motion)
     endfunction
 
     function! __clipboard__paste_opfunc(motion) abort
-        return v:lua.require('clipboard').paste(a:motion)
+        return v:lua.require('vimrc.clipboard').paste(a:motion)
     endfunction
 ]]
 
-util.map('x', 'cy', [[:lua require('clipboard').copy(vim.fn.visualmode())<cr>]])
-util.map('n', 'cy', [[v:lua.require('clipboard').copy()]], {expr = true})
-util.map('n', 'cY', [[v:lua.require('clipboard').copy() . '_']], {expr = true})
-util.map('x', 'cp', [[:lua require('clipboard').paste(vim.fn.visualmode())<cr>]])
-util.map('n', 'cp', [[v:lua.require('clipboard').paste()]], {expr = true})
-util.map('n', 'cpP', [[<cmd>lua require('clipboard').paste_before()<cr>]])
-util.map('n', 'cpp', [[<cmd>lua require('clipboard').paste_after()<cr>]])
-util.map('n', 'cP', [[<cmd>lua require('clipboard').paste_line()<cr>]])
+util.map('x', 'cy', [[:lua require('vimrc.clipboard').copy(vim.fn.visualmode())<cr>]])
+util.map('n', 'cy', [[v:lua.require('vimrc.clipboard').copy()]], {expr = true})
+util.map('n', 'cY', [[v:lua.require('vimrc.clipboard').copy() . '_']], {expr = true})
+util.map('x', 'cp', [[:lua require('vimrc.clipboard').paste(vim.fn.visualmode())<cr>]])
+util.map('n', 'cp', [[v:lua.require('vimrc.clipboard').paste()]], {expr = true})
+util.map('n', 'cpP', [[<cmd>lua require('vimrc.clipboard').paste_before()<cr>]])
+util.map('n', 'cpp', [[<cmd>lua require('vimrc.clipboard').paste_after()<cr>]])
+util.map('n', 'cP', [[<cmd>lua require('vimrc.clipboard').paste_line()<cr>]])
 
 return M

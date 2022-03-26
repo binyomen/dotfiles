@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local current_theme = 1
 local themes = {
@@ -16,7 +16,7 @@ local themes = {
     'onehalfdark',
 }
 
-util.map('n', '<leader>ns', ':lua require("style").next_theme()<cr>')
+util.map('n', '<leader>ns', ':lua require("vimrc.style").next_theme()<cr>')
 
 function M.next_theme()
     if current_theme == #themes then

@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local instances = {}
 
@@ -152,7 +152,7 @@ local function set_mappings(buf)
             buf,
             'n',
             lhs,
-            ':lua require("api_explorer").' .. rhs .. '<cr>',
+            ':lua require("vimrc.api_explorer").' .. rhs .. '<cr>',
             {nowait = true})
     end
 end
@@ -236,12 +236,12 @@ function M.nav_up(instance)
     end
 end
 
-vim.cmd 'command! -nargs=0 ApiExplorer lua require("api_explorer").open()'
+vim.cmd 'command! -nargs=0 ApiExplorer lua require("vimrc.api_explorer").open()'
 
 vim.cmd [[
     augroup api_explorer
         autocmd!
-        autocmd WinClosed * lua require("api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
+        autocmd WinClosed * lua require("vimrc.api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
     augroup end
 ]]
 

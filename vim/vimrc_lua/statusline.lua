@@ -232,13 +232,13 @@ end
 vim.cmd [[
     augroup statusline
         autocmd!
-        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('statusline').active_statusline()
-        autocmd WinLeave * setlocal statusline=%!v:lua.require('statusline').inactive_statusline()
-        autocmd CursorHold * lua require('statusline').on_cursor_hold()
-        autocmd CursorHoldI * lua require('statusline').on_cursor_hold()
+        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('vimrc.statusline').active_statusline()
+        autocmd WinLeave * setlocal statusline=%!v:lua.require('vimrc.statusline').inactive_statusline()
+        autocmd CursorHold * lua require('vimrc.statusline').on_cursor_hold()
+        autocmd CursorHoldI * lua require('vimrc.statusline').on_cursor_hold()
     augroup end
 ]]
-vim.opt.tabline = [[%!v:lua.require('statusline').tabline()]]
+vim.opt.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 
 if vim.g.started_by_firenvim then
     vim.opt.laststatus = 0

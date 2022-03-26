@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local namespace = vim.api.nvim_create_namespace('misc')
 
@@ -39,15 +39,15 @@ end
 
 vim.cmd [[
     function! __misc__fix_previous_spelling_mistake_opfunc(motion) abort
-        return v:lua.require('misc').fix_previous_spelling_mistake(a:motion)
+        return v:lua.require('vimrc.misc').fix_previous_spelling_mistake(a:motion)
     endfunction
     function! __misc__mark_previous_spelling_mistake_good_opfunc(motion) abort
-        return v:lua.require('misc').mark_previous_spelling_mistake_good(a:motion)
+        return v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good(a:motion)
     endfunction
 ]]
 
-util.map('n', '<leader>z=', [[v:lua.require('misc').fix_previous_spelling_mistake()]], {expr = true})
-util.map('n', '<leader>zg', [[v:lua.require('misc').mark_previous_spelling_mistake_good()]], {expr = true})
+util.map('n', '<leader>z=', [[v:lua.require('vimrc.misc').fix_previous_spelling_mistake()]], {expr = true})
+util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
 -- Highlight word under cursor.
 local cursor_highlight_match_id = nil
@@ -72,9 +72,9 @@ end
 vim.cmd [[
     augroup highlight_word_under_cursor
         autocmd!
-        autocmd CursorMoved * lua require('misc').highlight_word_under_cursor()
-        autocmd CursorMovedI * lua require('misc').highlight_word_under_cursor()
-        autocmd WinLeave * lua require('misc').clear_cursor_highlight()
+        autocmd CursorMoved * lua require('vimrc.misc').highlight_word_under_cursor()
+        autocmd CursorMovedI * lua require('vimrc.misc').highlight_word_under_cursor()
+        autocmd WinLeave * lua require('vimrc.misc').clear_cursor_highlight()
     augroup end
 ]]
 

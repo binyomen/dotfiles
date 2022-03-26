@@ -32,7 +32,7 @@ return require('packer').startup {
         use {
             'junegunn/vim-easy-align',
             config = function()
-                local util = require 'util'
+                local util = require 'vimrc.util'
                 util.map('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
                 util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
             end,
@@ -83,7 +83,7 @@ return require('packer').startup {
         use {
             'NLKNguyen/papercolor-theme',
             config = function()
-                require('color').on_colorscheme_loaded()
+                require('vimrc.color').on_colorscheme_loaded()
             end,
         }
         use 'arcticicestudio/nord-vim'
@@ -99,7 +99,7 @@ return require('packer').startup {
             'tpope/vim-fugitive',
             cond = not_firenvim,
             config = function()
-                require('util').map('n', '<leader>gd', ':Gvdiff<cr>') -- Display a diff view of the current file.
+                require('vimrc.util').map('n', '<leader>gd', ':Gvdiff<cr>') -- Display a diff view of the current file.
             end,
         }
         use {
@@ -109,7 +109,7 @@ return require('packer').startup {
             config = function()
                 require('gitsigns').setup {
                     on_attach = function(bufnr)
-                        local util = require 'util'
+                        local util = require 'vimrc.util'
 
                         -- Navigation
                         util.buf_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
@@ -139,7 +139,7 @@ return require('packer').startup {
         use {
             'neovim/nvim-lspconfig',
             config = function()
-                require 'lsp'
+                require 'vimrc.lsp'
             end,
         }
         use 'ferrine/md-img-paste.vim'

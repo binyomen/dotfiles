@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 function M.configure_text()
     -- Set linewrapping.
@@ -75,7 +75,7 @@ end
 vim.cmd [[
     augroup txt_files
         autocmd!
-        autocmd FileType text lua require('filetypes').configure_text()
+        autocmd FileType text lua require('vimrc.filetypes').configure_text()
     augroup end
     augroup go_files
         autocmd!
@@ -88,15 +88,15 @@ vim.cmd [[
     augroup end
     augroup html_files
         autocmd!
-        autocmd FileType html lua require('filetypes').configure_html()
+        autocmd FileType html lua require('vimrc.filetypes').configure_html()
     augroup end
     augroup help_files
         autocmd!
-        autocmd FileType help lua require('filetypes').configure_help()
+        autocmd FileType help lua require('vimrc.filetypes').configure_help()
     augroup end
     augroup markdown_files
         autocmd!
-        autocmd FileType markdown lua require('filetypes').configure_markdown()
+        autocmd FileType markdown lua require('vimrc.filetypes').configure_markdown()
     augroup end
 
     augroup spell_file_types

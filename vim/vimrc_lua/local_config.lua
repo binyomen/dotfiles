@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local TRUST_DIR = string.format('%s/local_config', vim.fn.stdpath('data'))
 local TRUST_FILE = string.format('%s/trust.json', TRUST_DIR)

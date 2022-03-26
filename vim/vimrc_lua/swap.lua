@@ -8,7 +8,7 @@ local M = {}
 -- "ia<bs><esc>l" in the mappings) is from
 -- https://vim.fandom.com/wiki/Restore_the_cursor_position_after_undoing_text_change_made_by_a_script.
 
-local util = require 'util'
+local util = require 'vimrc.util'
 
 local swap_first_state = nil
 local namespace = vim.api.nvim_create_namespace('swap')
@@ -231,35 +231,35 @@ end
 -- https://github.com/neovim/neovim/issues/17503.
 vim.cmd [[
     function! __swap__swap_opfunc(motion) abort
-        return v:lua.require('swap').swap(a:motion)
+        return v:lua.require('vimrc.swap').swap(a:motion)
     endfunction
 
     function! __swap__next_word_keep_cursor_opfunc(motion) abort
-        return v:lua.require('swap').next_word_keep_cursor(a:motion)
+        return v:lua.require('vimrc.swap').next_word_keep_cursor(a:motion)
     endfunction
     function! __swap__previous_word_keep_cursor_opfunc(motion) abort
-        return v:lua.require('swap').previous_word_keep_cursor(a:motion)
+        return v:lua.require('vimrc.swap').previous_word_keep_cursor(a:motion)
     endfunction
 
     function! __swap__next_word_opfunc(motion) abort
-        return v:lua.require('swap').next_word(a:motion)
+        return v:lua.require('vimrc.swap').next_word(a:motion)
     endfunction
     function! __swap__previous_word_opfunc(motion) abort
-        return v:lua.require('swap').previous_word(a:motion)
+        return v:lua.require('vimrc.swap').previous_word(a:motion)
     endfunction
 ]]
 
 -- Swap arbitrary text.
-util.map('x', '<leader>ss', [[:lua require('swap').swap(vim.fn.visualmode())<cr>]])
-util.map('n', '<leader>ss', [[v:lua.require('swap').swap()]], {expr = true})
+util.map('x', '<leader>ss', [[:lua require('vimrc.swap').swap(vim.fn.visualmode())<cr>]])
+util.map('n', '<leader>ss', [[v:lua.require('vimrc.swap').swap()]], {expr = true})
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
-util.map('n', '<leader>sw', [[v:lua.require('swap').next_word_keep_cursor()]], {expr = true})
-util.map('n', '<leader>sW', [[v:lua.require('swap').previous_word_keep_cursor()]], {expr = true})
+util.map('n', '<leader>sw', [[v:lua.require('vimrc.swap').next_word_keep_cursor()]], {expr = true})
+util.map('n', '<leader>sW', [[v:lua.require('vimrc.swap').previous_word_keep_cursor()]], {expr = true})
 
 -- Push the current word to the left or right.
-util.map('n', '<leader>sl', [[v:lua.require('swap').previous_word()]], {expr = true})
-util.map('n', '<leader>sr', [[v:lua.require('swap').next_word()]], {expr = true})
+util.map('n', '<leader>sl', [[v:lua.require('vimrc.swap').previous_word()]], {expr = true})
+util.map('n', '<leader>sr', [[v:lua.require('vimrc.swap').next_word()]], {expr = true})
 util.map('n', '<m-h>', '<leader>sl', {noremap = false})
 util.map('n', '<m-l>', '<leader>sr', {noremap = false})
 

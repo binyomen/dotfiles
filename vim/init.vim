@@ -1,8 +1,8 @@
 " vim:fdm=marker
 
-lua require('local_config').load_configs()
+lua require('vimrc.local_config').load_configs()
 
-lua require 'plugins'
+lua require 'vimrc.plugins'
 
 " leader keys {{{
 let mapleader = ',' " semicolon is the leader key
@@ -236,14 +236,14 @@ endif
 " }}}
 " }}}
 
-lua require 'api_explorer'
-lua require 'clipboard'
-lua require 'color'
-lua require 'config'
-lua require 'buffer'
-lua require 'filetypes'
-lua require 'misc'
-lua require 'search'
-lua require 'statusline'
-lua require 'style'
-lua require 'swap'
+lua require 'vimrc.api_explorer'
+lua require 'vimrc.clipboard'
+lua require 'vimrc.color'
+lua require 'vimrc.config'
+lua require 'vimrc.buffer'
+lua require 'vimrc.filetypes'
+lua require 'vimrc.misc'
+lua require 'vimrc.search'
+lua require 'vimrc.statusline'
+lua require 'vimrc.style'
+lua require 'vimrc.swap'
