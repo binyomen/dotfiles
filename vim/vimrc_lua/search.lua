@@ -38,7 +38,7 @@ function M.grep(args)
     vim.cmd('execute "silent grep! ' .. args .. '"')
     vim.cmd 'COpen'
 end
-vim.cmd 'command! -nargs=* Grep lua require("vimrc.search").grep("<args>")'
+vim.cmd 'command! -nargs=* Grep lua require("vimrc.search").grep(<q-args>)'
 
 util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
