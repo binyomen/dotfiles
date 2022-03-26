@@ -53,7 +53,10 @@ end
 function M.lua_echo(args)
     local chunk = string.format('return %s', args)
     local f = assert(loadstring(chunk))
-    print(vim.inspect(f()))
+
+    -- This is necessary to collapse multiple returns into one return.
+    local result = f()
+    print(vim.inspect(result))
 end
 
 -- Open one of the lua configuration files.
