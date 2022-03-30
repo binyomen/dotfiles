@@ -11,11 +11,11 @@ let maplocalleader = '\\' " backslash is the localleader key
 " remaps {{{
 " easier remappings of common commands {{{
 inoremap <silent> uu <esc>| " use "uu" to exit insert mode
-inoremap <silent> hh <esc>:update<cr>| " use "hh" to exit insert mode and save
+inoremap <silent> hh <esc><cmd>update<cr>| " use "hh" to exit insert mode and save
 nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
-nnoremap <silent> <bs> :update<cr>| " remap backspace to save in normal mode
-vnoremap <silent> <bs> :update<cr>| " remap backspace to save in visual mode
+nnoremap <silent> <bs> <cmd>update<cr>| " remap backspace to save in normal mode
+vnoremap <silent> <bs> <cmd>update<cr>| " remap backspace to save in visual mode
 
 function! s:omnifunc_map() abort
     if g:in_completion_menu
