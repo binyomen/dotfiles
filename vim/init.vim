@@ -144,6 +144,15 @@ set sidescrolloff=3
 " Open new splits on the right and bottom, not left and top.
 set splitright
 set splitbelow
+
+" Use pwsh on Windows.
+if has('win32')
+    let &shell = 'pwsh'
+    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    set shellquote= shellxquote=
+endif
 " }}}
 " errorformat {{{
 set errorformat=%[0-9]%\\+>%f(%l)\ :\ %m " build.exe errors
