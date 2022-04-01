@@ -24,7 +24,7 @@ M.last_grep_args = ''
 function M.grep(args)
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
-    if args == '' then
+    if args == nil then
         args = M.last_grep_args
     else
         M.last_grep_args = args
@@ -63,7 +63,7 @@ vim.cmd [[
 vim.opt.path:append('**') -- Search recursively by default.
 
 util.map('n', '<leader>/', ':Grep ', {silent = false})
-util.map('n', '<leader><leader>/', '<cmd>Grep<cr>')
+util.map('n', '<leader><leader>/', '<cmd>lua require ("vimrc.search").grep()<cr>')
 util.map('n', '<leader>8', '<cmd>lua require ("vimrc.search").grep("-w " .. vim.fn.expand("<cword>"))<cr>')
 util.map('n', '<leader>f', ':find ', {silent = false})
 
