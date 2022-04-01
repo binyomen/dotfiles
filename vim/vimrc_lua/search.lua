@@ -22,11 +22,6 @@ vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
 
 M.last_grep_args = ''
 function M.grep(args)
-    -- Expand anything like wildcards or <cword>. This is important for storing
-    -- in last_grep_args, and doing it here guarantees we pass the same
-    -- arguments to grep as we store.
-    local args = vim.fn.expandcmd(args)
-
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
     if args == '' then
@@ -35,10 +30,10 @@ function M.grep(args)
         M.last_grep_args = args
     end
 
-    vim.cmd('execute "silent grep! ' .. args .. '"')
+    vim.cmd('silent grep! ' .. args)
     vim.cmd 'COpen'
 end
-vim.cmd 'command! -nargs=* Grep lua require("vimrc.search").grep(<q-args>)'
+vim.cmd 'command! -nargs=1 Grep lua require("vimrc.search").grep(<q-args>)'
 
 util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
@@ -69,7 +64,7 @@ vim.opt.path:append('**') -- Search recursively by default.
 
 util.map('n', '<leader>/', ':Grep ', {silent = false})
 util.map('n', '<leader><leader>/', '<cmd>Grep<cr>')
-util.map('n', '<leader>8', '<cmd>Grep -w <cword><cr>')
+util.map('n', '<leader>8', '<cmd>lua require ("vimrc.search").grep("-w " .. vim.fn.expand("<cword>"))<cr>')
 util.map('n', '<leader>f', ':find ', {silent = false})
 
 -- Toggle search highlighting.
