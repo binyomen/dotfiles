@@ -35,7 +35,7 @@ local cursor_highlight_match_id = nil
 function M.highlight_word_under_cursor()
     M.clear_cursor_highlight()
 
-    local word = vim.fn.expand('<cword>')
+    local word = vim.fn.escape(vim.fn.expand('<cword>'), [[\/]])
     local pattern = string.format([[\V\<%s\>]], word)
 
     cursor_highlight_match_id = vim.fn.matchadd('__CursorOver', pattern)
