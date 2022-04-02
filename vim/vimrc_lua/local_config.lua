@@ -1,5 +1,6 @@
 local M = {}
 
+local cm = require 'plenary.context_manager'
 local util = require 'vimrc.util'
 
 local TRUST_DIR = string.format('%s/local_config', vim.fn.stdpath('data'))
@@ -18,16 +19,17 @@ local function ensure_trust_file()
     end
 
     if not util.file_exists(TRUST_FILE) then
-        local f = assert(io.open(TRUST_FILE, 'w'))
-        assert(f:write('{}'))
-        f:close()
+        cm.with(cm.open(TRUST_FILE, 'w'), function(f)
+            assert(f:write('{}'))
+        end)
     end
 end
 
 local function read_file(file_name)
-    local f = assert(io.open(file_name))
-    local contents = assert(f:read('*a'))
-    f:close()
+    local contents
+    cm.with(cm.open(file_name), function (f)
+        contents = assert(f:read('*a'))
+    end)
 
     return contents
 end
@@ -40,9 +42,9 @@ end
 
 local function write_trust_file(o)
     ensure_trust_file()
-    local f = assert(io.open(TRUST_FILE, 'w'))
-    assert(f:write(vim.json.encode(o)))
-    f:close()
+    cm.with(cm.open(TRUST_FILE, 'w'), function(f)
+        assert(f:write(vim.json.encode(o)))
+    end)
 end
 
 local function trust(config)
@@ -92,9 +94,7 @@ end
 -- Currently only one config per directory is supported.
 local function add_configs_for_dir(dir, configs)
     local file_name = string.format('%s/nvim_local.lua', dir)
-    local f = io.open(file_name)
-    if f then
-        f:close()
+    if util.file_exists(file_name) then
         table.insert(configs, file_name)
     end
 end
