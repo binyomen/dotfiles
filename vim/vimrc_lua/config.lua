@@ -25,7 +25,7 @@ function M.try_open_lua_file(file_name)
         return
     end
 
-    vim.cmd(string.format([[edit %s]], full_path))
+    vim.cmd(string.format([[vsplit %s]], full_path))
 end
 
 function M.source()
@@ -49,10 +49,10 @@ vim.cmd [[command! -nargs=1 -complete=custom,v:lua.require'vimrc.config'.complet
 
 vim.cmd [[command! -nargs=* LEcho lua require('vimrc.config').lua_echo(<q-args>)]]
 
-util.map('n', '<leader>ve', [[<cmd>silent NormalizeEdit $MYVIMRC<cr>]])
+util.map('n', '<leader>ve', [[<cmd>silent NormalizeVSplit $MYVIMRC<cr>]])
 util.map('n', '<leader>vs', [[<cmd>lua require('vimrc.config').source()<cr>]])
 
-util.map('n', '<leader>vl', [[<cmd>execute 'silent NormalizeEdit ' . stdpath('config') . '/lua/vimrc/'<cr>]])
-util.map('n', '<leader>vp', [[<cmd>execute 'silent NormalizeEdit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
+util.map('n', '<leader>vl', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('config') . '/lua/vimrc/'<cr>]])
+util.map('n', '<leader>vp', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
 
 return M

@@ -35,7 +35,10 @@ function M.normalize_path(path)
     return vim.fn.simplify(vim.fn.resolve(vim.fn.expandcmd(path)))
 end
 
-vim.cmd [[command! -nargs=1 NormalizeEdit execute 'edit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
+vim.cmd [[command! -nargs=1 -complete=file NormalizeEdit execute 'edit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
+vim.cmd [[command! -nargs=1 -complete=file NormalizeSplit execute 'split ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
+vim.cmd [[command! -nargs=1 -complete=file NormalizeVSplit execute 'vsplit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
+vim.cmd [[command! -nargs=1 -complete=file NormalizeTabEdit execute 'tabedit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
 
 function M.replace_termcodes(s)
     return vim.api.nvim_replace_termcodes(s, true --[[from_part]], true --[[do_lt]], true --[[special]])
