@@ -144,12 +144,6 @@ return require('packer').startup {
         }
         use 'ferrine/md-img-paste.vim'
         use 'justinmk/vim-dirvish'
-        use {
-            'kristijanhusak/vim-dirvish-git',
-            config = function()
-                vim.g.dirvish_git_show_ignored = 1
-            end,
-        }
 
         -- File types.
         use {
