@@ -33,9 +33,7 @@ util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling
 -- Highlight word under cursor.
 local cursor_highlight_match_id = nil
 function M.highlight_word_under_cursor()
-    if cursor_highlight_match_id ~= nil then
-        vim.fn.matchdelete(cursor_highlight_match_id)
-    end
+    M.clear_cursor_highlight()
 
     local word = vim.fn.expand('<cword>')
     local pattern = string.format([[\V\<%s\>]], word)
