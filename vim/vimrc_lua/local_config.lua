@@ -26,12 +26,9 @@ local function ensure_trust_file()
 end
 
 local function read_file(file_name)
-    local contents
-    cm.with(cm.open(file_name), function (f)
-        contents = assert(f:read('*a'))
+    return cm.with(cm.open(file_name), function (f)
+        return assert(f:read('*a'))
     end)
-
-    return contents
 end
 
 local function read_trust_file()
