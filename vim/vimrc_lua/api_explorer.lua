@@ -179,6 +179,13 @@ function M.open()
 
     vim.cmd(string.format('buffer %d', buf))
 
+    vim.cmd(string.format([[
+        augroup api_explorer
+            autocmd! * <buffer=%d>
+            autocmd WinClosed <buffer=%d> lua require("vimrc.api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
+        augroup end
+    ]], buf, buf))
+
     set_mappings(buf)
 end
 
@@ -237,12 +244,5 @@ function M.nav_up(instance)
 end
 
 vim.cmd 'command! -nargs=0 ApiExplorer lua require("vimrc.api_explorer").open()'
-
-vim.cmd [[
-    augroup api_explorer
-        autocmd!
-        autocmd WinClosed * lua require("vimrc.api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
-    augroup end
-]]
 
 return M
