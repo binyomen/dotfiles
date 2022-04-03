@@ -26,6 +26,8 @@ function! s:omnifunc_map() abort
     endif
 endfunction
 inoremap <expr> <c-t> <sid>omnifunc_map()| " Easier omnifunc mapping.
+
+inoremap <c-f> <c-x><c-f>| " Make file completion easier
 " }}}
 " use H and L to go to beginning and end of lines {{{
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
