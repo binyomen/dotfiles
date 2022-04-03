@@ -27,7 +27,7 @@ function! s:omnifunc_map() abort
 endfunction
 inoremap <expr> <c-t> <sid>omnifunc_map()| " Easier omnifunc mapping.
 
-inoremap <c-f> <c-x><c-f>| " Make file completion easier
+inoremap <c-d> <c-x><c-f>| " Make file completion easier
 inoremap <c-c> <c-x><c-n>| " Make context-aware word completion easier
 " }}}
 " use H and L to go to beginning and end of lines {{{
