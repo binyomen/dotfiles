@@ -12,7 +12,7 @@ let maplocalleader = '\\' " backslash is the localleader key
 " easier remappings of common commands {{{
 inoremap <silent> uu <esc>| " use "uu" to exit insert mode
 inoremap <silent> hh <esc><cmd>update<cr>| " use "hh" to exit insert mode and save
-inoremap <silent> <c-h> <c-o><cmd>update<cr>| " use ctrl+h to save while in insert mode
+inoremap <silent> <c-h> <cmd>update<cr>| " use ctrl+h to save while in insert mode
 nnoremap <space> :| " remap space to : in normal mode for ease of use
 vnoremap <space> :| " remap space to : in visual mode for ease of use
 nnoremap <silent> <bs> <cmd>update<cr>| " remap backspace to save in normal mode
