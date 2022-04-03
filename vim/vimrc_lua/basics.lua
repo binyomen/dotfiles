@@ -48,8 +48,6 @@ vim.opt.tabstop = 4 -- Tabs count as 4 spaces.
 vim.opt.softtabstop = 4 -- Tabs count as 4 spaces while performing editing operations (yeah, I don't really understand this either).
 vim.opt.shiftwidth = 4 -- Number of spaces used for autoindent.
 vim.opt.shiftround = true -- Should round indents to multiple of shiftwidth.
-vim.opt.autoindent = true -- Automatically indent lines.
-vim.opt.smarttab = true -- Be smart about how you use shiftwidth vs tabstop or softtabstop I think.
 -- Show whitespace
 vim.opt.list = true -- Display whitespace characters.
 vim.opt.listchars = {tab = '>.', trail = '.', extends = '#', nbsp = '.'} -- Specify which whitespace characters to display.
@@ -72,7 +70,6 @@ vim.opt.splitbelow = true
 vim.opt.wrap = false -- Don't wrap lines.
 vim.opt.showmatch = true -- Show matching bracket when one is inserted.
 vim.opt.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region tags).
-vim.opt.joinspaces = false -- Don't add an extra space after a period for J and gq.
 vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.timeout = false -- Don't time out waiting for mappings.
