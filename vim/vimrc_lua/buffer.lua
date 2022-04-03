@@ -50,12 +50,4 @@ function M.delete_no_name_buffer()
     end)
 end
 
--- Delete no-name buffer when hidden.
-vim.cmd [[
-    augroup no_name_delete
-        autocmd!
-        autocmd BufHidden {} lua require('vimrc.buffer').delete_no_name_buffer()
-    augroup end
-]]
-
 return M

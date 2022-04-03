@@ -146,7 +146,10 @@ end
 local function render_buffers()
     local bufs = vim.tbl_filter(
         function(buf)
-            return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
+            return
+                vim.api.nvim_buf_is_loaded(buf) and
+                vim.fn.buflisted(buf) ~= 0 and
+                vim.api.nvim_buf_get_name(buf) ~= ''
         end,
         vim.api.nvim_list_bufs()
     )
