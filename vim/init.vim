@@ -1,35 +1,13 @@
 " vim:fdm=marker
 
+let mapleader = ','
+let maplocalleader = '\\'
+
 lua require('vimrc.local_config').load_configs()
 
 lua require 'vimrc.plugins'
 
-" leader keys {{{
-let mapleader = ',' " semicolon is the leader key
-let maplocalleader = '\\' " backslash is the localleader key
-" }}}
 " remaps {{{
-" easier remappings of common commands {{{
-inoremap <silent> uu <esc>| " use "uu" to exit insert mode
-inoremap <silent> hh <esc><cmd>update<cr>| " use "hh" to exit insert mode and save
-inoremap <silent> <c-h> <cmd>update<cr>| " use ctrl+h to save while in insert mode
-nnoremap <space> :| " remap space to : in normal mode for ease of use
-vnoremap <space> :| " remap space to : in visual mode for ease of use
-nnoremap <silent> <bs> <cmd>update<cr>| " remap backspace to save in normal mode
-vnoremap <silent> <bs> <cmd>update<cr>| " remap backspace to save in visual mode
-
-function! s:omnifunc_map() abort
-    if g:in_completion_menu
-        return ''
-    else
-        return ''
-    endif
-endfunction
-inoremap <expr> <c-t> <sid>omnifunc_map()| " Easier omnifunc mapping.
-
-inoremap <c-d> <c-x><c-f>| " Make file completion easier
-inoremap <c-c> <c-x><c-n>| " Make context-aware word completion easier
-" }}}
 " use H and L to go to beginning and end of lines {{{
 " NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
 " configuration to be able to make use of these mappings. If a better way to
@@ -251,6 +229,7 @@ endif
 " }}}
 
 lua require 'vimrc.api_explorer'
+lua require 'vimrc.basics'
 lua require 'vimrc.clipboard'
 lua require 'vimrc.color'
 lua require 'vimrc.config'
