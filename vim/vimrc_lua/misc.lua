@@ -31,20 +31,19 @@ util.map('n', '<leader>z=', [[v:lua.require('vimrc.misc').fix_previous_spelling_
 util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
 -- Highlight word under cursor.
-local cursor_highlight_match_id = nil
 function M.highlight_word_under_cursor()
     M.clear_cursor_highlight()
 
     local word = vim.fn.escape(vim.fn.expand('<cword>'), [[\/]])
     local pattern = string.format([[\V\<%s\>]], word)
 
-    cursor_highlight_match_id = vim.fn.matchadd('__CursorOver', pattern)
+    vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('__CursorOver', pattern)
 end
 
 function M.clear_cursor_highlight()
-    if cursor_highlight_match_id ~= nil then
-        vim.fn.matchdelete(cursor_highlight_match_id)
-        cursor_highlight_match_id = nil
+    if vim.w.vimrc__cursor_highlight_match_id ~= nil then
+        vim.fn.matchdelete(vim.w.vimrc__cursor_highlight_match_id)
+        vim.w.vimrc__cursor_highlight_match_id = nil
     end
 end
 
