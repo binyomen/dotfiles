@@ -117,7 +117,6 @@ set fileformats=unix,dos " Set Unix line endings as the default.
 set diffopt+=vertical " Always open diffs in vertical splits.
 set notimeout " Don't time out waiting for mappings.
 set lazyredraw " Don't redraw the screen while executing mappings and commands
-set foldlevelstart=99 " Open all folds by default
 
 " Give some room when the cursor is at the edges of the screen.
 set scrolloff=2
