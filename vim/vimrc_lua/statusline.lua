@@ -2,7 +2,7 @@ local M = {}
 
 local function redraw_tabline()
     -- For some reason :redrawtabline doesn't work....
-    vim.opt_local.readonly = vim.opt_local.readonly
+    vim.bo[vim.g.statusline_bufid].readonly = vim.bo[vim.g.statusline_bufid].readonly
 end
 
 local NORMAL_COLORS = {
@@ -68,7 +68,7 @@ local function get_colors()
 end
 
 local function file_type(colors)
-    local file_type = vim.opt_local.filetype:get()
+    local file_type = vim.bo[vim.g.statusline_bufid].filetype
     local file_type_string = file_type == '' and '-' or file_type:upper()
     return string.format('%s   %s   ', colors.primary, file_type_string)
 end
@@ -82,9 +82,9 @@ local function flags(colors)
 end
 
 local function encoding(colors)
-    local encoding = vim.opt_local.fileencoding:get()
-    local line_endings = vim.opt_local.fileformat:get()
-    local eol = vim.opt_local.endofline:get()
+    local encoding = vim.bo[vim.g.statusline_bufid].fileencoding
+    local line_endings = vim.bo[vim.g.statusline_bufid].fileformat
+    local eol = vim.bo[vim.g.statusline_bufid].endofline
     local eol_text = eol and '' or ' NOEOL'
 
     return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
@@ -108,7 +108,7 @@ local function absolute_path_to_file_name(path)
     return vim.fn.fnamemodify(path, ':t')
 end
 
-function M.active_statusline()
+local function active_statusline()
     -- Force the tabline to redraw, since it won't always when things like the
     -- mode change.
     redraw_tabline()
@@ -124,8 +124,24 @@ function M.active_statusline()
     }
 end
 
-function M.inactive_statusline()
+local function inactive_statusline()
     return '%#StatusLineNC# %F '
+end
+
+function M.do_statusline(state)
+    vim.g.statusline_bufid = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+    local result
+
+    if state == 'active' then
+        result = active_statusline()
+    elseif state == 'inactive' then
+        result = inactive_statusline()
+    else
+        error('unexpected')
+    end
+
+    vim.g.statusline_bufid = nil
+    return result
 end
 
 local function render_single_tab(tabline, colors, buf, is_active, name)
@@ -235,8 +251,8 @@ end
 vim.cmd [[
     augroup statusline
         autocmd!
-        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('vimrc.statusline').active_statusline()
-        autocmd WinLeave * setlocal statusline=%!v:lua.require('vimrc.statusline').inactive_statusline()
+        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('active')
+        autocmd WinLeave * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('inactive')
         autocmd CursorHold * lua require('vimrc.statusline').on_cursor_hold()
         autocmd CursorHoldI * lua require('vimrc.statusline').on_cursor_hold()
     augroup end
