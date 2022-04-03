@@ -8,43 +8,6 @@ lua require('vimrc.local_config').load_configs()
 lua require 'vimrc.plugins'
 
 " remaps {{{
-" use H and L to go to beginning and end of lines {{{
-" NOTE: nmap is used here rather than nnoremap in order for the .txt filetype
-" configuration to be able to make use of these mappings. If a better way to
-" deal with this is found, it will be changed.
-noremap H ^| " H moves to first non-blank character of line
-noremap L g_| " L moves to last non-blank character of line
-" }}}
-" easier scrolling/scrolling that doesn't conflict with existing mappings {{{
-nnoremap <c-h> <c-e>| " scroll down
-nnoremap <c-n> <c-y>| " scroll up
-" }}}
-" use <leader>t for <c-w> {{{
-nnoremap <leader>t <c-w>
-
-nnoremap + <c-w>>
-nnoremap - <c-w><
-nnoremap <c-=> <c-w>+
-nnoremap <c--> <c-w>-
-" }}}
-" use <leader>r to reload the buffer with :edit {{{
-noremap <silent> <leader>r :edit<CR>
-" }}}
-" remap ':' to ',' so that you can move backwards for f and t {{{
-noremap : ,
-" }}}
-" <leader>h, <leader>m, and <leader>l for moving the cursor to the top, middle, and bottom of the screen {{{
-noremap <leader>h H
-noremap <leader>m M
-noremap <leader>l L
-" }}}
-" swap meanings of ` and ' since one is easier to hit than the other {{{
-noremap ` '
-noremap ' `
-" }}}
-" remap <c-^> to M, which has more editor support {{{
-nnoremap M <c-^>
-" }}}
 " easy switching between cpp and header files {{{
 function! s:toggle_c() abort
     if expand('%:e') == 'h'
