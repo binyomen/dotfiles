@@ -169,7 +169,7 @@ endfunc
 
 command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim
 
-command! -nargs=0 SynName echo synIDattr(synID(line("."), col("."), 1), 'name')
+command! -nargs=0 SynStack echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name") . " -> " . synIDattr(synIDtrans(v:val), "name")')
 " }}}
 " editor configuration {{{
 " fvim {{{
