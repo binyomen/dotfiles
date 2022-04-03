@@ -30,6 +30,8 @@ end)
 util.map('n', '<leader>z=', [[v:lua.require('vimrc.misc').fix_previous_spelling_mistake()]], {expr = true})
 util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good()]], {expr = true})
 
+util.map('n', '<leader>zt', [[<cmd>setlocal spell!<cr>]])
+
 -- Highlight word under cursor.
 function M.highlight_word_under_cursor()
     M.clear_cursor_highlight()
