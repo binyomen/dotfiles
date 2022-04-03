@@ -49,55 +49,6 @@ augroup close_preview_window
 augroup end
 " }}}
 " }}}
-" tabs {{{
-set expandtab " tabs are expanded to spaces
-set tabstop=4 " tabs count as 4 spaces
-set softtabstop=4 " tabs count as 4 spaces while performing editing operations (yeah, I don't really understand this either)
-set shiftwidth=4 " number of spaces used for autoindent
-set shiftround " should round indents to multiple of shiftwidth
-set autoindent " automatically indent lines
-set smarttab " be smart about how you use shiftwidth vs tabstop or softtabstop I think
-" }}}
-" show whitespace {{{
-set list " display whitespace characters
-set listchars=tab:>.,trail:.,extends:#,nbsp:. " specify which whitespace characters to display ('trail' is for trailing spaces, and 'extends' is for when the line extends beyond the right end of the screen)
-" }}}
-" misc. settings {{{
-set number " show line numbers
-set relativenumber " show relative line numbers
-set nowrap " don't wrap lines
-set showmatch " show matching bracket when one is inserted
-set wildignore+=.git " ignore the .git directory when expanding wildcards
-set title " title of window set to titlename/currently edited file
-set visualbell " use visual bell instead of beeping
-set foldmethod=syntax " fold based on the language syntax (e.g. #region tags)
-set colorcolumn=80,120 " highlight the 80th and 120th columns for better line-length management
-set wildmode=longest,full " in command line, first <tab> press complete to longest common string, next show full match
-set cursorline " highlight the current line
-set cursorcolumn " highlight the current column
-set nojoinspaces " don't add an extra space after a period for J and gq
-set fileformats=unix,dos " Set Unix line endings as the default.
-set diffopt+=vertical " Always open diffs in vertical splits.
-set notimeout " Don't time out waiting for mappings.
-set lazyredraw " Don't redraw the screen while executing mappings and commands
-
-" Give some room when the cursor is at the edges of the screen.
-set scrolloff=2
-set sidescrolloff=3
-
-" Open new splits on the right and bottom, not left and top.
-set splitright
-set splitbelow
-
-" Use pwsh on Windows.
-if has('win32')
-    let &shell = 'pwsh'
-    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-    let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    set shellquote= shellxquote=
-endif
-" }}}
 " errorformat {{{
 set errorformat=%[0-9]%\\+>%f(%l)\ :\ %m " build.exe errors
 
@@ -202,3 +153,4 @@ lua require 'vimrc.search'
 lua require 'vimrc.statusline'
 lua require 'vimrc.style'
 lua require 'vimrc.swap'
+lua require 'vimrc.terminal'
