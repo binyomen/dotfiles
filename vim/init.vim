@@ -1,5 +1,7 @@
 " vim:fdm=marker
 
+lua require 'impatient'
+
 let mapleader = ','
 let maplocalleader = '\\'
 

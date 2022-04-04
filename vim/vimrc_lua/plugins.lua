@@ -24,6 +24,9 @@ return require('packer').startup {
         -- Packer itself.
         use 'wbthomason/packer.nvim'
 
+        -- Cache lua module bytecode.
+        use 'lewis6991/impatient.nvim'
+
         -- General text editing.
         use 'tpope/vim-commentary' -- Commenting functionality.
         use 'tpope/vim-surround' -- Surround text in quotes, HTML tags, etc.
