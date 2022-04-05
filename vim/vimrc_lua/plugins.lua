@@ -95,6 +95,12 @@ return require('packer').startup {
         use 'mhartington/oceanic-next'
         use 'drewtempelmeyer/palenight.vim'
         use {'sonph/onehalf', rtp = 'vim'}
+        use {
+            'lukas-reineke/indent-blankline.nvim',
+            config = function()
+                require('indent_blankline').setup()
+            end,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
