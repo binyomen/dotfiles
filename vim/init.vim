@@ -62,10 +62,6 @@ set errorformat+=%-G%.%#
 function! FormatJson()
     %!python -m json.tool
 endfunc
-
-command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim
-
-command! -nargs=0 SynStack echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name") . " -> " . synIDattr(synIDtrans(v:val), "name")')
 " }}}
 
 lua require 'vimrc.api_explorer'

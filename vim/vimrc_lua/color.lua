@@ -231,4 +231,7 @@ vim.cmd [[
     augroup end
 ]]
 
+vim.cmd [[command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim]]
+vim.cmd [[command! -nargs=0 SynStack echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name") . " -> " . synIDattr(synIDtrans(v:val), "name")')]]
+
 return M
