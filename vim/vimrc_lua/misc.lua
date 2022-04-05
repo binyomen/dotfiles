@@ -94,4 +94,6 @@ end)
 
 util.map('n', 'cm', [[v:lua.require('vimrc.misc').toggle_center_mode()]], {expr = true})
 
+vim.cmd [[command! -nargs=0 FormatJson %!python -m json.tool]]
+
 return M

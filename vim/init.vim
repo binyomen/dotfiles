@@ -57,12 +57,6 @@ set errorformat=%[0-9]%\\+>%f(%l)\ :\ %m " build.exe errors
 " Ignore anything that doesn't match the previous errors.
 set errorformat+=%-G%.%#
 " }}}
-" custom functions and commands {{{
-" format json
-function! FormatJson()
-    %!python -m json.tool
-endfunc
-" }}}
 
 lua require 'vimrc.api_explorer'
 lua require 'vimrc.basics'
