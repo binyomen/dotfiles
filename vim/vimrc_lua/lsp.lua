@@ -27,10 +27,18 @@ local function on_attach(_, buf)
     util.buf_map(buf, 'n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
 end
 
+local function setup_language_server(name, config)
+    local config = config or {}
+
+    local base_config = {on_attach = on_attach, capabilities = completion.capabilities}
+    local final_config = vim.tbl_extend('force', base_config, config)
+
+    lspconfig[name].setup(final_config)
+end
+
 if LOCAL_CONFIG.use_nvim_lua_ls then
     -- https://github.com/sumneko/lua-language-server
-    lspconfig.sumneko_lua.setup {
-        on_attach = on_attach,
+    setup_language_server('sumneko_lua', {
         settings = {
             Lua = {
                 runtime = {
@@ -46,38 +54,31 @@ if LOCAL_CONFIG.use_nvim_lua_ls then
                 },
             },
         },
-    }
+    })
 end
 
 -- https://github.com/rust-lang/rls
-lspconfig.rls.setup {
-    on_attach = on_attach,
-    capabilities = completion.capabilities,
+setup_language_server('rls', {
     settings = {
         rust = {
             clippy_preference = 'on',
         },
     },
-}
+})
 
 -- https://github.com/iamcco/vim-language-server
-lspconfig.vimls.setup {
-    on_attach = on_attach,
-    capabilities = completion.capabilities,
-}
+setup_language_server('vimls')
 
 -- https://github.com/hrsh7th/vscode-langservers-extracted
-lspconfig.jsonls.setup {
-    on_attach = on_attach,
-    capabilities = completion.capabilities,
-}
+setup_language_server('html')
+setup_language_server('cssls')
+setup_language_server('jsonls')
+setup_language_server('eslint')
 
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
-        local setup_opts = vim.tbl_extend('keep', server.setup_options, {capabilities = completion.capabilities})
-
         lspconfig[server.name] = server.default_options
-        lspconfig[server.name].setup(setup_opts)
+        setup_language_server(server.name, server.setup_options)
     end
 end
 
