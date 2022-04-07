@@ -9,24 +9,6 @@ lua require('vimrc.local_config').load_configs()
 
 lua require 'vimrc.plugins'
 
-" remaps {{{
-" easy switching between cpp and header files {{{
-function! s:toggle_c() abort
-    if expand('%:e') == 'h'
-        edit %<.cpp
-    elseif expand('%:e') == 'cpp'
-        edit %<.h
-    endif
-endfunction
-nnoremap <silent> <leader>ch :call <sid>toggle_c()<cr>
-" }}}
-" search help for word under cursor {{{
-nnoremap <leader>? :execute 'help ' . expand("<cword>")<cr>
-" }}}
-" open GitHub short URLs for plugins {{{
-nnoremap <leader>gh <cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>
-" }}}
-" }}}
 " autocmds {{{
 " fixes the problem detailed at http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text {{{
 " Without this, folds open and close at will as you type code.

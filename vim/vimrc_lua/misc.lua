@@ -96,4 +96,20 @@ util.map('n', 'cm', [[v:lua.require('vimrc.misc').toggle_center_mode()]], {expr 
 
 vim.cmd [[command! -nargs=0 FormatJson %!python -m json.tool]]
 
+-- Easy switching between cpp and header files.
+function M.toggle_c()
+    if vim.fn.expand('%:e') == 'h' then
+        vim.cmd [[edit %<.cpp]]
+    elseif vim.fn.expand('%:e') == 'cpp' then
+        vim.cmd [[edit %<.h]]
+    end
+end
+util.map('n', '<leader>ch', [[<cmd>lua require('vimrc.misc').toggle_c()<cr>]])
+
+-- Search help for the word under the cursor.
+util.map('n', '<leader>?', [[<cmd>execute 'help ' . expand("<cword>")<cr>]])
+
+-- Open GitHub short URLs for plugins.
+util.map('n', '<leader>gh', [[<cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>]])
+
 return M
