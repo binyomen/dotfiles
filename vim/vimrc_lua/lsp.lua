@@ -1,5 +1,6 @@
 local M = {}
 
+local completion = require 'vimrc.completion'
 local lspconfig = require 'lspconfig'
 local util = require 'vimrc.util'
 
@@ -51,6 +52,7 @@ end
 -- https://github.com/rust-lang/rls
 lspconfig.rls.setup {
     on_attach = on_attach,
+    capabilities = completion.capabilities,
     settings = {
         rust = {
             clippy_preference = 'on',
@@ -61,12 +63,15 @@ lspconfig.rls.setup {
 -- https://github.com/iamcco/vim-language-server
 lspconfig.vimls.setup {
     on_attach = on_attach,
+    capabilities = completion.capabilities,
 }
 
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
+        local setup_opts = vim.tbl_extend('keep', server.setup_options, {capabilities = completion.capabilities})
+
         lspconfig[server.name] = server.default_options
-        lspconfig[server.name].setup(server.setup_options)
+        lspconfig[server.name].setup(setup_opts)
     end
 end
 

@@ -147,12 +147,30 @@ return require('packer').startup {
         }
         use {
             'neovim/nvim-lspconfig',
+            after = 'nvim-cmp',
             config = function()
                 require 'vimrc.lsp'
             end,
         }
         use 'ferrine/md-img-paste.vim'
         use 'justinmk/vim-dirvish'
+
+        -- Completion.
+        use {
+            'hrsh7th/nvim-cmp',
+            requires = {
+                'hrsh7th/cmp-nvim-lsp',
+                'hrsh7th/cmp-buffer',
+                'hrsh7th/cmp-path',
+                'hrsh7th/cmp-cmdline',
+                'hrsh7th/cmp-nvim-lua',
+                'L3MON4D3/LuaSnip',
+                'saadparwaiz1/cmp_luasnip',
+            },
+            config = function()
+                require 'vimrc.completion'
+            end,
+        }
 
         -- File types.
         use {
