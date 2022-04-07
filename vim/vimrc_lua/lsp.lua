@@ -66,6 +66,12 @@ lspconfig.vimls.setup {
     capabilities = completion.capabilities,
 }
 
+-- https://github.com/hrsh7th/vscode-langservers-extracted
+lspconfig.jsonls.setup {
+    on_attach = on_attach,
+    capabilities = completion.capabilities,
+}
+
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
         local setup_opts = vim.tbl_extend('keep', server.setup_options, {capabilities = completion.capabilities})
