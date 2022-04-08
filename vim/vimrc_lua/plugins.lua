@@ -166,8 +166,10 @@ return require('packer').startup {
                 'hrsh7th/cmp-nvim-lua',
                 'L3MON4D3/LuaSnip',
                 'saadparwaiz1/cmp_luasnip',
+                'honza/vim-snippets',
             },
             config = function()
+                require('luasnip.loaders.from_snipmate').lazy_load()
                 require 'vimrc.completion'
             end,
         }
