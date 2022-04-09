@@ -165,20 +165,18 @@ local function move_word_keep_cursor(forward)
         vim.fn.execute('normal! "_yiw')
     end
 
-    local leader = vim.g.mapleader
-    vim.fn.execute(string.format('normal %sssiw', leader))
+    vim.fn.execute(t'normal <leader>ssiw')
 
     local flags = forward and 'z' or 'b'
     vim.fn.search([[\w\+]], flags)
 
-    vim.fn.execute(string.format('normal %sssiw', leader))
+    vim.fn.execute(t'normal <leader>ssiw')
 
     vim.api.nvim_win_set_cursor(0 --[[window]], pos)
 end
 
 local function move_word(forward)
-    local leader = vim.g.mapleader
-    vim.fn.execute(string.format('normal %sssiw', leader))
+    vim.fn.execute(t'normal <leader>ssiw')
 
     -- If we're moving backwards move to the beginning of the word so we don't
     -- just find our own word.
@@ -189,7 +187,7 @@ local function move_word(forward)
     local flags = forward and 'z' or 'b'
     vim.fn.search([[\w\+]], flags)
 
-    vim.fn.execute(string.format('normal %sssiw', leader))
+    vim.fn.execute(t'normal <leader>ssiw')
 end
 
 M.next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
