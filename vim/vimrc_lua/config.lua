@@ -21,7 +21,7 @@ function M.try_open_lua_file(file_name)
     local lua_dir = util.normalize_path(string.format('%s/lua/vimrc', vim.fn.stdpath('config')))
     local full_path = string.format('%s/%s', lua_dir, file_name)
     if not util.file_exists(full_path) then
-        vim.notify(string.format('File "%s" does not exist.', full_path), vim.log.levels.ERROR)
+        util.log_error(string.format('File "%s" does not exist.', full_path))
         return
     end
 

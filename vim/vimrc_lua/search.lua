@@ -93,7 +93,7 @@ M.duck_duck_go = util.new_operator(function(motion)
     vim.cmd(command)
     local reg_content = vim.fn.getreg('"', 1, true --[[list]])
     if #reg_content > 1 then
-        vim.notify('Cannot search multiple lines on Duck Duck Go.', vim.log.levels.ERROR)
+        util.log_error('Cannot search multiple lines on Duck Duck Go.')
         return
     end
 

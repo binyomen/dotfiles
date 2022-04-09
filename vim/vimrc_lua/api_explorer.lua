@@ -245,7 +245,7 @@ end
 function M.nav_up(instance)
     local instance = instance or query_instance()
     if instance.node.parent == nil then
-        vim.notify('Already at top level.', vim.log.levels.ERROR)
+        util.log_error('Already at top level.')
     else
         instance.node = instance.node.parent
         render(instance)
@@ -287,13 +287,13 @@ function M.get_definition()
 
     local info = debug.getinfo(child)
     if info.what ~= 'Lua' then
-        vim.notify(string.format('Not a Lua function: what = %s', info.what), vim.log.levels.ERROR)
+        util.log_error(string.format('Not a Lua function: what = %s', info.what))
         return
     end
 
     local path = info.source:sub(2)
     if not util.file_exists(path) then
-        vim.notify(string.format('File does not exist: %s', path), vim.log.levels.ERROR)
+        util.log_error(string.format('File does not exist: %s', path))
         return
     end
 

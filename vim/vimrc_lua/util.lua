@@ -160,4 +160,8 @@ function M.new_operator_with_inherent_motion(inherent_motion, op)
     return create_operator(inherent_motion, op)
 end
 
+function M.log_error(msg)
+    vim.notify(msg, vim.log.levels.ERROR)
+end
+
 return M
