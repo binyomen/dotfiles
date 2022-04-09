@@ -106,7 +106,7 @@ local function render(instance)
 
     -- First display the name of the current table.
     table.insert(lines, string.format('=== %s ===', node.name))
-    table.insert(instance.lines, {ignore = true})
+    table.insert(instance.lines, {})
 
     -- Then create the line for navigating up a level.
     if node.parent ~= nil then
@@ -123,7 +123,7 @@ local function render(instance)
 
     -- Finally create a blank line.
     table.insert(lines, '')
-    table.insert(instance.lines, {ignore = true})
+    table.insert(instance.lines, {})
 
     -- Generate a line for each field.
     for _, o in ipairs(sorted_lines) do
@@ -145,6 +145,7 @@ local function set_mappings(buf)
         q = 'close()',
         ['<cr>'] = 'nav_to()',
         ['u'] = 'nav_up()',
+        ['i'] = 'get_info()',
     }
 
     for lhs, rhs in pairs(mappings) do
@@ -225,13 +226,11 @@ function M.nav_to()
     local cursor = vim.api.nvim_win_get_cursor(instance.win)
     local line = instance.lines[cursor[1]]
 
-    if line.ignore then
-        return
-    elseif line.up then
+    if line.up then
         M.nav_up(instance)
     elseif line.metatable then
         nav_down(instance, '{{metatable}}', getmetatable(instance.node.tbl))
-    else
+    elseif line.key ~= nil then
         local key = line.key
         local child_tbl = instance.node.tbl[key]
         if type(child_tbl) == 'table' then
@@ -249,6 +248,20 @@ function M.nav_up(instance)
     else
         instance.node = instance.node.parent
         render(instance)
+    end
+end
+
+function M.get_info()
+    local instance = query_instance()
+
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
+
+    if line.key ~= nil then
+        local child = instance.node.tbl[line.key]
+        if type(child) == 'function' then
+            print(vim.inspect(debug.getinfo(child)))
+        end
     end
 end
 
