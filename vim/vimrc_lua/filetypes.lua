@@ -73,33 +73,33 @@ function M.configure_markdown()
 end
 
 vim.cmd [[
-    augroup txt_files
+    augroup vimrc__txt_files
         autocmd!
         autocmd FileType text lua require('vimrc.filetypes').configure_text()
     augroup end
-    augroup go_files
+    augroup vimrc__go_files
         autocmd!
         autocmd FileType go setlocal rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
         autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
     augroup end
-    augroup xaml_files
+    augroup vimrc__xaml_files
         autocmd!
         autocmd BufNewFile,BufRead *.xaml set ft=xml " XAML is basically just XML
     augroup end
-    augroup html_files
+    augroup vimrc__html_files
         autocmd!
         autocmd FileType html lua require('vimrc.filetypes').configure_html()
     augroup end
-    augroup help_files
+    augroup vimrc__help_files
         autocmd!
         autocmd FileType help lua require('vimrc.filetypes').configure_help()
     augroup end
-    augroup markdown_files
+    augroup vimrc__markdown_files
         autocmd!
         autocmd FileType markdown lua require('vimrc.filetypes').configure_markdown()
     augroup end
 
-    augroup spell_file_types
+    augroup vimrc__spell_file_types
         autocmd!
         autocmd FileType gitcommit,html,markdown,text setlocal spell
     augroup end

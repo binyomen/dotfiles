@@ -115,16 +115,16 @@ function M.set_cursor_from_extmark(extmark, namespace)
 end
 
 -- If we've reloaded the module make sure we pick up from where we left off.
-_G.__unique_id = _G.__unique_id or -1
+_G.vimrc__unique_id = _G.vimrc__unique_id or -1
 function M.unique_id()
-    _G.__unique_id = _G.__unique_id + 1
-    return _G.__unique_id
+    _G.vimrc__unique_id = _G.vimrc__unique_id + 1
+    return _G.vimrc__unique_id
 end
 
 M.opfuncs = {}
 local function create_operator(inherent_motion, op)
     local id = M.unique_id()
-    local vim_function_name = string.format('__opfunc_%d', id)
+    local vim_function_name = string.format('_vimrc__opfunc_%d', id)
 
     -- Currently neovim won't repeat properly if you set the opfunc to a lua
     -- function rather than a vim one. See

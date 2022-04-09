@@ -9,7 +9,7 @@ local use = packer.use
 
 -- Automatically compile packer when plugins.lua is changed.
 vim.cmd([[
-    augroup packer_auto_compile
+    augroup vimrc__packer_auto_compile
         autocmd!
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
     augroup end

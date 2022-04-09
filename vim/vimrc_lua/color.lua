@@ -81,10 +81,10 @@ local HIGHLIGHTS = {
 }
 
 local function create_statusline_highlight(mode, base, accent)
-    local primary_group = string.format('__StatuslinePrimary%s', mode)
+    local primary_group = string.format('vimrc__StatuslinePrimary%s', mode)
     M.create_highlight_group(primary_group, {fg = base, bg = accent, bold = true})
 
-    local secondary_group = string.format('__StatuslineSecondary%s', mode)
+    local secondary_group = string.format('vimrc__StatuslineSecondary%s', mode)
     M.create_highlight_group(secondary_group, {fg = accent, bg = base})
 end
 
@@ -107,7 +107,7 @@ local function create_cursor_over_highlight(highlights)
         color = {bg = '!TabLine.bg', bold = true}
     end
 
-    M.create_highlight_group('__CursorOver', color)
+    M.create_highlight_group('vimrc__CursorOver', color)
 end
 
 -- Define highlight groups based off of the current color scheme.
@@ -225,7 +225,7 @@ function M.on_colorscheme_loaded()
 end
 
 vim.cmd [[
-    augroup statusline_highlight_groups
+    augroup vimrc__statusline_highlight_groups
         autocmd!
         autocmd ColorScheme * lua require('vimrc.color').set_highlight_groups()
     augroup end

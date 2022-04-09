@@ -47,13 +47,13 @@ vim.cmd [[
         nnoremap <buffer> J <cmd>cnext<cr>zz<c-w>w
     endfunction
 
-    augroup quickfix
+    augroup vimrc__quickfix
         autocmd!
         autocmd filetype qf call <sid>QuickfixMapping()
     augroup end
 
     " Only highlight searches while actually typing the search.
-    augroup search_highlight
+    augroup vimrc__search_highlight
         autocmd!
         autocmd CmdlineEnter /,\? :set hlsearch
         autocmd CmdlineLeave /,\? :set nohlsearch

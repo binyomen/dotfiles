@@ -39,7 +39,7 @@ function M.highlight_word_under_cursor()
     local word = vim.fn.escape(vim.fn.expand('<cword>'), [[\/]])
     local pattern = string.format([[\V\<%s\>]], word)
 
-    vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('__CursorOver', pattern)
+    vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('vimrc__CursorOver', pattern)
 end
 
 function M.clear_cursor_highlight()
@@ -50,7 +50,7 @@ function M.clear_cursor_highlight()
 end
 
 vim.cmd [[
-    augroup highlight_word_under_cursor
+    augroup vimrc__highlight_word_under_cursor
         autocmd!
         autocmd CursorMoved * lua require('vimrc.misc').highlight_word_under_cursor()
         autocmd CursorMovedI * lua require('vimrc.misc').highlight_word_under_cursor()
@@ -62,7 +62,7 @@ vim.cmd [[
 local in_center_mode
 function M.enable_center_mode()
     vim.cmd [[
-        augroup center_mode
+        augroup vimrc__center_mode
             autocmd!
             autocmd CursorMoved * normal! zz
         augroup end
@@ -119,7 +119,7 @@ vim.opt.errorformat:append([[%-G%.%#]])
 -- http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text. Without
 -- this, folds open and close at will as you type code.
 vim.cmd [[
-    augroup fixfolds
+    augroup vimrc__fixfolds
         autocmd!
         autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
         autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
@@ -128,7 +128,7 @@ vim.cmd [[
 
 -- Close preview window after completion has finished.
 vim.cmd [[
-    augroup close_preview_window
+    augroup vimrc__close_preview_window
         autocmd!
         autocmd CompleteDone * pclose
     augroup end
@@ -136,7 +136,7 @@ vim.cmd [[
 
 -- Briefly highlight text on yank.
 vim.cmd [[
-    augroup highlight_on_yank
+    augroup vimrc__highlight_on_yank
         autocmd!
         autocmd TextYankPost * lua vim.highlight.on_yank {higroup = 'Search'}
     augroup end

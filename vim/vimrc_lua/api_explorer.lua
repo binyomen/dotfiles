@@ -190,7 +190,7 @@ function M.open(arg)
     vim.cmd(string.format('buffer %d', buf))
 
     vim.cmd(string.format([[
-        augroup api_explorer
+        augroup vimrc__api_explorer
             autocmd! * <buffer=%d>
             autocmd WinClosed <buffer=%d> lua require("vimrc.api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
         augroup end

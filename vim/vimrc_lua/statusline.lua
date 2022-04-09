@@ -8,23 +8,23 @@ local function redraw_tabline()
 end
 
 local NORMAL_COLORS = {
-    primary = '%#__StatuslinePrimaryNormal#',
-    secondary = '%#__StatuslineSecondaryNormal#',
+    primary = '%#vimrc__StatuslinePrimaryNormal#',
+    secondary = '%#vimrc__StatuslineSecondaryNormal#',
 }
 
 local VISUAL_COLORS = {
-    primary = '%#__StatuslinePrimaryVisual#',
-    secondary = '%#__StatuslineSecondaryVisual#',
+    primary = '%#vimrc__StatuslinePrimaryVisual#',
+    secondary = '%#vimrc__StatuslineSecondaryVisual#',
 }
 
 local INSERT_COLORS = {
-    primary = '%#__StatuslinePrimaryInsert#',
-    secondary = '%#__StatuslineSecondaryInsert#',
+    primary = '%#vimrc__StatuslinePrimaryInsert#',
+    secondary = '%#vimrc__StatuslineSecondaryInsert#',
 }
 
 local REPLACE_COLORS = {
-    primary = '%#__StatuslinePrimaryReplace#',
-    secondary = '%#__StatuslineSecondaryReplace#',
+    primary = '%#vimrc__StatuslinePrimaryReplace#',
+    secondary = '%#vimrc__StatuslineSecondaryReplace#',
 }
 
 local MODE_COLORS = {
@@ -251,7 +251,7 @@ function M.on_cursor_hold()
 end
 
 vim.cmd [[
-    augroup statusline
+    augroup vimrc__statusline
         autocmd!
         autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('active')
         autocmd WinLeave * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('inactive')
