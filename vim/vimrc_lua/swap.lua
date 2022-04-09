@@ -155,39 +155,39 @@ end)
 local function move_word_keep_cursor(forward)
     -- This is necessary to restore our cursor to the original position after
     -- an undo.
-    vim.cmd [[execute "normal! ia\<bs>\<esc>l"]]
+    vim.cmd(t'normal! ia<bs><esc>l')
 
     local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
 
     -- If we're moving backwards move to the beginning of the word so we don't
     -- just find our own word.
     if not forward then
-        vim.fn.execute('normal! "_yiw')
+        vim.cmd [[normal! "_yiw]]
     end
 
-    vim.fn.execute(t'normal <leader>ssiw')
+    vim.cmd(t'normal <leader>ssiw')
 
     local flags = forward and 'z' or 'b'
     vim.fn.search([[\w\+]], flags)
 
-    vim.fn.execute(t'normal <leader>ssiw')
+    vim.cmd(t'normal <leader>ssiw')
 
     vim.api.nvim_win_set_cursor(0 --[[window]], pos)
 end
 
 local function move_word(forward)
-    vim.fn.execute(t'normal <leader>ssiw')
+    vim.cmd(t'normal <leader>ssiw')
 
     -- If we're moving backwards move to the beginning of the word so we don't
     -- just find our own word.
     if not forward then
-        vim.fn.execute('normal "_yiw')
+        vim.cmd [[normal! "_yiw]]
     end
 
     local flags = forward and 'z' or 'b'
     vim.fn.search([[\w\+]], flags)
 
-    vim.fn.execute(t'normal <leader>ssiw')
+    vim.cmd(t'normal <leader>ssiw')
 end
 
 M.next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
