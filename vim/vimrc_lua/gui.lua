@@ -3,7 +3,7 @@ local M = {}
 local util = require 'vimrc.util'
 
 -- fvim
-if vim.g.fvim_loaded then
+if util.vim_true(vim.g.fvim_loaded) then
     -- Toggle between normal and fullscreen.
     util.map('n', '<a-cr>', '<cmd>FVimToggleFullScreen<cr>')
 
@@ -64,7 +64,7 @@ if vim.g.fvim_loaded then
 end
 
 -- firenvim
-if vim.g.started_by_firenvim then
+if util.vim_true(vim.g.started_by_firenvim) then
     vim.opt.number = false
     vim.opt.relativenumber = false
     vim.opt.wrap = true

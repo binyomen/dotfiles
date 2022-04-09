@@ -1,5 +1,7 @@
 local M = {}
 
+local util = require 'vimrc.util'
+
 local function redraw_tabline()
     -- For some reason :redrawtabline doesn't work....
     vim.bo[vim.g.statusline_bufid].readonly = vim.bo[vim.g.statusline_bufid].readonly
@@ -259,7 +261,7 @@ vim.cmd [[
 ]]
 vim.opt.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 
-if vim.g.started_by_firenvim then
+if util.vim_true(vim.g.started_by_firenvim) then
     vim.opt.laststatus = 0
     vim.opt.showtabline = 0
 else

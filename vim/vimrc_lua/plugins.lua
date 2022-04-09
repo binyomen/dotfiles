@@ -16,7 +16,7 @@ vim.cmd([[
 ]])
 
 local function not_firenvim()
-    return not vim.g.started_by_firenvim
+    return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
 end
 
 return require('packer').startup {

@@ -1,5 +1,21 @@
 local M = {}
 
+function M.vim_true(v)
+    if v == nil then
+        return false
+    elseif type(v) == 'number' then
+        return v ~= 0
+    elseif type(v) == 'boolean' then
+        return v
+    else
+        error('Invalid type for Vim boolean.')
+    end
+end
+
+function M.has(name)
+    return vim.fn.has(name) == 1
+end
+
 local function merge_default_opts(opts)
     return vim.tbl_extend('force', {silent = true, noremap = true}, opts or {})
 end
