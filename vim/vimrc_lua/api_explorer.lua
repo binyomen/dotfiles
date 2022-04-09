@@ -144,8 +144,9 @@ local function set_mappings(buf)
     local mappings = {
         q = 'close()',
         ['<cr>'] = 'nav_to()',
-        ['u'] = 'nav_up()',
-        ['i'] = 'get_info()',
+        u = 'nav_up()',
+        i = 'get_info()',
+        d = 'get_definition()',
     }
 
     for lhs, rhs in pairs(mappings) do
@@ -244,7 +245,7 @@ end
 function M.nav_up(instance)
     local instance = instance or query_instance()
     if instance.node.parent == nil then
-        vim.api.nvim_err_writeln('Already at top level.')
+        vim.notify('Already at top level.', vim.log.levels.ERROR)
     else
         instance.node = instance.node.parent
         render(instance)
@@ -257,12 +258,47 @@ function M.get_info()
     local cursor = vim.api.nvim_win_get_cursor(instance.win)
     local line = instance.lines[cursor[1]]
 
-    if line.key ~= nil then
-        local child = instance.node.tbl[line.key]
-        if type(child) == 'function' then
-            print(vim.inspect(debug.getinfo(child)))
-        end
+    if line.key == nil then
+        return
     end
+
+    local child = instance.node.tbl[line.key]
+    if type(child) ~= 'function' then
+        return
+    end
+
+    print(vim.inspect(debug.getinfo(child)))
+end
+
+function M.get_definition()
+    local instance = query_instance()
+
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
+
+    if line.key == nil then
+        return
+    end
+
+    local child = instance.node.tbl[line.key]
+    if type(child) ~= 'function' then
+        return
+    end
+
+    local info = debug.getinfo(child)
+    if info.what ~= 'Lua' then
+        vim.notify(string.format('Not a Lua function: what = %s', info.what), vim.log.levels.ERROR)
+        return
+    end
+
+    local path = info.source:sub(2)
+    if not util.file_exists(path) then
+        vim.notify(string.format('File does not exist: %s', path), vim.log.levels.ERROR)
+        return
+    end
+
+    vim.cmd(string.format('vsplit %s', path))
+    vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
 end
 
 vim.cmd 'command! -nargs=? ApiExplorer lua require("vimrc.api_explorer").open(<q-args>)'
