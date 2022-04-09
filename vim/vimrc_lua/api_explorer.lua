@@ -292,12 +292,22 @@ function M.get_definition()
     end
 
     local path = info.source:sub(2)
-    if not util.file_exists(path) then
-        util.log_error(string.format('File does not exist: %s', path))
-        return
+    local path_to_use
+    if util.file_exists(path) then
+        path_to_use = path
+    else
+        -- If the file doesn't exist, try looking under the runtime directory.
+        local runtime_path = string.format('%s/lua/%s', vim.fn.expand('$VIMRUNTIME'), path)
+
+        if not util.file_exists(runtime_path) then
+            util.log_error(string.format('File does not exist: %s', path))
+            return
+        end
+
+        path_to_use = runtime_path
     end
 
-    vim.cmd(string.format('vsplit %s', path))
+    vim.cmd(string.format('vsplit %s', path_to_use))
     vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
 end
 
