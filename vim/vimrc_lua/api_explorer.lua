@@ -4,13 +4,13 @@ local util = require 'vimrc.util'
 
 local instances = {}
 
-local function create_instance(win, buf)
+local function create_instance(win, buf, name, tbl)
     local instance = {
         win = win,
         buf = buf,
         node = {
-            name = '_G',
-            tbl = _G,
+            name = name,
+            tbl = tbl,
             parent = nil,
             cursor = {1, 0},
         },
@@ -157,7 +157,7 @@ local function set_mappings(buf)
     end
 end
 
-function M.open()
+function M.open(arg)
     vim.cmd 'vertical split'
     local win = vim.api.nvim_get_current_win()
 
@@ -173,7 +173,16 @@ function M.open()
     vim.api.nvim_win_set_option(win, 'spell', false)
     vim.api.nvim_win_set_option(win, 'wrap', false)
 
-    local instance = create_instance(win, buf)
+    local top_level_name, top_level_tbl
+    if arg ~= '' then
+        top_level_name = arg
+        top_level_tbl = assert(loadstring('return ' .. arg))()
+        assert(type(top_level_tbl) == 'table', 'Top level value must be a table.')
+    else
+        top_level_name = '_G'
+        top_level_tbl = _G
+    end
+    local instance = create_instance(win, buf, top_level_name, top_level_tbl)
 
     render(instance)
 
@@ -243,6 +252,6 @@ function M.nav_up(instance)
     end
 end
 
-vim.cmd 'command! -nargs=0 ApiExplorer lua require("vimrc.api_explorer").open()'
+vim.cmd 'command! -nargs=? ApiExplorer lua require("vimrc.api_explorer").open(<q-args>)'
 
 return M
