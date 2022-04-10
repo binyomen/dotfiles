@@ -231,6 +231,13 @@ return require('packer').startup {
         use 'tpope/vim-eunuch' -- Filesystem commands.
         use 'milisims/nvim-luaref' -- Documentation for built-in Lua functions.
         use 'nvim-lua/plenary.nvim' -- Useful utilities.
+        use {
+            'tpope/vim-characterize',
+            after = 'vim-easy-align', -- Since vim-easy-align also maps ga
+            config = function()
+                require('vimrc.util').map('n', 'g8', '<plug>(characterize)', {noremap = false})
+            end
+        }
     end,
     config = {
         profile = {
