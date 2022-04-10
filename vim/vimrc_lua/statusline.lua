@@ -76,7 +76,7 @@ local function file_type(colors)
 end
 
 local function file_path(colors)
-    return string.format('%s %%f ', colors.secondary)
+    return string.format('%s %%f %%<', colors.secondary)
 end
 
 local function flags(colors)
