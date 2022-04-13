@@ -244,5 +244,9 @@ return require('packer').startup {
             -- Enable profiling plugin loads.
             enable = false,
         },
+        git = {
+            -- Don't timeout when cloning new plugins.
+            clone_timeout = false,
+        },
     },
 }
