@@ -12,8 +12,16 @@ function M.vim_true(v)
     end
 end
 
-function M.has(name)
+function M.vim_has(name)
     return vim.fn.has(name) == 1
+end
+
+function M.vim_executable(name)
+    return vim.fn.executable(name) == 1
+end
+
+function M.vim_empty(name)
+    return vim.fn.empty(name) == 1
 end
 
 local function merge_default_opts(opts)

@@ -1,6 +1,8 @@
+local util = require 'vimrc.util'
+
 -- Install packer on first run.
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
+if util.vim_empty(vim.fn.glob(install_path)) then
     vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
@@ -16,7 +18,7 @@ vim.cmd([[
 ]])
 
 local function not_firenvim()
-    return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
+    return not util.vim_true(vim.g.started_by_firenvim)
 end
 
 return require('packer').startup {

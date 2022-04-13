@@ -3,7 +3,7 @@ local M = {}
 local util = require 'vimrc.util'
 
 -- Use pwsh on Windows.
-if util.has('win32') then
+if util.vim_has('win32') then
     vim.opt.shell = 'pwsh'
     vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
     vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
