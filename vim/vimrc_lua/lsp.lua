@@ -28,7 +28,7 @@ local function on_attach(_, buf)
 end
 
 local function setup_language_server(name, config)
-    local config = config or {}
+    local config = util.default(config, {})
 
     local base_config = {on_attach = on_attach, capabilities = completion.capabilities}
     local final_config = vim.tbl_extend('force', base_config, config)

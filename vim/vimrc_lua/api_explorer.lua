@@ -31,7 +31,7 @@ local function create_child_node(parent, name, tbl)
 end
 
 local function query_instance(win)
-    local win = win or vim.api.nvim_get_current_win()
+    local win = util.default(win, vim.api.nvim_get_current_win)
     return instances[win]
 end
 
@@ -201,7 +201,7 @@ function M.open(arg)
 end
 
 function M.close(win, already_closed)
-    local already_closed = already_closed or false
+    local already_closed = util.default(already_closed, false)
 
     local instance = query_instance(win)
     if instance == nil then
@@ -243,7 +243,7 @@ function M.nav_to()
 end
 
 function M.nav_up(instance)
-    local instance = instance or query_instance()
+    local instance = util.default(instance, query_instance)
     if instance.node.parent == nil then
         util.log_error('Already at top level.')
     else

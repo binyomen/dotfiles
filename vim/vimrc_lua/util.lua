@@ -1,5 +1,17 @@
 local M = {}
 
+function M.default(v, default)
+    if v == nil then
+        if type(default) == 'function' then
+            default = default()
+        end
+
+        return default
+    else
+        return v
+    end
+end
+
 function M.vim_true(v)
     if v == nil then
         return false
@@ -25,7 +37,7 @@ function M.vim_empty(name)
 end
 
 local function merge_default_opts(opts)
-    return vim.tbl_extend('force', {silent = true, noremap = true}, opts or {})
+    return vim.tbl_extend('force', {silent = true, noremap = true}, M.default(opts, {}))
 end
 
 function M.map(mode, lhs, rhs, opts)
@@ -123,7 +135,7 @@ function M.set_cursor_from_extmark(extmark, namespace)
 end
 
 -- If we've reloaded the module make sure we pick up from where we left off.
-_G.vimrc__unique_id = _G.vimrc__unique_id or -1
+_G.vimrc__unique_id = M.default(_G.vimrc__unique_id, -1)
 function M.unique_id()
     _G.vimrc__unique_id = _G.vimrc__unique_id + 1
     return _G.vimrc__unique_id
