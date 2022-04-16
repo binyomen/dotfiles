@@ -129,9 +129,9 @@ return require('packer').startup {
                         util.map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>', {buffer = bufnr})
                         util.map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>', {buffer = bufnr})
                         util.map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsb', function() require('gitsigns').blame_line {full=true} end, {buffer = bufnr})
                         util.map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsd', function() require('gitsigns').diffthis '~' end, {buffer = bufnr})
                         util.map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>', {buffer = bufnr})
 
                         -- Text object
