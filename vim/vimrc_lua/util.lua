@@ -167,7 +167,7 @@ local function create_operator(inherent_motion, op)
 
     local opfunc = function(motion)
         if motion == nil then
-            vim.opt.opfunc = vim_function_name
+            vim.opt.operatorfunc = vim_function_name
             return 'g@' .. inherent_motion
         end
 
@@ -175,7 +175,7 @@ local function create_operator(inherent_motion, op)
 
         -- In case anything in `op` changes the opfunc, reset it so we can
         -- still do repeat.
-        vim.opt.opfunc = vim_function_name
+        vim.opt.operatorfunc = vim_function_name
     end
 
     M.opfuncs[vim_function_name] = opfunc
