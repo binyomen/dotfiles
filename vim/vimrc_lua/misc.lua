@@ -5,7 +5,7 @@ local util = require 'vimrc.util'
 local namespace = vim.api.nvim_create_namespace('misc')
 
 -- Fix the closest previous spelling mistake.
-M.fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', function()
+local fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and choose the first suggestion.
@@ -16,7 +16,7 @@ M.fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', fu
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
 end)
 
-M.mark_previous_spelling_mistake_good = util.new_operator_with_inherent_motion('l', function()
+local mark_previous_spelling_mistake_good = util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and mark it as good.
@@ -27,8 +27,8 @@ M.mark_previous_spelling_mistake_good = util.new_operator_with_inherent_motion('
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
 end)
 
-util.map('n', '<leader>z=', [[v:lua.require('vimrc.misc').fix_previous_spelling_mistake()]], {expr = true})
-util.map('n', '<leader>zg', [[v:lua.require('vimrc.misc').mark_previous_spelling_mistake_good()]], {expr = true})
+util.map('n', '<leader>z=', fix_previous_spelling_mistake, {expr = true})
+util.map('n', '<leader>zg', mark_previous_spelling_mistake_good, {expr = true})
 
 util.map('n', '<leader>zt', [[<cmd>setlocal spell!<cr>]])
 
@@ -84,7 +84,7 @@ end
 -- This is the default setting.
 M.disable_center_mode()
 
-M.toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
+local toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
     if in_center_mode then
         M.disable_center_mode()
     else
@@ -92,7 +92,7 @@ M.toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
     end
 end)
 
-util.map('n', 'cm', [[v:lua.require('vimrc.misc').toggle_center_mode()]], {expr = true})
+util.map('n', 'cm', toggle_center_mode, {expr = true})
 
 -- Easy switching between cpp and header files.
 function M.toggle_c()

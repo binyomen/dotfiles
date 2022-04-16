@@ -156,32 +156,32 @@ local function move_word(forward)
     vim.cmd(t'normal <leader>ssiw')
 end
 
-M.next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
-    return move_word_keep_cursor(true)
+local next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
+    move_word_keep_cursor(true)
 end)
 
-M.previous_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
-    return move_word_keep_cursor(false)
+local previous_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
+    move_word_keep_cursor(false)
 end)
 
-M.next_word = util.new_operator_with_inherent_motion('l', function()
-    return move_word(true)
+local next_word = util.new_operator_with_inherent_motion('l', function()
+    move_word(true)
 end)
 
-M.previous_word = util.new_operator_with_inherent_motion('l', function()
-    return move_word(false)
+local previous_word = util.new_operator_with_inherent_motion('l', function()
+    move_word(false)
 end)
 
 -- Swap arbitrary text.
 util.map({'n', 'x'}, '<leader>ss', swap, {expr = true})
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
-util.map('n', '<leader>sw', [[v:lua.require('vimrc.swap').next_word_keep_cursor()]], {expr = true})
-util.map('n', '<leader>sW', [[v:lua.require('vimrc.swap').previous_word_keep_cursor()]], {expr = true})
+util.map('n', '<leader>sw', next_word_keep_cursor, {expr = true})
+util.map('n', '<leader>sW', previous_word_keep_cursor, {expr = true})
 
 -- Push the current word to the left or right.
-util.map('n', '<leader>sl', [[v:lua.require('vimrc.swap').previous_word()]], {expr = true})
-util.map('n', '<leader>sr', [[v:lua.require('vimrc.swap').next_word()]], {expr = true})
+util.map('n', '<leader>sl', previous_word, {expr = true})
+util.map('n', '<leader>sr', next_word, {expr = true})
 util.map('n', '<m-h>', '<leader>sl', {remap = true})
 util.map('n', '<m-l>', '<leader>sr', {remap = true})
 
