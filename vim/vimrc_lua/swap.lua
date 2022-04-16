@@ -27,6 +27,9 @@ local function get_swap_reg(motion)
         char = function()
             command = [[silent normal! `[v`]"zy]]
         end,
+        block = function()
+            command = t[[silent normal! `[<c-v>`]"zy]]
+        end,
         visual = function()
             command = string.format([[silent normal! `<%s`>"zy]], motion)
         end,
@@ -53,6 +56,9 @@ local function do_swap_put(motion, reg)
         end,
         char = function()
             command = [[silent normal! `[v`]"zp]]
+        end,
+        block = function()
+            command = t[[silent normal! `[<c-v>`]"zp]]
         end,
         visual = function()
             command = string.format([[silent normal! `<%s`>"zp]], motion)

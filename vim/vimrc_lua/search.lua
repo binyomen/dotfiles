@@ -83,6 +83,9 @@ M.duck_duck_go = util.new_operator(function(motion)
         char = function()
             command = [[silent normal! `[v`]y]]
         end,
+        block = function()
+            command = t[[silent normal! `[<c-v>`]y]]
+        end,
         visual = function()
             command = string.format([[silent normal! `<%s`>y]], motion)
         end,

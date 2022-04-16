@@ -85,6 +85,7 @@ _G.t = M.replace_termcodes
 
 local LINE_MOTION = 'line'
 local CHAR_MOTION = 'char'
+local BLOCK_MOTION = 'block'
 local VISUAL_MOTION = 'v'
 local VISUAL_LINE_MOTION = 'V'
 local VISUAL_BLOCK_MOTION = t'<c-v>'
@@ -97,10 +98,19 @@ function M.is_visual_motion(motion)
 end
 
 function M.process_opfunc_command(motion, cases)
+    vim.validate {
+        motion = {motion, 'string'},
+        ['cases.line'] = {cases.line, 'function'},
+        ['cases.char'] = {cases.char, 'function'},
+        ['cases.block'] = {cases.block, 'function'},
+        ['cases.visual'] = {cases.visual, 'function'},
+    }
     if motion == LINE_MOTION then
         cases.line(motion)
     elseif motion == CHAR_MOTION then
         cases.char(motion)
+    elseif motion == BLOCK_MOTION then
+        cases.block(motion)
     elseif M.is_visual_motion(motion) then
         cases.visual(motion)
     else

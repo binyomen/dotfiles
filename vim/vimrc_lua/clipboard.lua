@@ -18,6 +18,9 @@ local function do_normal_command(motion, normal_command)
         char = function()
             command = string.format([[silent normal! `[v`]%s]], normal_command)
         end,
+        block = function()
+            command = string.format(t[[silent normal! `[<c-v>`]%s]], normal_command)
+        end,
         visual = function()
             command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
         end,
