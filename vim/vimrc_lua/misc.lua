@@ -75,7 +75,7 @@ end
 function M.disable_center_mode()
     -- Do this check since the below autocmd will fail if the group doesn't exist.
     if in_center_mode then
-        vim.cmd [[autocmd! center_mode]]
+        vim.cmd [[autocmd! vimrc__center_mode]]
     end
 
     in_center_mode = false
