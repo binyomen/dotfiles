@@ -8,13 +8,13 @@ function M.configure_text()
     vim.opt_local.linebreak = true
 
     -- Standard motion commands should move by wrapped lines.
-    util.buf_map(0, '', 'k', 'gk')
-    util.buf_map(0, '', 'j', 'gj')
-    util.buf_map(0, '', '0', 'g0')
-    util.buf_map(0, '', '$', 'g$')
-    util.buf_map(0, '', '^', 'g^')
-    util.buf_map(0, '', 'H', 'g^')
-    util.buf_map(0, '', 'L', 'g$') -- TODO: This should be changed to gg_ or whatever the linewrapping version of g_ is.
+    util.map('', 'k', 'gk', {buffer = true})
+    util.map('', 'j', 'gj', {buffer = true})
+    util.map('', '0', 'g0', {buffer = true})
+    util.map('', '$', 'g$', {buffer = true})
+    util.map('', '^', 'g^', {buffer = true})
+    util.map('', 'H', 'g^', {buffer = true})
+    util.map('', 'L', 'g$', {buffer = true}) -- TODO: This should be changed to gg_ or whatever the linewrapping version of g_ is.
     -- autocmd FileType text noremap <buffer> <silent> g_ gg_| -- TODO: is there a linewrapping version of g_?
 end
 
@@ -48,7 +48,7 @@ function M.configure_markdown()
 
     vim.b.show_word_count = true
 
-    util.buf_map(0, 'n', '<leader>p', [[<cmd>call mdip#MarkdownClipboardImage()<cr>]])
+    util.map('n', '<leader>p', [[<cmd>call mdip#MarkdownClipboardImage()<cr>]], {buffer = true})
 
     -- I'm tired we're just gonna do this a second after the buffer loads lol.
     vim.defer_fn(

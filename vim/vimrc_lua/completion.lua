@@ -43,9 +43,8 @@ cmp.setup.cmdline(':', {
 
 M.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-util.map('i', '<tab>', [[luasnip#expand_or_jumpable() ? '<plug>luasnip-expand-or-jump' : '<tab>']], {expr = true, noremap = false})
-util.map('i', '<s-tab>', [[<cmd>lua require('luasnip').jump(-1)<cr>]])
+util.map('i', '<tab>', [[luasnip#expand_or_jumpable() ? '<plug>luasnip-expand-or-jump' : '<tab>']], {expr = true})
 util.map('s', '<tab>', [[<cmd>lua require('luasnip').jump(1)<cr>]])
-util.map('s', '<s-tab>', [[<cmd>lua require('luasnip').jump(-1)<cr>]])
+util.map({'i', 's'}, '<s-tab>', [[<cmd>lua require('luasnip').jump(-1)<cr>]])
 
 return M

@@ -189,8 +189,8 @@ util.map('n', '<leader>sW', [[v:lua.require('vimrc.swap').previous_word_keep_cur
 -- Push the current word to the left or right.
 util.map('n', '<leader>sl', [[v:lua.require('vimrc.swap').previous_word()]], {expr = true})
 util.map('n', '<leader>sr', [[v:lua.require('vimrc.swap').next_word()]], {expr = true})
-util.map('n', '<m-h>', '<leader>sl', {noremap = false})
-util.map('n', '<m-l>', '<leader>sr', {noremap = false})
+util.map('n', '<m-h>', '<leader>sl', {remap = true})
+util.map('n', '<m-l>', '<leader>sr', {remap = true})
 
 -- Swap current character with next and previous, keeping the cursor in the
 -- same place.

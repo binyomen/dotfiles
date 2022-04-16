@@ -35,9 +35,7 @@ return require('packer').startup {
         use {
             'junegunn/vim-easy-align',
             config = function()
-                local util = require 'vimrc.util'
-                util.map('x', 'ga', '<plug>(EasyAlign)', {noremap = false})
-                util.map('n', 'ga', '<plug>(EasyAlign)', {noremap = false})
+                require('vimrc.util').map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
             end,
         }
 
@@ -121,26 +119,23 @@ return require('packer').startup {
                         local util = require 'vimrc.util'
 
                         -- Navigation
-                        util.buf_map(bufnr, 'n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true})
-                        util.buf_map(bufnr, 'n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true})
+                        util.map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true, buffer = bufnr})
+                        util.map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true, buffer = bufnr})
 
                         -- Actions
-                        util.buf_map(bufnr, 'n', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                        util.buf_map(bufnr, 'v', '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                        util.buf_map(bufnr, 'v', '<leader>gsr', ':Gitsigns reset_hunk<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>')
-                        util.buf_map(bufnr, 'n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>')
+                        util.map({'n', 'x'}, '<leader>gss', ':Gitsigns stage_hunk<cr>', {buffer = bufnr})
+                        util.map({'n', 'x'}, '<leader>gsr', ':Gitsigns reset_hunk<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsb', '<cmd>lua require"gitsigns".blame_line{full=true}<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gsd', '<cmd>lua require"gitsigns".diffthis("~")<cr>', {buffer = bufnr})
+                        util.map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>', {buffer = bufnr})
 
                         -- Text object
-                        util.buf_map(bufnr, 'o', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
-                        util.buf_map(bufnr, 'x', 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                        util.map({'o', 'x'}, 'igsh', ':<c-u>Gitsigns select_hunk<cr>', {buffer = bufnr})
                     end
                 }
             end,
@@ -235,7 +230,7 @@ return require('packer').startup {
             'tpope/vim-characterize',
             after = 'vim-easy-align', -- Since vim-easy-align also maps ga
             config = function()
-                require('vimrc.util').map('n', 'g8', '<plug>(characterize)', {noremap = false})
+                require('vimrc.util').map('n', 'g8', '<plug>(characterize)')
             end
         }
     end,

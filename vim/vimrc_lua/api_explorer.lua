@@ -150,12 +150,11 @@ local function set_mappings(buf)
     }
 
     for lhs, rhs in pairs(mappings) do
-        util.buf_map(
-            buf,
+        util.map(
             'n',
             lhs,
             ':lua require("vimrc.api_explorer").' .. rhs .. '<cr>',
-            {nowait = true})
+            {nowait = true, buffer = buf})
     end
 end
 
