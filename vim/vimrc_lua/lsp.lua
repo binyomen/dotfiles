@@ -1,30 +1,28 @@
-local M = {}
-
 local completion = require 'vimrc.completion'
 local lspconfig = require 'lspconfig'
 local util = require 'vimrc.util'
 
-util.map('n', '<leader><space>e', '<cmd>lua vim.diagnostic.open_float()<cr>')
-util.map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-util.map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-util.map('n', '<leader><space>q', '<cmd>lua vim.diagnostic.setloclist()<cr>')
+util.map('n', '<leader><space>e', vim.diagnostic.open_float)
+util.map('n', '[d', vim.diagnostic.goto_prev)
+util.map('n', ']d', vim.diagnostic.goto_next)
+util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
 local function on_attach(_, buf)
     vim.api.nvim_buf_set_option(buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    util.map('n', '<leader><space>d', '<cmd>lua vim.lsp.buf.definition()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>D', '<cmd>lua vim.lsp.buf.declaration()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>K', '<cmd>lua vim.lsp.buf.hover()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>i', '<cmd>lua vim.lsp.buf.implementation()<cr>', {buffer = buf})
-    util.map('n', '<leader><space><c-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>wl', [[<cmd>lua require('vimrc.util').echo(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>]], {buffer = buf})
-    util.map('n', '<leader><space>td', '<cmd>lua vim.lsp.buf.type_definition()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>n', '<cmd>lua vim.lsp.buf.rename()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>r', '<cmd>lua vim.lsp.buf.references()<cr>', {buffer = buf})
-    util.map('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', {buffer = buf})
+    util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = buf})
+    util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = buf})
+    util.map('n', '<leader><space>K', vim.lsp.buf.hover, {buffer = buf})
+    util.map('n', '<leader><space>i', vim.lsp.buf.implementation, {buffer = buf})
+    util.map('n', '<leader><space><c-k>', vim.lsp.buf.signature_help, {buffer = buf})
+    util.map('n', '<leader><space>wa', vim.lsp.buf.add_workspace_folder, {buffer = buf})
+    util.map('n', '<leader><space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = buf})
+    util.map('n', '<leader><space>wl', function() util.echo(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = buf})
+    util.map('n', '<leader><space>td', vim.lsp.buf.type_definition, {buffer = buf})
+    util.map('n', '<leader><space>n', vim.lsp.buf.rename, {buffer = buf})
+    util.map('n', '<leader><space>ca', vim.lsp.buf.code_action, {buffer = buf})
+    util.map('n', '<leader><space>r', vim.lsp.buf.references, {buffer = buf})
+    util.map('n', '<leader><space>f', vim.lsp.buf.formatting, {buffer = buf})
 end
 
 local function setup_language_server(name, config)
@@ -81,5 +79,3 @@ if LOCAL_CONFIG.language_servers then
         setup_language_server(server.name, server.setup_options)
     end
 end
-
-return M
