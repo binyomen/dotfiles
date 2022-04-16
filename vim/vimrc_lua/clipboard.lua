@@ -30,11 +30,9 @@ function M.paste_line()
     end
 end
 
-util.map('x', 'cy', [[:lua require('vimrc.clipboard').copy(vim.fn.visualmode())<cr>]])
-util.map('n', 'cy', [[v:lua.require('vimrc.clipboard').copy()]], {expr = true})
+util.map({'n', 'x'}, 'cy', [[v:lua.require('vimrc.clipboard').copy()]], {expr = true})
 util.map('n', 'cY', [[v:lua.require('vimrc.clipboard').copy() . '_']], {expr = true})
-util.map('x', 'cp', [[:lua require('vimrc.clipboard').paste(vim.fn.visualmode())<cr>]])
-util.map('n', 'cp', [[v:lua.require('vimrc.clipboard').paste()]], {expr = true})
+util.map({'n', 'x'}, 'cp', [[v:lua.require('vimrc.clipboard').paste()]], {expr = true})
 util.map('n', 'cpP', [[<cmd>lua require('vimrc.clipboard').paste_before()<cr>]])
 util.map('n', 'cpp', [[<cmd>lua require('vimrc.clipboard').paste_after()<cr>]])
 util.map('n', 'cP', [[<cmd>lua require('vimrc.clipboard').paste_line()<cr>]])

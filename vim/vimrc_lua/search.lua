@@ -89,7 +89,6 @@ M.duck_duck_go = util.new_operator(function(motion)
     vim.fn.setreg('"', reg_backup)
 end)
 
-util.map('x', '<leader>sd', [[:lua require('vimrc.search').duck_duck_go(vim.fn.visualmode())<cr>]])
-util.map('n', '<leader>sd', [[v:lua.require('vimrc.search').duck_duck_go()]], {expr = true})
+util.map({'n', 'x'}, '<leader>sd', [[v:lua.require('vimrc.search').duck_duck_go()]], {expr = true})
 
 return M

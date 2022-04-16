@@ -77,16 +77,6 @@ _G.t = M.replace_termcodes
 local LINE_MOTION = 'line'
 local CHAR_MOTION = 'char'
 local BLOCK_MOTION = 'block'
-local VISUAL_MOTION = 'v'
-local VISUAL_LINE_MOTION = 'V'
-local VISUAL_BLOCK_MOTION = t'<c-v>'
-
-function M.is_visual_motion(motion)
-    return
-        motion == VISUAL_MOTION or
-        motion == VISUAL_LINE_MOTION or
-        motion == VISUAL_BLOCK_MOTION
-end
 
 function M.process_opfunc_command(motion, cases)
     vim.validate {
@@ -94,7 +84,6 @@ function M.process_opfunc_command(motion, cases)
         ['cases.line'] = {cases.line, 'function'},
         ['cases.char'] = {cases.char, 'function'},
         ['cases.block'] = {cases.block, 'function'},
-        ['cases.visual'] = {cases.visual, 'function'},
     }
     if motion == LINE_MOTION then
         cases.line(motion)
@@ -102,8 +91,6 @@ function M.process_opfunc_command(motion, cases)
         cases.char(motion)
     elseif motion == BLOCK_MOTION then
         cases.block(motion)
-    elseif M.is_visual_motion(motion) then
-        cases.visual(motion)
     else
         error(string.format('Invalid motion: %s', motion))
     end
@@ -121,9 +108,6 @@ function M.opfunc_normal_command(motion, normal_command)
         end,
         block = function()
             command = string.format(t[[silent normal! `[<c-v>`]%s]], normal_command)
-        end,
-        visual = function()
-            command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
         end,
     })
 

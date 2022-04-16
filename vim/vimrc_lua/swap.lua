@@ -44,30 +44,24 @@ end
 local function select_swap_first(motion)
     local reg = get_swap_reg(motion)
 
-    local is_visual = util.is_visual_motion(motion)
-    local start_mark_string = is_visual and '<' or '['
-    local end_mark_string = is_visual and '>' or ']'
-
     local start_extmark = vim.api.nvim_buf_set_extmark(
         0 --[[buffer]],
         namespace,
-        vim.fn.line("'" .. start_mark_string) - 1,
-        vim.fn.col("'" .. start_mark_string) - 1,
+        vim.fn.line("'[") - 1,
+        vim.fn.col("'[") - 1,
         {}
     )
     local end_extmark = vim.api.nvim_buf_set_extmark(
         0 --[[buffer]],
         namespace,
-        vim.fn.line("'" .. end_mark_string) - 1,
-        vim.fn.col("'" .. end_mark_string) - 1,
+        vim.fn.line("']") - 1,
+        vim.fn.col("']") - 1,
         {}
     )
 
     swap_first_state = {
         reg = reg,
         motion = motion,
-        start_mark_string = start_mark_string,
-        end_mark_string = end_mark_string,
         start_extmark = start_extmark,
         end_extmark = end_extmark,
     }
@@ -92,14 +86,14 @@ local function perform_swap(motion)
     local end_extmark = get_extmark_pos(swap_first_state.end_extmark)
     vim.api.nvim_buf_set_mark(
         0 --[[buffer]],
-        swap_first_state.start_mark_string,
+        '[',
         start_extmark[1] + 1,
         start_extmark[2],
         {}
     )
     vim.api.nvim_buf_set_mark(
         0 --[[buffer]],
-        swap_first_state.end_mark_string,
+        ']',
         end_extmark[1] + 1,
         end_extmark[2],
         {}
@@ -179,8 +173,7 @@ M.previous_word = util.new_operator_with_inherent_motion('l', function()
 end)
 
 -- Swap arbitrary text.
-util.map('x', '<leader>ss', [[:lua require('vimrc.swap').swap(vim.fn.visualmode())<cr>]])
-util.map('n', '<leader>ss', [[v:lua.require('vimrc.swap').swap()]], {expr = true})
+util.map({'n', 'x'}, '<leader>ss', [[v:lua.require('vimrc.swap').swap()]], {expr = true})
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
 util.map('n', '<leader>sw', [[v:lua.require('vimrc.swap').next_word_keep_cursor()]], {expr = true})
