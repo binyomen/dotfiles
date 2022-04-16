@@ -308,7 +308,14 @@ function M.get_definition()
     end
 
     vim.cmd(string.format('vsplit %s', path_to_use))
-    vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
+
+    -- `linedefined` can sometimes be 0, for example in built-in runtime files.
+    if info.linedefined == 0 then
+        vim.fn.search(line.key)
+        vim.lsp.buf.definition()
+    else
+        vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
+    end
 end
 
 vim.cmd 'command! -nargs=? ApiExplorer lua require("vimrc.api_explorer").open(<q-args>)'
