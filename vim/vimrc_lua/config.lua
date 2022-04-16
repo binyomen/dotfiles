@@ -28,18 +28,19 @@ function M.try_open_lua_file(file_name)
     vim.cmd(string.format([[vsplit %s]], full_path))
 end
 
-function M.source()
+-- Open one of the lua configuration files.
+vim.cmd [[command! -nargs=1 -complete=custom,v:lua.require'vimrc.config'.complete_lua_files LFiles lua require('vimrc.config').try_open_lua_file(<q-args>)]]
+
+util.map('n', '<leader>ve', [[<cmd>silent NormalizeVSplit $MYVIMRC<cr>]])
+
+local function source()
     -- Reload all modules starting with "vimrc."
     require('plenary.reload').reload_module('vimrc.')
 
     vim.cmd [[source $MYVIMRC]]
 end
 
--- Open one of the lua configuration files.
-vim.cmd [[command! -nargs=1 -complete=custom,v:lua.require'vimrc.config'.complete_lua_files LFiles lua require('vimrc.config').try_open_lua_file(<q-args>)]]
-
-util.map('n', '<leader>ve', [[<cmd>silent NormalizeVSplit $MYVIMRC<cr>]])
-util.map('n', '<leader>vs', [[<cmd>lua require('vimrc.config').source()<cr>]])
+util.map('n', '<leader>vs', source)
 
 util.map('n', '<leader>vl', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('config') . '/lua/vimrc/'<cr>]])
 util.map('n', '<leader>vp', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('data') . '/site/pack/packer/'<cr>]])
