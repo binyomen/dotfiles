@@ -12,18 +12,14 @@ cmp.setup {
             luasnip.lsp_expand(args.body)
         end,
     },
-    mapping = {
+    mapping = cmp.mapping.preset.insert({
         ['<c-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<c-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<c-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<c-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
         -- Accept currently selected item. Set `select` to `false` to only
         -- confirm explicitly selected items.
         ['<c-t>'] = cmp.mapping.confirm {select = true},
-    },
+    }),
     sources = cmp.config.sources(
         {{name = 'nvim_lsp'}, {name = 'luasnip'}, {name = 'nvim_lua'}, {name = 'rg'}, {name = 'calc'}},
         {{name = 'buffer'}}
@@ -31,13 +27,16 @@ cmp.setup {
 }
 
 cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {{name = 'buffer'}},
 })
 cmp.setup.cmdline('?', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {{name = 'buffer'}},
 })
 
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
 })
 
