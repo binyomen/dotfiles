@@ -4,37 +4,33 @@
 -- tools. This should (hopefully) make it more cross-platform and not require
 -- me to install some paste.exe from the internet on all my Windows machines.
 
-local M = {}
-
 local util = require 'vimrc.util'
 
-M.copy = util.new_operator(function(motion)
+local copy = util.new_operator(function(motion)
     util.opfunc_normal_command(motion, '"*y')
 end)
 
-M.paste = util.new_operator(function(motion)
+local paste = util.new_operator(function(motion)
     util.opfunc_normal_command(motion, '"*p')
 end)
 
-function M.paste_before()
+local function paste_before()
     vim.cmd(string.format([[normal! "*%dP]], vim.v.count1))
 end
 
-function M.paste_after()
+local function paste_after()
     vim.cmd(string.format([[normal! "*%dp]], vim.v.count1))
 end
 
-function M.paste_line()
+local function paste_line()
     for _ = 1,vim.v.count1 do
         vim.cmd [[put *]]
     end
 end
 
-util.map({'n', 'x'}, 'cy', [[v:lua.require('vimrc.clipboard').copy()]], {expr = true})
-util.map('n', 'cY', [[v:lua.require('vimrc.clipboard').copy() . '_']], {expr = true})
-util.map({'n', 'x'}, 'cp', [[v:lua.require('vimrc.clipboard').paste()]], {expr = true})
-util.map('n', 'cpP', [[<cmd>lua require('vimrc.clipboard').paste_before()<cr>]])
-util.map('n', 'cpp', [[<cmd>lua require('vimrc.clipboard').paste_after()<cr>]])
-util.map('n', 'cP', [[<cmd>lua require('vimrc.clipboard').paste_line()<cr>]])
-
-return M
+util.map({'n', 'x'}, 'cy', copy, {expr = true})
+util.map('n', 'cY', function() return copy() .. '_' end, {expr = true})
+util.map({'n', 'x'}, 'cp', paste, {expr = true})
+util.map('n', 'cpP', paste_before)
+util.map('n', 'cpp', paste_after)
+util.map('n', 'cP', paste_line)

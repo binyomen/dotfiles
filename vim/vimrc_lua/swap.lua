@@ -110,7 +110,7 @@ local function perform_swap(motion)
     vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
 end
 
-M.swap = util.new_operator(function(motion)
+local swap = util.new_operator(function(motion)
     if swap_first_state == nil then
         select_swap_first(motion)
     else
@@ -173,7 +173,7 @@ M.previous_word = util.new_operator_with_inherent_motion('l', function()
 end)
 
 -- Swap arbitrary text.
-util.map({'n', 'x'}, '<leader>ss', [[v:lua.require('vimrc.swap').swap()]], {expr = true})
+util.map({'n', 'x'}, '<leader>ss', swap, {expr = true})
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
 util.map('n', '<leader>sw', [[v:lua.require('vimrc.swap').next_word_keep_cursor()]], {expr = true})
