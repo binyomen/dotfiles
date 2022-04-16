@@ -63,12 +63,14 @@ vim.cmd [[
 vim.opt.path:append('**') -- Search recursively by default.
 
 util.map('n', '<leader>/', ':Grep ', {silent = false})
-util.map('n', '<leader><leader>/', '<cmd>lua require ("vimrc.search").grep()<cr>')
-util.map('n', '<leader>8', '<cmd>lua require ("vimrc.search").grep("-w " .. vim.fn.expand("<cword>"))<cr>')
+util.map('n', '<leader><leader>/', function() require('vimrc.search').grep() end)
+util.map('n', '<leader>8', function() require('vimrc.search').grep('-w ' .. vim.fn.expand('<cword>')) end)
 util.map('n', '<leader>f', ':find ', {silent = false})
 
 -- Toggle search highlighting.
-util.map('n', '<leader>sh', '<cmd>set hlsearch!<cr>')
+util.map('n', '<leader>sh', function()
+    vim.opt.hlsearch = not vim.opt.hlsearch:get()
+end)
 
 -- Make gf open the file even if it doesn't exist.
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
