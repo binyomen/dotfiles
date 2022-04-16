@@ -30,7 +30,9 @@ end)
 util.map('n', '<leader>z=', fix_previous_spelling_mistake, {expr = true})
 util.map('n', '<leader>zg', mark_previous_spelling_mistake_good, {expr = true})
 
-util.map('n', '<leader>zt', [[<cmd>setlocal spell!<cr>]])
+util.map('n', '<leader>zt', function()
+    vim.opt_local.spell = not vim.opt_local.spell:get()
+end)
 
 -- Highlight word under cursor.
 function M.highlight_word_under_cursor()
@@ -95,20 +97,21 @@ end)
 util.map('n', 'cm', toggle_center_mode, {expr = true})
 
 -- Easy switching between cpp and header files.
-function M.toggle_c()
+util.map('n', '<leader>ch', function()
     if vim.fn.expand('%:e') == 'h' then
         vim.cmd [[edit %<.cpp]]
     elseif vim.fn.expand('%:e') == 'cpp' then
         vim.cmd [[edit %<.h]]
     end
-end
-util.map('n', '<leader>ch', [[<cmd>lua require('vimrc.misc').toggle_c()<cr>]])
+end)
 
 -- Search help for the word under the cursor.
 util.map('n', '<leader>?', [[<cmd>execute 'help ' . expand("<cword>")<cr>]])
 
 -- Open GitHub short URLs for plugins.
-util.map('n', '<leader>gh', [[<cmd>call netrw#BrowseX('https://github.com/' . expand('<cfile>'), 0)<cr>]])
+util.map('n', '<leader>gh', function()
+    vim.fn['netrw#BrowseX']('https://github.com/' .. vim.fn.expand('<cfile>'), 0)
+end)
 
 -- errorformat
 vim.opt.errorformat = {[[%[0-9]%\+>%f(%l) : %m]]} -- build.exe errors
