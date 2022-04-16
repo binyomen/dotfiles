@@ -31,7 +31,6 @@ local function get_swap_reg(motion)
 end
 
 local function do_swap_put(motion, reg)
-
     local backup_unnamed = vim.fn.getreginfo('"')
     local backup_z = vim.fn.getreginfo('z')
 
