@@ -27,7 +27,7 @@ function M.next_theme()
 
     local theme = themes[current_theme]
     vim.cmd(string.format('colorscheme %s', theme))
-    print(string.format('Switched to theme %s.', theme))
+    util.echo(string.format('Switched to theme %s.', theme))
 end
 
 return M
