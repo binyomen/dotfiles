@@ -48,7 +48,7 @@ function M.configure_markdown()
 
     vim.b.show_word_count = true
 
-    util.map('n', '<leader>p', [[<cmd>call mdip#MarkdownClipboardImage()<cr>]], {buffer = true})
+    util.map('n', '<leader>p', vim.fn['mdip#MarkdownClipboardImage'], {buffer = true})
 
     -- I'm tired we're just gonna do this a second after the buffer loads lol.
     vim.defer_fn(
