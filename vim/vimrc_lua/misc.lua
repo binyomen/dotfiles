@@ -142,4 +142,13 @@ vim.cmd [[
     augroup end
 ]]
 
+-- Easily open files specified by a glob.
+function M.open_glob(glob)
+    local files = vim.fn.glob(glob, false --[[nosuf]], true --[[list]])
+    for _, file in ipairs(files) do
+        vim.cmd(string.format('edit %s', file))
+    end
+end
+vim.cmd [[command! -nargs=+ -complete=file Open lua require('vimrc.misc').open_glob(<q-args>)]]
+
 return M
