@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 -- Normal and visual mode
@@ -10,7 +8,6 @@ util.map({'n', 'x'}, '<bs>', '<cmd>update<cr>') -- Remap backspace to save in no
 util.map('i', 'uu', '<esc>') -- Use uu to exit insert mode.
 util.map('i', 'hh', '<esc><cmd>update<cr>') -- Use hh to exit insert mode and save.
 util.map('i', '<c-h>', '<cmd>update<cr>') -- Use ctrl+h to save while in insert mode.
-util.map('i', '<c-t>', [[pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"]], {expr = true}) -- Easier omnifunc mapping.
 util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
 
@@ -71,5 +68,3 @@ vim.opt.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region
 vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.timeout = false -- Don't time out waiting for mappings.
-
-return M
