@@ -1,5 +1,3 @@
-local M = {}
-
 -- Many commands here are taken from
 -- https://vim.fandom.com/wiki/Swapping_characters,_words_and_lines, with
 -- modifications by me.
@@ -205,5 +203,3 @@ util.map('n', '<m-j>', 'ddp')
 -- Push the current paragraph up and down.
 util.map('n', '<m-[>', 'dap{{p')
 util.map('n', '<m-]>', 'dap}p')
-
-return M

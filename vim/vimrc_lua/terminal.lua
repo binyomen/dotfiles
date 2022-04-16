@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 -- Use pwsh on Windows.
@@ -11,5 +9,3 @@ if util.vim_has('win32') then
     vim.opt.shellquote = ''
     vim.opt.shellxquote = ''
 end
-
-return M

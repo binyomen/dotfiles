@@ -20,14 +20,14 @@ end
 
 vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
 
-M.last_grep_args = ''
+local last_grep_args = ''
 function M.grep(args)
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
     if args == nil then
-        args = M.last_grep_args
+        args = last_grep_args
     else
-        M.last_grep_args = args
+        last_grep_args = args
     end
 
     vim.cmd('silent grep! ' .. args)

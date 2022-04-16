@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 -- fvim
@@ -78,5 +76,3 @@ if util.vim_true(vim.g.started_by_firenvim) then
     }
     vim.g.firenvim_config = config
 end
-
-return M
