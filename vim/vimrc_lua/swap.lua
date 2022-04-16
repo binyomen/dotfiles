@@ -18,27 +18,10 @@ local function get_extmark_pos(extmark)
 end
 
 local function get_swap_reg(motion)
-    local command
-
-    util.process_opfunc_command(motion, {
-        line = function()
-            command = [[silent normal! '[V']"zy]]
-        end,
-        char = function()
-            command = [[silent normal! `[v`]"zy]]
-        end,
-        block = function()
-            command = t[[silent normal! `[<c-v>`]"zy]]
-        end,
-        visual = function()
-            command = string.format([[silent normal! `<%s`>"zy]], motion)
-        end,
-    })
-
     local backup_unnamed = vim.fn.getreginfo('"')
     local backup_z = vim.fn.getreginfo('z')
 
-    vim.cmd(command)
+    util.opfunc_normal_command(motion, '"zy')
     local reg = vim.fn.getreginfo('z')
 
     vim.fn.setreg('z', backup_z)
@@ -48,28 +31,12 @@ local function get_swap_reg(motion)
 end
 
 local function do_swap_put(motion, reg)
-    local command
-
-    util.process_opfunc_command(motion, {
-        line = function()
-            command = [[silent normal! '[V']"zp]]
-        end,
-        char = function()
-            command = [[silent normal! `[v`]"zp]]
-        end,
-        block = function()
-            command = t[[silent normal! `[<c-v>`]"zp]]
-        end,
-        visual = function()
-            command = string.format([[silent normal! `<%s`>"zp]], motion)
-        end,
-    })
 
     local backup_unnamed = vim.fn.getreginfo('"')
     local backup_z = vim.fn.getreginfo('z')
 
     vim.fn.setreg('z', reg)
-    vim.cmd(command)
+    util.opfunc_normal_command(motion, '"zp')
 
     vim.fn.setreg('z', backup_z)
     vim.fn.setreg('"', backup_unnamed)

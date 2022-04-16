@@ -118,6 +118,27 @@ function M.process_opfunc_command(motion, cases)
     end
 end
 
+function M.opfunc_normal_command(motion, normal_command)
+    local command
+
+    M.process_opfunc_command(motion, {
+        line = function()
+            command = string.format([[silent normal! '[V']%s]], normal_command)
+        end,
+        char = function()
+            command = string.format([[silent normal! `[v`]%s]], normal_command)
+        end,
+        block = function()
+            command = string.format(t[[silent normal! `[<c-v>`]%s]], normal_command)
+        end,
+        visual = function()
+            command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
+        end,
+    })
+
+    vim.cmd(command)
+end
+
 -- `pos` should be (0, 0)-indexed.
 function M.get_extmark_from_pos(pos, namespace)
     return vim.api.nvim_buf_set_extmark(

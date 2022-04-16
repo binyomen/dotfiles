@@ -8,33 +8,12 @@ local M = {}
 
 local util = require 'vimrc.util'
 
-local function do_normal_command(motion, normal_command)
-    local command
-
-    util.process_opfunc_command(motion, {
-        line = function()
-            command = string.format([[silent normal! '[V']%s]], normal_command)
-        end,
-        char = function()
-            command = string.format([[silent normal! `[v`]%s]], normal_command)
-        end,
-        block = function()
-            command = string.format(t[[silent normal! `[<c-v>`]%s]], normal_command)
-        end,
-        visual = function()
-            command = string.format([[silent normal! `<%s`>%s]], motion, normal_command)
-        end,
-    })
-
-    vim.cmd(command)
-end
-
 M.copy = util.new_operator(function(motion)
-    do_normal_command(motion, '"*y')
+    util.opfunc_normal_command(motion, '"*y')
 end)
 
 M.paste = util.new_operator(function(motion)
-    do_normal_command(motion, '"*p')
+    util.opfunc_normal_command(motion, '"*p')
 end)
 
 function M.paste_before()

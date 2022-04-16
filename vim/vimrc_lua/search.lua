@@ -75,25 +75,9 @@ util.map('n', 'gf', '<cmd>e <cfile><cr>')
 
 -- Search Duck Duck Go for the chosen text.
 M.duck_duck_go = util.new_operator(function(motion)
-    local command
-    util.process_opfunc_command(motion, {
-        line = function()
-            command = [[silent normal! '[V']y]]
-        end,
-        char = function()
-            command = [[silent normal! `[v`]y]]
-        end,
-        block = function()
-            command = t[[silent normal! `[<c-v>`]y]]
-        end,
-        visual = function()
-            command = string.format([[silent normal! `<%s`>y]], motion)
-        end,
-    })
-
     local reg_backup = vim.fn.getreginfo('"')
 
-    vim.cmd(command)
+    util.opfunc_normal_command(motion, 'y')
     local reg_content = vim.fn.getreg('"', 1, true --[[list]])
     if #reg_content > 1 then
         util.log_error('Cannot search multiple lines on Duck Duck Go.')
