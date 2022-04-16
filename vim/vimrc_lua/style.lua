@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 local current_theme = 1
@@ -16,9 +14,7 @@ local themes = {
     'onehalfdark',
 }
 
-util.map('n', '<leader>ns', ':lua require("vimrc.style").next_theme()<cr>')
-
-function M.next_theme()
+util.map('n', '<leader>ns', function()
     if current_theme == #themes then
         current_theme = 1
     else
@@ -28,6 +24,4 @@ function M.next_theme()
     local theme = themes[current_theme]
     vim.cmd(string.format('colorscheme %s', theme))
     util.echo(string.format('Switched to theme %s.', theme))
-end
-
-return M
+end)
