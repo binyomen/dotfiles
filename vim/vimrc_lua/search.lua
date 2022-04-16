@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 vim.opt.ignorecase = true -- Make search case insensitive.
@@ -18,10 +16,10 @@ if util.vim_executable('rg') then
     vim.opt.grepformat = '%f:%l:%c:%m'
 end
 
-vim.cmd 'command! -nargs=0 COpen copen | normal! <c-w>J'
+util.user_command('COpen', 'copen | normal! <c-w>J', {nargs = 0})
 
 local last_grep_args = ''
-function M.grep(args)
+local function grep(args)
     -- If we weren't passed in any args, we should execute the last search.
     -- Otherwise we should store the given arguments as the last search.
     if args == nil then
@@ -33,7 +31,7 @@ function M.grep(args)
     vim.cmd('silent grep! ' .. args)
     vim.cmd 'COpen'
 end
-vim.cmd 'command! -nargs=1 Grep lua require("vimrc.search").grep(<q-args>)'
+util.user_command('Grep', function(args) grep(args.args) end, {nargs = 1})
 
 util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
@@ -63,8 +61,8 @@ vim.cmd [[
 vim.opt.path:append('**') -- Search recursively by default.
 
 util.map('n', '<leader>/', ':Grep ', {silent = false})
-util.map('n', '<leader><leader>/', function() require('vimrc.search').grep() end)
-util.map('n', '<leader>8', function() require('vimrc.search').grep('-w ' .. vim.fn.expand('<cword>')) end)
+util.map('n', '<leader><leader>/', function() grep() end)
+util.map('n', '<leader>8', function() grep('-w ' .. vim.fn.expand('<cword>')) end)
 util.map('n', '<leader>f', ':find ', {silent = false})
 
 -- Toggle search highlighting.
@@ -92,5 +90,3 @@ local duck_duck_go = util.new_operator(function(motion)
 end)
 
 util.map({'n', 'x'}, '<leader>sd', duck_duck_go, {expr = true})
-
-return M

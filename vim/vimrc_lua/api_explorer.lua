@@ -261,7 +261,7 @@ local function set_mappings(buf)
     end
 end
 
-function M.open(arg)
+local function open(arg)
     vim.cmd 'vertical split'
     local win = vim.api.nvim_get_current_win()
 
@@ -317,6 +317,6 @@ function M.close(win, already_closed)
     end
 end
 
-vim.cmd 'command! -nargs=? ApiExplorer lua require("vimrc.api_explorer").open(<q-args>)'
+util.user_command('ApiExplorer', function(args) open(args.args) end, {nargs = '?'})
 
 return M

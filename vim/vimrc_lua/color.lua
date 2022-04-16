@@ -1,5 +1,7 @@
 local M = {}
 
+local util = require 'vimrc.util'
+
 local HIGHLIGHTS = {
     NeoSolarized = {
         base = '!StatusLine.bg',
@@ -231,7 +233,22 @@ vim.cmd [[
     augroup end
 ]]
 
-vim.cmd [[command! -nargs=0 Hitest source $VIMRUNTIME/syntax/hitest.vim]]
-vim.cmd [[command! -nargs=0 SynStack echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name") . " -> " . synIDattr(synIDtrans(v:val), "name")')]]
+util.user_command('HiTest', 'source $VIMRUNTIME/syntax/hitest.vim', {nargs = 0})
+util.user_command(
+    'SynStack',
+    function()
+        local stack = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
+        local mapped = vim.tbl_map(
+            function(item)
+                local from_name = vim.fn.synIDattr(item, 'name')
+                local to_name = vim.fn.synIDattr(vim.fn.synIDtrans(item), 'name')
+                return string.format('%s -> %s', from_name, to_name), true --[[add_to_history]]
+            end,
+            stack
+        )
+        util.echo(vim.inspect(mapped), true --[[add_to_history]])
+    end,
+    {nargs = 0}
+)
 
 return M

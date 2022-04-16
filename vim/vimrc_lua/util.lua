@@ -46,6 +46,10 @@ function M.map(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+function M.user_command(name, command, opts)
+    vim.api.nvim_create_user_command(name, command, opts)
+end
+
 function M.file_exists(path)
     local s = vim.loop.fs_stat(path)
     return s ~= nil and s.type == 'file'
@@ -67,10 +71,20 @@ function M.normalize_path(path)
     return vim.fn.simplify(vim.fn.resolve(vim.fn.expandcmd(path)))
 end
 
-vim.cmd [[command! -nargs=1 -complete=file NormalizeEdit execute 'edit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
-vim.cmd [[command! -nargs=1 -complete=file NormalizeSplit execute 'split ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
-vim.cmd [[command! -nargs=1 -complete=file NormalizeVSplit execute 'vsplit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
-vim.cmd [[command! -nargs=1 -complete=file NormalizeTabEdit execute 'tabedit ' . v:lua.require('vimrc.util').normalize_path(<q-args>)]]
+local function normalize_command(name, command)
+    M.user_command(
+        name,
+        function(args)
+            local normalized_path = M.normalize_path(args.args)
+            vim.cmd(string.format('%s %s', command, normalized_path))
+        end,
+        {nargs = 1, complete = 'file'}
+    )
+end
+normalize_command('NormalizeEdit', 'edit')
+normalize_command('NormalizeSplit', 'split')
+normalize_command('NormalizeVSplit', 'vsplit')
+normalize_command('NormalizeTabEdit', 'tabedit')
 
 function M.replace_termcodes(s)
     return vim.api.nvim_replace_termcodes(s, true --[[from_part]], true --[[do_lt]], true --[[special]])
