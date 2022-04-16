@@ -35,19 +35,8 @@ function M.source()
     vim.cmd [[source $MYVIMRC]]
 end
 
-function M.lua_echo(args)
-    local chunk = string.format('return %s', args)
-    local f = assert(loadstring(chunk))
-
-    -- This is necessary to collapse multiple returns into one return.
-    local result = f()
-    print(vim.inspect(result))
-end
-
 -- Open one of the lua configuration files.
 vim.cmd [[command! -nargs=1 -complete=custom,v:lua.require'vimrc.config'.complete_lua_files LFiles lua require('vimrc.config').try_open_lua_file(<q-args>)]]
-
-vim.cmd [[command! -nargs=* LEcho lua require('vimrc.config').lua_echo(<q-args>)]]
 
 util.map('n', '<leader>ve', [[<cmd>silent NormalizeVSplit $MYVIMRC<cr>]])
 util.map('n', '<leader>vs', [[<cmd>lua require('vimrc.config').source()<cr>]])
