@@ -30,7 +30,7 @@ util.map('n', '<c-n>', '<c-y>') -- Scroll up.
 
 -- Buffers
 util.map('n', 'M', '<c-^>') -- Remap <c-^> to M, which has more editor support.
-util.map('n', '<leader>r', ':edit<cr>') -- Use <leader>r to reload the buffer with :edit.
+util.map('n', '<leader>r', '<cmd>edit<cr>') -- Use <leader>r to reload the buffer with :edit.
 
 -- Windows
 util.map('n', '<leader>t', '<c-w>')
