@@ -140,20 +140,123 @@ local function render(instance)
     vim.api.nvim_buf_set_option(instance.buf, 'modifiable', false)
 end
 
+local function nav_down(instance, child_name, child_tbl)
+    instance.node.cursor = vim.api.nvim_win_get_cursor(instance.win)
+    instance.node = create_child_node(instance.node, child_name, child_tbl)
+    render(instance)
+end
+
+local function nav_up(instance)
+    local instance = util.default(instance, query_instance)
+    if instance.node.parent == nil then
+        util.log_error('Already at top level.')
+    else
+        instance.node = instance.node.parent
+        render(instance)
+    end
+end
+
+local function nav_to()
+    local instance = query_instance()
+
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
+
+    if line.up then
+        nav_up(instance)
+    elseif line.metatable then
+        nav_down(instance, '{{metatable}}', getmetatable(instance.node.tbl))
+    elseif line.key ~= nil then
+        local key = line.key
+        local child_tbl = instance.node.tbl[key]
+        if type(child_tbl) == 'table' then
+            nav_down(instance, key, child_tbl)
+        else
+            search_help(key)
+        end
+    end
+end
+
+local function get_info()
+    local instance = query_instance()
+
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
+
+    if line.key == nil then
+        return
+    end
+
+    local child = instance.node.tbl[line.key]
+    if type(child) ~= 'function' then
+        return
+    end
+
+    util.echo(vim.inspect(debug.getinfo(child)), true --[[add_to_history]])
+end
+
+local function get_definition()
+    local instance = query_instance()
+
+    local cursor = vim.api.nvim_win_get_cursor(instance.win)
+    local line = instance.lines[cursor[1]]
+
+    if line.key == nil then
+        return
+    end
+
+    local child = instance.node.tbl[line.key]
+    if type(child) ~= 'function' then
+        return
+    end
+
+    local info = debug.getinfo(child)
+    if info.what ~= 'Lua' then
+        util.log_error(string.format('Not a Lua function: what = %s', info.what))
+        return
+    end
+
+    local path = info.source:sub(2)
+    local path_to_use
+    if util.file_exists(path) then
+        path_to_use = path
+    else
+        -- If the file doesn't exist, try looking under the runtime directory.
+        local runtime_path = string.format('%s/lua/%s', vim.fn.expand('$VIMRUNTIME'), path)
+
+        if not util.file_exists(runtime_path) then
+            util.log_error(string.format('File does not exist: %s', path))
+            return
+        end
+
+        path_to_use = runtime_path
+    end
+
+    vim.cmd(string.format('vsplit %s', path_to_use))
+
+    -- `linedefined` can sometimes be 0, for example in built-in runtime files.
+    if info.linedefined == 0 then
+        vim.fn.search(line.key)
+        vim.lsp.buf.definition()
+    else
+        vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
+    end
+end
+
 local function set_mappings(buf)
     local mappings = {
-        q = 'close()',
-        ['<cr>'] = 'nav_to()',
-        u = 'nav_up()',
-        i = 'get_info()',
-        d = 'get_definition()',
+        q = M.close,
+        ['<cr>'] = nav_to,
+        u = nav_up,
+        i = get_info,
+        d = get_definition,
     }
 
     for lhs, rhs in pairs(mappings) do
         util.map(
             'n',
             lhs,
-            ':lua require("vimrc.api_explorer").' .. rhs .. '<cr>',
+            rhs,
             {nowait = true, buffer = buf})
     end
 end
@@ -211,109 +314,6 @@ function M.close(win, already_closed)
 
     if not already_closed and instance.win and vim.api.nvim_win_is_valid(instance.win) then
         vim.api.nvim_win_close(instance.win, true --[[force]])
-    end
-end
-
-local function nav_down(instance, child_name, child_tbl)
-    instance.node.cursor = vim.api.nvim_win_get_cursor(instance.win)
-    instance.node = create_child_node(instance.node, child_name, child_tbl)
-    render(instance)
-end
-
-function M.nav_to()
-    local instance = query_instance()
-
-    local cursor = vim.api.nvim_win_get_cursor(instance.win)
-    local line = instance.lines[cursor[1]]
-
-    if line.up then
-        M.nav_up(instance)
-    elseif line.metatable then
-        nav_down(instance, '{{metatable}}', getmetatable(instance.node.tbl))
-    elseif line.key ~= nil then
-        local key = line.key
-        local child_tbl = instance.node.tbl[key]
-        if type(child_tbl) == 'table' then
-            nav_down(instance, key, child_tbl)
-        else
-            search_help(key)
-        end
-    end
-end
-
-function M.nav_up(instance)
-    local instance = util.default(instance, query_instance)
-    if instance.node.parent == nil then
-        util.log_error('Already at top level.')
-    else
-        instance.node = instance.node.parent
-        render(instance)
-    end
-end
-
-function M.get_info()
-    local instance = query_instance()
-
-    local cursor = vim.api.nvim_win_get_cursor(instance.win)
-    local line = instance.lines[cursor[1]]
-
-    if line.key == nil then
-        return
-    end
-
-    local child = instance.node.tbl[line.key]
-    if type(child) ~= 'function' then
-        return
-    end
-
-    print(vim.inspect(debug.getinfo(child)))
-end
-
-function M.get_definition()
-    local instance = query_instance()
-
-    local cursor = vim.api.nvim_win_get_cursor(instance.win)
-    local line = instance.lines[cursor[1]]
-
-    if line.key == nil then
-        return
-    end
-
-    local child = instance.node.tbl[line.key]
-    if type(child) ~= 'function' then
-        return
-    end
-
-    local info = debug.getinfo(child)
-    if info.what ~= 'Lua' then
-        util.log_error(string.format('Not a Lua function: what = %s', info.what))
-        return
-    end
-
-    local path = info.source:sub(2)
-    local path_to_use
-    if util.file_exists(path) then
-        path_to_use = path
-    else
-        -- If the file doesn't exist, try looking under the runtime directory.
-        local runtime_path = string.format('%s/lua/%s', vim.fn.expand('$VIMRUNTIME'), path)
-
-        if not util.file_exists(runtime_path) then
-            util.log_error(string.format('File does not exist: %s', path))
-            return
-        end
-
-        path_to_use = runtime_path
-    end
-
-    vim.cmd(string.format('vsplit %s', path_to_use))
-
-    -- `linedefined` can sometimes be 0, for example in built-in runtime files.
-    if info.linedefined == 0 then
-        vim.fn.search(line.key)
-        vim.lsp.buf.definition()
-    else
-        vim.api.nvim_win_set_cursor(0 --[[window]], {info.linedefined, 0})
     end
 end
 
