@@ -79,6 +79,8 @@ end
 
 -- neovide
 if util.vim_true(vim.g.neovide) then
+    vim.opt.guifont = 'Fira Code:h12'
+
     util.map('n', '<a-cr>', function()
         vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
         vim.fn.NeovideNotifyfullscreenChanged(nil, nil, nil)
