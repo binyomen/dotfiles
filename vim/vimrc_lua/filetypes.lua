@@ -14,8 +14,7 @@ function M.configure_text()
     util.map('', '$', 'g$', {buffer = true})
     util.map('', '^', 'g^', {buffer = true})
     util.map('', 'H', 'g^', {buffer = true})
-    util.map('', 'L', 'g$', {buffer = true}) -- TODO: This should be changed to gg_ or whatever the linewrapping version of g_ is.
-    -- autocmd FileType text noremap <buffer> <silent> g_ gg_| -- TODO: is there a linewrapping version of g_?
+    util.map('', 'L', 'g$', {buffer = true})
 end
 
 function M.configure_html()

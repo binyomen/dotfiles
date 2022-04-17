@@ -13,7 +13,7 @@ util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion 
 
 -- Movement
 util.map('', 'H', '^') -- H moves to first non-blank character of line.
-util.map('', 'L', 'g_') -- L moves to last non-blank character of line.
+util.map('', 'L', '$') -- L moves to last  character of line.
 util.map('', ':', ',') -- Move background for f and t even with , as the leader key.
 util.map('', '<leader>h', 'H') -- Move the cursor to the top of the screen.
 util.map('', '<leader>m', 'M') -- Move the cursor to the middle of the screen.
