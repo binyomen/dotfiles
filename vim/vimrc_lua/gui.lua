@@ -1,5 +1,56 @@
 local util = require 'vimrc.util'
 
+local font_name
+local font_size
+
+local function validate_font()
+    if type(font_name) ~= 'string' then
+        error(string.format(
+            [[font_name '%s' must be a string. Instead it's a %s.]],
+            font_name,
+            type(font_name)
+        ))
+    end
+
+    if type(font_size) ~= 'number' then
+        error(string.format(
+            [[font_size '%s' must be a number. Instead it's a %s.]],
+            font_size,
+            type(font_size)
+        ))
+    end
+end
+
+local function update_font()
+    validate_font()
+    vim.opt.guifont = string.format('%s:h%d', font_name, font_size)
+end
+
+local function defer_font_size_print()
+    -- We need to wait to print this, size the resize will clear echo output.
+    vim.defer_fn(
+        function()
+            util.echo(string.format('Font size now %d', font_size), true --[[add_to_history]])
+        end,
+        200
+    )
+end
+
+local function increment_font_size()
+    font_size = font_size + 1
+    update_font()
+    defer_font_size_print()
+end
+
+local function decrement_font_size()
+    font_size = font_size - 1
+    update_font()
+    defer_font_size_print()
+end
+
+util.map('n', '<m-=>', increment_font_size)
+util.map('n', '<m-->', decrement_font_size)
+
 -- fvim
 if util.vim_true(vim.g.fvim_loaded) then
     -- Toggle between normal and fullscreen.
@@ -79,7 +130,9 @@ end
 
 -- neovide
 if util.vim_true(vim.g.neovide) then
-    vim.opt.guifont = 'Fira Code:h12'
+    font_name = 'Fira Code'
+    font_size = 12
+    update_font()
 
     util.map('n', '<a-cr>', function()
         vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
