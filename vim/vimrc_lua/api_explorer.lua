@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 local instances = {}
@@ -243,9 +241,24 @@ local function get_definition()
     end
 end
 
+local function close(win, already_closed)
+    local already_closed = util.default(already_closed, false)
+
+    local instance = query_instance(win)
+    if instance == nil then
+        return
+    end
+
+    clear_instance(instance)
+
+    if not already_closed and instance.win and vim.api.nvim_win_is_valid(instance.win) then
+        vim.api.nvim_win_close(instance.win, true --[[force]])
+    end
+end
+
 local function set_mappings(buf)
     local mappings = {
-        q = M.close,
+        q = close,
         ['<cr>'] = nav_to,
         u = nav_up,
         i = get_info,
@@ -292,31 +305,16 @@ local function open(arg)
 
     vim.cmd(string.format('buffer %d', buf))
 
-    vim.cmd(string.format([[
-        augroup vimrc__api_explorer
-            autocmd! * <buffer=%d>
-            autocmd WinClosed <buffer=%d> lua require("vimrc.api_explorer").close(tonumber(vim.fn.expand("<amatch>")), true)
-        augroup end
-    ]], buf, buf))
+    local augroup_name = string.format('vimrc__api_explorer_%s', buf)
+    util.augroup(augroup_name, {
+        {'WinClosed', {buffer = buf, callback =
+            function(args)
+                close(tonumber(args.match) --[[win]], true --[[already_closed]])
+            end,
+        }},
+    })
 
     set_mappings(buf)
 end
 
-function M.close(win, already_closed)
-    local already_closed = util.default(already_closed, false)
-
-    local instance = query_instance(win)
-    if instance == nil then
-        return
-    end
-
-    clear_instance(instance)
-
-    if not already_closed and instance.win and vim.api.nvim_win_is_valid(instance.win) then
-        vim.api.nvim_win_close(instance.win, true --[[force]])
-    end
-end
-
 util.user_command('ApiExplorer', function(args) open(args.args) end, {nargs = '?'})
-
-return M

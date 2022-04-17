@@ -39,24 +39,27 @@ util.map('n', ']q', '<cmd>cnext<cr>')
 util.map('n', '<leader>co', '<cmd>COpen<cr>')
 util.map('n', '<leader>cc', '<cmd>cclose<cr>')
 
-vim.cmd [[
-    function! s:QuickfixMapping()
-        nnoremap <buffer> K <cmd>cprev<cr>zz<c-w>w
-        nnoremap <buffer> J <cmd>cnext<cr>zz<c-w>w
-    endfunction
+local function set_quickfix_mappings()
+    util.map('n', 'K', '<cmd>cprev<cr>zz<c-w>w', {buffer = true})
+    util.map('n', 'J', '<cmd>cnext<cr>zz<c-w>w', {buffer = true})
+end
+util.augroup('vimrc__quickfix', {
+    {'FileType', {pattern = 'qf', callback = set_quickfix_mappings}},
+})
 
-    augroup vimrc__quickfix
-        autocmd!
-        autocmd filetype qf call <sid>QuickfixMapping()
-    augroup end
-
-    " Only highlight searches while actually typing the search.
-    augroup vimrc__search_highlight
-        autocmd!
-        autocmd CmdlineEnter /,\? :set hlsearch
-        autocmd CmdlineLeave /,\? :set nohlsearch
-    augroup end
-]]
+-- Only highlight searches while actually typing the search.
+util.augroup('vimrc__search_highlight', {
+    {'CmdlineEnter', {pattern = [[/,\?]], callback =
+        function()
+            vim.opt.hlsearch = true
+        end
+    }},
+    {'CmdlineLeave', {pattern = [[/,\?]], callback =
+        function()
+            vim.opt.hlsearch = false
+        end
+    }},
+})
 
 vim.opt.path:append('**') -- Search recursively by default.
 

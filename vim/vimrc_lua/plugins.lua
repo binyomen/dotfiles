@@ -8,12 +8,9 @@ local packer = require 'packer'
 local use = packer.use
 
 -- Automatically compile packer when plugins.lua is changed.
-vim.cmd([[
-    augroup vimrc__packer_auto_compile
-        autocmd!
-        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    augroup end
-]])
+require('vimrc.util').augroup('vimrc__packer_auto_compile', {
+    {'BufWritePost', {pattern = 'plugins.lua', command = 'source <afile> | PackerCompile'}},
+})
 
 local function not_firenvim()
     return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)

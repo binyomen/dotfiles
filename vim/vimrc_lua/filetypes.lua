@@ -1,8 +1,6 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
-function M.configure_text()
+local function configure_text()
     -- Set linewrapping.
     vim.opt_local.wrap = true
     vim.opt_local.linebreak = true
@@ -17,18 +15,18 @@ function M.configure_text()
     util.map('', 'L', 'g$', {buffer = true})
 end
 
-function M.configure_html()
+local function configure_html()
     vim.opt_local.tabstop = 2
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2
 end
 
-function M.configure_help()
+local function configure_help()
     -- If conceallevel is 2, it means the help ftplugin has been loaded and we
     -- can apply our settings without them being overridden. If not, defer and
     -- try again.
     if vim.opt_local.conceallevel:get() ~= 2 then
-        vim.defer_fn(M.configure_help, 10)
+        vim.defer_fn(configure_help, 10)
         return
     end
 
@@ -38,7 +36,7 @@ function M.configure_help()
     vim.cmd [[highlight link HelpStar Normal]]
 end
 
-function M.configure_markdown()
+local function configure_markdown()
     vim.opt_local.textwidth = 79
 
     vim.opt_local.tabstop = 2
@@ -71,37 +69,48 @@ function M.configure_markdown()
     )
 end
 
-vim.cmd [[
-    augroup vimrc__txt_files
-        autocmd!
-        autocmd FileType text lua require('vimrc.filetypes').configure_text()
-    augroup end
-    augroup vimrc__go_files
-        autocmd!
-        autocmd FileType go setlocal rtp+=$GOPATH/src/github.com/golang/lint/misc/vim " add golint for vim to the runtime path
-        autocmd BufWritePost,FileWritePost *.go execute 'mkview!' | execute 'Lint' | execute 'silent! loadview'| " execute the Lint command on write
-    augroup end
-    augroup vimrc__xaml_files
-        autocmd!
-        autocmd BufNewFile,BufRead *.xaml set ft=xml " XAML is basically just XML
-    augroup end
-    augroup vimrc__html_files
-        autocmd!
-        autocmd FileType html lua require('vimrc.filetypes').configure_html()
-    augroup end
-    augroup vimrc__help_files
-        autocmd!
-        autocmd FileType help lua require('vimrc.filetypes').configure_help()
-    augroup end
-    augroup vimrc__markdown_files
-        autocmd!
-        autocmd FileType markdown lua require('vimrc.filetypes').configure_markdown()
-    augroup end
+util.augroup('vimrc__txt_files', {
+    {'FileType', {pattern = 'text', callback = configure_text}},
+})
 
-    augroup vimrc__spell_file_types
-        autocmd!
-        autocmd FileType gitcommit,html,markdown,text setlocal spell
-    augroup end
-]]
+util.augroup('vimrc__go_files', {
+    {'FileType', {pattern = 'go', callback =
+        function()
+            vim.opt_local.runtimepath:append('$GOPATH/src/github.com/golang/lint/misc/vim')
+        end,
+    }},
+    {{'BufWritePost', 'FileWritePost'}, {pattern = '*.go', callback =
+        function()
+            vim.cmd [[mkview! | Lint | silent! loadview]]
+        end,
+    }},
+})
 
-return M
+util.augroup('vimrc__xaml_files', {
+    {{'BufNewFile', 'BufRead'}, {pattern = '*.xaml', callback =
+        function()
+            -- XAML is basically just XML.
+            vim.opt_local.filetype = 'xml'
+        end
+    }},
+})
+
+util.augroup('vimrc__html_files', {
+    {'FileType', {pattern = 'html', callback = configure_html}},
+})
+
+util.augroup('vimrc__help_files', {
+    {'FileType', {pattern = 'help', callback = configure_help}},
+})
+
+util.augroup('vimrc__markdown_files', {
+    {'FileType', {pattern = 'markdown', callback = configure_markdown}},
+})
+
+util.augroup('vimrc__spell_file_types', {
+    {'FileType', {pattern = 'gitcommit,html,markdown,text', callback =
+        function()
+            vim.opt_local.spell = true
+        end
+    }},
+})

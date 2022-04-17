@@ -1,5 +1,3 @@
-local M = {}
-
 local util = require 'vimrc.util'
 
 local namespace = vim.api.nvim_create_namespace('misc')
@@ -34,9 +32,16 @@ util.map('n', '<leader>zt', function()
     vim.opt_local.spell = not vim.opt_local.spell:get()
 end)
 
+local function clear_cursor_highlight()
+    if vim.w.vimrc__cursor_highlight_match_id ~= nil then
+        vim.fn.matchdelete(vim.w.vimrc__cursor_highlight_match_id)
+        vim.w.vimrc__cursor_highlight_match_id = nil
+    end
+end
+
 -- Highlight word under cursor.
-function M.highlight_word_under_cursor()
-    M.clear_cursor_highlight()
+local function highlight_word_under_cursor()
+    clear_cursor_highlight()
 
     local word = vim.fn.escape(vim.fn.expand('<cword>'), [[\/]])
     local pattern = string.format([[\V\<%s\>]], word)
@@ -44,53 +49,40 @@ function M.highlight_word_under_cursor()
     vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('vimrc__CursorOver', pattern)
 end
 
-function M.clear_cursor_highlight()
-    if vim.w.vimrc__cursor_highlight_match_id ~= nil then
-        vim.fn.matchdelete(vim.w.vimrc__cursor_highlight_match_id)
-        vim.w.vimrc__cursor_highlight_match_id = nil
-    end
-end
-
-vim.cmd [[
-    augroup vimrc__highlight_word_under_cursor
-        autocmd!
-        autocmd CursorMoved * lua require('vimrc.misc').highlight_word_under_cursor()
-        autocmd CursorMovedI * lua require('vimrc.misc').highlight_word_under_cursor()
-        autocmd WinLeave * lua require('vimrc.misc').clear_cursor_highlight()
-    augroup end
-]]
+util.augroup('vimrc__highlight_word_under_cursor', {
+    {{'CursorMoved', 'CursorMovedI'}, {callback = highlight_word_under_cursor}},
+    {'WinLeave', {callback = clear_cursor_highlight}},
+})
 
 -- Center mode.
 local in_center_mode
-function M.enable_center_mode()
-    vim.cmd [[
-        augroup vimrc__center_mode
-            autocmd!
-            autocmd CursorMoved * normal! zz
-        augroup end
-    ]]
+local function enable_center_mode()
+    util.augroup('vimrc__center_mode', {
+        {'CursorMoved', {command = 'normal! zz'}},
+    })
+
     vim.cmd [[normal! zz]]
 
     in_center_mode = true
 end
 
-function M.disable_center_mode()
-    -- Do this check since the below autocmd will fail if the group doesn't exist.
+local function disable_center_mode()
+    -- Do this check since the below API will fail if the group doesn't exist.
     if in_center_mode then
-        vim.cmd [[autocmd! vimrc__center_mode]]
+        vim.api.nvim_del_augroup_by_name('vimrc__center_mode')
     end
 
     in_center_mode = false
 end
 
 -- This is the default setting.
-M.disable_center_mode()
+disable_center_mode()
 
 local toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
     if in_center_mode then
-        M.disable_center_mode()
+        disable_center_mode()
     else
-        M.enable_center_mode()
+        enable_center_mode()
     end
 end)
 
@@ -121,29 +113,24 @@ vim.opt.errorformat:append([[%-G%.%#]])
 -- Fixes the problem detailed at
 -- http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text. Without
 -- this, folds open and close at will as you type code.
-vim.cmd [[
-    augroup vimrc__fixfolds
-        autocmd!
-        autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-        autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-    augroup end
-]]
+util.augroup('vimrc__fixfolds', {
+    {'InsertEnter', {command = [[if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif]]}},
+    {{'InsertLeave', 'WinLeave'}, {command = [[if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif]]}},
+})
 
 -- Close preview window after completion has finished.
-vim.cmd [[
-    augroup vimrc__close_preview_window
-        autocmd!
-        autocmd CompleteDone * pclose
-    augroup end
-]]
+util.augroup('vimrc__close_preview_window', {
+    {'CompleteDone', {command = 'pclose'}},
+})
 
 -- Briefly highlight text on yank.
-vim.cmd [[
-    augroup vimrc__highlight_on_yank
-        autocmd!
-        autocmd TextYankPost * lua vim.highlight.on_yank {higroup = 'Search'}
-    augroup end
-]]
+util.augroup('vimrc__highlight_on_yank', {
+    {'TextYankPost', {callback =
+        function()
+            vim.highlight.on_yank {higroup = 'Search'}
+        end,
+    }},
+})
 
 -- Easily open files specified by a glob.
 util.user_command(
@@ -157,5 +144,3 @@ util.user_command(
     end,
     {nargs = '+'}
 )
-
-return M

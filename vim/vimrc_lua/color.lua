@@ -82,49 +82,7 @@ local HIGHLIGHTS = {
     },
 }
 
-local function create_statusline_highlight(mode, base, accent)
-    local primary_group = string.format('vimrc__StatuslinePrimary%s', mode)
-    M.create_highlight_group(primary_group, {fg = base, bg = accent, bold = true})
-
-    local secondary_group = string.format('vimrc__StatuslineSecondary%s', mode)
-    M.create_highlight_group(secondary_group, {fg = accent, bg = base})
-end
-
-local function create_statusline_highlights(highlights)
-    create_statusline_highlight('Normal', highlights.base, highlights.normal_accent)
-    create_statusline_highlight('Insert', highlights.base, highlights.insert_accent)
-    create_statusline_highlight('Visual', highlights.base, highlights.visual_accent)
-    create_statusline_highlight('Replace', highlights.base, highlights.replace_accent)
-end
-
-local function create_cursor_over_highlight(highlights)
-    local color
-    if highlights.cursor_over then
-        if type(highlights.cursor_over) == 'string' then
-            color = M.color_from_group(highlights.cursor_over)
-        else
-            color = highlights.cursor_over
-        end
-    else
-        color = {bg = '!TabLine.bg', bold = true}
-    end
-
-    M.create_highlight_group('vimrc__CursorOver', color)
-end
-
--- Define highlight groups based off of the current color scheme.
-function M.set_highlight_groups()
-    local colorscheme = vim.g.colors_name
-    for name, highlights in pairs(HIGHLIGHTS) do
-        if name == colorscheme then
-            create_statusline_highlights(highlights)
-            create_cursor_over_highlight(highlights)
-            break
-        end
-    end
-end
-
-function M.color_from_group(group)
+local function color_from_group(group)
     local synId = vim.fn.synIDtrans(vim.fn.hlID(group))
 
     local function resolve_string_attr(attr)
@@ -159,17 +117,17 @@ function M.color_from_group(group)
     }
 end
 
-function M.color_from_group_specifier(color_string)
+local function color_from_group_specifier(color_string)
     local tokens = vim.split(color_string, '.', {plain = true})
     local group = tokens[1]
     local specifier = tokens[2]
 
-    return M.color_from_group(group)[specifier]
+    return color_from_group(group)[specifier]
 end
 
 local function parse_color(color_string)
     if color_string:sub(1, 1) == '!' then
-        return M.color_from_group_specifier(color_string:sub(2))
+        return color_from_group_specifier(color_string:sub(2))
     else
         return color_string
     end
@@ -197,7 +155,7 @@ local function produce_gui_list(options)
     end
 end
 
-function M.create_highlight_group(name, options)
+local function create_highlight_group(name, options)
     expand_color_options(options)
 
     -- If we have no settings to apply, don't create the highlight group.
@@ -219,6 +177,48 @@ function M.create_highlight_group(name, options)
         gui_string))
 end
 
+local function create_statusline_highlight(mode, base, accent)
+    local primary_group = string.format('vimrc__StatuslinePrimary%s', mode)
+    create_highlight_group(primary_group, {fg = base, bg = accent, bold = true})
+
+    local secondary_group = string.format('vimrc__StatuslineSecondary%s', mode)
+    create_highlight_group(secondary_group, {fg = accent, bg = base})
+end
+
+local function create_statusline_highlights(highlights)
+    create_statusline_highlight('Normal', highlights.base, highlights.normal_accent)
+    create_statusline_highlight('Insert', highlights.base, highlights.insert_accent)
+    create_statusline_highlight('Visual', highlights.base, highlights.visual_accent)
+    create_statusline_highlight('Replace', highlights.base, highlights.replace_accent)
+end
+
+local function create_cursor_over_highlight(highlights)
+    local color
+    if highlights.cursor_over then
+        if type(highlights.cursor_over) == 'string' then
+            color = color_from_group(highlights.cursor_over)
+        else
+            color = highlights.cursor_over
+        end
+    else
+        color = {bg = '!TabLine.bg', bold = true}
+    end
+
+    create_highlight_group('vimrc__CursorOver', color)
+end
+
+-- Define highlight groups based off of the current color scheme.
+local function set_highlight_groups()
+    local colorscheme = vim.g.colors_name
+    for name, highlights in pairs(HIGHLIGHTS) do
+        if name == colorscheme then
+            create_statusline_highlights(highlights)
+            create_cursor_over_highlight(highlights)
+            break
+        end
+    end
+end
+
 function M.on_colorscheme_loaded()
     vim.opt.termguicolors = true
     vim.opt.background = 'dark'
@@ -226,12 +226,9 @@ function M.on_colorscheme_loaded()
     vim.cmd [[colorscheme PaperColor]]
 end
 
-vim.cmd [[
-    augroup vimrc__statusline_highlight_groups
-        autocmd!
-        autocmd ColorScheme * lua require('vimrc.color').set_highlight_groups()
-    augroup end
-]]
+util.augroup('vimrc__statusline_highlight_groups', {
+    {'ColorScheme', {callback = set_highlight_groups}},
+})
 
 util.user_command('HiTest', 'source $VIMRUNTIME/syntax/hitest.vim', {nargs = 0})
 util.user_command(
