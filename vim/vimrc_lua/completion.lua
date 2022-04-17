@@ -12,31 +12,36 @@ cmp.setup {
             luasnip.lsp_expand(args.body)
         end,
     },
-    mapping = cmp.mapping.preset.insert({
-        ['<c-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<c-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<c-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    mapping = cmp.mapping.preset.insert {
+        ['<c-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-f>'] = cmp.mapping.scroll_docs(4),
+        ['<c-space>'] = cmp.mapping.complete(),
         -- Accept currently selected item. Set `select` to `false` to only
         -- confirm explicitly selected items.
         ['<c-t>'] = cmp.mapping.confirm {select = true},
-    }),
+    },
     sources = cmp.config.sources(
         {{name = 'nvim_lsp'}, {name = 'luasnip'}, {name = 'nvim_lua'}, {name = 'rg'}, {name = 'calc'}},
         {{name = 'buffer'}}
     )
 }
 
+local cmdline_mappings = cmp.mapping.preset.cmdline {
+    ['<C-n>'] = cmp.mapping.select_next_item {behavior = cmp.SelectBehavior.Insert},
+    ['<C-p>'] = cmp.mapping.select_prev_item {behavior = cmp.SelectBehavior.Insert},
+}
+
 cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdline_mappings,
     sources = {{name = 'buffer'}},
 })
 cmp.setup.cmdline('?', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdline_mappings,
     sources = {{name = 'buffer'}},
 })
 
 cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmdline_mappings,
     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
 })
 
