@@ -76,3 +76,11 @@ if util.vim_true(vim.g.started_by_firenvim) then
     }
     vim.g.firenvim_config = config
 end
+
+-- neovide
+if util.vim_true(vim.g.neovide) then
+    util.map('n', '<a-cr>', function()
+        vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+        vim.fn.NeovideNotifyfullscreenChanged(nil, nil, nil)
+    end)
+end
