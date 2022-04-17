@@ -61,6 +61,7 @@ vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 3
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.mouse = {a = true} -- Enable interaction using the mouse.
 -- Editing
 vim.opt.wrap = false -- Don't wrap lines.
 vim.opt.showmatch = true -- Show matching bracket when one is inserted.
