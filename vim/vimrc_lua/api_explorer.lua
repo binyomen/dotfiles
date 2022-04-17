@@ -317,4 +317,4 @@ local function open(arg)
     set_mappings(buf)
 end
 
-util.user_command('ApiExplorer', function(args) open(args.args) end, {nargs = '?'})
+util.user_command('ApiExplorer', function(args) open(args.args) end, {nargs = '?', complete = 'lua'})
