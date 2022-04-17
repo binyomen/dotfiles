@@ -241,7 +241,7 @@ function M.tabline()
     end
 end
 
-function M.on_cursor_hold()
+local function on_cursor_hold()
     if not vim.b.show_word_count then
         return
     end
@@ -250,15 +250,19 @@ function M.on_cursor_hold()
     vim.b.word_count = result.total
 end
 
-vim.cmd [[
-    augroup vimrc__statusline
-        autocmd!
-        autocmd WinEnter,BufWinEnter * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('active')
-        autocmd WinLeave * setlocal statusline=%!v:lua.require('vimrc.statusline').do_statusline('inactive')
-        autocmd CursorHold * lua require('vimrc.statusline').on_cursor_hold()
-        autocmd CursorHoldI * lua require('vimrc.statusline').on_cursor_hold()
-    augroup end
-]]
+local function set_statusline(state)
+    vim.opt_local.statusline = string.format(
+        [[%%!v:lua.require('vimrc.statusline').do_statusline('%s')]],
+        state
+    )
+end
+
+util.augroup('vimrc__statusline', {
+    {{'WinEnter', 'BufWinEnter'}, {callback = function() set_statusline('active') end}},
+    {'WinLeave', {callback = function() set_statusline('inactive') end}},
+    {{'CursorHold', 'CursorHoldI'}, {callback = on_cursor_hold}},
+})
+
 vim.opt.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 
 if util.vim_true(vim.g.started_by_firenvim) then

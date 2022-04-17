@@ -50,6 +50,18 @@ function M.user_command(name, command, opts)
     vim.api.nvim_create_user_command(name, command, opts)
 end
 
+function M.augroup(name, autocmds)
+    local augroup_id = vim.api.nvim_create_augroup(name, {})
+
+    for _, autocmd in ipairs(autocmds) do
+        local event = autocmd[1]
+        local opts = vim.tbl_extend('error', autocmd[2], {group = augroup_id})
+        vim.api.nvim_create_autocmd(event, opts)
+    end
+
+    return augroup_id
+end
+
 function M.file_exists(path)
     local s = vim.loop.fs_stat(path)
     return s ~= nil and s.type == 'file'
