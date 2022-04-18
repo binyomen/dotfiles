@@ -101,9 +101,10 @@ local function perform_swap(motion)
     -- Replace the first text.
     do_swap_put(swap_first_state.motion, reg)
 
-    -- Return to our original position.
+    -- Return to our original position. We might fail if the extmark no longer
+    -- exists in the file. That's OK.
     local extmark_pos = get_extmark_pos(extmark)
-    vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
+    pcall(vim.api.nvim_win_set_cursor, 0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
 
     swap_first_state = nil
     vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
