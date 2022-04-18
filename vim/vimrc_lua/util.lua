@@ -145,6 +145,47 @@ function M.opfunc_normal_command(motion, normal_command)
     vim.cmd(command)
 end
 
+function M.motion_to_visual_char(motion)
+    if motion == CHAR_MOTION then
+        return 'v'
+    elseif motion == LINE_MOTION then
+        return 'V'
+    elseif motion == BLOCK_MOTION then
+        return t'<c-v>'
+    else
+        error(string.format('Invalid motion: %s', motion))
+    end
+end
+
+function M.highlight_opfunc_range(namespace, group, motion, reg)
+    local start_pos = vim.fn.getpos("'[")
+    local finish_pos = vim.fn.getpos("']")
+
+    local start = {start_pos[2] - 1, start_pos[3] - 1 + start_pos[4]}
+    local finish = {finish_pos[2] - 1, finish_pos[3] - 1 + finish_pos[4]}
+
+    local visual_char = M.motion_to_visual_char(motion)
+
+    -- We need to finagle the input of vim.highlight.range a bit due to
+    -- https://github.com/neovim/neovim/issues/18154 and
+    -- https://github.com/neovim/neovim/issues/18155.
+    if visual_char == 'V' then
+        start[2] = 0
+        finish[2] = 9999999
+    elseif visual_char == t'<c-v>' then
+        visual_char = reg.regtype
+    end
+
+    vim.highlight.range(
+        0 --[[bufnr]],
+        namespace,
+        group,
+        start,
+        finish,
+        {regtype = visual_char, inclusive = true}
+    )
+end
+
 -- `pos` should be (0, 0)-indexed.
 function M.get_extmark_from_pos(pos, namespace)
     return vim.api.nvim_buf_set_extmark(

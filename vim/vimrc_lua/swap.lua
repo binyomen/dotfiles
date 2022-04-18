@@ -40,8 +40,6 @@ local function do_swap_put(motion, reg)
 end
 
 local function select_swap_first(motion)
-    local reg = get_swap_reg(motion)
-
     local start_extmark = vim.api.nvim_buf_set_extmark(
         0 --[[buffer]],
         namespace,
@@ -56,6 +54,9 @@ local function select_swap_first(motion)
         vim.fn.col("']") - 1,
         {}
     )
+
+    local reg = get_swap_reg(motion)
+    util.highlight_opfunc_range(namespace, 'Search', motion, reg)
 
     swap_first_state = {
         reg = reg,
