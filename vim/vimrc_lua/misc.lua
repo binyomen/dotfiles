@@ -1,6 +1,6 @@
 local util = require 'vimrc.util'
 
-local namespace = vim.api.nvim_create_namespace('misc')
+local namespace = vim.api.nvim_create_namespace('vimrc.misc')
 
 -- Fix the closest previous spelling mistake.
 local fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', function()

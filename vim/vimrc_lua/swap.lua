@@ -9,7 +9,7 @@
 local util = require 'vimrc.util'
 
 local swap_first_state = nil
-local namespace = vim.api.nvim_create_namespace('swap')
+local namespace = vim.api.nvim_create_namespace('vimrc.swap')
 
 local function get_extmark_pos(extmark)
     return vim.api.nvim_buf_get_extmark_by_id(0 --[[buffer]], namespace, extmark, {})
