@@ -15,6 +15,11 @@ local function get_extmark_pos(extmark)
     return vim.api.nvim_buf_get_extmark_by_id(0 --[[buffer]], namespace, extmark, {})
 end
 
+local function clear_swap_state()
+    swap_first_state = nil
+    vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
+end
+
 local function get_swap_reg(motion)
     local backup_unnamed = vim.fn.getreginfo('"')
     local backup_z = vim.fn.getreginfo('z')
@@ -106,8 +111,7 @@ local function perform_swap(motion)
     local extmark_pos = get_extmark_pos(extmark)
     pcall(vim.api.nvim_win_set_cursor, 0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
 
-    swap_first_state = nil
-    vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
+    clear_swap_state()
 end
 
 local swap = util.new_operator(function(motion)
@@ -116,6 +120,10 @@ local swap = util.new_operator(function(motion)
     else
         perform_swap(motion)
     end
+end)
+
+local cancel_swap = util.new_operator_with_inherent_motion('l', function()
+    clear_swap_state()
 end)
 
 local function move_word_keep_cursor(forward)
@@ -174,6 +182,7 @@ end)
 
 -- Swap arbitrary text.
 util.map({'n', 'x'}, '<leader>ss', swap, {expr = true})
+util.map('n', '<leader>sx', cancel_swap, {expr = true})
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
 util.map('n', '<leader>sw', next_word_keep_cursor, {expr = true})
