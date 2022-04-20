@@ -10,7 +10,7 @@ util.user_command(
         local file2 = args.fargs[2]
 
         vim.cmd(string.format('tabedit %s', file1))
-        vim.cmd(string.format('vertical diffsplit %s', file2))
+        vim.cmd(string.format('diffsplit %s', file2))
     end,
     {nargs = '+', complete = 'file'}
 )
