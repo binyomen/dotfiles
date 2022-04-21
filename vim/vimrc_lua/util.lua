@@ -286,7 +286,14 @@ function M.log_error(msg)
 end
 
 function M.reg_put(reg)
-    vim.api.nvim_put(reg.regcontents, reg.regtype, true --[[after]], false --[[follow]])
+    local backup_unnamed = vim.fn.getreginfo('"')
+    local backup_z = vim.fn.getreginfo('z')
+
+    vim.fn.setreg('z', reg)
+    vim.cmd [[normal! "zp]]
+
+    vim.fn.setreg('z', backup_z)
+    vim.fn.setreg('"', backup_unnamed)
 end
 
 return M
