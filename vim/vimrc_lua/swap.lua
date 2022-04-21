@@ -11,37 +11,9 @@ local util = require 'vimrc.util'
 local swap_first_state = nil
 local namespace = vim.api.nvim_create_namespace('vimrc.swap')
 
-local function get_extmark_pos(extmark)
-    return vim.api.nvim_buf_get_extmark_by_id(0 --[[buffer]], namespace, extmark, {})
-end
-
 local function clear_swap_state()
     swap_first_state = nil
     vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
-end
-
-local function get_swap_reg(motion)
-    local backup_unnamed = vim.fn.getreginfo('"')
-    local backup_z = vim.fn.getreginfo('z')
-
-    util.opfunc_normal_command(motion, '"zy')
-    local reg = vim.fn.getreginfo('z')
-
-    vim.fn.setreg('z', backup_z)
-    vim.fn.setreg('"', backup_unnamed)
-
-    return reg
-end
-
-local function do_swap_put(motion, reg)
-    local backup_unnamed = vim.fn.getreginfo('"')
-    local backup_z = vim.fn.getreginfo('z')
-
-    vim.fn.setreg('z', reg)
-    util.opfunc_normal_command(motion, '"zp')
-
-    vim.fn.setreg('z', backup_z)
-    vim.fn.setreg('"', backup_unnamed)
 end
 
 local function select_swap_first(motion)
@@ -60,7 +32,7 @@ local function select_swap_first(motion)
         {}
     )
 
-    local reg = get_swap_reg(motion)
+    local reg = util.get_opfunc_reg(motion)
     util.highlight_opfunc_range(namespace, 'Search', motion, reg)
 
     swap_first_state = {
@@ -72,10 +44,10 @@ local function select_swap_first(motion)
 end
 
 local function perform_swap(motion)
-    local reg = get_swap_reg(motion)
+    local reg = util.get_opfunc_reg(motion)
 
     -- Replace the text we're on.
-    do_swap_put(motion, swap_first_state.reg)
+    util.put_opfunc_reg(motion, swap_first_state.reg)
 
     local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
     local extmark = vim.api.nvim_buf_set_extmark(
@@ -86,8 +58,8 @@ local function perform_swap(motion)
         {}
     )
 
-    local start_extmark = get_extmark_pos(swap_first_state.start_extmark)
-    local end_extmark = get_extmark_pos(swap_first_state.end_extmark)
+    local start_extmark = util.get_extmark_pos(swap_first_state.start_extmark, namespace)
+    local end_extmark = util.get_extmark_pos(swap_first_state.end_extmark, namespace)
     vim.api.nvim_buf_set_mark(
         0 --[[buffer]],
         '[',
@@ -104,11 +76,11 @@ local function perform_swap(motion)
     )
 
     -- Replace the first text.
-    do_swap_put(swap_first_state.motion, reg)
+    util.put_opfunc_reg(swap_first_state.motion, reg)
 
     -- Return to our original position. We might fail if the extmark no longer
     -- exists in the file. That's OK.
-    local extmark_pos = get_extmark_pos(extmark)
+    local extmark_pos = util.get_extmark_pos(extmark, namespace)
     pcall(vim.api.nvim_win_set_cursor, 0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
 
     clear_swap_state()

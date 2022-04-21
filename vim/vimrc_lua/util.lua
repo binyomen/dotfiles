@@ -186,6 +186,30 @@ function M.highlight_opfunc_range(namespace, group, motion, reg)
     )
 end
 
+function M.get_opfunc_reg(motion)
+    local backup_unnamed = vim.fn.getreginfo('"')
+    local backup_z = vim.fn.getreginfo('z')
+
+    M.opfunc_normal_command(motion, '"zy')
+    local reg = vim.fn.getreginfo('z')
+
+    vim.fn.setreg('z', backup_z)
+    vim.fn.setreg('"', backup_unnamed)
+
+    return reg
+end
+
+function M.put_opfunc_reg(motion, reg)
+    local backup_unnamed = vim.fn.getreginfo('"')
+    local backup_z = vim.fn.getreginfo('z')
+
+    vim.fn.setreg('z', reg)
+    M.opfunc_normal_command(motion, '"zp')
+
+    vim.fn.setreg('z', backup_z)
+    vim.fn.setreg('"', backup_unnamed)
+end
+
 -- `pos` should be (0, 0)-indexed.
 function M.get_extmark_from_pos(pos, namespace)
     return vim.api.nvim_buf_set_extmark(
@@ -197,18 +221,17 @@ function M.get_extmark_from_pos(pos, namespace)
     )
 end
 
+function M.get_extmark_pos(extmark, namespace)
+    return vim.api.nvim_buf_get_extmark_by_id(0 --[[buffer]], namespace, extmark, {})
+end
+
 function M.get_extmark_from_cursor(namespace)
     local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
     return M.get_extmark_from_pos({pos[1] - 1, pos[2]}, namespace)
 end
 
 function M.set_cursor_from_extmark(extmark, namespace)
-    local extmark_pos = vim.api.nvim_buf_get_extmark_by_id(
-        0 --[[buffer]],
-        namespace,
-        extmark,
-        {}
-    )
+    local extmark_pos = M.get_extmark_pos(extmark, namespace)
     vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
 end
 
@@ -260,6 +283,10 @@ end
 
 function M.log_error(msg)
     vim.notify(msg, vim.log.levels.ERROR)
+end
+
+function M.reg_put(reg)
+    vim.api.nvim_put(reg.regcontents, reg.regtype, true --[[after]], false --[[follow]])
 end
 
 return M
