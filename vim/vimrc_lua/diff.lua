@@ -43,8 +43,8 @@ local function create_diff_buf(win, reg, filetype)
 
     vim.api.nvim_buf_set_name(buf, string.format('Diff [%d]', buf))
 
-    vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-    vim.api.nvim_buf_set_option(buf, 'filetype', filetype)
+    vim.bo[buf].bufhidden = 'wipe'
+    vim.bo[buf].filetype = filetype
 
     vim.cmd [[normal! V]]
     util.reg_put(reg)

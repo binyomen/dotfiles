@@ -85,7 +85,7 @@ end
 
 local function render(instance)
     -- Temporarily allow us to modify the buffer.
-    vim.api.nvim_buf_set_option(instance.buf, 'modifiable', true)
+    vim.bo[instance.buf].modifiable = true
 
     local node = instance.node
 
@@ -135,7 +135,7 @@ local function render(instance)
     vim.api.nvim_win_set_cursor(instance.win, instance.node.cursor)
 
     -- Make the buffer non-modifiable again.
-    vim.api.nvim_buf_set_option(instance.buf, 'modifiable', false)
+    vim.bo[instance.buf].modifiable = false
 end
 
 local function nav_down(instance, child_name, child_tbl)
@@ -283,12 +283,12 @@ local function open(arg)
 
     vim.api.nvim_buf_set_name(buf, string.format('Api Explorer [%d]', buf))
 
-    vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-    vim.api.nvim_buf_set_option(buf, 'modifiable', false)
-    vim.api.nvim_buf_set_option(buf, 'filetype', 'api_explorer')
+    vim.bo[buf].bufhidden = 'wipe'
+    vim.bo[buf].modifiable = false
+    vim.bo[buf].filetype = 'api_explorer'
 
-    vim.api.nvim_win_set_option(win, 'spell', false)
-    vim.api.nvim_win_set_option(win, 'wrap', false)
+    vim.wo[win].spell = false
+    vim.wo[win].wrap = false
 
     local top_level_name, top_level_tbl
     if arg ~= '' then

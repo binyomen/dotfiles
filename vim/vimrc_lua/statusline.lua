@@ -154,7 +154,7 @@ local function render_single_tab(tabline, colors, buf, is_active, name)
         table.insert(tabline, colors.secondary)
     end
 
-    local is_modified = vim.api.nvim_buf_get_option(buf, 'modified')
+    local is_modified = vim.bo[buf].modified
     local modified_string = is_modified and ' ●' or ''
 
     -- Label the tab.
