@@ -106,9 +106,13 @@ util.map('n', '<leader>gh', function()
 end)
 
 -- errorformat
-vim.opt.errorformat = {[[%[0-9]%\+>%f(%l) : %m]]} -- build.exe errors
+vim.opt.errorformat = {}
+-- build.exe errors
+vim.opt.errorformat:append [[%[0-9]%\+>%f(%l) : %m]]
+vim.opt.errorformat:append [[%f(%l) : %m]]
+
 -- Ignore anything that doesn't match the previous errors.
-vim.opt.errorformat:append([[%-G%.%#]])
+vim.opt.errorformat:append [[%-G%.%#]]
 
 -- Fixes the problem detailed at
 -- http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text. Without
