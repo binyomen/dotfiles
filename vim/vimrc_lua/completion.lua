@@ -26,19 +26,19 @@ cmp.setup {
     )
 }
 
-local cmdline_mappings = cmp.mapping.preset.cmdline {
-    ['<C-n>'] = cmp.mapping.select_next_item {behavior = cmp.SelectBehavior.Insert},
-    ['<C-p>'] = cmp.mapping.select_prev_item {behavior = cmp.SelectBehavior.Insert},
-}
+-- local cmdline_mappings = cmp.mapping.preset.cmdline {
+--     ['<C-n>'] = cmp.mapping.select_next_item {behavior = cmp.SelectBehavior.Insert},
+--     ['<C-p>'] = cmp.mapping.select_prev_item {behavior = cmp.SelectBehavior.Insert},
+-- }
 
-cmp.setup.cmdline('/', {
-    mapping = cmdline_mappings,
-    sources = {{name = 'buffer'}},
-})
-cmp.setup.cmdline('?', {
-    mapping = cmdline_mappings,
-    sources = {{name = 'buffer'}},
-})
+-- cmp.setup.cmdline('/', {
+--     mapping = cmdline_mappings,
+--     sources = {{name = 'buffer'}},
+-- })
+-- cmp.setup.cmdline('?', {
+--     mapping = cmdline_mappings,
+--     sources = {{name = 'buffer'}},
+-- })
 
 -- cmp.setup.cmdline(':', {
 --     mapping = cmdline_mappings,
