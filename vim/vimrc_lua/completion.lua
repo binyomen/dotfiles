@@ -40,10 +40,10 @@ cmp.setup.cmdline('?', {
     sources = {{name = 'buffer'}},
 })
 
-cmp.setup.cmdline(':', {
-    mapping = cmdline_mappings,
-    sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
-})
+-- cmp.setup.cmdline(':', {
+--     mapping = cmdline_mappings,
+--     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
+-- })
 
 M.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
