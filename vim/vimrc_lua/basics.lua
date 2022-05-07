@@ -12,7 +12,10 @@ util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
 
 -- Command mode
-util.map('c', '<c-h>', '%:h' .. util.PATH_SEP, {silent = false}) -- Easily type '%:h/' in command mode.
+-- Easily type and expand '%:h/' in command mode.
+util.map('c', '<c-h>', function()
+    vim.api.nvim_feedkeys(t'%:h/<tab>', 'nt', false --[[escape_ks]])
+end)
 
 -- Movement
 util.map({'n', 'x', 'o'}, 'H', '^') -- H moves to first non-blank character of line.
