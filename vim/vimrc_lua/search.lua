@@ -7,8 +7,8 @@ vim.opt.gdefault = true -- Always do global substitutions.
 vim.opt.hlsearch = false -- Don't highlight searches by default.
 
 -- Always do case sensitive search with * and #.
-util.map('', '*', [[/\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
-util.map('', '#', [[?\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
+util.map({'n', 'x', 'o'}, '*', [[/\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
+util.map({'n', 'x', 'o'}, '#', [[?\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
 
 -- Search the file system using ripgrep.
 if util.vim_executable('rg') then

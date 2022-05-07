@@ -12,14 +12,14 @@ util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
 
 -- Movement
-util.map('', 'H', '^') -- H moves to first non-blank character of line.
-util.map('', 'L', '$') -- L moves to last  character of line.
-util.map('', ':', ',') -- Move background for f and t even with , as the leader key.
-util.map('', '<leader>h', 'H') -- Move the cursor to the top of the screen.
-util.map('', '<leader>m', 'M') -- Move the cursor to the middle of the screen.
-util.map('', '<leader>l', 'L') -- Move the cursor to the bottom of the screen.
-util.map('', [[`]], [[']]) -- Swap ` and ' since one is easier to hit than the other.
-util.map('', [[']], [[`]]) -- Swap ` and ' since one is easier to hit than the other.
+util.map({'n', 'x', 'o'}, 'H', '^') -- H moves to first non-blank character of line.
+util.map({'n', 'x', 'o'}, 'L', '$') -- L moves to last  character of line.
+util.map({'n', 'x', 'o'}, ':', ',') -- Move background for f and t even with , as the leader key.
+util.map({'n', 'x', 'o'}, '<leader>h', 'H') -- Move the cursor to the top of the screen.
+util.map({'n', 'x', 'o'}, '<leader>m', 'M') -- Move the cursor to the middle of the screen.
+util.map({'n', 'x', 'o'}, '<leader>l', 'L') -- Move the cursor to the bottom of the screen.
+util.map({'n', 'x', 'o'}, [[`]], [[']]) -- Swap ` and ' since one is easier to hit than the other.
+util.map({'n', 'x', 'o'}, [[']], [[`]]) -- Swap ` and ' since one is easier to hit than the other.
 
 -- Scrolling
 util.map('n', '<c-h>', '<c-e>') -- Scroll down.

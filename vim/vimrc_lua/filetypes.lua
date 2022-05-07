@@ -6,13 +6,13 @@ local function configure_text()
     vim.opt_local.linebreak = true
 
     -- Standard motion commands should move by wrapped lines.
-    util.map('', 'k', 'gk', {buffer = true})
-    util.map('', 'j', 'gj', {buffer = true})
-    util.map('', '0', 'g0', {buffer = true})
-    util.map('', '$', 'g$', {buffer = true})
-    util.map('', '^', 'g^', {buffer = true})
-    util.map('', 'H', 'g^', {buffer = true})
-    util.map('', 'L', 'g$', {buffer = true})
+    util.map({'n', 'x', 'o'}, 'k', 'gk', {buffer = true})
+    util.map({'n', 'x', 'o'}, 'j', 'gj', {buffer = true})
+    util.map({'n', 'x', 'o'}, '0', 'g0', {buffer = true})
+    util.map({'n', 'x', 'o'}, '$', 'g$', {buffer = true})
+    util.map({'n', 'x', 'o'}, '^', 'g^', {buffer = true})
+    util.map({'n', 'x', 'o'}, 'H', 'g^', {buffer = true})
+    util.map({'n', 'x', 'o'}, 'L', 'g$', {buffer = true})
 end
 
 local function configure_html()
