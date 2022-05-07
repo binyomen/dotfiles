@@ -296,4 +296,10 @@ function M.reg_put(reg)
     vim.fn.setreg('"', backup_unnamed)
 end
 
+if M.vim_has('win32') then
+    M.PATH_SEP = '\\'
+else
+    M.PATH_SEP = '/'
+end
+
 return M

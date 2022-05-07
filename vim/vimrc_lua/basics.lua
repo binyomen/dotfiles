@@ -11,6 +11,9 @@ util.map('i', '<c-h>', '<cmd>update<cr>') -- Use ctrl+h to save while in insert 
 util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
 
+-- Command mode
+util.map('c', '<c-h>', '%:h' .. util.PATH_SEP, {silent = false}) -- Easily type '%:h/' in command mode.
+
 -- Movement
 util.map({'n', 'x', 'o'}, 'H', '^') -- H moves to first non-blank character of line.
 util.map({'n', 'x', 'o'}, 'L', '$') -- L moves to last  character of line.
