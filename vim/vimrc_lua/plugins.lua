@@ -156,6 +156,7 @@ return require('packer').startup {
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-cmdline',
                 'hrsh7th/cmp-nvim-lua',
+                'hrsh7th/cmp-omni',
                 'saadparwaiz1/cmp_luasnip',
                 'lukas-reineke/cmp-rg',
                 'hrsh7th/cmp-calc',

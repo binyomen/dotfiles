@@ -8,8 +8,6 @@ util.map('n', ']d', vim.diagnostic.goto_next)
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
 local function on_attach(_, buf)
-    vim.bo[buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
     util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = buf})
     util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = buf})
     util.map('n', '<leader><space>K', vim.lsp.buf.hover, {buffer = buf})
