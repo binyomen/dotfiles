@@ -69,6 +69,18 @@ local function configure_markdown()
     )
 end
 
+local function configure_vimwiki()
+    util.map('n', '<leader>wh', '<plug>Vimwiki2HTML')
+    util.map('n', '<leader>wb', '<plug>Vimwiki2HTMLBrowse')
+    util.map('n', '<cr>', '<plug>VimwikiFollowLink')
+    util.map('n', '[[', '<plug>VimwikiGoToPrevHeader')
+    util.map('n', ']]', '<plug>VimwikiGoToNextHeader')
+    util.map('n', '[=', '<plug>VimwikiGoToPrevSiblingHeader')
+    util.map('n', ']=', '<plug>VimwikiGoToNextSiblingHeader')
+    util.map('n', '[u', '<plug>VimwikiGoToParentHeader')
+    util.map('n', ']u', '<plug>VimwikiGoToParentHeader')
+end
+
 util.augroup('vimrc__txt_files', {
     {'FileType', {pattern = 'text', callback = configure_text}},
 })
@@ -105,6 +117,10 @@ util.augroup('vimrc__help_files', {
 
 util.augroup('vimrc__markdown_files', {
     {'FileType', {pattern = 'markdown', callback = configure_markdown}},
+})
+
+util.augroup('vimrc__vimwiki_files', {
+    {'FileType', {pattern = 'vimwiki', callback = configure_vimwiki}},
 })
 
 util.augroup('vimrc__spell_file_types', {

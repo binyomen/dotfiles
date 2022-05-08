@@ -229,7 +229,18 @@ return require('packer').startup {
             after = 'vim-easy-align', -- Since vim-easy-align also maps ga
             config = function()
                 require('vimrc.util').map('n', 'g8', '<plug>(characterize)')
-            end
+            end,
+        }
+        use {
+            'vimwiki/vimwiki',
+            branch = 'dev',
+            config = function()
+                vim.g.vimwiki_key_mappings = {all_maps = 0}
+
+                local util = require 'vimrc.util'
+                util.map('n', '<leader>ww', '<plug>VimwikiIndex')
+                util.map('n', '<leader>ws', '<plug>VimwikiUISelect')
+            end,
         }
     end,
     config = {
