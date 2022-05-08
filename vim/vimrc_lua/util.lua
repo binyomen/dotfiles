@@ -36,6 +36,10 @@ function M.vim_empty(name)
     return vim.fn.empty(name) == 1
 end
 
+function M.vim_pumvisible()
+    return vim.fn.pumvisible() ~= 0
+end
+
 function M.echo(text, add_to_history)
     local add_to_history = M.default(add_to_history, false)
     vim.api.nvim_echo({{text}}, add_to_history, {})
