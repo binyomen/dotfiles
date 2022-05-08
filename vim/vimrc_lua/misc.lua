@@ -122,11 +122,6 @@ util.augroup('vimrc__fixfolds', {
     {{'InsertLeave', 'WinLeave'}, {command = [[if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif]]}},
 })
 
--- Close preview window after completion has finished.
-util.augroup('vimrc__close_preview_window', {
-    {'CompleteDone', {command = 'pclose'}},
-})
-
 -- Briefly highlight text on yank.
 util.augroup('vimrc__highlight_on_yank', {
     {'TextYankPost', {callback =
