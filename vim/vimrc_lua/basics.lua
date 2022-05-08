@@ -39,8 +39,8 @@ util.map('n', '<leader>r', '<cmd>edit<cr>') -- Use <leader>r to reload the buffe
 util.map('n', '<leader>t', '<c-w>')
 util.map('n', '+', '<c-w>>')
 util.map('n', '-', '<c-w><')
-util.map('n', '<c-=>', '<c-w>+')
-util.map('n', '<c-->', '<c-w>-')
+util.map('n', '<m-=>', '<c-w>+')
+util.map('n', '<m-->', '<c-w>-')
 
 -- Options
 -- Tabs

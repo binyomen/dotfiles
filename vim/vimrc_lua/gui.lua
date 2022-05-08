@@ -48,8 +48,8 @@ local function decrement_font_size()
     defer_font_size_print()
 end
 
-util.map('n', '<m-=>', increment_font_size)
-util.map('n', '<m-->', decrement_font_size)
+util.map('n', '<m-up>', increment_font_size)
+util.map('n', '<m-down>', decrement_font_size)
 
 -- fvim
 if util.vim_true(vim.g.fvim_loaded) then
