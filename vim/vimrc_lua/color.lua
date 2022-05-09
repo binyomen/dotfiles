@@ -150,6 +150,21 @@ local function create_cursor_over_highlight(highlights)
     create_highlight_group('vimrc__CursorOver', color)
 end
 
+local function create_statusline_warning_highlight(highlights)
+    local color
+    if highlights.statusline_warning then
+        if type(highlights.statusline_warning) == 'string' then
+            color = color_from_group(highlights.statusline_warning)
+        else
+            color = highlights.statusline_warning
+        end
+    else
+        color = {foreground = '!WarningMsg.foreground', background = highlights.base, bold = true}
+    end
+
+    create_highlight_group('vimrc__StatuslineWarning', color)
+end
+
 -- Define highlight groups based off of the current color scheme.
 local function set_highlight_groups()
     local colorscheme = vim.g.colors_name
@@ -157,6 +172,7 @@ local function set_highlight_groups()
         if name == colorscheme then
             create_statusline_highlights(highlights)
             create_cursor_over_highlight(highlights)
+            create_statusline_warning_highlight(highlights)
             break
         end
     end

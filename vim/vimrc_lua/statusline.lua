@@ -106,6 +106,20 @@ local function file_info(colors)
     return string.format('%s %s%%P %%l/%%L col: %%c ', colors.primary, word_count_string)
 end
 
+local function warnings()
+    local messages = {}
+
+    if util.vim_true(vim.b.table_mode_active) then
+        table.insert(messages, 'TABLE MODE')
+    end
+
+    if vim.tbl_isempty(messages) then
+        return ''
+    else
+        return string.format('%%#vimrc__StatuslineWarning# %s ', table.concat(messages, ' | '))
+    end
+end
+
 local function absolute_path_to_file_name(path)
     return vim.fn.fnamemodify(path, ':t')
 end
@@ -123,6 +137,7 @@ local function active_statusline()
         '%=',
         encoding(colors),
         file_info(colors),
+        warnings(),
     }
 end
 
