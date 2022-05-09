@@ -83,6 +83,13 @@ local function configure_vimwiki()
     vim.b.table_mode_corner = '|'
     vim.b.table_mode_corner_corner = '|'
     vim.b.table_mode_header_fillchar = '-'
+
+    vim.defer_fn(
+        function()
+            vim.opt_local.conceallevel = 0
+        end,
+        1000
+    )
 end
 
 util.augroup('vimrc__txt_files', {
