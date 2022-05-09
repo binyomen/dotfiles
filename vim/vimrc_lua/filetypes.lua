@@ -43,7 +43,7 @@ local function configure_markdown()
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2
 
-    vim.b.show_word_count = true
+    vim.b.vimrc__show_word_count = true
 
     util.map('n', '<leader>p', vim.fn['mdip#MarkdownClipboardImage'], {buffer = true})
 

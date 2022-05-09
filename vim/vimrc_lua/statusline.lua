@@ -94,13 +94,13 @@ end
 
 local function file_info(colors)
     local word_count_string = ''
-    if vim.b.show_word_count then
-        if vim.b.word_count == nil then
+    if vim.b.vimrc__show_word_count then
+        if vim.b.vimrc__word_count == nil then
             -- Start with a reasonable default.
-            vim.b.word_count = vim.fn.wordcount().words
+            vim.b.vimrc__word_count = vim.fn.wordcount().words
         end
 
-        word_count_string = string.format('WC:%d ', vim.b.word_count)
+        word_count_string = string.format('WC:%d ', vim.b.vimrc__word_count)
     end
 
     return string.format('%s %s%%P %%l/%%L col: %%c ', colors.primary, word_count_string)
@@ -265,9 +265,9 @@ function M.tabline()
 end
 
 local function on_cursor_hold()
-    if vim.b.show_word_count then
+    if vim.b.vimrc__show_word_count then
         local result = vim.fn.searchcount({pattern = [[\w\+]], timeout = 0, maxcount = 0})
-        vim.b.word_count = result.total
+        vim.b.vimrc__word_count = result.total
     end
 
     do
