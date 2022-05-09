@@ -79,6 +79,10 @@ local function configure_vimwiki()
     util.map('n', ']=', '<plug>VimwikiGoToNextSiblingHeader')
     util.map('n', '[u', '<plug>VimwikiGoToParentHeader')
     util.map('n', ']u', '<plug>VimwikiGoToParentHeader')
+
+    vim.b.table_mode_corner = '|'
+    vim.b.table_mode_corner_corner = '|'
+    vim.b.table_mode_header_fillchar = '-'
 end
 
 util.augroup('vimrc__txt_files', {
