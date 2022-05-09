@@ -113,6 +113,14 @@ local function warnings()
         table.insert(messages, 'TABLE MODE')
     end
 
+    if vim.b.vimrc__trailing_space_count ~= nil and vim.b.vimrc__trailing_space_count > 0 then
+        table.insert(messages, string.format(
+            'TRAILING SPACES: %d, line %d',
+            vim.b.vimrc__trailing_space_count,
+            vim.b.vimrc__trailing_space_line
+        ))
+    end
+
     if vim.tbl_isempty(messages) then
         return ''
     else
@@ -257,12 +265,17 @@ function M.tabline()
 end
 
 local function on_cursor_hold()
-    if not vim.b.show_word_count then
-        return
+    if vim.b.show_word_count then
+        local result = vim.fn.searchcount({pattern = [[\w\+]], timeout = 0, maxcount = 0})
+        vim.b.word_count = result.total
     end
 
-    local result = vim.fn.searchcount({pattern = [[\w\+]], timeout = 0, maxcount = 0})
-    vim.b.word_count = result.total
+    do
+        vim.b.vimrc__trailing_space_count = vim.fn.searchcount({pattern = [[\s\+$]], timeout = 0, maxcount = 0}).total
+        if vim.b.vimrc__trailing_space_count > 0 then
+            vim.b.vimrc__trailing_space_line = vim.fn.search([[\s\+$]], 'n')
+        end
+    end
 end
 
 local function set_statusline(state)
