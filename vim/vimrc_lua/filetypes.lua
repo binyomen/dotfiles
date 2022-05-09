@@ -72,6 +72,8 @@ end
 local function configure_vimwiki()
     util.map('n', '<leader>wh', '<plug>Vimwiki2HTML')
     util.map('n', '<leader>wb', '<plug>Vimwiki2HTMLBrowse')
+    util.map('n', '<leader>wl', '<plug>VimwikiNormalizeLink')
+    util.map('x', '<leader>wl', '<plug>VimwikiNormalizeLinkVisual')
     util.map('n', '<cr>', '<plug>VimwikiFollowLink')
     util.map('n', '[[', '<plug>VimwikiGoToPrevHeader')
     util.map('n', ']]', '<plug>VimwikiGoToNextHeader')
