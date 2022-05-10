@@ -168,10 +168,6 @@ function M.load_configs()
         local config = configs[i]
 
         local f = assert(loadfile(config))
-
-        -- Restrict what the local config script has access to.
-        setfenv(f, CONFIG_ENV)
-
         result = merge_configs(result, f(config))
     end
 
