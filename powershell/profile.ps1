@@ -8,11 +8,6 @@ Set-PSReadlineOption -BellStyle None
 
 ##################################
 
-# Start in the home directory if not invoked with arguments
-if ([Environment]::GetCommandLineArgs().Length -eq 1) {
-    Set-Location ~
-}
-
 # Customize prompt
 function prompt {
     $origLastExitCode = $LASTEXITCODE
