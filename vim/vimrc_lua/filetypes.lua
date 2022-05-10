@@ -70,28 +70,21 @@ local function configure_markdown()
 end
 
 local function configure_vimwiki()
-    util.map('n', '<leader>wh', '<plug>Vimwiki2HTML')
-    util.map('n', '<leader>wb', '<plug>Vimwiki2HTMLBrowse')
-    util.map('n', '<leader>wl', '<plug>VimwikiNormalizeLink')
-    util.map('x', '<leader>wl', '<plug>VimwikiNormalizeLinkVisual')
-    util.map('n', '<cr>', '<plug>VimwikiFollowLink')
-    util.map('n', '[[', '<plug>VimwikiGoToPrevHeader')
-    util.map('n', ']]', '<plug>VimwikiGoToNextHeader')
-    util.map('n', '[=', '<plug>VimwikiGoToPrevSiblingHeader')
-    util.map('n', ']=', '<plug>VimwikiGoToNextSiblingHeader')
-    util.map('n', '[u', '<plug>VimwikiGoToParentHeader')
-    util.map('n', ']u', '<plug>VimwikiGoToParentHeader')
+    util.map('n', '<leader>wh', '<plug>Vimwiki2HTML', {buffer = true})
+    util.map('n', '<leader>wb', '<plug>Vimwiki2HTMLBrowse', {buffer = true})
+    util.map('n', '<leader>wl', '<plug>VimwikiNormalizeLink', {buffer = true})
+    util.map('x', '<leader>wl', '<plug>VimwikiNormalizeLinkVisual', {buffer = true})
+    util.map('n', '<cr>', '<plug>VimwikiFollowLink', {buffer = true})
+    util.map('n', '[[', '<plug>VimwikiGoToPrevHeader', {buffer = true})
+    util.map('n', ']]', '<plug>VimwikiGoToNextHeader', {buffer = true})
+    util.map('n', '[=', '<plug>VimwikiGoToPrevSiblingHeader', {buffer = true})
+    util.map('n', ']=', '<plug>VimwikiGoToNextSiblingHeader', {buffer = true})
+    util.map('n', '[u', '<plug>VimwikiGoToParentHeader', {buffer = true})
+    util.map('n', ']u', '<plug>VimwikiGoToParentHeader', {buffer = true})
 
     vim.b.table_mode_corner = '|'
     vim.b.table_mode_corner_corner = '|'
     vim.b.table_mode_header_fillchar = '-'
-
-    vim.defer_fn(
-        function()
-            vim.opt_local.conceallevel = 0
-        end,
-        1000
-    )
 end
 
 util.augroup('vimrc__txt_files', {
