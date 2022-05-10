@@ -8,8 +8,6 @@ local TRUST_FILE = string.format('%s/trust.json', TRUST_DIR)
 
 local FILE_MODE = 0b111111111 -- octal 777
 
-local CONFIG_ENV = {}
-
 _G.LOCAL_CONFIG = nil
 _G.LOADED_CONFIGS = nil
 
