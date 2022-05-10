@@ -165,12 +165,14 @@ function M.load_configs()
     -- they have the opportunity to override anything.
     local configs = find_local_configs()
     for i = #configs,1,-1 do
-        local f = assert(loadfile(configs[i]))
+        local config = configs[i]
+
+        local f = assert(loadfile(config))
 
         -- Restrict what the local config script has access to.
         setfenv(f, CONFIG_ENV)
 
-        result = merge_configs(result, f())
+        result = merge_configs(result, f(config))
     end
 
     _G.LOADED_CONFIGS = configs
