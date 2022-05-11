@@ -237,6 +237,7 @@ return require('packer').startup {
             config = function()
                 vim.g.vimwiki_key_mappings = {all_maps = 0}
                 vim.g.vimwiki_toc_header_level = 2
+                vim.g.vimwiki_auto_chdir = 1
 
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
