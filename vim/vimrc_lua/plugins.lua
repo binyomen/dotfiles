@@ -234,7 +234,7 @@ return require('packer').startup {
         use {
             'vimwiki/vimwiki',
             branch = 'dev',
-            config = function()
+            setup = function()
                 vim.g.vimwiki_key_mappings = {all_maps = 0}
                 vim.g.vimwiki_toc_header_level = 2
                 vim.g.vimwiki_auto_chdir = 1
@@ -242,6 +242,23 @@ return require('packer').startup {
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
                 util.map('n', '<leader>ws', '<plug>VimwikiUISelect')
+
+                local vimwiki_list = {{
+                    name = 'Index',
+                    path = '~/vimwiki/',
+                    path_html = '~/vimwiki/html/',
+                    auto_export = 1,
+                    auto_toc = 1,
+                    maxhi = 1,
+                }}
+
+                if LOCAL_CONFIG.vimwiki_list ~= nil then
+                    for _, item in ipairs(LOCAL_CONFIG.vimwiki_list) do
+                        table.insert(vimwiki_list, item)
+                    end
+                end
+
+                vim.g.vimwiki_list = vimwiki_list
             end,
         }
     end,
