@@ -87,6 +87,8 @@ local function configure_vimwiki()
     vim.b.table_mode_corner = '|'
     vim.b.table_mode_corner_corner = '|'
     vim.b.table_mode_header_fillchar = '-'
+
+    vim.b.vimrc__show_word_count = true
 end
 
 util.augroup('vimrc__txt_files', {
