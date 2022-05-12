@@ -143,3 +143,15 @@ util.user_command(
     end,
     {nargs = '+'}
 )
+
+-- Open all folds the first time a buffer is opened.
+util.augroup('vimrc__open_folds', {
+    {'BufWinEnter', {callback =
+        function()
+            if vim.b.vimrc__folds_opened == nil then
+                vim.cmd [[normal! zR]]
+                vim.b.vimrc__folds_opened = true
+            end
+        end,
+    }},
+})
