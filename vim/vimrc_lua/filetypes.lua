@@ -89,6 +89,15 @@ local function configure_vimwiki()
     vim.b.table_mode_header_fillchar = '-'
 
     vim.b.vimrc__show_word_count = true
+
+    vim.opt_local.textwidth = 79
+
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+
+    vim.g.PasteImageFunction = 'g:EmptyPasteImage'
+    util.map('n', '<leader>p', vim.fn['mdip#MarkdownClipboardImage'], {buffer = true})
 end
 
 util.augroup('vimrc__txt_files', {
