@@ -96,6 +96,12 @@ return require('packer').startup {
                 require('indent_blankline').setup()
             end,
         }
+        use {
+            'voldikss/vim-floaterm',
+            config = function()
+                vim.g.floaterm_keymap_toggle = '<leader>9t'
+            end,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
