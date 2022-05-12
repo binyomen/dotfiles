@@ -143,7 +143,7 @@ util.augroup('vimrc__vimwiki_files', {
 })
 
 util.augroup('vimrc__spell_file_types', {
-    {'FileType', {pattern = 'gitcommit,html,markdown,text', callback =
+    {'FileType', {pattern = 'gitcommit,html,markdown,text,vimwiki', callback =
         function()
             vim.opt_local.spell = true
         end
