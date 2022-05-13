@@ -306,4 +306,38 @@ else
     M.PATH_SEP = '/'
 end
 
+function M.enable_pwsh()
+    vim.opt.shell = 'pwsh'
+    vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.opt.shellquote = ''
+    vim.opt.shellxquote = ''
+
+    vim.opt.shelltemp = false
+end
+
+function M.enable_cmd()
+    vim.opt.shell = 'cmd.exe'
+    vim.opt.shellcmdflag = '/s /c'
+    vim.opt.shellredir = '>%s 2>&1'
+    vim.opt.shellpipe = '>%s 2>&1'
+    vim.opt.shellquote = ''
+    vim.opt.shellxquote = '"'
+
+    vim.opt.shelltemp = true
+end
+
+function M.paste_image()
+    if M.vim_has('win32') then
+        M.enable_cmd()
+    end
+
+    vim.fn['mdip#MarkdownClipboardImage']()
+
+    if M.vim_has('win32') then
+        M.enable_pwsh()
+    end
+end
+
 return M

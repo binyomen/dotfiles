@@ -45,7 +45,7 @@ local function configure_markdown()
 
     vim.b.vimrc__show_word_count = true
 
-    util.map('n', '<leader>p', vim.fn['mdip#MarkdownClipboardImage'], {buffer = true})
+    util.map('n', '<leader>p', util.paste_image, {buffer = true})
 
     -- I'm tired we're just gonna do this a second after the buffer loads lol.
     vim.defer_fn(
@@ -99,7 +99,7 @@ local function configure_vimwiki()
     vim.opt_local.shiftwidth = 2
 
     vim.g.PasteImageFunction = 'g:EmptyPasteImage'
-    util.map('n', '<leader>p', vim.fn['mdip#MarkdownClipboardImage'], {buffer = true})
+    util.map('n', '<leader>p', util.paste_image, {buffer = true})
 end
 
 util.augroup('vimrc__txt_files', {
