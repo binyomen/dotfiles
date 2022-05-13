@@ -99,7 +99,15 @@ return require('packer').startup {
         use {
             'voldikss/vim-floaterm',
             config = function()
-                vim.g.floaterm_keymap_toggle = '<leader>9t'
+                local util = require 'vimrc.util'
+                util.map('n', '<leader>9t', [[<cmd>FloatermToggle<cr>]])
+                -- The `:echo<cr>` is necessary to prevent the "-- TERMINAL --"
+                -- mode from still being displayed after exiting the terminal
+                -- window. I tried alternatives like `<cmd>echo<cr>` and
+                -- `:<esc>` but the first one for some reason opened a second
+                -- terminal and the second one just didn't clear the bottom
+                -- line so this is what I'm going with I guess.
+                util.map('t', '<leader>9t', [[<c-\><c-n><cmd>FloatermToggle<cr>:echo<cr>]])
             end,
         }
 
