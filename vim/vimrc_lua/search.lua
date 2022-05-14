@@ -34,7 +34,7 @@ end
 util.user_command('Grep', function(args) grep(args.args) end, {nargs = 1})
 
 local function complete_find(arg_lead --[[cmd_line, cursor_pos]])
-    return vim.fn.systemlist({'fd', '--strip-cwd-prefix', arg_lead})
+    return vim.fn.systemlist({'fd', '--glob', '--strip-cwd-prefix', '*' .. arg_lead .. '*'})
 end
 util.user_command(
     'Find',
