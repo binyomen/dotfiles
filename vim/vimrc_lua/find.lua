@@ -17,7 +17,7 @@ local function refresh_fd_results(force_run)
         return
     end
 
-    vim.fn.jobstart({'fd', '--strip-cwd-prefix'}, {
+    vim.fn.jobstart({'fd', '--strip-cwd-prefix', '--type', 'file'}, {
         stdout_buffered = true,
         on_stdout =
             function(_, output)
@@ -60,8 +60,10 @@ local function complete_find(arg_lead --[[cmd_line, cursor_pos]])
     end
 
     return util.filter(fd_results, function(path)
-        local pat = string.format([[\v.+%s.+]], string.gsub(arg_lead, '*', '.+'))
-        return vim.fn.match(path, pat) ~= -1
+        local filename = vim.fn.fnamemodify(path, ':t')
+        local pat = string.format([[\v^%s.*]], string.gsub(arg_lead, '*', '.+'))
+
+        return vim.fn.match(filename, pat) ~= -1
     end)
 end
 
