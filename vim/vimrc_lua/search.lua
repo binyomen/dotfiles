@@ -33,6 +33,17 @@ local function grep(args)
 end
 util.user_command('Grep', function(args) grep(args.args) end, {nargs = 1})
 
+local function complete_find(arg_lead --[[cmd_line, cursor_pos]])
+    return vim.fn.systemlist({'fd', '--strip-cwd-prefix', arg_lead})
+end
+util.user_command(
+    'Find',
+    function(args)
+        vim.cmd(string.format('find %s', args.args))
+    end,
+    {nargs = 1, complete = complete_find}
+)
+
 util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
 
@@ -66,7 +77,7 @@ vim.opt.path:append('**') -- Search recursively by default.
 util.map('n', '<leader>/', ':Grep ', {silent = false})
 util.map('n', '<leader><leader>/', function() grep() end)
 util.map('n', '<leader>8', function() grep('-w ' .. vim.fn.expand('<cword>')) end)
-util.map('n', '<leader>f', ':find ', {silent = false})
+util.map('n', '<leader>f', ':Find ', {silent = false})
 
 -- Toggle search highlighting.
 util.map('n', '<leader>sh', function()
