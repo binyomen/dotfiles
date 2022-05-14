@@ -61,7 +61,7 @@ local function complete_find(arg_lead --[[cmd_line, cursor_pos]])
 
     return util.filter(fd_results, function(path)
         local filename = vim.fn.fnamemodify(path, ':t')
-        local pat = string.format([[\v^%s.*]], string.gsub(arg_lead, '*', '.+'))
+        local pat = string.format([[\v^%s.*]], string.gsub(arg_lead, '*', '.*'))
 
         return vim.fn.match(filename, pat) ~= -1
     end)
