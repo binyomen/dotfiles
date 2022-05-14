@@ -340,4 +340,13 @@ function M.paste_image()
     end
 end
 
+-- These functions just reverse the order of some builtin functions so that
+-- they format nicer in code.
+function M.defer(timeout, fn)
+    return vim.defer_fn(fn, timeout)
+end
+function M.filter(t, func)
+    return vim.tbl_filter(func, t)
+end
+
 return M
