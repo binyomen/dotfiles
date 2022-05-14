@@ -12,7 +12,7 @@ util.map({'n', 'x', 'o'}, '#', [[?\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
 
 -- Search the file system using ripgrep.
 if util.vim_executable('rg') then
-    vim.opt.grepprg = 'rg --vimgrep --smart-case --hidden'
+    vim.opt.grepprg = 'rg --vimgrep --smart-case'
     vim.opt.grepformat = '%f:%l:%c:%m'
 end
 
