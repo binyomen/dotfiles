@@ -28,12 +28,9 @@ end
 
 local function defer_font_size_print()
     -- We need to wait to print this, size the resize will clear echo output.
-    vim.defer_fn(
-        function()
-            util.echo(string.format('Font size now %d', font_size), true --[[add_to_history]])
-        end,
-        200
-    )
+    util.defer(200, function()
+        util.echo(string.format('Font size now %d', font_size), true --[[add_to_history]])
+    end)
 end
 
 local function increment_font_size()

@@ -26,7 +26,7 @@ local function configure_help()
     -- can apply our settings without them being overridden. If not, defer and
     -- try again.
     if vim.opt_local.conceallevel:get() ~= 2 then
-        vim.defer_fn(configure_help, 10)
+        util.defer(10, configure_help)
         return
     end
 
@@ -48,25 +48,22 @@ local function configure_markdown()
     util.map('n', '<leader>p', util.paste_image, {buffer = true})
 
     -- I'm tired we're just gonna do this a second after the buffer loads lol.
-    vim.defer_fn(
-        function()
-            -- Don't automatically insert bullets when hitting enter in a list.
-            vim.opt_local.formatoptions:remove('r')
+    util.defer(1000, function()
+        -- Don't automatically insert bullets when hitting enter in a list.
+        vim.opt_local.formatoptions:remove('r')
 
-            -- Don't use the indentexpr provided by vim-markdown, since it depends
-            -- on vim.g.vim_markdown_new_list_item_indent and as a result doesn't
-            -- work if you set that to zero.
-            vim.opt_local.indentexpr = ''
+        -- Don't use the indentexpr provided by vim-markdown, since it depends
+        -- on vim.g.vim_markdown_new_list_item_indent and as a result doesn't
+        -- work if you set that to zero.
+        vim.opt_local.indentexpr = ''
 
-            vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
+        vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
 
-            -- Support org mode tables.
-            vim.b.table_mode_corner = '+'
-            vim.b.table_mode_corner_corner = '+'
-            vim.b.table_mode_header_fillchar = '='
-        end,
-        1000
-    )
+        -- Support org mode tables.
+        vim.b.table_mode_corner = '+'
+        vim.b.table_mode_corner_corner = '+'
+        vim.b.table_mode_header_fillchar = '='
+    end)
 end
 
 local function configure_vimwiki()

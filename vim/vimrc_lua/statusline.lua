@@ -185,15 +185,12 @@ local function render_single_tab(tabline, colors, buf, is_active, name)
 end
 
 local function render_buffers()
-    local bufs = vim.tbl_filter(
-        function(buf)
-            return
-                vim.api.nvim_buf_is_loaded(buf) and
-                vim.fn.buflisted(buf) ~= 0 and
-                vim.api.nvim_buf_get_name(buf) ~= ''
-        end,
-        vim.api.nvim_list_bufs()
-    )
+    local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
+        return
+            vim.api.nvim_buf_is_loaded(buf) and
+            vim.fn.buflisted(buf) ~= 0 and
+            vim.api.nvim_buf_get_name(buf) ~= ''
+    end)
 
     local active_buf = vim.api.nvim_get_current_buf()
     local colors = get_colors()
