@@ -117,7 +117,7 @@ return require('packer').startup {
             'tpope/vim-fugitive',
             cond = not_firenvim,
             config = function()
-                require('vimrc.util').map('n', '<leader>gd', ':Gvdiff<cr>') -- Display a diff view of the current file.
+                require('vimrc.util').map('n', '<leader>gfd', ':Gvdiff<cr>') -- Display a diff view of the current file.
             end,
         }
         use {
@@ -156,20 +156,20 @@ return require('packer').startup {
                         nav_map('[c', gitsigns.prev_hunk)
 
                         -- Actions
-                        gitsigns_map({'n', 'x'}, '<leader>gss', gitsigns.stage_hunk)
-                        gitsigns_map({'n', 'x'}, '<leader>gsr', gitsigns.reset_hunk)
-                        gitsigns_map('n', '<leader>gsS', gitsigns.stage_buffer)
-                        gitsigns_map('n', '<leader>gsu', gitsigns.undo_stage_hunk)
-                        gitsigns_map('n', '<leader>gsR', gitsigns.reset_buffer)
-                        gitsigns_map('n', '<leader>gsp', gitsigns.preview_hunk)
-                        gitsigns_map('n', '<leader>gsb', function() gitsigns.blame_line {full=true} end)
-                        gitsigns_map('n', '<leader>gstb', gitsigns.toggle_current_line_blame)
-                        gitsigns_map('n', '<leader>gsd', gitsigns.diffthis)
-                        gitsigns_map('n', '<leader>gsD', function() gitsigns.diffthis('~') end)
-                        gitsigns_map('n', '<leader>gstd', gitsigns.toggle_deleted)
+                        gitsigns_map({'n', 'x'}, '<leader>gs', gitsigns.stage_hunk)
+                        gitsigns_map({'n', 'x'}, '<leader>gr', gitsigns.reset_hunk)
+                        gitsigns_map('n', '<leader>gS', gitsigns.stage_buffer)
+                        gitsigns_map('n', '<leader>gu', gitsigns.undo_stage_hunk)
+                        gitsigns_map('n', '<leader>gR', gitsigns.reset_buffer)
+                        gitsigns_map('n', '<leader>gp', gitsigns.preview_hunk)
+                        gitsigns_map('n', '<leader>gb', function() gitsigns.blame_line {full=true} end)
+                        gitsigns_map('n', '<leader>gtb', gitsigns.toggle_current_line_blame)
+                        gitsigns_map('n', '<leader>gd', gitsigns.diffthis)
+                        gitsigns_map('n', '<leader>gD', function() gitsigns.diffthis('~') end)
+                        gitsigns_map('n', '<leader>gtd', gitsigns.toggle_deleted)
 
                         -- Text object
-                        gitsigns_map({'o', 'x'}, 'igsh', gitsigns.select_hunk)
+                        gitsigns_map({'o', 'x'}, 'igh', gitsigns.select_hunk)
                     end
                 }
             end,
