@@ -2,6 +2,8 @@
     dcw = diff --color-words
     dc = diff --cached
     dcwc = diff --color-words --cached
+    dcww = diff --color-words=.
+    dcwwc = diff --color-words=. --cached
     nvim = !nvim +'Git | only'
     neovide = !neovide +'Git | only'
 [commit]
