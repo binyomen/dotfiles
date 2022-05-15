@@ -110,6 +110,12 @@ return require('packer').startup {
                 util.map('t', '<leader>9t', [[<c-\><c-n><cmd>FloatermToggle<cr>:echo<cr>]])
             end,
         }
+        use {
+            'rickhowe/diffchar.vim',
+            config = function()
+                vim.g.DiffUnit = 'Char'
+            end,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
