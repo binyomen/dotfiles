@@ -28,8 +28,8 @@ local function refresh_fd_results(force_run)
                 -- string representing EOF.
                 fd_results = vim.list_slice(output, 1, #output - 1)
 
-                -- Refresh the results after 10 seconds.
-                refresh_timer = util.defer(10000, function()
+                -- Refresh the results after 5 seconds.
+                refresh_timer = util.defer(5000, function()
                     refresh_fd_results()
                 end)
             end,
