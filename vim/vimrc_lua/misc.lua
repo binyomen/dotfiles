@@ -152,3 +152,6 @@ util.augroup('vimrc__open_folds', {
         end,
     }},
 })
+
+-- Customize <c-l> refresh.
+util.map('n', '<c-l>', '<cmd>IndentBlanklineRefresh<cr><c-l>')
