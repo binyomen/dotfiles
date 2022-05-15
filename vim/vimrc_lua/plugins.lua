@@ -124,29 +124,52 @@ return require('packer').startup {
             'lewis6991/gitsigns.nvim',
             cond = not_firenvim,
             config = function()
-                require('gitsigns').setup {
-                    on_attach = function(bufnr)
+                local gitsigns = require 'gitsigns'
+
+                gitsigns.setup {
+                    on_attach = function(buf)
                         local util = require 'vimrc.util'
 
+                        local function gitsigns_map(mode, lhs, rhs, opts)
+                            local opts = util.default(opts, {})
+                            opts.buffer = buf
+                            util.map(mode, lhs, rhs, opts)
+                        end
+
                         -- Navigation
-                        util.map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", {expr = true, buffer = bufnr})
-                        util.map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", {expr = true, buffer = bufnr})
+                        local function nav_map(lhs, func)
+                            gitsigns_map(
+                                'n',
+                                lhs,
+                                function()
+                                    if vim.wo.diff then
+                                        return lhs
+                                    else
+                                        vim.schedule(func)
+                                        return '<ignore>'
+                                    end
+                                end,
+                                {expr = true}
+                            )
+                        end
+                        nav_map(']c', gitsigns.next_hunk)
+                        nav_map('[c', gitsigns.prev_hunk)
 
                         -- Actions
-                        util.map({'n', 'x'}, '<leader>gss', ':Gitsigns stage_hunk<cr>', {buffer = bufnr})
-                        util.map({'n', 'x'}, '<leader>gsr', ':Gitsigns reset_hunk<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsS', '<cmd>Gitsigns stage_buffer<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsu', '<cmd>Gitsigns undo_stage_hunk<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsR', '<cmd>Gitsigns reset_buffer<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsp', '<cmd>Gitsigns preview_hunk<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsb', function() require('gitsigns').blame_line {full=true} end, {buffer = bufnr})
-                        util.map('n', '<leader>gstb', '<cmd>Gitsigns toggle_current_line_blame<cr>', {buffer = bufnr})
-                        util.map('n', '<leader>gsd', require('gitsigns').diffthis, {buffer = bufnr})
-                        util.map('n', '<leader>gsD', function() require('gitsigns').diffthis '~' end, {buffer = bufnr})
-                        util.map('n', '<leader>gstd', '<cmd>Gitsigns toggle_deleted<cr>', {buffer = bufnr})
+                        gitsigns_map({'n', 'x'}, '<leader>gss', ':Gitsigns stage_hunk<cr>')
+                        gitsigns_map({'n', 'x'}, '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        gitsigns_map('n', '<leader>gsS', gitsigns.stage_buffer)
+                        gitsigns_map('n', '<leader>gsu', gitsigns.undo_stage_hunk)
+                        gitsigns_map('n', '<leader>gsR', gitsigns.reset_buffer)
+                        gitsigns_map('n', '<leader>gsp', gitsigns.preview_hunk)
+                        gitsigns_map('n', '<leader>gsb', function() gitsigns.blame_line {full=true} end)
+                        gitsigns_map('n', '<leader>gstb', gitsigns.toggle_current_line_blame)
+                        gitsigns_map('n', '<leader>gsd', gitsigns.diffthis)
+                        gitsigns_map('n', '<leader>gsD', function() gitsigns.diffthis('~') end)
+                        gitsigns_map('n', '<leader>gstd', gitsigns.toggle_deleted)
 
                         -- Text object
-                        util.map({'o', 'x'}, 'igsh', ':<c-u>Gitsigns select_hunk<cr>', {buffer = bufnr})
+                        gitsigns_map({'o', 'x'}, 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
                     end
                 }
             end,
