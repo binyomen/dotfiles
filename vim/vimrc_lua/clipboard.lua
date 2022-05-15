@@ -6,31 +6,32 @@
 
 local util = require 'vimrc.util'
 
-local copy = util.new_operator(function(motion)
+local copy_operator = util.new_operator(function(motion)
     util.opfunc_normal_command(motion, '"*y')
 end)
 
-local paste = util.new_operator(function(motion)
+-- Copy.
+util.map({'n', 'x'}, 'cy', copy_operator, {expr = true})
+util.map('n', 'cY', function() return copy_operator() .. '_' end, {expr = true})
+
+-- Paste.
+util.map({'n', 'x'}, {expr = true}, 'cp', util.new_operator(function(motion)
     util.opfunc_normal_command(motion, '"*p')
+end))
+
+-- Paste before.
+util.map('n', 'cpP', function()
+    vim.cmd(string.format([[normal! "*%dP]], vim.v.count1))
 end)
 
-local function paste_before()
-    vim.cmd(string.format([[normal! "*%dP]], vim.v.count1))
-end
-
-local function paste_after()
+-- Paste after.
+util.map('n', 'cpp', function()
     vim.cmd(string.format([[normal! "*%dp]], vim.v.count1))
-end
+end)
 
-local function paste_line()
+-- Paste line.
+util.map('n', 'cP', function()
     for _ = 1,vim.v.count1 do
         vim.cmd [[put *]]
     end
-end
-
-util.map({'n', 'x'}, 'cy', copy, {expr = true})
-util.map('n', 'cY', function() return copy() .. '_' end, {expr = true})
-util.map({'n', 'x'}, 'cp', paste, {expr = true})
-util.map('n', 'cpP', paste_before)
-util.map('n', 'cpp', paste_after)
-util.map('n', 'cP', paste_line)
+end)

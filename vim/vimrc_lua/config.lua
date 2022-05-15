@@ -35,14 +35,12 @@ util.user_command(
 
 util.map('n', '<leader>ve', [[<cmd>silent NormalizeVSplit $MYVIMRC<cr>]])
 
-local function source()
+util.map('n', '<leader>vs', function()
     -- Reload all modules starting with "vimrc."
     require('plenary.reload').reload_module('vimrc.')
 
     vim.cmd [[source $MYVIMRC]]
-end
-
-util.map('n', '<leader>vs', source)
+end)
 
 util.map('n', '<leader>vl', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('config') . '/lua/vimrc/'<cr>]])
 util.map('n', '<leader>vp', [[<cmd>execute 'silent NormalizeVSplit ' . stdpath('data') . '/site/pack/packer/'<cr>]])

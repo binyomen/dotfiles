@@ -76,7 +76,7 @@ end)
 util.map('n', 'gf', '<cmd>e <cfile><cr>')
 
 -- Search Duck Duck Go for the chosen text.
-local duck_duck_go = util.new_operator(function(motion)
+util.map({'n', 'x'}, {expr = true}, '<leader>sd', util.new_operator(function(motion)
     local reg_backup = vim.fn.getreginfo('"')
 
     util.opfunc_normal_command(motion, 'y')
@@ -89,6 +89,4 @@ local duck_duck_go = util.new_operator(function(motion)
     vim.fn['netrw#BrowseX'](string.format('https://duckduckgo.com/?q=%s', reg_content[1]), 0)
 
     vim.fn.setreg('"', reg_backup)
-end)
-
-util.map({'n', 'x'}, '<leader>sd', duck_duck_go, {expr = true})
+end))

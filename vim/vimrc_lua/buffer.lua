@@ -2,7 +2,8 @@ local util = require 'vimrc.util'
 
 local SCRATCH_BUFFER_NAME = '__SCRATCH__'
 
-local function open_scratch_buffer()
+-- Open a scratch buffer.
+util.map('n', '<leader>bs', function()
     if vim.opt.modified:get() then
         vim.api.nvim_err_writeln('Cannot open a scratch buffer in a modified buffer.')
         return
@@ -21,9 +22,7 @@ local function open_scratch_buffer()
 
     -- The scratch buffer now exists. Switch to it.
     vim.api.nvim_set_current_buf(buf)
-end
-
-util.map('n', '<leader>bs', open_scratch_buffer)
+end)
 
 util.map('n', '<leader>bt', [['<cmd>' . v:count . 'b<cr>']], {expr = true})
 util.map('n', '<leader>bn', [['<cmd>' . v:count1 . 'bn<cr>']], {expr = true})
@@ -31,9 +30,8 @@ util.map('n', '<leader>bp', [['<cmd>' . v:count1 . 'bp<cr>']], {expr = true})
 util.map('n', '<leader>bf', [[<cmd>bf<cr>]])
 util.map('n', '<leader>bl', [[<cmd>bl<cr>]])
 
-local function delete_buffer()
+-- Delete a buffer.
+util.map('n', '<leader>bd', function()
     local buf = vim.v.count
     util.buf_delete(buf)
-end
-
-util.map('n', '<leader>bd', delete_buffer)
+end)

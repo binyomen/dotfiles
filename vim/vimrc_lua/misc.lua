@@ -3,7 +3,7 @@ local util = require 'vimrc.util'
 local namespace = vim.api.nvim_create_namespace('vimrc.misc')
 
 -- Fix the closest previous spelling mistake.
-local fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l', function()
+util.map('n', {expr = true}, '<leader>z=', util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and choose the first suggestion.
@@ -12,9 +12,10 @@ local fix_previous_spelling_mistake = util.new_operator_with_inherent_motion('l'
     -- Return to our previous position.
     util.set_cursor_from_extmark(extmark, namespace)
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
-end)
+end))
 
-local mark_previous_spelling_mistake_good = util.new_operator_with_inherent_motion('l', function()
+-- Mark the closest previous spelling mistake good.
+util.map('n', {expr = true}, '<leader>zg', util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and mark it as good.
@@ -23,10 +24,7 @@ local mark_previous_spelling_mistake_good = util.new_operator_with_inherent_moti
     -- Return to our previous position.
     util.set_cursor_from_extmark(extmark, namespace)
     vim.api.nvim_buf_del_extmark(0 --[[buffer]], namespace, extmark)
-end)
-
-util.map('n', '<leader>z=', fix_previous_spelling_mistake, {expr = true})
-util.map('n', '<leader>zg', mark_previous_spelling_mistake_good, {expr = true})
+end))
 
 util.map('n', '<leader>zt', function()
     vim.opt_local.spell = not vim.opt_local.spell:get()
@@ -78,15 +76,14 @@ end
 -- This is the default setting.
 disable_center_mode()
 
-local toggle_center_mode = util.new_operator_with_inherent_motion('l', function()
+-- Toggle center mode.
+util.map('n', {expr = true}, 'cm', util.new_operator_with_inherent_motion('l', function()
     if in_center_mode then
         disable_center_mode()
     else
         enable_center_mode()
     end
-end)
-
-util.map('n', 'cm', toggle_center_mode, {expr = true})
+end))
 
 -- Easy switching between cpp and header files.
 util.map('n', '<leader>ch', function()

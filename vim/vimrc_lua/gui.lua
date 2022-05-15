@@ -33,20 +33,19 @@ local function defer_font_size_print()
     end)
 end
 
-local function increment_font_size()
+-- Increment font size.
+util.map('n', '<m-up>', function()
     font_size = font_size + 1
     update_font()
     defer_font_size_print()
-end
+end)
 
-local function decrement_font_size()
+-- Decrement font size.
+util.map('n', '<m-down>', function()
     font_size = font_size - 1
     update_font()
     defer_font_size_print()
-end
-
-util.map('n', '<m-up>', increment_font_size)
-util.map('n', '<m-down>', decrement_font_size)
+end)
 
 -- fvim
 if util.vim_true(vim.g.fvim_loaded) then
@@ -131,6 +130,7 @@ if util.vim_true(vim.g.neovide) then
     font_size = 12
     update_font()
 
+    -- Make neovide fullscreen.
     util.map('n', '<a-cr>', function()
         vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
         vim.fn.NeovideNotifyfullscreenChanged(nil, nil, nil)

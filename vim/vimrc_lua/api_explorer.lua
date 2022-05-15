@@ -270,7 +270,8 @@ local function set_mappings(buf)
             'n',
             lhs,
             rhs,
-            {nowait = true, buffer = buf})
+            {nowait = true, buffer = buf}
+        )
     end
 end
 

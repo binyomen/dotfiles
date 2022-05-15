@@ -86,18 +86,6 @@ local function perform_swap(motion)
     clear_swap_state()
 end
 
-local swap = util.new_operator(function(motion)
-    if swap_first_state == nil then
-        select_swap_first(motion)
-    else
-        perform_swap(motion)
-    end
-end)
-
-local cancel_swap = util.new_operator_with_inherent_motion('l', function()
-    clear_swap_state()
-end)
-
 local function move_word_keep_cursor(forward)
     -- This is necessary to restore our cursor to the original position after
     -- an undo.
@@ -136,33 +124,35 @@ local function move_word(forward)
     vim.cmd(t'normal <leader>ssiw')
 end
 
-local next_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
-    move_word_keep_cursor(true)
-end)
-
-local previous_word_keep_cursor = util.new_operator_with_inherent_motion('l', function()
-    move_word_keep_cursor(false)
-end)
-
-local next_word = util.new_operator_with_inherent_motion('l', function()
-    move_word(true)
-end)
-
-local previous_word = util.new_operator_with_inherent_motion('l', function()
-    move_word(false)
-end)
-
 -- Swap arbitrary text.
-util.map({'n', 'x'}, '<leader>ss', swap, {expr = true})
-util.map('n', '<leader>sx', cancel_swap, {expr = true})
+util.map({'n', 'x'}, {expr = true}, '<leader>ss', util.new_operator(function(motion)
+    if swap_first_state == nil then
+        select_swap_first(motion)
+    else
+        perform_swap(motion)
+    end
+end))
+
+-- Cancel the pending swap.
+util.map('n', {expr = true}, '<leader>sx', util.new_operator_with_inherent_motion('l', function()
+    clear_swap_state()
+end))
 
 -- Swap current word with the next and previous, keeping the cursor in the same place.
-util.map('n', '<leader>sw', next_word_keep_cursor, {expr = true})
-util.map('n', '<leader>sW', previous_word_keep_cursor, {expr = true})
+util.map('n', {expr = true}, '<leader>sw', util.new_operator_with_inherent_motion('l', function()
+    move_word_keep_cursor(true)
+end))
+util.map('n', {expr = true}, '<leader>sW', util.new_operator_with_inherent_motion('l', function()
+    move_word_keep_cursor(false)
+end))
 
 -- Push the current word to the left or right.
-util.map('n', '<leader>sl', previous_word, {expr = true})
-util.map('n', '<leader>sr', next_word, {expr = true})
+util.map('n', {expr = true}, '<leader>sl', util.new_operator_with_inherent_motion('l', function()
+    move_word(false)
+end))
+util.map('n', {expr = true}, '<leader>sr', util.new_operator_with_inherent_motion('l', function()
+    move_word(true)
+end))
 util.map('n', '<m-h>', '<leader>sl', {remap = true})
 util.map('n', '<m-l>', '<leader>sr', {remap = true})
 

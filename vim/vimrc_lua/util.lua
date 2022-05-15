@@ -46,6 +46,14 @@ function M.echo(text, add_to_history)
 end
 
 function M.map(mode, lhs, rhs, opts)
+    -- Allow an rhs function to be specified last for better formatting.
+    if type(lhs) == 'table' then
+        local temp = lhs
+        lhs = rhs
+        rhs = opts
+        opts = temp
+    end
+
     local opts = vim.tbl_extend('force', {silent = true}, M.default(opts, {}))
     vim.keymap.set(mode, lhs, rhs, opts)
 end

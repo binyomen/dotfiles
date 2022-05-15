@@ -69,17 +69,16 @@ local function perform_diff(motion)
     vim.cmd [[diffthis | wincmd p | diffthis]]
 end
 
-local mark_diff = util.new_operator(function(motion)
+-- Mark text for a diff.
+util.map({'n', 'x'}, {expr = true}, '<leader>dd', util.new_operator(function(motion)
     if first_diff_state == nil then
         select_first_diff(motion)
     else
         perform_diff(motion)
     end
-end)
+end))
 
-local cancel_diff = util.new_operator_with_inherent_motion('l', function()
+-- Cancel a pending diff.
+util.map('n', {expr = true}, '<leader>dx', util.new_operator_with_inherent_motion('l', function()
     clear_diff_state()
-end)
-
-util.map({'n', 'x'}, '<leader>dd', mark_diff, {expr = true})
-util.map('n', '<leader>dx', cancel_diff, {expr = true})
+end))
