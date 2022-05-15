@@ -1,6 +1,7 @@
 [alias]
-    dcw = diff --color-words
+    d = diff
     dc = diff --cached
+    dcw = diff --color-words
     dcwc = diff --color-words --cached
     dcww = diff --color-words=.
     dcwwc = diff --color-words=. --cached
