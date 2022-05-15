@@ -1,10 +1,10 @@
 [alias]
     d = diff
     dc = diff --cached
-    dcw = diff --color-words
-    dcwc = diff --color-words --cached
-    dcww = diff --color-words=.
-    dcwwc = diff --color-words=. --cached
+    dw = diff --color-words
+    dwc = diff --color-words --cached
+    dww = diff --color-words=.
+    dwwc = diff --color-words=. --cached
     nvim = !nvim +'Git | only'
     neovide = !neovide +'Git | only'
 [commit]
