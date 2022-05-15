@@ -156,8 +156,8 @@ return require('packer').startup {
                         nav_map('[c', gitsigns.prev_hunk)
 
                         -- Actions
-                        gitsigns_map({'n', 'x'}, '<leader>gss', ':Gitsigns stage_hunk<cr>')
-                        gitsigns_map({'n', 'x'}, '<leader>gsr', ':Gitsigns reset_hunk<cr>')
+                        gitsigns_map({'n', 'x'}, '<leader>gss', gitsigns.stage_hunk)
+                        gitsigns_map({'n', 'x'}, '<leader>gsr', gitsigns.reset_hunk)
                         gitsigns_map('n', '<leader>gsS', gitsigns.stage_buffer)
                         gitsigns_map('n', '<leader>gsu', gitsigns.undo_stage_hunk)
                         gitsigns_map('n', '<leader>gsR', gitsigns.reset_buffer)
@@ -169,7 +169,7 @@ return require('packer').startup {
                         gitsigns_map('n', '<leader>gstd', gitsigns.toggle_deleted)
 
                         -- Text object
-                        gitsigns_map({'o', 'x'}, 'igsh', ':<c-u>Gitsigns select_hunk<cr>')
+                        gitsigns_map({'o', 'x'}, 'igsh', gitsigns.select_hunk)
                     end
                 }
             end,
