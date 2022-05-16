@@ -356,5 +356,8 @@ end
 function M.filter(t, func)
     return vim.tbl_filter(func, t)
 end
+function M.tbl_map(t, func)
+    return vim.tbl_map(func, t)
+end
 
 return M

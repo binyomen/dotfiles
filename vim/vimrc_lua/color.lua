@@ -195,12 +195,46 @@ util.user_command(
     function()
         if require('vim.treesitter.highlighter').active[vim.api.nvim_get_current_buf()] then
             local node = require('nvim-treesitter.ts_utils').get_node_at_cursor()
-            local stack = {}
+            local nodes = {}
             while node ~= nil do
-                table.insert(stack, 1, node:type())
+                table.insert(nodes, 1, node)
                 node = node:parent()
             end
-            util.echo(table.concat(stack, '\n'), true --[[add_to_history]])
+
+            local max_type_len = 0
+            for _, node in ipairs(nodes) do
+                local node_type_len = #node:type()
+                if node_type_len > max_type_len then
+                    max_type_len = node_type_len
+                end
+            end
+
+            local descriptions = util.tbl_map(nodes, function(node)
+                local node_type = node:type()
+                local spacing = (' '):rep(max_type_len + 1 - node_type:len())
+                local node_text = vim.treesitter.query.get_node_text(node, 0 --[[source]])
+
+                local node_lines = vim.split(node_text, '\n')
+                local node_content
+                if #node_lines == 1 then
+                    node_content = vim.trim(node_lines[1])
+                else
+                    node_content = string.format(
+                        '%s … %s',
+                        vim.trim(node_lines[1]),
+                        vim.trim(node_lines[#node_lines])
+                    )
+                end
+
+                return string.format(
+                    '%s%s| %s',
+                    node:type(),
+                    spacing,
+                    node_content
+                )
+            end)
+
+            util.echo(table.concat(descriptions, '\n'), true --[[add_to_history]])
         else
             local stack = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
             local mapped = vim.tbl_map(
