@@ -227,7 +227,7 @@ util.user_command(
                 end
 
                 return string.format(
-                    '%s%s| %s',
+                    '%s%s│ %s',
                     node:type(),
                     spacing,
                     node_content
