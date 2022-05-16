@@ -197,7 +197,7 @@ util.user_command(
             local node = require('nvim-treesitter.ts_utils').get_node_at_cursor()
             local nodes = {}
             while node ~= nil do
-                table.insert(nodes, 1, node)
+                table.insert(nodes, node)
                 node = node:parent()
             end
 
