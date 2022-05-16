@@ -237,14 +237,11 @@ util.user_command(
             util.echo(table.concat(descriptions, '\n'), true --[[add_to_history]])
         else
             local stack = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
-            local mapped = vim.tbl_map(
-                function(item)
-                    local from_name = vim.fn.synIDattr(item, 'name')
-                    local to_name = vim.fn.synIDattr(vim.fn.synIDtrans(item), 'name')
-                    return string.format('%s -> %s', from_name, to_name), true --[[add_to_history]]
-                end,
-                stack
-            )
+            local mapped = util.tbl_map(stack, function(item)
+                local from_name = vim.fn.synIDattr(item, 'name')
+                local to_name = vim.fn.synIDattr(vim.fn.synIDtrans(item), 'name')
+                return string.format('%s -> %s', from_name, to_name)
+            end)
             util.echo(vim.inspect(mapped), true --[[add_to_history]])
         end
     end,
