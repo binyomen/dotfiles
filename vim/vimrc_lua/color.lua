@@ -193,16 +193,26 @@ util.user_command('HiTest', 'source $VIMRUNTIME/syntax/hitest.vim', {nargs = 0})
 util.user_command(
     'SynStack',
     function()
-        local stack = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
-        local mapped = vim.tbl_map(
-            function(item)
-                local from_name = vim.fn.synIDattr(item, 'name')
-                local to_name = vim.fn.synIDattr(vim.fn.synIDtrans(item), 'name')
-                return string.format('%s -> %s', from_name, to_name), true --[[add_to_history]]
-            end,
-            stack
-        )
-        util.echo(vim.inspect(mapped), true --[[add_to_history]])
+        if require('vim.treesitter.highlighter').active[vim.api.nvim_get_current_buf()] then
+            local node = require('nvim-treesitter.ts_utils').get_node_at_cursor()
+            local stack = {}
+            while node ~= nil do
+                table.insert(stack, 1, node:type())
+                node = node:parent()
+            end
+            util.echo(table.concat(stack, '\n'), true --[[add_to_history]])
+        else
+            local stack = vim.fn.synstack(vim.fn.line '.', vim.fn.col '.')
+            local mapped = vim.tbl_map(
+                function(item)
+                    local from_name = vim.fn.synIDattr(item, 'name')
+                    local to_name = vim.fn.synIDattr(vim.fn.synIDtrans(item), 'name')
+                    return string.format('%s -> %s', from_name, to_name), true --[[add_to_history]]
+                end,
+                stack
+            )
+            util.echo(vim.inspect(mapped), true --[[add_to_history]])
+        end
     end,
     {nargs = 0}
 )
