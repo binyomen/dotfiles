@@ -61,16 +61,7 @@ return require('packer').startup {
             end,
         }
         use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
-        use { -- aF/iF: Between a given character.
-            'thinca/vim-textobj-between',
-            config = function()
-                local util = require 'vimrc.util'
-
-                vim.g.textobj_between_no_default_key_mappings = 1
-                util.map({'x', 'o'}, 'iF', '<plug>(textobj-between-i)')
-                util.map({'x', 'o'}, 'aF', '<plug>(textobj-between-a)')
-            end,
-        }
+        use 'thinca/vim-textobj-between' -- af/if: Between a given character.
 
         -- User interface stuff.
         use {
