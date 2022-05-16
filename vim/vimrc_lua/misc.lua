@@ -146,7 +146,14 @@ util.augroup('vimrc__open_folds', {
     {'BufWinEnter', {callback =
         function()
             if vim.b.vimrc__folds_opened == nil then
-                vim.cmd [[normal! zR]]
+                -- Use `vim.schedule` to make it run after other instances of
+                -- BufWinEnter.
+                vim.schedule(function()
+                    if not vim.wo.diff and vim.b.term_title == nil then
+                        vim.cmd [[normal! zR]]
+                    end
+                end)
+
                 vim.b.vimrc__folds_opened = true
             end
         end,
