@@ -304,6 +304,15 @@ return require('packer').startup {
                 vim.g.vimwiki_list = vimwiki_list
             end,
         }
+
+        -- Tree-sitter
+        use {
+            'nvim-treesitter/nvim-treesitter',
+            run = ':TSUpdate',
+            config = function()
+                require 'vimrc.treesitter'
+            end,
+        }
     end,
     config = {
         profile = {
