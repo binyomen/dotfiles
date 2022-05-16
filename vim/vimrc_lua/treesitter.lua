@@ -4,6 +4,15 @@ require('nvim-treesitter.configs').setup {
     ensure_installed = {'lua'},
     highlight = {enable = true},
     indent = {enable = true},
+    textobjects = {
+        select = {
+            enable = true,
+            keymaps = {
+                ['if'] = '@function.inner',
+                ['af'] = '@function.outer',
+            },
+        },
+    },
 }
 
 util.augroup('vimrc__treesitter_buffers', {
