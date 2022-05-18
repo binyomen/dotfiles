@@ -1,7 +1,7 @@
 local util = require 'vimrc.util'
 
 require('nvim-treesitter.configs').setup {
-    ensure_installed = {'lua', 'cpp'},
+    ensure_installed = {'lua', 'cpp', 'json', 'javascript'},
     highlight = {enable = true},
     indent = {enable = true},
     textobjects = {
