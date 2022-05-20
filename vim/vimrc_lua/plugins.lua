@@ -318,6 +318,8 @@ return require('packer').startup {
                             },
                         },
                         ['core.norg.concealer'] = {},
+                        ['core.export'] = {},
+                        ['core.export.markdown'] = {},
                     }
                 }
             end,
