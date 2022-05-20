@@ -304,6 +304,24 @@ return require('packer').startup {
                 vim.g.vimwiki_list = vimwiki_list
             end,
         }
+        use {
+            'nvim-neorg/neorg',
+            requires = 'nvim-lua/plenary.nvim',
+            after = 'nvim-treesitter',
+            config = function()
+                require('neorg').setup {
+                    load = {
+                        ['core.defaults'] = {},
+                        ['core.norg.completion'] = {
+                            config = {
+                                engine = 'nvim-cmp',
+                            },
+                        },
+                        ['core.norg.concealer'] = {},
+                    }
+                }
+            end,
+        }
 
         -- Tree-sitter
         use {
