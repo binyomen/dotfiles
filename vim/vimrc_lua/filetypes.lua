@@ -99,6 +99,23 @@ local function configure_vimwiki()
     util.map('n', '<leader>p', util.paste_image, {buffer = true})
 end
 
+local function configure_neorg()
+    vim.b.table_mode_corner = '|'
+    vim.b.table_mode_corner_corner = '|'
+    vim.b.table_mode_header_fillchar = '-'
+
+    vim.b.vimrc__show_word_count = true
+
+    vim.opt_local.textwidth = 79
+
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+
+    vim.g.PasteImageFunction = 'g:EmptyPasteImage'
+    util.map('n', '<leader>p', util.paste_image, {buffer = true})
+end
+
 util.augroup('vimrc__txt_files', {
     {'FileType', {pattern = 'text', callback = configure_text}},
 })
@@ -139,6 +156,10 @@ util.augroup('vimrc__markdown_files', {
 
 util.augroup('vimrc__vimwiki_files', {
     {'FileType', {pattern = 'vimwiki', callback = configure_vimwiki}},
+})
+
+util.augroup('vimrc__neorg_files', {
+    {'FileType', {pattern = 'norg', callback = configure_neorg}},
 })
 
 util.augroup('vimrc__spell_file_types', {
