@@ -136,3 +136,10 @@ if util.vim_true(vim.g.neovide) then
         vim.fn.NeovideNotifyfullscreenChanged(nil, nil, nil)
     end)
 end
+
+-- goneovim
+if util.vim_true(vim.g.goneovim) then
+    font_name = 'Fira Code'
+    font_size = 12
+    update_font()
+end
