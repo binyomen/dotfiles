@@ -26,6 +26,7 @@ require 'vimrc.search'
 require 'vimrc.statusline'
 require 'vimrc.style'
 require 'vimrc.swap'
+require 'vimrc.table_formulas'
 require 'vimrc.terminal'
 
 if LOCAL_CONFIG.on_config_end then
