@@ -187,3 +187,16 @@ util.map({'n', 'x'}, 's', function() dont_use_this_key('s') end)
 util.map('n', 'S', function() dont_use_this_key('S') end)
 util.map({'n', 'x'}, 'x', function() dont_use_this_key('x') end)
 util.map({'n', 'x'}, 'X', function() dont_use_this_key('X') end)
+
+-- Configure tab size.
+util.user_command(
+    'SetTabSize',
+    function(args)
+        local tab_size = tonumber(args.args)
+
+        vim.opt_local.tabstop = tab_size
+        vim.opt_local.softtabstop = tab_size
+        vim.opt_local.shiftwidth = tab_size
+    end,
+    {nargs = 1}
+)
