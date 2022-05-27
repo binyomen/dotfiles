@@ -16,12 +16,9 @@ local function complete_lua_files(arg_lead --[[cmd_line, cursor_pos]])
     local file_pattern = string.format('%s*.lua', arg_lead)
     local files = vim.fn.globpath(LUA_PATH, file_pattern, false, true)
 
-    return vim.tbl_map(
-        function(path)
-            return vim.fn.fnamemodify(path, ':t')
-        end,
-        files
-    )
+    return util.tbl_map(files, function(path)
+        return vim.fn.fnamemodify(path, ':t')
+    end)
 end
 
 -- Open one of the lua configuration files.
