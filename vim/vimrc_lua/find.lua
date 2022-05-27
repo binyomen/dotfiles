@@ -61,12 +61,28 @@ local function complete_find(arg_lead --[[cmd_line, cursor_pos]])
 
     local escaped_arg_lead = arg_lead:gsub('*', '.*'):gsub([[\]], [[\\]])
 
-    return util.filter(fd_results, function(path)
+    local matches = util.filter_map(fd_results, function(path)
         local filename = vim.fn.fnamemodify(path, ':t')
         local pat = string.format([[\v^%s.*]], escaped_arg_lead)
 
-        return vim.fn.match(filename, pat) ~= -1
+        if vim.fn.match(filename, pat) ~= -1 then
+            return {result = path, type = 'filename'}
+        elseif vim.fn.match(path, pat) ~= -1 then
+            return {result = path, type = 'path'}
+        else
+            return nil
+        end
     end)
+
+    table.sort(matches, function(m1, m2)
+        if m1.type == 'filename' and m2.type == 'path' then
+            return true
+        else
+            return false
+        end
+    end)
+
+    return util.tbl_map(matches, function(m) return m.result end)
 end
 
 util.user_command(

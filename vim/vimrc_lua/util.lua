@@ -360,4 +360,17 @@ function M.tbl_map(t, func)
     return vim.tbl_map(func, t)
 end
 
+function M.filter_map(list, f)
+    local new_list = {}
+
+    for _, item in ipairs(list) do
+        local result = f(item)
+        if result ~= nil then
+            table.insert(new_list, result)
+        end
+    end
+
+    return new_list
+end
+
 return M
