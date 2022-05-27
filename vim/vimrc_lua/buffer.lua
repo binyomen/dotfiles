@@ -35,3 +35,5 @@ util.map('n', '<leader>bd', function()
     local buf = vim.v.count
     util.buf_delete(buf)
 end)
+
+util.map('n', 's', ':buffer ', {silent = false})

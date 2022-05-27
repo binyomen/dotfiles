@@ -183,7 +183,7 @@ util.user_command(
 local function dont_use_this_key(key)
     util.log_error(string.format([[Don't use %s!]], key))
 end
-util.map({'n', 'x'}, 's', function() dont_use_this_key('s') end)
+util.map('x', 's', function() dont_use_this_key('s') end)
 util.map('n', 'S', function() dont_use_this_key('S') end)
 util.map({'n', 'x'}, 'x', function() dont_use_this_key('x') end)
 util.map({'n', 'x'}, 'X', function() dont_use_this_key('X') end)
