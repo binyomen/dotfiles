@@ -179,15 +179,6 @@ util.user_command(
     {nargs = 1, complete = 'command'}
 )
 
--- Unmap keys I don't want to use anymore/might map to something else in the future.
-local function dont_use_this_key(key)
-    util.log_error(string.format([[Don't use %s!]], key))
-end
-util.map('x', 's', function() dont_use_this_key('s') end)
-util.map('n', 'S', function() dont_use_this_key('S') end)
-util.map({'n', 'x'}, 'x', function() dont_use_this_key('x') end)
-util.map({'n', 'x'}, 'X', function() dont_use_this_key('X') end)
-
 -- Configure tab size.
 util.user_command(
     'SetTabSize',
