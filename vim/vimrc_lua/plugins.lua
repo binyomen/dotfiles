@@ -283,6 +283,7 @@ return require('packer').startup {
                 vim.g.vimwiki_auto_chdir = 1
                 vim.g.vimwiki_ext2syntax = vim.empty_dict()
                 vim.g.vimwiki_links_header_level = 2
+                vim.g.vimwiki_auto_header = 1
 
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
