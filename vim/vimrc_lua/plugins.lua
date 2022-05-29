@@ -284,6 +284,7 @@ return require('packer').startup {
                 vim.g.vimwiki_ext2syntax = vim.empty_dict()
                 vim.g.vimwiki_links_header_level = 2
                 vim.g.vimwiki_auto_header = 1
+                vim.g.vimwiki_valid_html_tags = 'p,blockquote,ul,ol,li'
 
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
