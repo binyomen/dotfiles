@@ -285,6 +285,7 @@ return require('packer').startup {
                 vim.g.vimwiki_links_header_level = 2
                 vim.g.vimwiki_auto_header = 1
                 vim.g.vimwiki_valid_html_tags = 'p,blockquote,ul,ol,li'
+                vim.g.vimwiki_tags_header_level = 2
 
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
@@ -296,6 +297,9 @@ return require('packer').startup {
                     path_html = '~/vimwiki/html/',
                     auto_export = 1,
                     auto_toc = 1,
+                    auto_tags = 1,
+                    auto_generate_links = 1,
+                    auto_generate_tags = 1,
                     maxhi = 1,
                 }}
 
