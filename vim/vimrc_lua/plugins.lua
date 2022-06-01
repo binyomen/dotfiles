@@ -294,7 +294,7 @@ return require('packer').startup {
                 local vimwiki_list = {{
                     name = 'Index',
                     path = '~/vimwiki/',
-                    path_html = '~/vimwiki/html/',
+                    path_html = '~/vimwiki/.html/',
                     auto_export = 1,
                     auto_toc = 1,
                     auto_tags = 1,
