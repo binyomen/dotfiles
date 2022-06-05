@@ -1,6 +1,9 @@
 #!/usr/bin/env fish
 
-set -x PATH $PATH ~/bin
+if not contains ~/bin $PATH
+    set -x PATH $PATH ~/bin
+end
+
 set -x EDITOR nvim
 
 # I need to add spaces after the default prompt symbols so they don't look
