@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 if not contains ~/bin $PATH
-    set -x PATH $PATH ~/bin
+    set -xa PATH ~/bin
 end
 
 set -x EDITOR nvim
