@@ -192,6 +192,50 @@ return require('packer').startup {
         use {
             'sindrets/diffview.nvim',
             requires = 'nvim-lua/plenary.nvim',
+            config = function()
+                local actions = require('diffview.actions')
+                require('diffview').setup {
+                    use_icons = false,
+                    file_panel = {
+                        win_config = {
+                            width = 20,
+                        },
+                    },
+                    keymaps = {
+                        disable_defaults = true,
+                        view = {
+                            ['gf'] = actions.goto_file,
+                            ['<leader>gtf'] = actions.toggle_files,
+                        },
+                        file_panel = {
+                            ['j'] = actions.next_entry,
+                            ['k'] = actions.prev_entry,
+                            ['<cr>'] = actions.select_entry,
+                            ['s'] = actions.toggle_stage_entry,
+                            ['S'] = actions.stage_all,
+                            ['U'] = actions.unstage_all,
+                            ['R'] = actions.refresh_files,
+                            ['L'] = actions.open_commit_log,
+                            ['gf'] = actions.goto_file,
+                            ['i'] = actions.listing_style,
+                            ['f'] = actions.toggle_flatten_dirs,
+                            ['<leader>gtf'] = actions.toggle_files,
+                        },
+                        file_history_panel = {
+                            ['g!'] = actions.options,
+                            ['L'] = actions.open_commit_log,
+                            ['j'] = actions.next_entry,
+                            ['k'] = actions.prev_entry,
+                            ['<cr>'] = actions.select_entry,
+                            ['<leader>gtf'] = actions.toggle_files,
+                        },
+                        option_panel = {
+                            ['<tab>'] = actions.select_entry,
+                            ['q']     = actions.close,
+                        },
+                    },
+                }
+            end,
         }
 
         -- Completion.
