@@ -189,6 +189,10 @@ return require('packer').startup {
         }
         use 'ferrine/md-img-paste.vim'
         use 'justinmk/vim-dirvish'
+        use {
+            'sindrets/diffview.nvim',
+            requires = 'nvim-lua/plenary.nvim',
+        }
 
         -- Completion.
         use {
