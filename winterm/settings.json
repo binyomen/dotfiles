@@ -2,7 +2,7 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-    "copyFormatting": false,
+    "copyFormatting": "none",
     "disabledProfileSources":
     [
         "Windows.Terminal.Wsl",
@@ -27,7 +27,7 @@
                 "cursorColor": "#FFFFFF",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
-                "acrylicOpacity": 0.75
+                "opacity": 75
             },
             {
                 "guid": "{708ec9d0-6c98-4e95-b8fc-d020a3675282}",
@@ -38,7 +38,7 @@
                 "cursorColor": "#FFFFFF",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
-                "acrylicOpacity": 0.75
+                "opacity": 75
             },
             {
                 "guid": "{5775065c-b4d8-42a7-8dc1-a4b85311a1ef}",
@@ -48,28 +48,27 @@
                 "cursorColor": "#FFFFFF",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
-                "acrylicOpacity": 0.75
+                "opacity": 75
             },
             {
                 "guid": "{2211e514-3c15-489d-b8d2-22f403fb6f6b}",
                 "name": "nushell",
                 "commandline": "nu.exe",
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "background": "#7f00ff",
+                "background": "#7F00FF",
                 "cursorColor": "#FFFFFF",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
-                "acrylicOpacity": 0.75
+                "opacity": 75
             },
             {
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "name": "cmd",
-                "commandline": "cmd.exe",
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
                 "cursorColor": "#FFFFFF",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
-                "acrylicOpacity": 0.75
+                "opacity": 75
             }
         ]
     }
