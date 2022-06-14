@@ -116,6 +116,16 @@ return require('packer').startup {
                 vim.g.table_mode_map_prefix = '<leader>0'
             end,
         }
+        use {
+            'kosayoda/nvim-lightbulb',
+            config = function()
+                require('nvim-lightbulb').setup {
+                    autocmd = {
+                        enabled = true,
+                    },
+                }
+            end,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
