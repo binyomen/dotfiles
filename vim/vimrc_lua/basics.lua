@@ -76,4 +76,5 @@ vim.opt.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region
 vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.diffopt:append('algorithm:histogram') -- Use the histogram algorithm for more readable diffs.
+vim.opt.diffopt:append('indent-heuristic') -- Try to make more aesthetically pleasing diffs.
 vim.opt.timeout = false -- Don't time out waiting for mappings.
