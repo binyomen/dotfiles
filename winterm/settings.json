@@ -24,7 +24,7 @@
                 "commandline": "pwsh.exe",
                 "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
                 "background": "#012456",
-                "cursorColor": "#FFFFFF",
+                "cursorColor": "#ffffff",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
                 "opacity": 75
@@ -35,7 +35,7 @@
                 "commandline": "xosh.exe",
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
                 "background": "#013220",
-                "cursorColor": "#FFFFFF",
+                "cursorColor": "#ffffff",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
                 "opacity": 75
@@ -45,7 +45,7 @@
                 "name": "Ubuntu",
                 "commandline": "ubuntu.exe",
                 "icon": "C:\\Program Files\\WindowsApps\\CanonicalGroupLimited.UbuntuonWindows_1804.2019.521.0_x64__79rhkp1fndgsc\\Assets\\Square44x44Logo.altform-unplated_targetsize-256.png",
-                "cursorColor": "#FFFFFF",
+                "cursorColor": "#ffffff",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
                 "opacity": 75
@@ -55,8 +55,8 @@
                 "name": "nushell",
                 "commandline": "nu.exe",
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "background": "#7F00FF",
-                "cursorColor": "#FFFFFF",
+                "background": "#7f00ff",
+                "cursorColor": "#ffffff",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
                 "opacity": 75
@@ -65,7 +65,7 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "name": "cmd",
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "cursorColor": "#FFFFFF",
+                "cursorColor": "#ffffff",
                 "cursorShape": "filledBox",
                 "useAcrylic": true,
                 "opacity": 75
