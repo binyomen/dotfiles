@@ -35,6 +35,7 @@ return require('packer').startup {
                 require('vimrc.util').map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
             end,
         }
+        use 'ggandor/lightspeed.nvim'
 
         -- Custom text objects.
         use 'kana/vim-textobj-user' -- Framework for creating custom text objects.

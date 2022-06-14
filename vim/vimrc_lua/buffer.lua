@@ -36,4 +36,4 @@ util.map('n', '<leader>bd', function()
     util.buf_delete(buf)
 end)
 
-util.map('n', 's', ':buffer ', {silent = false})
+util.map('n', 'x', ':buffer ', {silent = false})
