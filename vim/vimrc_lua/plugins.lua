@@ -245,6 +245,10 @@ return require('packer').startup {
                         },
                     },
                 }
+
+                local util = require 'vimrc.util'
+                util.map('n', '<leader>gvo', '<cmd>DiffviewOpen<cr>')
+                util.map('n', '<leader>gvh', '<cmd>DiffviewFileHistory<cr>')
             end,
         }
 
