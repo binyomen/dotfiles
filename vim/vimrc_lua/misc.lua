@@ -103,13 +103,25 @@ util.map('n', '<leader>gh', function()
 end)
 
 -- errorformat
-vim.opt.errorformat = {}
--- build.exe errors
-vim.opt.errorformat:append [[%[0-9]%\+>%f(%l) : %m]]
-vim.opt.errorformat:append [[%f(%l) : %m]]
+do
+    -- `vim.opt` seems to be broken when appending for errorformat. Use `vim.o` instead.
+    local old_errorformat = vim.o.errorformat
+    vim.o.errorformat = ''
 
--- Ignore anything that doesn't match the previous errors.
-vim.opt.errorformat:append [[%-G%.%#]]
+    local function append_errorformat(format)
+        vim.o.errorformat = vim.o.errorformat .. ',' .. format
+    end
+
+    -- build.exe errors
+    append_errorformat([[%[0-9]%\+>%f(%l) : %m]])
+    append_errorformat([[%f(%l) : %m]])
+
+    -- Add the original format strings to the end.
+    append_errorformat(old_errorformat)
+
+    -- Ignore anything that doesn't match the previous errors.
+    append_errorformat([[%-G%.%#]])
+end
 
 -- Fixes the problem detailed at
 -- http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text. Without
