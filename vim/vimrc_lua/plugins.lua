@@ -281,32 +281,12 @@ return require('packer').startup {
             ft = 'ps1',
         }
         use {
-            'dag/vim-fish',
-            ft = 'fish',
-        }
-        use {
-            'tmhedberg/SimpylFold',
-            ft = 'python',
-        }
-        use {
-            'cespare/vim-toml',
-            ft = 'toml',
-        }
-        use {
             'rust-lang/rust.vim',
             ft = 'rust',
             config = function()
                 vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
                 vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
             end,
-        }
-        use {
-            'leafgarland/typescript-vim',
-            ft = 'typescript',
-        }
-        use {
-            'jelera/vim-javascript-syntax',
-            ft = 'javascript',
         }
         use {
             'ElmCast/elm-vim',
