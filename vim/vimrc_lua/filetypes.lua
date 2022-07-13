@@ -43,9 +43,7 @@ local function configure_markdown()
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2
 
-    if not vim.wo.diff then
-        vim.opt_local.conceallevel = 2
-    end
+    util.enable_conceal()
 
     vim.b.vimrc__show_word_count = true
 
