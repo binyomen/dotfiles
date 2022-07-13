@@ -11,7 +11,8 @@ require('nvim-treesitter.configs').setup {
         'markdown_inline',
         'python',
         'toml',
-        'typescript'
+        'typescript',
+        'vim',
     },
     highlight = {enable = true},
     indent = {enable = true},
