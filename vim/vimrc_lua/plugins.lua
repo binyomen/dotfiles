@@ -375,6 +375,52 @@ return require('packer').startup {
                 }
             end,
         }
+        use {
+            'jakewvincent/mkdnflow.nvim',
+            config = function()
+                local lead = '<leader>w'
+                require('mkdnflow').setup {
+                    links = {
+                        conceal = true,
+                        transform_explicit = function(text)
+                            local text = text:gsub(" ", "-")
+                            local text = text:lower()
+                            return text
+                        end
+                    },
+                    mappings = {
+                        MkdnNextLink           = false,
+                        MkdnPrevLink           = false,
+                        MkdnNextHeading        = {'n', ']h'},
+                        MkdnPrevHeading        = {'n', '[h'},
+                        MkdnGoBack             = false,
+                        MkdnGoForward          = false,
+                        MkdnFollowLink         = {{'n', 'v'}, '<cr>'},
+                        MkdnDestroyLink        = {'n', '<m-cr>'},
+                        MkdnMoveSource         = {'n', '<f2>'},
+                        MkdnYankAnchorLink     = {'n', lead .. 'a'},
+                        MkdnYankFileAnchorLink = {'n', lead .. 'fa'},
+                        MkdnIncreaseHeading    = {'n', lead .. '+'},
+                        MkdnDecreaseHeading    = {'n', lead .. '-'},
+                        MkdnToggleToDo         = {{'n', 'v'}, lead .. 't'},
+                        MkdnNewListItem        = false,
+                        MkdnExtendList         = false,
+                        MkdnUpdateNumbering    = {'n', lead .. 'n'},
+                        MkdnTableNextCell      = false,
+                        MkdnTablePrevCell      = false,
+                        MkdnTableNextRow       = false,
+                        MkdnTablePrevRow       = false,
+                        MkdnTableNewRowBelow   = false,
+                        MkdnTableNewRowAbove   = false,
+                        MkdnTableNewColAfter   = false,
+                        MkdnTableNewColBefore  = false,
+                        MkdnCR                 = false,
+                        MkdnTab                = false,
+                        MkdnSTab               = false,
+                    }
+                }
+            end,
+        }
 
         -- Tree-sitter
         use {
