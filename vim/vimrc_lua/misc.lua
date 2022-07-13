@@ -203,3 +203,14 @@ util.user_command(
     end,
     {nargs = 1}
 )
+
+-- Don't clobber unnamed register.
+util.map({'n', 'x'}, {expr = true}, 'c', function()
+    if vim.v.register == '"' then
+        return '"_c'
+    else
+        return 'c'
+    end
+end)
+util.map('x', 'p', 'P')
+util.map('x', 'P', 'p')
