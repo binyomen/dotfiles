@@ -43,27 +43,16 @@ local function configure_markdown()
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2
 
+    vim.opt_local.conceallevel = 2
+
     vim.b.vimrc__show_word_count = true
 
     util.map('n', '<leader>p', util.paste_image, {buffer = true})
 
-    -- I'm tired we're just gonna do this a second after the buffer loads lol.
-    util.defer(1000, function()
-        -- Don't automatically insert bullets when hitting enter in a list.
-        vim.opt_local.formatoptions:remove('r')
-
-        -- Don't use the indentexpr provided by vim-markdown, since it depends
-        -- on vim.g.vim_markdown_new_list_item_indent and as a result doesn't
-        -- work if you set that to zero.
-        vim.opt_local.indentexpr = ''
-
-        vim.opt_local.comments = {'fb:>', 'fb:*', 'fb:+', 'fb:-'}
-
-        -- Support org mode tables.
-        vim.b.table_mode_corner = '+'
-        vim.b.table_mode_corner_corner = '+'
-        vim.b.table_mode_header_fillchar = '='
-    end)
+    -- Support org mode tables.
+    vim.b.table_mode_corner = '+'
+    vim.b.table_mode_corner_corner = '+'
+    vim.b.table_mode_header_fillchar = '='
 end
 
 local function configure_vimwiki()
