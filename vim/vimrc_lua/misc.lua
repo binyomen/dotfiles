@@ -203,3 +203,15 @@ util.user_command(
     end,
     {nargs = 1}
 )
+
+-- Disable conceal for diff windows.
+util.augroup('vimrc__no_conceal_in_diff', {
+    {'OptionSet', {
+        pattern = 'diff',
+        callback = function()
+            if vim.wo.diff then
+                vim.wo.conceallevel = 0
+            end
+        end
+    }},
+})
