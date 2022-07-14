@@ -3,7 +3,9 @@ local util = require 'vimrc.util'
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
         'cpp',
+        'css',
         'fish',
+        'html',
         'javascript',
         'json',
         'lua',
