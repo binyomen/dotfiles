@@ -131,6 +131,14 @@ util.augroup('vimrc__xaml_files', {
     }},
 })
 
+util.augroup('vimrc__hbs_files', {
+    {{'BufNewFile', 'BufRead'}, {pattern = '*.hbs', callback =
+        function()
+            vim.opt_local.filetype = 'html'
+        end
+    }},
+})
+
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
 })
