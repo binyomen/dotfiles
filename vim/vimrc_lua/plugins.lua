@@ -127,6 +127,20 @@ return require('packer').startup {
                 }
             end,
         }
+        use {
+            'norcalli/nvim-colorizer.lua',
+            config = function()
+                require('colorizer').setup(
+                    {
+                        'css',
+                    },
+                    {
+                        css = true,
+                        css_fn = true,
+                    }
+                )
+            end,
+        }
 
         -- External integration.
         use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
