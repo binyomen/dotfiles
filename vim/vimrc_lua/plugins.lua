@@ -143,7 +143,12 @@ return require('packer').startup {
         }
 
         -- External integration.
-        use {'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end} -- Usage in browsers.
+        use {
+            'glacambre/firenvim',
+            run = function()
+                vim.fn['firenvim#install'](0)
+            end,
+        }
         use {
             'tpope/vim-fugitive',
             cond = not_firenvim,
