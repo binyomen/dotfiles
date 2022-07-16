@@ -76,7 +76,7 @@ return require('packer').startup {
         use {
             'NLKNguyen/papercolor-theme',
             config = function()
-                require('vimrc.color').on_colorscheme_loaded()
+                vim.cmd [[colorscheme PaperColor]]
             end,
         }
         use 'arcticicestudio/nord-vim'

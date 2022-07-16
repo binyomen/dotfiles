@@ -178,13 +178,6 @@ local function set_highlight_groups()
     end
 end
 
-function M.on_colorscheme_loaded()
-    vim.opt.termguicolors = true
-    vim.opt.background = 'dark'
-
-    vim.cmd [[colorscheme PaperColor]]
-end
-
 util.augroup('vimrc__statusline_highlight_groups', {
     {'ColorScheme', {callback = set_highlight_groups}},
 })

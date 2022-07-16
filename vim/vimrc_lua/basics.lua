@@ -72,6 +72,8 @@ vim.opt.updatetime = 1000
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.diffopt:append('algorithm:histogram') -- Use the histogram algorithm for more readable diffs.
 vim.opt.diffopt:append('indent-heuristic') -- Try to make more aesthetically pleasing diffs.
+vim.opt.termguicolors = true
+vim.opt.background = 'dark'
 -- Editing
 vim.opt.wrap = false -- Don't wrap lines.
 vim.opt.showmatch = true -- Show matching bracket when one is inserted.
