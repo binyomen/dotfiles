@@ -64,27 +64,30 @@ return require('packer').startup {
         use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
         use 'thinca/vim-textobj-between' -- af/if: Between a given character.
 
-        -- User interface stuff.
+        -- Color schemes.
         use {
             'iCyMind/NeoSolarized',
+            opt = true,
             config = function()
                 vim.g.neosolarized_contrast = 'high'
             end,
         }
-        use 'tomasr/molokai'
-        use 'joshdick/onedark.vim'
+        use {'tomasr/molokai', opt = true}
+        use {'joshdick/onedark.vim', opt = true}
         use {
             'NLKNguyen/papercolor-theme',
             config = function()
                 vim.cmd [[colorscheme PaperColor]]
             end,
         }
-        use 'arcticicestudio/nord-vim'
-        use 'cocopon/iceberg.vim'
-        use 'rakr/vim-one'
-        use 'mhartington/oceanic-next'
-        use 'drewtempelmeyer/palenight.vim'
-        use {'sonph/onehalf', rtp = 'vim'}
+        use {'arcticicestudio/nord-vim', opt = true}
+        use {'cocopon/iceberg.vim', opt = true}
+        use {'rakr/vim-one', opt = true}
+        use {'mhartington/oceanic-next', opt = true}
+        use {'drewtempelmeyer/palenight.vim', opt = true}
+        use {'sonph/onehalf', rtp = 'vim', opt = true}
+
+        -- User interface stuff.
         use {
             'lukas-reineke/indent-blankline.nvim',
             config = function()
