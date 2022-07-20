@@ -121,10 +121,10 @@ util.augroup('vimrc__go_files', {
     }},
 })
 
-util.augroup('vimrc__xaml_files', {
-    {{'BufNewFile', 'BufRead'}, {pattern = '*.xaml', callback =
+util.augroup('vimrc__xaml_and_wprp_files', {
+    {{'BufNewFile', 'BufRead'}, {pattern = '*.xaml,*.wprp', callback =
         function()
-            -- XAML is basically just XML.
+            -- XAML and WPRP are basically just XML.
             vim.opt_local.filetype = 'xml'
         end
     }},
