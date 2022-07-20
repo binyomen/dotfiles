@@ -49,10 +49,9 @@ local function configure_markdown()
 
     util.map('n', '<leader>p', util.paste_image, {buffer = true})
 
-    -- Support org mode tables.
-    vim.b.table_mode_corner = '+'
-    vim.b.table_mode_corner_corner = '+'
-    vim.b.table_mode_header_fillchar = '='
+    vim.b.table_mode_corner = '|'
+    vim.b.table_mode_corner_corner = '|'
+    vim.b.table_mode_header_fillchar = '-'
 end
 
 local function configure_vimwiki()
