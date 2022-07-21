@@ -221,7 +221,12 @@ return require('packer').startup {
             end,
         }
         use 'ferrine/md-img-paste.vim'
-        use 'justinmk/vim-dirvish'
+        use {
+            'justinmk/vim-dirvish',
+            config = function()
+                require('vimrc.util').map('n', '<leader>-', '<plug>(dirvish_up)')
+            end,
+        }
         use {
             'sindrets/diffview.nvim',
             requires = 'nvim-lua/plenary.nvim',
