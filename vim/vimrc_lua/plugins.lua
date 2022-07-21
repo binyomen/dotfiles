@@ -402,13 +402,16 @@ return require('packer').startup {
                         end
                     },
                     mappings = {
+                        MkdnEnter              = {{'n', 'x'}, '<cr>'},
+                        MkdnTab                = false,
+                        MkdnSTab               = false,
                         MkdnNextLink           = false,
                         MkdnPrevLink           = false,
                         MkdnNextHeading        = {'n', ']h'},
                         MkdnPrevHeading        = {'n', '[h'},
                         MkdnGoBack             = false,
                         MkdnGoForward          = false,
-                        MkdnFollowLink         = {{'n', 'v'}, '<cr>'},
+                        MkdnFollowLink         = false,
                         MkdnDestroyLink        = {'n', '<m-cr>'},
                         MkdnMoveSource         = {'n', '<f2>'},
                         MkdnYankAnchorLink     = {'n', lead .. 'a'},
@@ -427,9 +430,8 @@ return require('packer').startup {
                         MkdnTableNewRowAbove   = false,
                         MkdnTableNewColAfter   = false,
                         MkdnTableNewColBefore  = false,
-                        MkdnCR                 = false,
-                        MkdnTab                = false,
-                        MkdnSTab               = false,
+                        MkdnFoldSection        = false,
+                        MkdnUnfoldSection      = false,
                     }
                 }
             end,
