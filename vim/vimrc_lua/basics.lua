@@ -3,6 +3,7 @@ local util = require 'vimrc.util'
 -- Normal and visual mode
 util.map({'n', 'x'}, '<space>', ':', {silent = false}) -- Remap space to : in normal and visual mode for ease of use.
 util.map({'n', 'x'}, '<bs>', '<cmd>update<cr>') -- Remap backspace to save in normal and visual mode.
+util.map('n', '<c-m>', '@@') -- Have an easily repeatable combo for @@.
 
 -- Insert mode
 util.map('i', 'uu', '<esc>') -- Use uu to exit insert mode.
