@@ -15,11 +15,11 @@ util.map('n', {expr = true}, '<leader>z=', util.new_operator_with_inherent_motio
 end))
 
 -- Mark the closest previous spelling mistake good.
-util.map('n', {expr = true}, '<leader>zg', util.new_operator_with_inherent_motion('l', function()
+util.map('n', {expr = true, silent = false}, '<leader>zg', util.new_operator_with_inherent_motion('l', function()
     local extmark = util.get_extmark_from_cursor(namespace)
 
     -- Go back to the previous spelling mistake and mark it as good.
-    vim.cmd [[silent normal [szg]]
+    vim.cmd [[normal [szg]]
 
     -- Return to our previous position.
     util.set_cursor_from_extmark(extmark, namespace)
