@@ -399,6 +399,9 @@ return require('packer').startup {
             config = function()
                 local lead = '<leader>w'
                 require('mkdnflow').setup {
+                    perspective = {
+                        nvim_wd_heel = false,
+                    },
                     links = {
                         transform_explicit = function(text)
                             local text = text:gsub(" ", "-")
