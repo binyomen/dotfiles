@@ -15,6 +15,7 @@ require('nvim-treesitter.configs').setup {
         'toml',
         'typescript',
         'vim',
+        'yaml',
     },
     highlight = {enable = true},
     indent = {enable = true},
