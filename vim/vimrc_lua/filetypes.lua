@@ -104,6 +104,12 @@ local function configure_neorg()
     util.map('n', '<leader>p', util.paste_image, {buffer = true})
 end
 
+local function configure_xml()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+end
+
 util.augroup('vimrc__txt_files', {
     {'FileType', {pattern = 'text', callback = configure_text}},
 })
@@ -156,6 +162,10 @@ util.augroup('vimrc__vimwiki_files', {
 
 util.augroup('vimrc__neorg_files', {
     {'FileType', {pattern = 'norg', callback = configure_neorg}},
+})
+
+util.augroup('vimrc__xml_files', {
+    {'FileType', {pattern = 'xml', callback = configure_xml}},
 })
 
 util.augroup('vimrc__spell_file_types', {
