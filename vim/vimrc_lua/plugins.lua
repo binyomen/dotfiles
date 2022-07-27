@@ -2,6 +2,7 @@
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if require('vimrc.util').vim_empty(vim.fn.glob(install_path)) then
     vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
 end
 
 local packer = require 'packer'
