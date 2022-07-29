@@ -11,6 +11,7 @@ util.map('i', 'hh', '<esc><cmd>update<cr>') -- Use hh to exit insert mode and sa
 util.map('i', '<c-h>', '<cmd>update<cr>') -- Use ctrl+h to save while in insert mode.
 util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
+util.map('i', '<c-l>', '<c-x><c-l><c-n>') -- Make line completion easier.
 
 -- Command mode
 -- Easily type and expand '%:h/' in command mode.
