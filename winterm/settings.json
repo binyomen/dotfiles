@@ -15,7 +15,11 @@
     "profiles":
     {
         "defaults": {
-            "bellStyle": "none"
+            "bellStyle": "none",
+            "font": {
+                "face": "Fira Code",
+                "size": 12
+            }
         },
         "list":
         [
