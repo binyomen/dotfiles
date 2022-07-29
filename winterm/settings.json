@@ -10,6 +10,8 @@
         "Windows.Terminal.PowershellCore"
     ],
 
+    "schemes": [],
+
     "profiles":
     {
         "defaults": {
