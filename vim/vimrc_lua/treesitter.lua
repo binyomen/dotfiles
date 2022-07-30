@@ -23,6 +23,8 @@ require('nvim-treesitter.configs').setup {
         select = {
             enable = true,
             keymaps = {
+                ['isa'] = '@attribute.inner',
+                ['asa'] = '@attribute.outer',
                 ['isb'] = '@block.inner',
                 ['asb'] = '@block.outer',
                 ['isC'] = '@call.inner',
