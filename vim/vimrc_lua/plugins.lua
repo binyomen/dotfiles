@@ -427,7 +427,7 @@ return require('packer').startup {
                         MkdnYankFileAnchorLink = {'n', lead .. 'fa'},
                         MkdnIncreaseHeading    = {'n', lead .. '+'},
                         MkdnDecreaseHeading    = {'n', lead .. '-'},
-                        MkdnToggleToDo         = {{'n', 'v'}, lead .. 't'},
+                        MkdnToggleToDo         = {{'n', 'x'}, lead .. 't'},
                         MkdnNewListItem        = false,
                         MkdnExtendList         = false,
                         MkdnUpdateNumbering    = {'n', lead .. 'n'},
