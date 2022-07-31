@@ -461,6 +461,7 @@ return require('packer').startup {
                 require('spellsitter').setup {}
             end,
         }
+        use 'nvim-treesitter/nvim-treesitter-refactor'
     end,
     config = {
         profile = {

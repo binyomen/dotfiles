@@ -107,6 +107,19 @@ require('nvim-treesitter.configs').setup {
             },
         },
     },
+    refactor = {
+        navigation = {
+            enable = true,
+            keymaps = {
+                goto_definition = t'<insert>',
+                goto_definition_lsp_fallback = 'gd',
+                list_definitions = 'gl',
+                list_definitions_toc = 'gO',
+                goto_next_usage = t'<insert>',
+                goto_previous_usage = t'<insert>',
+            },
+        },
+    },
 }
 
 util.augroup('vimrc__treesitter_buffers', {
