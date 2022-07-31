@@ -422,6 +422,7 @@ return require('packer').startup {
                         MkdnGoForward          = false,
                         MkdnFollowLink         = false,
                         MkdnDestroyLink        = {'n', '<m-cr>'},
+                        MkdnTagSpan            = false,
                         MkdnMoveSource         = {'n', '<f2>'},
                         MkdnYankAnchorLink     = {'n', lead .. 'a'},
                         MkdnYankFileAnchorLink = {'n', lead .. 'fa'},
