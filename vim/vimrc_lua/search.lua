@@ -37,7 +37,7 @@ util.map('n', '[q', '<cmd>cprev<cr>')
 util.map('n', ']q', '<cmd>cnext<cr>')
 
 util.map('n', '<leader>co', '<cmd>COpen<cr>')
-util.map('n', '<leader>cc', '<cmd>cclose<cr>')
+util.map('n', '<leader>cc', '<cmd>cclose | lclose<cr>')
 
 local function set_quickfix_mappings()
     util.map('n', 'K', '<cmd>cprev<cr>zz<c-w>w', {buffer = true})
