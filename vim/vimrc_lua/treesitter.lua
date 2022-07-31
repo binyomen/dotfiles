@@ -111,12 +111,12 @@ require('nvim-treesitter.configs').setup {
         navigation = {
             enable = true,
             keymaps = {
-                goto_definition = t'<insert>',
+                goto_definition = false,
                 goto_definition_lsp_fallback = 'gd',
                 list_definitions = 'gl',
                 list_definitions_toc = 'gO',
-                goto_next_usage = t'<insert>',
-                goto_previous_usage = t'<insert>',
+                goto_next_usage = false,
+                goto_previous_usage = false,
             },
         },
     },

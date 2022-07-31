@@ -462,7 +462,10 @@ return require('packer').startup {
                 require('spellsitter').setup {}
             end,
         }
-        use 'nvim-treesitter/nvim-treesitter-refactor'
+        use {
+            'binyomen/nvim-treesitter-refactor',
+            branch = 'disable_mapping',
+        }
     end,
     config = {
         profile = {
