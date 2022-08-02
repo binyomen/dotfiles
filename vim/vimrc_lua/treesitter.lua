@@ -2,6 +2,7 @@ local util = require 'vimrc.util'
 
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
+        'comment',
         'cpp',
         'css',
         'fish',
@@ -12,6 +13,7 @@ require('nvim-treesitter.configs').setup {
         'markdown',
         'markdown_inline',
         'python',
+        'regex',
         'toml',
         'typescript',
         'vim',
