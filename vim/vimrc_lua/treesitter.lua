@@ -123,6 +123,9 @@ require('nvim-treesitter.configs').setup {
             },
         },
     },
+    playground = {
+        enable = true,
+    },
 }
 
 util.augroup('vimrc__treesitter_buffers', {

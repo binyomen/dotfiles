@@ -466,6 +466,7 @@ return require('packer').startup {
             'binyomen/nvim-treesitter-refactor',
             branch = 'disable_mapping',
         }
+        use 'nvim-treesitter/playground'
     end,
     config = {
         profile = {
