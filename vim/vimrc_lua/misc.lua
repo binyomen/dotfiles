@@ -205,8 +205,8 @@ util.user_command(
 )
 
 -- Don't clobber unnamed register.
-local function remap_c(command)
-    util.map({'n', 'x'}, {expr = true}, command, function()
+local function remap_c(command, mode)
+    util.map(mode, {expr = true}, command, function()
         if vim.v.register == '"' then
             return '"_' .. command
         else
@@ -214,8 +214,8 @@ local function remap_c(command)
         end
     end)
 end
-remap_c('c')
-remap_c('C')
-remap_c('cc')
+remap_c('c', {'n', 'x'})
+remap_c('C', 'n')
+remap_c('cc', 'n')
 util.map('x', 'p', 'P')
 util.map('x', 'P', 'p')
