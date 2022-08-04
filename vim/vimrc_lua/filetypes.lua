@@ -47,7 +47,7 @@ local function configure_markdown()
 
     vim.b.vimrc__show_word_count = true
 
-    util.map('n', '<leader>p', util.paste_image, {buffer = true})
+    util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 
     vim.b.table_mode_corner = '|'
     vim.b.table_mode_corner_corner = '|'
@@ -84,7 +84,7 @@ local function configure_vimwiki()
     vim.opt_local.shiftwidth = 2
 
     vim.g.PasteImageFunction = 'g:EmptyPasteImage'
-    util.map('n', '<leader>p', util.paste_image, {buffer = true})
+    util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 end
 
 local function configure_neorg()
@@ -101,7 +101,7 @@ local function configure_neorg()
     vim.opt_local.shiftwidth = 2
 
     vim.g.PasteImageFunction = 'g:EmptyPasteImage'
-    util.map('n', '<leader>p', util.paste_image, {buffer = true})
+    util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 end
 
 local function configure_xml()
