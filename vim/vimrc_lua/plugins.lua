@@ -432,6 +432,7 @@ return require('packer').startup {
                         MkdnNewListItem        = false,
                         MkdnExtendList         = false,
                         MkdnUpdateNumbering    = {'n', lead .. 'n'},
+                        MkdnCreateLink         = {{'n', 'x'}, lead .. 'c'},
                         MkdnTableNextCell      = false,
                         MkdnTablePrevCell      = false,
                         MkdnTableNextRow       = false,
