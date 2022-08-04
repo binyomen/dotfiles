@@ -126,6 +126,9 @@ require('nvim-treesitter.configs').setup {
     playground = {
         enable = true,
     },
+    query_linter = {
+        enable = true,
+    },
 }
 
 util.augroup('vimrc__treesitter_buffers', {
