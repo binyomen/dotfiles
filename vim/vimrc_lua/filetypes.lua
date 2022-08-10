@@ -144,6 +144,16 @@ util.augroup('vimrc__hbs_files', {
     }},
 })
 
+util.augroup('vimrc__scm_files', {
+    {{'BufNewFile', 'BufRead'}, {pattern = '*.scm', callback =
+        function()
+            -- I work with tree-sitter queries more than scheme at this point,
+            -- although they really should have a different extension....
+            vim.opt_local.filetype = 'query'
+        end
+    }},
+})
+
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
 })
