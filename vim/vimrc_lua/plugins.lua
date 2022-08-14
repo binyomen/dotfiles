@@ -430,6 +430,8 @@ return require('packer').startup {
                         MkdnDecreaseHeading = {'n', lead .. '-'},
                         MkdnToggleToDo = {{'n', 'x'}, lead .. 't'},
                         MkdnNewListItem = false,
+                        MkdnNewListItemBelowInsert = false,
+                        MkdnNewListItemAboveInsert = false,
                         MkdnExtendList = false,
                         MkdnUpdateNumbering = {'n', lead .. 'n'},
                         MkdnCreateLink = {{'n', 'x'}, lead .. 'c'},
