@@ -13,6 +13,7 @@ return {
         end
         util.augroup('nvim_local__set_dotfile_filetypes', {
             make_filetype_autocmd('gitconfig', 'gitconfig'),
+            make_filetype_autocmd('gitignore', 'gitignore'),
             make_filetype_autocmd('bashrc', 'sh'),
             make_filetype_autocmd('vimrc', 'vim'),
         })

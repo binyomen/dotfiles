@@ -154,6 +154,15 @@ util.augroup('vimrc__scm_files', {
     }},
 })
 
+util.augroup('vimrc__gitignore_files', {
+    {{'BufNewFile', 'BufRead'}, {pattern = '.gitignore', callback =
+        function()
+            vim.opt_local.filetype = 'gitignore'
+        end
+    }},
+})
+
+
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
 })
@@ -185,3 +194,5 @@ util.augroup('vimrc__spell_file_types', {
         end
     }},
 })
+
+
