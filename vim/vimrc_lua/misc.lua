@@ -99,7 +99,7 @@ util.map('n', '<leader>?', [[<cmd>execute 'help ' . expand("<cword>")<cr>]])
 
 -- Open GitHub short URLs for plugins.
 util.map('n', '<leader>gh', function()
-    vim.fn['netrw#BrowseX']('https://github.com/' .. vim.fn.expand('<cfile>'), 0)
+    util.browse_to('https://github.com/' .. vim.fn.expand('<cfile>'))
 end)
 
 -- errorformat
@@ -239,18 +239,7 @@ util.user_command(
             util.log_error(string.format('Pandoc command failed: %s', output))
         end
 
-        local open_command
-        if util.vim_has('win32') then
-            open_command = {'cmd', '/c', 'start'}
-        else
-            open_command = {'open'}
-        end
-
-        table.insert(open_command, output_file)
-        local output = vim.fn.system(open_command)
-        if vim.v.shell_error ~= 0 then
-            util.log_error(string.format('Open command failed: %s', output))
-        end
+        util.browse_to(output_file)
     end,
     {nargs = 1}
 )

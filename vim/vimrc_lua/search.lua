@@ -86,7 +86,7 @@ util.map({'n', 'x'}, {expr = true}, '<leader>sd', util.new_operator(function(mot
         return
     end
 
-    vim.fn['netrw#BrowseX'](string.format('https://duckduckgo.com/?q=%s', reg_content[1]), 0)
+    util.browse_to(string.format('https://duckduckgo.com/?q=%s', reg_content[1]))
 
     vim.fn.setreg('"', reg_backup)
 end))

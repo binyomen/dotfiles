@@ -405,4 +405,8 @@ function M.enable_conceal()
     vim.b.vimrc__conceal_enabled = true
 end
 
+function M.browse_to(uri)
+    vim.fn['netrw#BrowseX'](uri, 0)
+end
+
 return M
