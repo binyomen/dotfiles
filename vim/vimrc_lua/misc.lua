@@ -219,3 +219,38 @@ remap_c('C', 'n')
 remap_c('cc', 'n')
 util.map('x', 'p', 'P')
 util.map('x', 'P', 'p')
+
+-- Convert files with Pandoc.
+util.user_command(
+    'PandocConvert',
+    function(args)
+        local file_name = vim.fn.expand('%')
+        local file_base = vim.fn.expand('%:r')
+        local to_extension = args.args
+        local output_file = string.format('%s.%s', file_base, to_extension)
+
+        local output = vim.fn.system({
+            'pandoc',
+            file_name,
+            '-o',
+            output_file,
+        })
+        if vim.v.shell_error ~= 0 then
+            util.log_error(string.format('Pandoc command failed: %s', output))
+        end
+
+        local open_command
+        if util.vim_has('win32') then
+            open_command = {'cmd', '/c', 'start'}
+        else
+            open_command = {'open'}
+        end
+
+        table.insert(open_command, output_file)
+        local output = vim.fn.system(open_command)
+        if vim.v.shell_error ~= 0 then
+            util.log_error(string.format('Open command failed: %s', output))
+        end
+    end,
+    {nargs = 1}
+)
