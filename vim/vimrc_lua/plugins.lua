@@ -404,7 +404,7 @@ return require('packer').startup {
                         nvim_wd_heel = false,
                     },
                     links = {
-                        transform_explicit = require('vimrc.markdown').create_link,
+                        transform_explicit = require('vimrc.markdown').slugify,
                     },
                     mappings = {
                         MkdnEnter = {{'n', 'x'}, '<cr>'},

@@ -113,6 +113,10 @@ local function warnings()
         table.insert(messages, 'TABLE MODE')
     end
 
+    if util.vim_true(vim.b.vimrc__in_link_mode) then
+        table.insert(messages, 'LINK MODE')
+    end
+
     if vim.b.vimrc__trailing_space_count ~= nil and vim.b.vimrc__trailing_space_count > 0 then
         table.insert(messages, string.format(
             'TRAILING SPACES: %d, line %d',
