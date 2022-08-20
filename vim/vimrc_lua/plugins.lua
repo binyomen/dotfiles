@@ -404,11 +404,7 @@ return require('packer').startup {
                         nvim_wd_heel = false,
                     },
                     links = {
-                        transform_explicit = function(text)
-                            local text = text:gsub(" ", "-")
-                            local text = text:lower()
-                            return text
-                        end
+                        transform_explicit = require('vimrc.markdown').create_link,
                     },
                     mappings = {
                         MkdnEnter = {{'n', 'x'}, '<cr>'},
