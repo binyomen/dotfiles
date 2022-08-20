@@ -242,19 +242,9 @@ function M.get_extmark_from_cursor(namespace)
     return M.get_extmark_from_pos({pos[1] - 1, pos[2]}, namespace)
 end
 
-function M.get_extmark_from_behind_cursor(namespace)
-    local pos = vim.api.nvim_win_get_cursor(0 --[[window]])
-    return M.get_extmark_from_pos({pos[1] - 1, pos[2] - 1}, namespace)
-end
-
 function M.set_cursor_from_extmark(extmark, namespace)
     local extmark_pos = M.get_extmark_pos(extmark, namespace)
     vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2]})
-end
-
-function M.set_cursor_from_ahead_of_extmark(extmark, namespace)
-    local extmark_pos = M.get_extmark_pos(extmark, namespace)
-    vim.api.nvim_win_set_cursor(0 --[[window]], {extmark_pos[1] + 1, extmark_pos[2] + 1})
 end
 
 -- If we've reloaded the module make sure we pick up from where we left off.
@@ -417,6 +407,25 @@ end
 
 function M.browse_to(uri)
     vim.fn['netrw#BrowseX'](uri, 0)
+end
+
+function M.split(s, sep)
+    local result = {}
+
+    local current = ''
+    for i = 1,#s do
+        local c = s:sub(i, i)
+        if c == sep then
+            table.insert(result, current)
+            current = ''
+        else
+            current = current .. c
+        end
+    end
+
+    table.insert(result, current)
+
+    return result
 end
 
 return M
