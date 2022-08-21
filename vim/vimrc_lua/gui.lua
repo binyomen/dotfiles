@@ -50,7 +50,7 @@ end)
 -- fvim
 if util.vim_true(vim.g.fvim_loaded) then
     -- Toggle between normal and fullscreen.
-    util.map('n', '<a-cr>', '<cmd>FVimToggleFullScreen<cr>')
+    util.map('n', '<c-cr>', '<cmd>FVimToggleFullScreen<cr>')
 
     -- Cursor tweaks.
     vim.cmd [[FVimCursorSmoothMove v:true]]
@@ -131,7 +131,7 @@ if util.vim_true(vim.g.neovide) then
     update_font()
 
     -- Make neovide fullscreen.
-    util.map('n', '<a-cr>', function()
+    util.map('n', '<c-cr>', function()
         vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
         vim.fn.NeovideNotifyfullscreenChanged(nil, nil, nil)
     end)
