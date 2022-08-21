@@ -3,8 +3,7 @@
 
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "copyFormatting": "none",
-    "disabledProfileSources":
-    [
+    "disabledProfileSources": [
         "Windows.Terminal.Wsl",
         "Windows.Terminal.Azure",
         "Windows.Terminal.PowershellCore"
@@ -12,8 +11,13 @@
 
     "schemes": [],
 
-    "profiles":
-    {
+    "actions": [
+        {"command": "unbound", "keys": "alt+enter"},
+
+        {"command": "toggleFullscreen", "keys": "ctrl+enter"}
+    ],
+
+    "profiles": {
         "defaults": {
             "bellStyle": "none",
             "font": {
@@ -21,8 +25,7 @@
                 "size": 12
             }
         },
-        "list":
-        [
+        "list": [
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "name": "Windows PowerShell",
