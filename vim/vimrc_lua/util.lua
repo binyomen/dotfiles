@@ -293,8 +293,24 @@ function M.new_operator_with_inherent_motion(inherent_motion, op)
     return create_operator(inherent_motion, op)
 end
 
+function M.log_debug(msg)
+    vim.notify(msg, vim.log.levels.DEBUG)
+end
+
 function M.log_error(msg)
     vim.notify(msg, vim.log.levels.ERROR)
+end
+
+function M.log_info(msg)
+    vim.notify(msg, vim.log.levels.INFO)
+end
+
+function M.log_trace(msg)
+    vim.notify(msg, vim.log.levels.TRACE)
+end
+
+function M.log_warn(msg)
+    vim.notify(msg, vim.log.levels.WARN)
 end
 
 function M.reg_put(reg)
