@@ -8,6 +8,7 @@ function M.slugify(text)
     local replacements = {
         {l = '\n', r = ' '},
         {l = ' ', r = '-'},
+        {l = '/', r = '-'},
         {l = "'", r = ''},
         {l = '%.', r = ''},
     }
