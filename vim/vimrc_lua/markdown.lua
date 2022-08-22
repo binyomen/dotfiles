@@ -61,6 +61,7 @@ local function link_mode_end()
     util.set_cursor_from_extmark(link_end_mark, namespace)
 
     link_start_pos = nil
+    vim.api.nvim_buf_clear_namespace(0 --[[buffer]], namespace, 0 --[[line_start]], -1 --[[line_end]])
     vim.b.vimrc__in_link_mode = false
 end
 
