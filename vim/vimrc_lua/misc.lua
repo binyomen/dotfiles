@@ -225,9 +225,8 @@ util.user_command(
     'PandocConvert',
     function(args)
         local file_name = vim.fn.expand('%')
-        local file_base = vim.fn.expand('%:r')
         local to_extension = args.args
-        local output_file = string.format('%s.%s', file_base, to_extension)
+        local output_file = string.format('%s.%s', vim.fn.tempname(), to_extension)
 
         local output = vim.fn.system({
             'pandoc',
