@@ -444,4 +444,8 @@ function M.split(s, sep)
     return result
 end
 
+function M.feedkeys(s, mode)
+    vim.api.nvim_feedkeys(s, mode, false --[[escape_ks]])
+end
+
 return M

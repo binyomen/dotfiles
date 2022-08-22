@@ -16,7 +16,7 @@ util.map('i', '<c-l>', '<c-x><c-l><c-n>') -- Make line completion easier.
 -- Command mode
 -- Easily type and expand '%:h/' in command mode.
 util.map('c', '<c-h>', function()
-    vim.api.nvim_feedkeys(t'%:h<tab>', 'nt', false --[[escape_ks]])
+    util.feedkeys(t'%:h<tab>', 'nt')
 end)
 
 -- Movement
