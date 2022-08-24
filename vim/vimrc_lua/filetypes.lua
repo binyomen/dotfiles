@@ -16,9 +16,7 @@ local function configure_text()
 end
 
 local function configure_html()
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
+    util.set_tab_size(2)
 end
 
 local function configure_help()
@@ -39,9 +37,7 @@ end
 local function configure_markdown()
     vim.opt_local.textwidth = 79
 
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
+    util.set_tab_size(2)
 
     util.enable_conceal()
 
@@ -81,9 +77,7 @@ local function configure_vimwiki()
 
     vim.opt_local.textwidth = 79
 
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
+    util.set_tab_size(2)
 
     vim.g.PasteImageFunction = 'g:EmptyPasteImage'
     util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
@@ -98,18 +92,14 @@ local function configure_neorg()
 
     vim.opt_local.textwidth = 79
 
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
+    util.set_tab_size(2)
 
     vim.g.PasteImageFunction = 'g:EmptyPasteImage'
     util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 end
 
 local function configure_xml()
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-    vim.opt_local.shiftwidth = 2
+    util.set_tab_size(2)
 end
 
 util.augroup('vimrc__txt_files', {

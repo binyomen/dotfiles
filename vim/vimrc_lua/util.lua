@@ -467,4 +467,19 @@ function M.buffer_is_file(buf)
     return M.file_exists(bufname)
 end
 
+function M.set_tab_size(tab_size, global_opt)
+    local global_opt = M.default(global_opt, false)
+
+    local opt
+    if global_opt then
+        opt = vim.o
+    else
+        opt = vim.bo
+    end
+
+    opt.tabstop = tab_size
+    opt.softtabstop = tab_size
+    opt.shiftwidth = tab_size
+end
+
 return M

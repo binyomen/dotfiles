@@ -196,10 +196,7 @@ util.user_command(
     'SetTabSize',
     function(args)
         local tab_size = tonumber(args.args)
-
-        vim.opt_local.tabstop = tab_size
-        vim.opt_local.softtabstop = tab_size
-        vim.opt_local.shiftwidth = tab_size
+        util.set_tab_size(tab_size)
     end,
     {nargs = 1}
 )

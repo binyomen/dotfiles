@@ -47,10 +47,8 @@ util.map('n', '<m-->', '<c-w>-')
 -- Options
 -- Tabs
 vim.opt.expandtab = true -- Tabs are expanded to spaces.
-vim.opt.tabstop = 4 -- Tabs count as 4 spaces.
-vim.opt.softtabstop = 4 -- Tabs count as 4 spaces while performing editing operations (yeah, I don't really understand this either).
-vim.opt.shiftwidth = 4 -- Number of spaces used for autoindent.
 vim.opt.shiftround = true -- Should round indents to multiple of shiftwidth.
+util.set_tab_size(4, true --[[global_opt]])
 -- Show whitespace
 vim.opt.list = true -- Display whitespace characters.
 vim.opt.listchars = {tab = '>.', trail = '.', extends = '#', nbsp = '.'} -- Specify which whitespace characters to display.
