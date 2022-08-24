@@ -250,3 +250,11 @@ util.user_command(
     end,
     {nargs = 1}
 )
+
+-- Make the initial no name buffer disappear when navigated away from.
+vim.schedule(function()
+    local initial_buf = 1
+    if vim.api.nvim_buf_get_name(initial_buf) == '' then
+        vim.bo[initial_buf].bufhidden = 'wipe'
+    end
+end)

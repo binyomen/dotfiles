@@ -192,8 +192,7 @@ local function render_buffers()
     local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
         return
             vim.api.nvim_buf_is_loaded(buf) and
-            vim.fn.buflisted(buf) ~= 0 and
-            vim.api.nvim_buf_get_name(buf) ~= ''
+            vim.fn.buflisted(buf) ~= 0
     end)
 
     local active_buf = vim.api.nvim_get_current_buf()
