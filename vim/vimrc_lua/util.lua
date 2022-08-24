@@ -448,4 +448,23 @@ function M.feedkeys(s, mode)
     vim.api.nvim_feedkeys(s, mode, false --[[escape_ks]])
 end
 
+function M.buffer_is_file(buf)
+    local buf = M.default(buf, 0)
+
+    local buftype = vim.bo[buf].buftype
+    if buftype == 'nofile' or
+        buftype == 'quickfix' or
+        buftype == 'terminal' or
+        buftype == 'prompt' then
+        return false
+    end
+
+    local bufname = vim.api.nvim_buf_get_name(buf)
+    if bufname == '' then
+        return false
+    end
+
+    return M.file_exists(bufname)
+end
+
 return M

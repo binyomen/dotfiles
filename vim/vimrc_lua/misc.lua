@@ -224,7 +224,15 @@ util.map('x', 'P', 'p')
 util.user_command(
     'PandocConvert',
     function(args)
-        local file_name = vim.fn.expand('%')
+        local file_name
+        if util.buffer_is_file() then
+            file_name = vim.fn.expand('%')
+        else
+            local buf_content = vim.api.nvim_buf_get_lines(0 --[[buffer]], 0, -1, true --[[strict_indexing]])
+            file_name = vim.fn.tempname()
+            vim.fn.writefile(buf_content, file_name)
+        end
+
         local to_extension = args.args
         local output_file = string.format('%s.%s', vim.fn.tempname(), to_extension)
 
