@@ -397,6 +397,7 @@ return require('packer').startup {
         }
         use {
             'jakewvincent/mkdnflow.nvim',
+            branch = 'dev',
             config = function()
                 local lead = '<leader>w'
                 require('mkdnflow').setup {
@@ -405,6 +406,7 @@ return require('packer').startup {
                     },
                     links = {
                         transform_explicit = require('vimrc.markdown').slugify,
+                        context = 2,
                     },
                     mappings = {
                         MkdnEnter = {{'n', 'x'}, '<cr>'},
