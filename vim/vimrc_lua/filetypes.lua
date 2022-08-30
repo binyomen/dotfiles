@@ -154,7 +154,6 @@ util.augroup('vimrc__gitignore_files', {
     }},
 })
 
-
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
 })
@@ -187,4 +186,6 @@ util.augroup('vimrc__spell_file_types', {
     }},
 })
 
-
+-- Rust settings.
+vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
+vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
