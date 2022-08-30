@@ -304,22 +304,15 @@ return require('packer').startup {
         }
 
         -- File types.
-        use {
-            'PProvost/vim-ps1',
-            ft = 'ps1',
-        }
+        use 'PProvost/vim-ps1'
         use {
             'rust-lang/rust.vim',
-            ft = 'rust',
             config = function()
                 vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
                 vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
             end,
         }
-        use {
-            'ElmCast/elm-vim',
-            ft = 'elm',
-        }
+        use 'ElmCast/elm-vim'
 
         -- Misc.
         use {
