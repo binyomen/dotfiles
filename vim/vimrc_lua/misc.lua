@@ -123,14 +123,6 @@ do
     append_errorformat([[%-G%.%#]])
 end
 
--- Fixes the problem detailed at
--- http://vim.wikia.com/wiki/Keep_folds_closed_while_inserting_text. Without
--- this, folds open and close at will as you type code.
-util.augroup('vimrc__fixfolds', {
-    {'InsertEnter', {command = [[if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif]]}},
-    {{'InsertLeave', 'WinLeave'}, {command = [[if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif]]}},
-})
-
 -- Briefly highlight text on yank.
 util.augroup('vimrc__highlight_on_yank', {
     {'TextYankPost', {callback =
