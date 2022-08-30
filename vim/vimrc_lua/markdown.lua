@@ -64,7 +64,15 @@ local function link_mode_end()
             link_end_pos[1], link_end_pos[2],
             {}
         ), '\n')
-        local slug = M.slugify(text)
+
+        local slug
+        if (text:find('|', 1 --[[init]], true --[[plain]])) then
+            local tokens = vim.split(text, '|', {plain = true})
+            slug = tokens[1]
+            text = tokens[2]
+        else
+            slug = M.slugify(text)
+        end
 
         local link = string.format('[%s](%s.md)', text, slug)
         vim.api.nvim_buf_set_text(
