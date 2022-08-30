@@ -83,7 +83,7 @@ local function configure_vimwiki()
     util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 end
 
-local function configure_neorg()
+local function configure_norg()
     vim.b.table_mode_corner = '|'
     vim.b.table_mode_corner_corner = '|'
     vim.b.table_mode_header_fillchar = '-'
@@ -171,8 +171,8 @@ util.augroup('vimrc__vimwiki_files', {
     {'FileType', {pattern = 'vimwiki', callback = configure_vimwiki}},
 })
 
-util.augroup('vimrc__neorg_files', {
-    {'FileType', {pattern = 'norg', callback = configure_neorg}},
+util.augroup('vimrc__norg_files', {
+    {'FileType', {pattern = 'norg', callback = configure_norg}},
 })
 
 util.augroup('vimrc__xml_files', {
