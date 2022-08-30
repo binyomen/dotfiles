@@ -379,6 +379,7 @@ return require('packer').startup {
             'nvim-neorg/neorg',
             requires = 'nvim-lua/plenary.nvim',
             after = 'nvim-treesitter',
+            disable = true,
             config = function()
                 require('neorg').setup {
                     load = {
