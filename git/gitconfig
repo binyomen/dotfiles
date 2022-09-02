@@ -7,6 +7,7 @@
     dwwc = diff --color-words=. --cached
     nvim = !nvim +'Git | only'
     neovide = !neovide +'Git | only'
+    show-remote-branch = remote set-branches origin --add
 [commit]
     verbose = true
 [core]
