@@ -385,6 +385,7 @@ return require('packer').startup {
         use {
             'jakewvincent/mkdnflow.nvim',
             branch = 'dev',
+            disable = true,
             config = function()
                 local lead = '<leader>w'
                 require('mkdnflow').setup {

@@ -71,6 +71,9 @@ setup_language_server('cssls')
 setup_language_server('jsonls')
 setup_language_server('eslint')
 
+-- https://github.com/artempyanykh/marksman
+setup_language_server('marksman')
+
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
         lspconfig[server.name] = server.default_options
