@@ -49,6 +49,8 @@ local function configure_markdown()
     vim.b.table_mode_corner_corner = '|'
     vim.b.table_mode_header_fillchar = '-'
 
+    util.map('n', '<cr>', vim.lsp.buf.definition, {buffer = true})
+
     require('vimrc.markdown').init_in_buffer()
 end
 
