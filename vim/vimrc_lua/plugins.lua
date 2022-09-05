@@ -385,7 +385,6 @@ return require('packer').startup {
         use {
             'jakewvincent/mkdnflow.nvim',
             branch = 'dev',
-            disable = true,
             config = function()
                 local lead = '<leader>w'
                 require('mkdnflow').setup {
@@ -397,7 +396,7 @@ return require('packer').startup {
                         context = 2,
                     },
                     mappings = {
-                        MkdnEnter = {{'n', 'x'}, '<cr>'},
+                        MkdnEnter = false,
                         MkdnTab = false,
                         MkdnSTab = false,
                         MkdnNextLink = false,
