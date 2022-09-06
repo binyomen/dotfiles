@@ -312,7 +312,6 @@ return require('packer').startup {
             'editorconfig/editorconfig-vim',
             cond = function() return not LOCAL_CONFIG.no_editorconfig end,
         }
-        use 'stefandtw/quickfix-reflector.vim' -- Edits in the quickfix window get reflected in the actual buffers.
         use {
             'kevinhwang91/nvim-bqf',
             config = function()
