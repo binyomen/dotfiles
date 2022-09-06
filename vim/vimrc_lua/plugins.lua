@@ -411,7 +411,7 @@ return require('packer').startup {
                         MkdnPrevHeading = false,
                         MkdnGoBack = false,
                         MkdnGoForward = false,
-                        MkdnFollowLink = false,
+                        MkdnFollowLink = {'n', lead .. 'w'},
                         MkdnDestroyLink = {'n', '<m-cr>'},
                         MkdnTagSpan = false,
                         MkdnMoveSource = {'n', '<f2>'},
