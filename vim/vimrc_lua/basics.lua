@@ -80,3 +80,4 @@ vim.opt.showmatch = true -- Show matching bracket when one is inserted.
 vim.opt.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region tags).
 vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
 vim.opt.timeout = false -- Don't time out waiting for mappings.
+vim.opt.spelloptions = {'camel'}
