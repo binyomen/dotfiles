@@ -142,7 +142,7 @@ util.user_command(
             vim.cmd(string.format('edit %s', file))
         end
     end,
-    {nargs = '+'}
+    {nargs = '+', complete = 'file'}
 )
 
 -- Open all folds the first time a buffer is opened.
