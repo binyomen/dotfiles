@@ -90,3 +90,58 @@ util.map({'n', 'x'}, {expr = true}, '<leader>sd', util.new_operator(function(mot
 
     vim.fn.setreg('"', reg_backup)
 end))
+
+-- Improve quickfix aesthetics, taken from
+-- https://github.com/kevinhwang91/nvim-bqf#format-new-quickfix
+function _G.quickfix_text(info)
+    local items
+    if util.vim_true(info.quickfix) then
+        items = vim.fn.getqflist({id = info.id, items = 0}).items
+    else
+        items = vim.fn.getloclist(info.winid, {id = info.id, items = 0}).items
+    end
+
+    local LIMIT = 31
+    local lines = {}
+    for i = info.start_idx, info.end_idx do
+        local item = items[i]
+        local filename = ''
+        local str
+
+        if item.valid == 1 then
+            if item.bufnr > 0 then
+                filename = vim.fn.bufname(item.bufnr)
+                if filename == '' then
+                    filename = '[No Name]'
+                end
+
+                -- Replace the home directory with "~".
+                filename = filename:gsub('^' .. vim.env.HOME, '~')
+
+                -- Trim long filenames.
+                --
+                -- A character in the filename may have a width of more than 1.
+                -- Ignore this issue in order to keep acceptable performance.
+                if #filename <= LIMIT then
+                    filename = string.format('%-' .. LIMIT .. 's', filename)
+                else
+                    filename = string.format('…%.' .. (LIMIT - 1) .. 's', filename:sub(1 - LIMIT))
+                end
+            end
+
+            local lnum = item.lnum > 99999 and -1 or item.lnum
+            local col = item.col > 999 and -1 or item.col
+            local qtype = item.type == '' and '' or string.format(' %s', item.type:sub(1, 1):upper())
+
+            str =  string.format('%s │%5d:%-3d│%s %s', filename, lnum, col, qtype, item.text)
+        else
+            str = item.text
+        end
+
+        table.insert(lines, str)
+    end
+
+    return lines
+end
+
+vim.o.quickfixtextfunc = [[{info -> v:lua._G.quickfix_text(info)}]]
