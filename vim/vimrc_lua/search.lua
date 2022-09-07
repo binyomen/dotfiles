@@ -6,6 +6,9 @@ vim.opt.incsearch = true -- Show search results incrementally as you type.
 vim.opt.gdefault = true -- Always do global substitutions.
 vim.opt.hlsearch = false -- Don't highlight searches by default.
 
+-- Load the cfilter plugin for filtering the quickfix window.
+vim.cmd [[packadd cfilter]]
+
 -- Always do case sensitive search with * and #.
 util.map({'n', 'x', 'o'}, '*', [[/\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
 util.map({'n', 'x', 'o'}, '#', [[?\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
