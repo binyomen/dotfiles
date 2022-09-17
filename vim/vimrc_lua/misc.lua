@@ -233,11 +233,40 @@ util.user_command(
         })
         if vim.v.shell_error ~= 0 then
             util.log_error(string.format('Pandoc command failed: %s', output))
+            return
         end
 
         util.browse_to(output_file)
     end,
     {nargs = 1}
+)
+
+-- Produce mermaid images.
+util.user_command(
+    'MermaidBuild',
+    function(args)
+        local output_dir = util.default(args[1], 'img')
+        local extension = util.default(args[2], 'png')
+        local output_file = string.format(
+            '%s/%s.%s',
+            output_dir,
+            vim.fn.expand('%:t:r'),
+            extension
+        )
+
+        local output = vim.fn.system({
+            'mmdc.cmd',
+            '-i',
+            vim.fn.expand('%'),
+            '-o',
+            output_file,
+        })
+        if vim.v.shell_error ~= 0 then
+            util.log_error(string.format('Mermaid command failed: %s', output))
+            return
+        end
+    end,
+    {nargs = '*'}
 )
 
 -- Make the initial no name buffer disappear when navigated away from.
