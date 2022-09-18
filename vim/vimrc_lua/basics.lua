@@ -74,6 +74,7 @@ vim.opt.diffopt:append('algorithm:histogram') -- Use the histogram algorithm for
 vim.opt.diffopt:append('indent-heuristic') -- Try to make more aesthetically pleasing diffs.
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
+vim.opt.signcolumn = 'auto:9'
 -- Editing
 vim.opt.wrap = false -- Don't wrap lines.
 vim.opt.showmatch = true -- Show matching bracket when one is inserted.
