@@ -180,14 +180,6 @@ util.augroup('vimrc__xml_files', {
     {'FileType', {pattern = 'xml', callback = configure_xml}},
 })
 
-util.augroup('vimrc__spell_file_types', {
-    {'FileType', {pattern = 'gitcommit,html,markdown,text,vimwiki,json', callback =
-        function()
-            vim.opt_local.spell = true
-        end
-    }},
-})
-
 -- Rust settings.
 vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
 vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
