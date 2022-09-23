@@ -3,6 +3,7 @@ local util = require 'vimrc.util'
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
         'bash',
+        'c_sharp',
         'comment',
         'css',
         'fish',
