@@ -59,6 +59,9 @@ local function perform_diff(motion)
     clear_diff_state()
 
     vim.cmd [[tabedit]]
+    -- Clear the initial no-name buffer on close.
+    vim.bo.bufhidden = 'wipe'
+
     local win_left = vim.api.nvim_get_current_win()
     create_diff_buf(win_left, reg_left, filetype_left)
 
