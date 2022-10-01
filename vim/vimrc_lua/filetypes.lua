@@ -144,7 +144,7 @@ util.augroup('vimrc__xml_files', {
 })
 
 util.augroup('vimrc__nospell_file_types', {
-    {'FileType', {pattern = 'git', callback =
+    {'FileType', {pattern = 'git,dirvish', callback =
         function()
             vim.wo.spell = false
         end
