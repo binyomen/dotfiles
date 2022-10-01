@@ -489,4 +489,9 @@ function M.treesitter_active(buffer)
     return treesitter_highlighter.active[buffer]
 end
 
+function M.is_floating_window(window)
+    local window = M.default(window, 0)
+    return vim.api.nvim_win_get_config(window).relative ~= ''
+end
+
 return M

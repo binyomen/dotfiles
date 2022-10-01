@@ -284,6 +284,10 @@ function M.do_winbar(state)
 end
 
 local function set_winbar(state)
+    if util.is_floating_window() then
+        return
+    end
+
     vim.wo.winbar = string.format(
         [[%%!v:lua.require('vimrc.statusline').do_winbar('%s')]],
         state
