@@ -119,41 +119,6 @@ util.augroup('vimrc__go_files', {
     }},
 })
 
-util.augroup('vimrc__xaml_and_wprp_files', {
-    {{'BufNewFile', 'BufRead'}, {pattern = '*.xaml,*.wprp', callback =
-        function()
-            -- XAML and WPRP are basically just XML.
-            vim.bo.filetype = 'xml'
-        end
-    }},
-})
-
-util.augroup('vimrc__hbs_files', {
-    {{'BufNewFile', 'BufRead'}, {pattern = '*.hbs', callback =
-        function()
-            vim.bo.filetype = 'html'
-        end
-    }},
-})
-
-util.augroup('vimrc__scm_files', {
-    {{'BufNewFile', 'BufRead'}, {pattern = '*.scm', callback =
-        function()
-            -- I work with tree-sitter queries more than scheme at this point,
-            -- although they really should have a different extension....
-            vim.bo.filetype = 'query'
-        end
-    }},
-})
-
-util.augroup('vimrc__gitignore_files', {
-    {{'BufNewFile', 'BufRead'}, {pattern = '.gitignore', callback =
-        function()
-            vim.bo.filetype = 'gitignore'
-        end
-    }},
-})
-
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
 })
@@ -185,6 +150,20 @@ util.augroup('vimrc__nospell_file_types', {
         end
     }},
 })
+
+vim.filetype.add {
+    extension = {
+        -- XAML and WPRP are basically just XML.
+        xaml = 'xml',
+        wprp = 'xml',
+
+        hbs = 'html',
+
+        -- I work with tree-sitter queries more than scheme at this point,
+        -- although they really should have a different extension....
+        scm = 'query',
+    },
+}
 
 -- Rust settings.
 vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
