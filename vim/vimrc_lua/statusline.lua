@@ -75,10 +75,6 @@ local function file_type(colors)
     return string.format('%s   %s   ', colors.primary, file_type_string)
 end
 
-local function file_path(colors)
-    return string.format('%s %%f %%<', colors.secondary)
-end
-
 local function flags(colors)
     return string.format('%s %%m%%r%%h%%w ', colors.secondary)
 end
@@ -136,38 +132,22 @@ local function absolute_path_to_file_name(path)
     return vim.fn.fnamemodify(path, ':t')
 end
 
-local function active_statusline()
+function M.do_statusline()
+    vim.g.statusline_bufid = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+
     -- Force the tabline to redraw, since it won't always when things like the
     -- mode change.
     redraw_tabline()
 
     local colors = get_colors()
-    return table.concat {
+    local result = table.concat {
         file_type(colors),
-        file_path(colors),
         flags(colors),
         '%=',
         encoding(colors),
         file_info(colors),
         warnings(),
     }
-end
-
-local function inactive_statusline()
-    return '%#StatusLineNC# %F '
-end
-
-function M.do_statusline(state)
-    vim.g.statusline_bufid = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-    local result
-
-    if state == 'active' then
-        result = active_statusline()
-    elseif state == 'inactive' then
-        result = inactive_statusline()
-    else
-        error('unexpected')
-    end
 
     vim.g.statusline_bufid = nil
     return result
@@ -278,16 +258,36 @@ local function on_cursor_hold()
     end
 end
 
-local function set_statusline(state)
-    vim.opt_local.statusline = string.format(
-        [[%%!v:lua.require('vimrc.statusline').do_statusline('%s')]],
+function M.do_winbar(state)
+    if util.vim_true(vim.g.started_by_firenvim) then
+        return ''
+    end
+
+    local colors = get_colors()
+
+    local color
+    if state == 'active' then
+        color = colors.primary
+    else
+        color = colors.secondary
+    end
+
+    return string.format('%s %%f %s', color, colors.secondary)
+end
+
+local function set_winbar(state)
+    vim.wo.winbar = string.format(
+        [[%%!v:lua.require('vimrc.statusline').do_winbar('%s')]],
         state
     )
 end
 
+util.augroup('vimrc__winbar', {
+    {{'WinEnter', 'BufWinEnter'}, {callback = function() set_winbar('active') end}},
+    {'WinLeave', {callback = function() set_winbar('inactive') end}},
+})
+
 util.augroup('vimrc__statusline', {
-    {{'WinEnter', 'BufWinEnter'}, {callback = function() set_statusline('active') end}},
-    {'WinLeave', {callback = function() set_statusline('inactive') end}},
     {{'CursorHold', 'CursorHoldI'}, {callback = on_cursor_hold}},
 })
 
@@ -297,8 +297,9 @@ if util.vim_true(vim.g.started_by_firenvim) then
     vim.opt.laststatus = 0
     vim.opt.showtabline = 0
 else
-    vim.opt.laststatus = 2
-    vim.opt.showtabline = 2
+    vim.opt.laststatus = 3
+    vim.opt.showtabline = 3
+    vim.opt.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
 end
 
 return M
