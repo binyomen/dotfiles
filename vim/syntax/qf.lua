@@ -3,7 +3,7 @@
 
 if vim.b.current_syntax ~= nil then
     -- Clear any previous syntax that was set, e.g. in the built-in `qf.vim`.
-    vim.cmd [[syntax clear]]
+    vim.cmd.syntax 'clear'
 end
 
 vim.cmd [[
