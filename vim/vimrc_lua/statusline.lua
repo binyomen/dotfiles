@@ -299,15 +299,15 @@ util.augroup('vimrc__statusline', {
     {{'CursorHold', 'CursorHoldI'}, {callback = on_cursor_hold}},
 })
 
-vim.opt.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
+vim.o.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 
 if util.vim_true(vim.g.started_by_firenvim) then
-    vim.opt.laststatus = 0
-    vim.opt.showtabline = 0
+    vim.o.laststatus = 0
+    vim.o.showtabline = 0
 else
-    vim.opt.laststatus = 3
-    vim.opt.showtabline = 3
-    vim.opt.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
+    vim.o.laststatus = 3
+    vim.o.showtabline = 3
+    vim.o.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
 end
 
 return M

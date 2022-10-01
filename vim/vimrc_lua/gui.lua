@@ -23,7 +23,7 @@ end
 
 local function update_font()
     validate_font()
-    vim.opt.guifont = string.format('%s:h%d', font_name, font_size)
+    vim.o.guifont = string.format('%s:h%d', font_name, font_size)
 end
 
 local function defer_font_size_print()
@@ -110,9 +110,9 @@ end
 
 -- firenvim
 if util.vim_true(vim.g.started_by_firenvim) then
-    vim.opt.number = false
-    vim.opt.relativenumber = false
-    vim.opt.wrap = true
+    vim.o.number = false
+    vim.o.relativenumber = false
+    vim.o.wrap = true
 
     -- Initialize a default config to never take over the text area
     -- automatically.

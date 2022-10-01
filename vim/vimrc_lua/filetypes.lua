@@ -2,8 +2,8 @@ local util = require 'vimrc.util'
 
 local function configure_text()
     -- Set linewrapping.
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
+    vim.wo.wrap = true
+    vim.wo.linebreak = true
 
     -- Standard motion commands should move by wrapped lines.
     util.map({'n', 'x', 'o'}, 'k', 'gk', {buffer = true})
@@ -23,17 +23,17 @@ local function configure_help()
     -- If conceallevel is 2, it means the help ftplugin has been loaded and we
     -- can apply our settings without them being overridden. If not, defer and
     -- try again.
-    if vim.opt_local.conceallevel:get() ~= 2 then
+    if vim.wo.conceallevel ~= 2 then
         util.defer(10, configure_help)
         return
     end
 
     -- Make concealed characters in help files visible.
-    vim.opt_local.conceallevel = 0
+    vim.wo.conceallevel = 0
 end
 
 local function configure_markdown()
-    vim.opt_local.textwidth = 79
+    vim.bo.textwidth = 79
 
     util.set_tab_size(2)
 
@@ -75,7 +75,7 @@ local function configure_vimwiki()
 
     vim.b.vimrc__show_word_count = true
 
-    vim.opt_local.textwidth = 79
+    vim.bo.textwidth = 79
 
     util.set_tab_size(2)
 
@@ -90,7 +90,7 @@ local function configure_norg()
 
     vim.b.vimrc__show_word_count = true
 
-    vim.opt_local.textwidth = 79
+    vim.bo.textwidth = 79
 
     util.set_tab_size(2)
 
@@ -123,7 +123,7 @@ util.augroup('vimrc__xaml_and_wprp_files', {
     {{'BufNewFile', 'BufRead'}, {pattern = '*.xaml,*.wprp', callback =
         function()
             -- XAML and WPRP are basically just XML.
-            vim.opt_local.filetype = 'xml'
+            vim.bo.filetype = 'xml'
         end
     }},
 })
@@ -131,7 +131,7 @@ util.augroup('vimrc__xaml_and_wprp_files', {
 util.augroup('vimrc__hbs_files', {
     {{'BufNewFile', 'BufRead'}, {pattern = '*.hbs', callback =
         function()
-            vim.opt_local.filetype = 'html'
+            vim.bo.filetype = 'html'
         end
     }},
 })
@@ -141,7 +141,7 @@ util.augroup('vimrc__scm_files', {
         function()
             -- I work with tree-sitter queries more than scheme at this point,
             -- although they really should have a different extension....
-            vim.opt_local.filetype = 'query'
+            vim.bo.filetype = 'query'
         end
     }},
 })
@@ -149,7 +149,7 @@ util.augroup('vimrc__scm_files', {
 util.augroup('vimrc__gitignore_files', {
     {{'BufNewFile', 'BufRead'}, {pattern = '.gitignore', callback =
         function()
-            vim.opt_local.filetype = 'gitignore'
+            vim.bo.filetype = 'gitignore'
         end
     }},
 })

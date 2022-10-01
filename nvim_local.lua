@@ -7,7 +7,7 @@ return {
         local function make_filetype_autocmd(filename, filetype)
             return {{'BufNewFile', 'BufRead'}, {pattern = filename, callback =
                 function()
-                    vim.opt_local.filetype = filetype
+                    vim.bo.filetype = filetype
                 end
             }}
         end

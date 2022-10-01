@@ -272,7 +272,7 @@ local function create_operator(inherent_motion, op)
 
     local opfunc = function(motion)
         if motion == nil then
-            vim.opt.operatorfunc = vim_function_name
+            vim.o.operatorfunc = vim_function_name
             return 'g@' .. inherent_motion
         end
 
@@ -280,7 +280,7 @@ local function create_operator(inherent_motion, op)
 
         -- In case anything in `op` changes the opfunc, reset it so we can
         -- still do repeat.
-        vim.opt.operatorfunc = vim_function_name
+        vim.o.operatorfunc = vim_function_name
     end
 
     M.opfuncs[vim_function_name] = opfunc
@@ -333,25 +333,25 @@ else
 end
 
 function M.enable_pwsh()
-    vim.opt.shell = 'pwsh'
-    vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-    vim.opt.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    vim.opt.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    vim.opt.shellquote = ''
-    vim.opt.shellxquote = ''
+    vim.o.shell = 'pwsh'
+    vim.o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.o.shellquote = ''
+    vim.o.shellxquote = ''
 
-    vim.opt.shelltemp = false
+    vim.o.shelltemp = false
 end
 
 function M.enable_cmd()
-    vim.opt.shell = 'cmd.exe'
-    vim.opt.shellcmdflag = '/s /c'
-    vim.opt.shellredir = '>%s 2>&1'
-    vim.opt.shellpipe = '>%s 2>&1'
-    vim.opt.shellquote = ''
-    vim.opt.shellxquote = '"'
+    vim.o.shell = 'cmd.exe'
+    vim.o.shellcmdflag = '/s /c'
+    vim.o.shellredir = '>%s 2>&1'
+    vim.o.shellpipe = '>%s 2>&1'
+    vim.o.shellquote = ''
+    vim.o.shellxquote = '"'
 
-    vim.opt.shelltemp = true
+    vim.o.shelltemp = true
 end
 
 function M.paste_image()

@@ -46,40 +46,40 @@ util.map('n', '<m-->', '<c-w>-')
 
 -- Options
 -- Tabs
-vim.opt.expandtab = true -- Tabs are expanded to spaces.
-vim.opt.shiftround = true -- Should round indents to multiple of shiftwidth.
+vim.o.expandtab = true -- Tabs are expanded to spaces.
+vim.o.shiftround = true -- Should round indents to multiple of shiftwidth.
 util.set_tab_size(4, true --[[global_opt]])
 -- Show whitespace
-vim.opt.list = true -- Display whitespace characters.
+vim.o.list = true -- Display whitespace characters.
 vim.opt.listchars = {tab = '>.', trail = '.', extends = '#', nbsp = '.'} -- Specify which whitespace characters to display.
 -- UI
-vim.opt.number = true -- Show line numbers.
-vim.opt.relativenumber = true -- Show relative line numbers.
-vim.opt.title = true -- Title of window set to titlename/currently edited file.
-vim.opt.visualbell = true -- Use visual bell instead of beeping.
+vim.o.number = true -- Show line numbers.
+vim.o.relativenumber = true -- Show relative line numbers.
+vim.o.title = true -- Title of window set to titlename/currently edited file.
+vim.o.visualbell = true -- Use visual bell instead of beeping.
 vim.opt.colorcolumn = {80, 120} -- Highlight the 80th and 120th columns for better line-length management.
-vim.opt.cursorline = true -- Highlight the current line.
-vim.opt.cursorcolumn = true -- Highlight the current column.
+vim.o.cursorline = true -- Highlight the current line.
+vim.o.cursorcolumn = true -- Highlight the current column.
 vim.opt.wildmode = {'longest', 'full'} -- In command line, first <tab> press complete to longest common string, next show full match.
-vim.opt.lazyredraw = true -- Don't redraw the screen while executing mappings and commands.
+vim.o.lazyredraw = true -- Don't redraw the screen while executing mappings and commands.
 vim.opt.wildignore:append('.git') -- Ignore the .git directory when expanding wildcards.
-vim.opt.scrolloff = 2
-vim.opt.sidescrolloff = 3
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.scrolloff = 2
+vim.o.sidescrolloff = 3
+vim.o.splitright = true
+vim.o.splitbelow = true
 vim.opt.mouse = {a = true} -- Enable interaction using the mouse.
-vim.opt.updatetime = 1000
+vim.o.updatetime = 1000
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.diffopt:append('algorithm:histogram') -- Use the histogram algorithm for more readable diffs.
 vim.opt.diffopt:append('indent-heuristic') -- Try to make more aesthetically pleasing diffs.
-vim.opt.termguicolors = true
-vim.opt.background = 'dark'
-vim.opt.signcolumn = 'auto:9'
+vim.o.termguicolors = true
+vim.o.background = 'dark'
+vim.o.signcolumn = 'auto:9'
 -- Editing
-vim.opt.wrap = false -- Don't wrap lines.
-vim.opt.showmatch = true -- Show matching bracket when one is inserted.
-vim.opt.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region tags).
+vim.o.wrap = false -- Don't wrap lines.
+vim.o.showmatch = true -- Show matching bracket when one is inserted.
+vim.o.foldmethod = 'syntax' -- Fold based on the language syntax (e.g. #region tags).
 vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
-vim.opt.timeout = false -- Don't time out waiting for mappings.
+vim.o.timeout = false -- Don't time out waiting for mappings.
 vim.opt.spelloptions = {'camel'}
-vim.opt.spell = true
+vim.o.spell = true

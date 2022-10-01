@@ -1,10 +1,10 @@
 local util = require 'vimrc.util'
 
-vim.opt.ignorecase = true -- Make search case insensitive.
-vim.opt.smartcase = true -- Ignore case if only lowercase characters are used in search text.
-vim.opt.incsearch = true -- Show search results incrementally as you type.
-vim.opt.gdefault = true -- Always do global substitutions.
-vim.opt.hlsearch = false -- Don't highlight searches by default.
+vim.o.ignorecase = true -- Make search case insensitive.
+vim.o.smartcase = true -- Ignore case if only lowercase characters are used in search text.
+vim.o.incsearch = true -- Show search results incrementally as you type.
+vim.o.gdefault = true -- Always do global substitutions.
+vim.o.hlsearch = false -- Don't highlight searches by default.
 
 -- Load the cfilter plugin for filtering the quickfix window.
 vim.cmd [[packadd cfilter]]
@@ -15,8 +15,8 @@ util.map({'n', 'x', 'o'}, '#', [[?\C\<<c-r>=expand('<cword>')<cr>\><cr>]])
 
 -- Search the file system using ripgrep.
 if util.vim_executable('rg') then
-    vim.opt.grepprg = 'rg --vimgrep --smart-case'
-    vim.opt.grepformat = '%f:%l:%c:%m'
+    vim.o.grepprg = 'rg --vimgrep --smart-case'
+    vim.o.grepformat = '%f:%l:%c:%m'
 end
 
 util.user_command('COpen', 'copen | normal! <c-w>J', {nargs = 0})
@@ -54,12 +54,12 @@ util.augroup('vimrc__quickfix', {
 util.augroup('vimrc__search_highlight', {
     {'CmdlineEnter', {pattern = [[/,\?]], callback =
         function()
-            vim.opt.hlsearch = true
+            vim.o.hlsearch = true
         end
     }},
     {'CmdlineLeave', {pattern = [[/,\?]], callback =
         function()
-            vim.opt.hlsearch = false
+            vim.o.hlsearch = false
         end
     }},
 })
@@ -72,7 +72,7 @@ util.map('n', '<leader>8', function() grep('-w ' .. vim.fn.expand('<cword>')) en
 
 -- Toggle search highlighting.
 util.map('n', '<leader>sh', function()
-    vim.opt.hlsearch = not vim.opt.hlsearch:get()
+    vim.o.hlsearch = not vim.o.hlsearch
 end)
 
 -- Make gf open the file even if it doesn't exist.

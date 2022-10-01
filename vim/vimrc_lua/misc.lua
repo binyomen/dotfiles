@@ -27,7 +27,7 @@ util.map('n', {expr = true, silent = false}, '<leader>zg', util.new_operator_wit
 end))
 
 util.map('n', '<leader>zt', function()
-    vim.opt_local.spell = not vim.opt_local.spell:get()
+    vim.wo.spell = not vim.wo.spell
 end)
 
 local function clear_cursor_highlight()
