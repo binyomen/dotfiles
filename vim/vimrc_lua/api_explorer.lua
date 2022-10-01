@@ -76,10 +76,10 @@ local function search_help(key)
         local result, msg = pcall(function() vim.cmd(string.format('help %s', key)) end)
         if not result then
             local msg = msg:gsub('^.+:[0-9]+: Vim%(help%):', '')
-            vim.api.nvim_err_writeln(msg)
+            util.log_error(msg)
         end
     else
-        vim.api.nvim_err_writeln(string.format('No help for item: %s', key))
+        util.log_error(string.format('No help for item: %s', key))
     end
 end
 
