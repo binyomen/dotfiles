@@ -20,7 +20,7 @@ local function on_attach(_, buf)
     util.map('n', '<leader><space>n', vim.lsp.buf.rename, {buffer = buf})
     util.map('n', '<leader><space>ca', vim.lsp.buf.code_action, {buffer = buf})
     util.map('n', '<leader><space>r', vim.lsp.buf.references, {buffer = buf})
-    util.map('n', '<leader><space>f', vim.lsp.buf.formatting, {buffer = buf})
+    util.map('n', '<leader><space>f', function() vim.lsp.buf.format {async = true} end, {buffer = buf})
     util.map('n', '<leader><space>s', vim.lsp.buf.document_symbol, {buffer = buf})
     util.map('n', '<leader><space>S', function() vim.lsp.buf.workspace_symbol('') end, {buffer = buf})
 end
