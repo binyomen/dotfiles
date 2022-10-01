@@ -102,7 +102,7 @@ local function normalize_command(name, command)
         name,
         function(args)
             local normalized_path = M.normalize_path(args.args)
-            vim.cmd(string.format('%s %s', command, normalized_path))
+            vim.cmd[command](normalized_path)
         end,
         {nargs = 1, complete = 'file'}
     )
@@ -146,17 +146,17 @@ function M.opfunc_normal_command(motion, normal_command)
 
     M.process_opfunc_command(motion, {
         line = function()
-            command = string.format([[silent normal! '[V']%s]], normal_command)
+            command = string.format([['[V']%s]], normal_command)
         end,
         char = function()
-            command = string.format([[silent normal! `[v`]%s]], normal_command)
+            command = string.format([[`[v`]%s]], normal_command)
         end,
         block = function()
-            command = string.format(t[[silent normal! `[<c-v>`]%s]], normal_command)
+            command = string.format(t[[`[<c-v>`]%s]], normal_command)
         end,
     })
 
-    vim.cmd(command)
+    vim.cmd.normal {command, bang = true, mods = {silent = true}}
 end
 
 function M.motion_to_visual_char(motion)
@@ -320,7 +320,7 @@ function M.reg_put(reg)
     local backup_z = vim.fn.getreginfo('z')
 
     vim.fn.setreg('z', reg)
-    vim.cmd [[normal! "zp]]
+    vim.cmd.normal {'"zp', bang = true}
 
     vim.fn.setreg('z', backup_z)
     vim.fn.setreg('"', backup_unnamed)
