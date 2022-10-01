@@ -30,8 +30,6 @@ local function configure_help()
 
     -- Make concealed characters in help files visible.
     vim.opt_local.conceallevel = 0
-    vim.cmd [[highlight link HelpBar Normal]]
-    vim.cmd [[highlight link HelpStar Normal]]
 end
 
 local function configure_markdown()
