@@ -4,7 +4,7 @@ local util = require 'vimrc.util'
 
 local function redraw_tabline()
     -- For some reason :redrawtabline doesn't work....
-    vim.bo[vim.g.statusline_bufid].readonly = vim.bo[vim.g.statusline_bufid].readonly
+    vim.bo.readonly = vim.bo.readonly
 end
 
 local NORMAL_COLORS = {
@@ -70,7 +70,7 @@ local function get_colors()
 end
 
 local function file_type(colors)
-    local file_type = vim.bo[vim.g.statusline_bufid].filetype
+    local file_type = vim.bo.filetype
     local file_type_string = file_type == '' and '-' or file_type:upper()
     return string.format('%s   %s   ', colors.primary, file_type_string)
 end
@@ -90,9 +90,9 @@ local function flags(colors)
 end
 
 local function encoding(colors)
-    local encoding = vim.bo[vim.g.statusline_bufid].fileencoding
-    local line_endings = vim.bo[vim.g.statusline_bufid].fileformat
-    local eol = vim.bo[vim.g.statusline_bufid].endofline
+    local encoding = vim.bo.fileencoding
+    local line_endings = vim.bo.fileformat
+    local eol = vim.bo.endofline
     local eol_text = eol and '' or ' NOEOL'
 
     return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
@@ -143,8 +143,6 @@ local function absolute_path_to_file_name(path)
 end
 
 function M.do_statusline()
-    vim.g.statusline_bufid = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-
     -- Force the tabline to redraw, since it won't always when things like the
     -- mode change.
     redraw_tabline()
@@ -160,7 +158,6 @@ function M.do_statusline()
         warnings(),
     }
 
-    vim.g.statusline_bufid = nil
     return result
 end
 
