@@ -450,12 +450,6 @@ return require('packer').startup {
         }
         use 'nvim-treesitter/nvim-treesitter-textobjects'
         use {
-            'lewis6991/spellsitter.nvim',
-            config = function()
-                require('spellsitter').setup {}
-            end,
-        }
-        use {
             'binyomen/nvim-treesitter-refactor',
             branch = 'disable_mapping',
         }
