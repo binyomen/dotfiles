@@ -9,8 +9,8 @@ util.user_command(
         local file1 = args.fargs[1]
         local file2 = args.fargs[2]
 
-        vim.cmd(string.format('tabedit %s', file1))
-        vim.cmd(string.format('diffsplit %s', file2))
+        vim.cmd.tabedit(file1)
+        vim.cmd.diffsplit(file2)
     end,
     {nargs = '+', complete = 'file'}
 )
@@ -46,7 +46,7 @@ local function create_diff_buf(win, reg, filetype)
     vim.bo[buf].bufhidden = 'wipe'
     vim.bo[buf].filetype = filetype
 
-    vim.cmd [[normal! V]]
+    vim.cmd.normal {'V', bang = true}
     util.reg_put(reg)
 end
 
@@ -58,18 +58,20 @@ local function perform_diff(motion)
 
     clear_diff_state()
 
-    vim.cmd [[tabedit]]
+    vim.cmd.tabedit()
     -- Clear the initial no-name buffer on close.
     vim.bo.bufhidden = 'wipe'
 
     local win_left = vim.api.nvim_get_current_win()
     create_diff_buf(win_left, reg_left, filetype_left)
 
-    vim.cmd [[vsplit]]
+    vim.cmd.vsplit()
     local win_right = vim.api.nvim_get_current_win()
     create_diff_buf(win_right, reg_right, filetype_right)
 
-    vim.cmd [[diffthis | wincmd p | diffthis]]
+    vim.cmd.diffthis()
+    vim.cmd.wincmd 'p'
+    vim.cmd.diffthis()
 end
 
 -- Mark text for a diff.
