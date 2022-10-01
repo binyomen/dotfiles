@@ -24,9 +24,9 @@ util.map('n', '<leader>bs', function()
     vim.api.nvim_set_current_buf(buf)
 end)
 
-util.map('n', '<leader>bt', [['<cmd>' . v:count . 'b<cr>']], {expr = true})
-util.map('n', '<leader>bn', [['<cmd>' . v:count1 . 'bn<cr>']], {expr = true})
-util.map('n', '<leader>bp', [['<cmd>' . v:count1 . 'bp<cr>']], {expr = true})
+util.map('n', '<leader>bt', [['<cmd>' . v:count . 'b<cr>']], {expr = true, replace_keycodes = false})
+util.map('n', '<leader>bn', [['<cmd>' . v:count1 . 'bn<cr>']], {expr = true, replace_keycodes = false})
+util.map('n', '<leader>bp', [['<cmd>' . v:count1 . 'bp<cr>']], {expr = true, replace_keycodes = false})
 util.map('n', '<leader>bf', [[<cmd>bf<cr>]])
 util.map('n', '<leader>bl', [[<cmd>bl<cr>]])
 
