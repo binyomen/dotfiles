@@ -186,7 +186,7 @@ util.user_command('HiTest', 'source $VIMRUNTIME/syntax/hitest.vim', {nargs = 0})
 util.user_command(
     'SynStack',
     function()
-        if require('vim.treesitter.highlighter').active[vim.api.nvim_get_current_buf()] then
+        if util.treesitter_active() then
             local node = require('nvim-treesitter.ts_utils').get_node_at_cursor()
             local nodes = {}
             while node ~= nil do

@@ -143,7 +143,7 @@ util.augroup('vimrc__treesitter_buffers', {
             end
             vim.b.vimrc__treesitter_folding_set = true
 
-            if require('vim.treesitter.highlighter').active[args.buf] then
+            if util.treesitter_active(args.buf) then
                 vim.wo.foldmethod = 'expr'
                 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
             else

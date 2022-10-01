@@ -1,5 +1,7 @@
 local M = {}
 
+local treesitter_highlighter = require 'vim.treesitter.highlighter'
+
 function M.default(v, default)
     if v == nil then
         if type(default) == 'function' then
@@ -480,6 +482,11 @@ function M.set_tab_size(tab_size, global_opt)
     opt.tabstop = tab_size
     opt.softtabstop = tab_size
     opt.shiftwidth = tab_size
+end
+
+function M.treesitter_active(buffer)
+    local buffer = M.default(buffer, vim.api.nvim_get_current_buf())
+    return treesitter_highlighter.active[buffer]
 end
 
 return M
