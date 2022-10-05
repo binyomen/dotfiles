@@ -126,6 +126,12 @@ local function create_statusline_highlight(mode, base, accent)
 
     local secondary_group = string.format('vimrc__StatuslineSecondary%s', mode)
     create_highlight_group(secondary_group, {foreground = accent, background = base})
+
+    local winbar_active_group = string.format('vimrc__WinbarActive%s', mode)
+    create_highlight_group(winbar_active_group, {foreground = accent, background = base, bold = true})
+
+    local winbar_inactive_group = string.format('vimrc__WinbarInactive%s', mode)
+    create_highlight_group(winbar_inactive_group, {foreground = accent, background = base})
 end
 
 local function create_statusline_highlights(highlights)

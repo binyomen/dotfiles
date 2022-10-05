@@ -10,21 +10,29 @@ end
 local NORMAL_COLORS = {
     primary = '%#vimrc__StatuslinePrimaryNormal#',
     secondary = '%#vimrc__StatuslineSecondaryNormal#',
+    winbar_active = '%#vimrc__WinbarActiveNormal#';
+    winbar_inactive = '%#vimrc__WinbarInactiveNormal#';
 }
 
 local VISUAL_COLORS = {
     primary = '%#vimrc__StatuslinePrimaryVisual#',
     secondary = '%#vimrc__StatuslineSecondaryVisual#',
+    winbar_active = '%#vimrc__WinbarActiveVisual#';
+    winbar_inactive = '%#vimrc__WinbarInactiveVisual#';
 }
 
 local INSERT_COLORS = {
     primary = '%#vimrc__StatuslinePrimaryInsert#',
     secondary = '%#vimrc__StatuslineSecondaryInsert#',
+    winbar_active = '%#vimrc__WinbarActiveInsert#';
+    winbar_inactive = '%#vimrc__WinbarInactiveInsert#';
 }
 
 local REPLACE_COLORS = {
     primary = '%#vimrc__StatuslinePrimaryReplace#',
     secondary = '%#vimrc__StatuslineSecondaryReplace#',
+    winbar_active = '%#vimrc__WinbarActiveReplace#';
+    winbar_inactive = '%#vimrc__WinbarInactiveReplace#';
 }
 
 local MODE_COLORS = {
@@ -275,12 +283,12 @@ function M.do_winbar(state)
 
     local color
     if state == 'active' then
-        color = colors.primary
+        color = colors.winbar_active
     else
-        color = colors.secondary
+        color = colors.winbar_inactive
     end
 
-    return string.format('%s %%f %s', color, colors.secondary)
+    return string.format('%s %%f %s', color, colors.winbar_inactive)
 end
 
 local function set_winbar(state)
