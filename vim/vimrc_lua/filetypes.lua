@@ -19,19 +19,6 @@ local function configure_html()
     util.set_tab_size(2)
 end
 
-local function configure_help()
-    -- If conceallevel is 2, it means the help ftplugin has been loaded and we
-    -- can apply our settings without them being overridden. If not, defer and
-    -- try again.
-    if vim.wo.conceallevel ~= 2 then
-        util.defer(10, configure_help)
-        return
-    end
-
-    -- Make concealed characters in help files visible.
-    vim.wo.conceallevel = 0
-end
-
 local function configure_markdown()
     vim.bo.textwidth = 79
 
@@ -121,10 +108,6 @@ util.augroup('vimrc__go_files', {
 
 util.augroup('vimrc__html_files', {
     {'FileType', {pattern = 'html', callback = configure_html}},
-})
-
-util.augroup('vimrc__help_files', {
-    {'FileType', {pattern = 'help', callback = configure_help}},
 })
 
 util.augroup('vimrc__markdown_files', {
