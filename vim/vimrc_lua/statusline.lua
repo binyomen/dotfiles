@@ -313,13 +313,17 @@ util.augroup('vimrc__statusline', {
 
 vim.o.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 
+function M.set_statusline()
+    vim.o.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
+end
+
 if util.vim_true(vim.g.started_by_firenvim) then
     vim.o.laststatus = 0
     vim.o.showtabline = 0
 else
     vim.o.laststatus = 3
     vim.o.showtabline = 3
-    vim.o.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
+    M.set_statusline()
 end
 
 return M
