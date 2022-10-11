@@ -1,5 +1,7 @@
 local M = {}
 
+local util = require 'vimrc.util'
+
 M.formulas = {}
 
 function M.unpack_for_lua(args, f)
@@ -36,6 +38,50 @@ new_formula('SumOfProducts', function(range)
     end
 
     return sum
+end)
+
+new_formula('EncounterDifficulty', function(range, xp_thresholds)
+    local range = get_cell_range(range)
+
+    local xps = util.tbl_map(range, function(xp) return tonumber(xp) end)
+
+    local total_xp = 0
+    for _, xp in ipairs(xps) do
+        total_xp = total_xp + xp
+    end
+
+    local multiplier = (function()
+        local num_creatures = #xps
+        if num_creatures == 1 then
+            return 1
+        elseif num_creatures == 2 then
+            return 1.5
+        elseif num_creatures < 7 then
+            return 2
+        elseif num_creatures < 11 then
+            return 2.5
+        elseif num_creatures < 15 then
+            return 3
+        else
+            return 4
+        end
+    end)()
+
+    local multiplied = total_xp * multiplier
+
+    local difficulty = (function()
+        if multiplied >= xp_thresholds[4] then
+            return 'Deadly'
+        elseif multiplied >= xp_thresholds[3] then
+            return 'Hard'
+        elseif multiplied >= xp_thresholds[2] then
+            return 'Medium'
+        else
+            return 'Easy'
+        end
+    end)()
+
+    return string.format('%s (%dXP × %d = %dXP)', difficulty, total_xp, multiplier, multiplied)
 end)
 
 return M
