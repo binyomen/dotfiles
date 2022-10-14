@@ -44,6 +44,10 @@ util.map('n', '-', '<c-w><')
 util.map('n', '<m-=>', '<c-w>+')
 util.map('n', '<m-->', '<c-w>-')
 
+-- Search and replace.
+util.map('n', '<leader>S', ':%s//', {silent = false})
+util.map('x', '<leader>S', ':s//', {silent = false})
+
 -- Options
 -- Tabs
 vim.o.expandtab = true -- Tabs are expanded to spaces.
