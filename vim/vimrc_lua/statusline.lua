@@ -106,6 +106,20 @@ local function encoding(colors)
     return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
 end
 
+local function search_count(colors)
+    local result = vim.fn.searchcount {maxcount = 0}
+
+    local index_string
+    -- If we timed out.
+    if result.incomplete == 1 then
+        index_string = '?/??'
+    else
+        index_string = string.format('%d/%d', result.current, result.total)
+    end
+
+    return string.format('%s %s ', colors.secondary, index_string)
+end
+
 local function file_info(colors)
     local word_count_string = ''
     if vim.b.vimrc__show_word_count then
@@ -162,6 +176,7 @@ function M.do_statusline()
         flags(colors),
         '%=',
         encoding(colors),
+        search_count(colors),
         file_info(colors),
         warnings(),
     }
@@ -262,12 +277,12 @@ end
 
 local function on_cursor_hold()
     if vim.b.vimrc__show_word_count then
-        local result = vim.fn.searchcount({pattern = [[\w\+]], timeout = 0, maxcount = 0})
+        local result = vim.fn.searchcount {pattern = [[\w\+]], timeout = 0, maxcount = 0}
         vim.b.vimrc__word_count = result.total
     end
 
     do
-        vim.b.vimrc__trailing_space_count = vim.fn.searchcount({pattern = [[\s\+$]], timeout = 0, maxcount = 0}).total
+        vim.b.vimrc__trailing_space_count = vim.fn.searchcount {pattern = [[\s\+$]], timeout = 0, maxcount = 0}.total
         if vim.b.vimrc__trailing_space_count > 0 then
             vim.b.vimrc__trailing_space_line = vim.fn.search([[\s\+$]], 'n')
         end
