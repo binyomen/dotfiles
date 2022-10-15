@@ -45,8 +45,8 @@ util.map('n', '<m-=>', '<c-w>+')
 util.map('n', '<m-->', '<c-w>-')
 
 -- Search and replace.
-util.map('n', '<leader>S', ':%s//', {silent = false})
-util.map('x', '<leader>S', ':s//', {silent = false})
+util.map('n', '<leader>n', ':%s//', {silent = false})
+util.map('x', '<leader>n', ':s//', {silent = false})
 
 -- Options
 -- Tabs

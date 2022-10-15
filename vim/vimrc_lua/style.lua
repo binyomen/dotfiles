@@ -14,7 +14,7 @@ local themes = {
     {name = 'onehalfdark', plugin = 'onehalf'},
 }
 
-util.map('n', '<leader>ns', function()
+util.map('n', '<leader>NS', function()
     if current_theme == #themes then
         current_theme = 1
     else
