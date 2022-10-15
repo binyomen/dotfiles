@@ -117,7 +117,7 @@ local function file_info(colors)
         word_count_string = string.format('WC:%d ', vim.b.vimrc__word_count)
     end
 
-    return string.format('%s %s%%P %%l/%%L col: %%c ', colors.primary, word_count_string)
+    return string.format('%s %s%%P %%l/%%L col:%%c ', colors.primary, word_count_string)
 end
 
 local function warnings()
