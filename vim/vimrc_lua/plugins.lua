@@ -438,6 +438,7 @@ return require('packer').startup {
                 }
             end,
         }
+        use 'binyomen/vim-emoji-abbreviations'
 
         -- Tree-sitter
         use {
