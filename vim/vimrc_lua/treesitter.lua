@@ -153,3 +153,103 @@ util.augroup('vimrc__treesitter_buffers', {
         end,
     }},
 })
+
+local HIGHLIGHTS = {
+    ['@annotation'] = {link = 'PreProc'},
+    ['@attribute'] = {link = 'PreProc'},
+
+    ['@boolean'] = {link = 'Boolean'},
+
+    ['@character'] = {link = 'Character'},
+    ['@character.special'] = {link = 'SpecialChar'},
+    ['@comment'] = {link = 'Comment'},
+    ['@conditional'] = {link = 'Conditional'},
+    ['@constant'] = {link = 'Constant'},
+    ['@constant.builtin'] = {link = 'Special'},
+    ['@constant.macro'] = {link = 'Define'},
+    ['@constructor'] = {link = 'Special'},
+
+    ['@debug'] = {link = 'Debug'},
+    ['@define'] = {link = 'Define'},
+
+    ['@error'] = {link = '@none'},
+    ['@exception'] = {link = 'Exception'},
+
+    ['@field'] = {link = 'Identifier'},
+    ['@float'] = {link = 'Float'},
+    ['@function'] = {link = 'Function'},
+    ['@function.builtin'] = {link = 'Special'},
+    ['@function.call'] = {link = '@function'},
+    ['@function.macro'] = {link = 'Macro'},
+
+    ['@include'] = {link = 'Include'},
+
+    ['@keyword'] = {link = 'Keyword'},
+    ['@keyword.function'] = {link = 'Keyword'},
+    ['@keyword.operator'] = {link = '@operator'},
+    ['@keyword.return'] = {link = '@keyword'},
+
+    ['@label'] = {link = 'Label'},
+
+    ['@method'] = {link = 'Function'},
+    ['@method.call'] = {link = '@method'},
+
+    ['@namespace'] = {link = 'Include'},
+    ['@none'] = {link = 'None'},
+    ['@number'] = {link = 'Number'},
+
+    ['@operator'] = {link = 'Operator'},
+
+    ['@parameter'] = {link = 'Identifier'},
+    ['@parameter.reference'] = {link = '@parameter'},
+    ['@preproc'] = {link = 'PreProc'},
+    ['@property'] = {link = 'Identifier'},
+    ['@punctuation.bracket'] = {link = 'Delimiter'},
+    ['@punctuation.delimiter'] = {link = 'Delimiter'},
+    ['@punctuation.special'] = {link = 'Delimiter'},
+
+    ['@repeat'] = {link = 'Repeat'},
+
+    ['@storageclass'] = {link = 'StorageClass'},
+    ['@string'] = {link = 'String'},
+    ['@string.escape'] = {link = 'SpecialChar'},
+    ['@string.regex'] = {link = 'String'},
+    ['@string.special'] = {link = 'SpecialChar'},
+    ['@symbol'] = {link = 'Identifier'},
+
+    ['@tag'] = {link = 'Label'},
+    ['@tag.attribute'] = {link = '@property'},
+    ['@tag.delimiter'] = {link = 'Delimiter'},
+    ['@text'] = {link = '@none'},
+    ['@text.danger'] = {link = 'WarningMsg'},
+    ['@text.emphasis'] = {italic = true},
+    ['@text.environment'] = {link = 'Macro'},
+    ['@text.environment.name'] = {link = 'Type'},
+    ['@text.literal'] = {link = 'String'},
+    ['@text.math'] = {link = 'Special'},
+    ['@text.note'] = {link = 'SpecialComment'},
+    ['@text.reference'] = {link = 'Constant'},
+    ['@text.strike'] = {strikethrough = true},
+    ['@text.strong'] = {bold = true},
+    ['@text.title'] = {link = 'Title'},
+    ['@text.underline'] = {underline = true},
+    ['@text.uri'] = {link = 'Underlined'},
+    ['@text.warning'] = {link = 'Todo'},
+    ['@todo'] = {link = 'Todo'},
+    ['@type'] = {link = 'Type'},
+    ['@type.builtin'] = {link = 'Type'},
+    ['@type.definition'] = {link = 'Typedef'},
+    ['@type.qualifier'] = {link = 'Type'},
+
+    ['@variable'] = {link = '@none'},
+    ['@variable.builtin'] = {link = 'Special'},
+}
+
+vim.schedule(function()
+    for capture, options in pairs(HIGHLIGHTS) do
+        local options = vim.deepcopy(options)
+
+        options.default = true
+        vim.api.nvim_set_hl(0 --[[namespace]], capture, options)
+    end
+end)
