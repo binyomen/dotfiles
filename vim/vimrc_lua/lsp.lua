@@ -76,6 +76,9 @@ setup_language_server('eslint')
 -- https://github.com/artempyanykh/marksman
 setup_language_server('marksman')
 
+-- https://github.com/microsoft/pyright
+setup_language_server('pyright')
+
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
         lspconfig[server.name] = server.default_options
