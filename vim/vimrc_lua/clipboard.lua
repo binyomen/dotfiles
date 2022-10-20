@@ -9,6 +9,7 @@ local util = require 'vimrc.util'
 -- Copy.
 local copy_operator = util.new_operator(function(motion)
     util.opfunc_normal_command(motion, '"*y')
+    util.opfunc_normal_command(motion, '"+y')
 end)
 util.map('n', 'cy', copy_operator, {expr = true})
 util.map('x', 'Cy', copy_operator, {expr = true})
