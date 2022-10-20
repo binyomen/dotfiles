@@ -21,7 +21,15 @@ cmp.setup {
         ['<c-t>'] = cmp.mapping.confirm {select = true},
     },
     sources = cmp.config.sources(
-        {{name = 'nvim_lsp'}, {name = 'luasnip'}, {name = 'nvim_lua'}, {name = 'rg'}, {name = 'calc'}, {name = 'omni'}},
+        {
+            {name = 'nvim_lsp'},
+            {name = 'luasnip'},
+            {name = 'nvim_lua'},
+            {name = 'rg'},
+            {name = 'calc'},
+            {name = 'omni'},
+            {name = 'vim-emoji-abbreviations'}
+        },
         {{name = 'buffer'}}
     )
 }
