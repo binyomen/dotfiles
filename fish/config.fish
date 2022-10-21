@@ -4,6 +4,13 @@ if not contains ~/bin $PATH
     set -xa PATH ~/bin
 end
 
+if test -d ~/.linuxbrew
+    eval (~/.linuxbrew/bin/brew shellenv)
+end
+if test -d /home/linuxbrew/.linuxbrew
+    eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+end
+
 set -x EDITOR nvim
 
 # I need to add spaces after the default prompt symbols so they don't look
