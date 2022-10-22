@@ -36,7 +36,12 @@ return require('packer').startup {
                 require('vimrc.util').map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
             end,
         }
-        use 'ggandor/lightspeed.nvim'
+        use {
+            'ggandor/leap.nvim',
+            config = function()
+                require('leap').add_default_mappings()
+            end,
+        }
 
         -- Custom text objects.
         use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
