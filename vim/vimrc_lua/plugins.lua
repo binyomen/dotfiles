@@ -226,7 +226,7 @@ return require('packer').startup {
                 require 'vimrc.lsp'
             end,
         }
-        use 'ferrine/md-img-paste.vim'
+        use 'img-paste-devs/img-paste.vim'
         use {
             'justinmk/vim-dirvish',
             config = function()
