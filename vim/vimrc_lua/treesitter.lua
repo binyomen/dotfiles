@@ -7,6 +7,7 @@ require('nvim-treesitter.configs').setup {
         'comment',
         'css',
         'fish',
+        'gitattributes',
         'gitignore',
         'help',
         'html',
