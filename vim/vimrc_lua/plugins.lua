@@ -42,6 +42,27 @@ return require('packer').startup {
                 require('leap').add_default_mappings()
             end,
         }
+        use {
+            'smjonas/live-command.nvim',
+            config = function()
+                require('live-command').setup {
+                    defaults = {
+                        enable_highlighting = false,
+                    },
+                    commands = {
+                        Norm = { cmd = 'norm' },
+                        Mac = {
+                            cmd = 'norm',
+                            -- This will transform ":5Mac q" into ":norm 5@q"
+                            args = function(opts)
+                                return (opts.count == -1 and '' or opts.count) .. '@' .. opts.args
+                            end,
+                            range = '',
+                        },
+                    },
+                }
+            end,
+        }
 
         -- Custom text objects.
         use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
