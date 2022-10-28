@@ -29,7 +29,3 @@ vim.filetype.add {
         scm = 'query',
     },
 }
-
--- Rust settings.
-vim.g.rustfmt_autosave = 1 -- Run rustfmt on save.
-vim.g.rust_recommended_style = 0 -- Don't force textwidth=99.
