@@ -1,13 +1,5 @@
 local util = require 'vimrc.util'
 
-util.augroup('vimrc__go_files', {
-    {{'BufWritePost', 'FileWritePost'}, {pattern = '*.go', callback =
-        function()
-            vim.cmd [[mkview! | Lint | silent! loadview]]
-        end,
-    }},
-})
-
 util.augroup('vimrc__nospell_file_types', {
     {'FileType', {pattern = 'git,dirvish', callback =
         function()
