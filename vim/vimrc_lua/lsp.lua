@@ -55,13 +55,9 @@ if LOCAL_CONFIG.use_nvim_lua_ls then
     })
 end
 
--- https://github.com/rust-lang/rls
-setup_language_server('rls', {
-    settings = {
-        rust = {
-            clippy_preference = 'on',
-        },
-    },
+-- https://github.com/rust-lang/rust-analyzer
+setup_language_server('rust_analyzer', {
+    cmd = {'rustup', 'run', 'stable', 'rust-analyzer'},
 })
 
 -- https://github.com/iamcco/vim-language-server
