@@ -58,6 +58,13 @@ end
 -- https://github.com/rust-lang/rust-analyzer
 setup_language_server('rust_analyzer', {
     cmd = {'rustup', 'run', 'stable', 'rust-analyzer'},
+    settings = {
+        ['rust-analyzer'] = {
+            checkOnSave = {
+                command = 'clippy',
+            },
+        },
+    },
 })
 
 -- https://github.com/iamcco/vim-language-server
