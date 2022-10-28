@@ -8,6 +8,14 @@ util.augroup('vimrc__nospell_file_types', {
     }},
 })
 
+util.augroup('vimrc__rustfmt', {
+    {'BufWritePre', {pattern = '*.rs', callback =
+        function()
+            vim.lsp.buf.format()
+        end
+    }},
+})
+
 vim.filetype.add {
     extension = {
         -- XAML and WPRP are basically just XML.
