@@ -45,12 +45,19 @@ return require('packer').startup {
         use {
             'smjonas/live-command.nvim',
             config = function()
+                local util = require 'vimrc.util'
+
                 require('live-command').setup {
                     defaults = {
                         enable_highlighting = false,
                     },
                     commands = {
-                        Norm = { cmd = 'norm' },
+                        Norm = {
+                            cmd = 'norm',
+                            args = function(opts)
+                                return util.replace_termcodes(opts.args)
+                            end,
+                        },
                         Mac = {
                             cmd = 'norm',
                             -- This will transform ":5Mac q" into ":norm 5@q"
