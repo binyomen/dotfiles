@@ -50,6 +50,12 @@ return require('packer').startup {
             end,
         }
         use {
+            'ggandor/leap-spooky.nvim',
+            config = function()
+                require('leap-spooky').setup()
+            end,
+        }
+        use {
             'smjonas/live-command.nvim',
             config = function()
                 local util = require 'vimrc.util'
