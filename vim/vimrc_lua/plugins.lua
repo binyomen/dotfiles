@@ -39,7 +39,14 @@ return require('packer').startup {
         use {
             'ggandor/leap.nvim',
             config = function()
-                require('leap').add_default_mappings()
+                local util = require 'vimrc.util'
+                util.map('n', 's', '<plug>(leap-forward-to)')
+                util.map('n', 'S', '<plug>(leap-backward-to)')
+                util.map({'o', 'x'}, 'z', '<plug>(leap-forward-to)')
+                util.map({'o', 'x'}, 'Z', '<plug>(leap-backward-to)')
+                util.map({'o', 'x'}, 'x', '<plug>(leap-forward-till)')
+                util.map({'o', 'x'}, 'X', '<plug>(leap-backward-till)')
+                util.map('n', 'gs', '<plug>(leap-cross-window)')
             end,
         }
         use {
