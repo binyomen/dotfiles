@@ -109,6 +109,13 @@ end
 local function search_count(colors)
     local result = vim.fn.searchcount {maxcount = 0}
 
+    if result == nil or
+        result.incomplete == nil or
+        result.current == nil or
+        result.total == nil then
+            return ''
+    end
+
     local index_string
     -- If we timed out.
     if result.incomplete == 1 then
