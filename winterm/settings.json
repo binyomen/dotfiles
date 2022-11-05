@@ -23,7 +23,8 @@
             "font": {
                 "face": "Fira Code",
                 "size": 12
-            }
+            },
+            "intenseTextStyle": "bold"
         },
         "list": [
             {
