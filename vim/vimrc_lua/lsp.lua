@@ -84,11 +84,13 @@ setup_language_server('pyright')
 
 -- https://github.com/mattn/efm-langserver
 setup_language_server('efm', {
-    filetypes = {},
+    filetypes = {'markdown'},
     init_options = {documentFormatting = true},
     settings = {
         rootMarkers = {'.git/'},
-        languages = {},
+        languages = {
+            markdown = {{formatCommand = 'prettier'}},
+        },
     },
 })
 
