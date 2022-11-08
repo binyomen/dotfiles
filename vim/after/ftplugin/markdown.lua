@@ -1,6 +1,6 @@
 local util = require 'vimrc.util'
 
-vim.bo.textwidth = 79
+vim.bo.textwidth = 80
 
 util.set_tab_size(2)
 
