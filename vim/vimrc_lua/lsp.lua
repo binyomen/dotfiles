@@ -89,7 +89,10 @@ setup_language_server('efm', {
     settings = {
         rootMarkers = {'.git/'},
         languages = {
-            markdown = {{formatCommand = 'prettier'}},
+            markdown = {{
+                formatCommand = 'prettier --stdin-filepath ${INPUT}',
+                formatStdin = true,
+            }},
         },
     },
 })
