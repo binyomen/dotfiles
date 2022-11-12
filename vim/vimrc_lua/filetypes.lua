@@ -1,7 +1,7 @@
 local util = require 'vimrc.util'
 
 util.augroup('vimrc__nospell_file_types', {
-    {'FileType', {pattern = 'git,dirvish', callback =
+    {'FileType', {pattern = 'git,dirvish,checkhealth', callback =
         function()
             vim.wo.spell = false
         end
