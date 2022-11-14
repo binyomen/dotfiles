@@ -1,5 +1,14 @@
 return {
-    use_nvim_lua_ls = true,
+    lua_ls_dynamic_settings = {
+        Lua = {
+            runtime = {
+                path = vim.split(package.path, ';'),
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+            },
+        },
+    },
     on_config_end = function()
         local util = require 'vimrc.util'
 

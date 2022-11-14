@@ -34,26 +34,10 @@ local function setup_language_server(name, config)
     lspconfig[name].setup(final_config)
 end
 
-if LOCAL_CONFIG.use_nvim_lua_ls then
-    -- https://github.com/sumneko/lua-language-server
-    setup_language_server('sumneko_lua', {
-        settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = vim.split(package.path, ';'),
-                },
-                diagnostics = {
-                    globals = {'vim'},
-                    disable = {'redefined-local'},
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file('', true),
-                },
-            },
-        },
-    })
-end
+-- https://github.com/sumneko/lua-language-server
+setup_language_server('sumneko_lua', {
+    settings = LOCAL_CONFIG.lua_ls_dynamic_settings,
+})
 
 -- https://github.com/rust-lang/rust-analyzer
 setup_language_server('rust_analyzer', {
