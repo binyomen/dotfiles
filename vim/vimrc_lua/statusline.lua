@@ -271,12 +271,12 @@ function M.tabline()
         -- Just render the buffers if we only have one tab.
         return render_buffers()
     else
-        -- If we have multiple tabs, render the tabs first, then the buffers on
+        -- If we have multiple tabs, render the buffers first, then the tabs on
         -- the right.
         local tabline = {}
-        table.insert(tabline, render_tabs())
-        table.insert(tabline, '%=')
         table.insert(tabline, render_buffers())
+        table.insert(tabline, '%=')
+        table.insert(tabline, render_tabs())
 
         return table.concat(tabline)
     end
