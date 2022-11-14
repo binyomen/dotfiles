@@ -206,7 +206,7 @@ local function render_single_tab(tabline, colors, buf, is_active, name)
     table.insert(tabline, string.format(' %s%s ', name, modified_string))
 end
 
-local function render_buffers()
+local function render_buffers(colors)
     local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
         return
             vim.api.nvim_buf_is_loaded(buf) and
@@ -214,7 +214,6 @@ local function render_buffers()
     end)
 
     local active_buf = vim.api.nvim_get_current_buf()
-    local colors = get_colors()
 
     local tabline = {}
     for _, buf in ipairs(bufs) do
@@ -238,9 +237,8 @@ local function render_buffers()
     return table.concat(tabline)
 end
 
-local function render_tabs()
+local function render_tabs(colors)
     local active_tab = vim.api.nvim_get_current_tabpage()
-    local colors = get_colors()
 
     local tabline = {}
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
@@ -257,7 +255,7 @@ local function render_tabs()
             colors,
             buf,
             tab == active_tab,
-            name)
+            string.format('[%d] %s', tab, name))
     end
 
     -- Fill out the empty space in the tabline.
@@ -267,16 +265,18 @@ local function render_tabs()
 end
 
 function M.tabline()
+    local colors = get_colors()
+
     if #vim.api.nvim_list_tabpages() == 1 then
         -- Just render the buffers if we only have one tab.
-        return render_buffers()
+        return render_buffers(colors)
     else
         -- If we have multiple tabs, render the buffers first, then the tabs on
         -- the right.
         local tabline = {}
-        table.insert(tabline, render_buffers())
+        table.insert(tabline, render_buffers(colors))
         table.insert(tabline, '%=')
-        table.insert(tabline, render_tabs())
+        table.insert(tabline, render_tabs(colors))
 
         return table.concat(tabline)
     end
