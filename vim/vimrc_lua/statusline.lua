@@ -369,7 +369,7 @@ if util.vim_true(vim.g.started_by_firenvim) then
     vim.o.showtabline = 0
 else
     vim.o.laststatus = 3
-    vim.o.showtabline = 3
+    vim.o.showtabline = 2
     M.set_statusline()
 end
 
