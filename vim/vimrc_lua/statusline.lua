@@ -228,33 +228,33 @@ local function render_buffers(colors)
     return table.concat(tabline)
 end
 
-local function render_tabs(colors)
-    local active_tab = vim.api.nvim_get_current_tabpage()
+local function render_tab_pages(colors)
+    local active_tab_page = vim.api.nvim_get_current_tabpage()
 
     local tabline = {}
-    for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+    for _, tab_page in ipairs(vim.api.nvim_list_tabpages()) do
         local name
-        if vim.t[tab].vimrc__tab_page_name then
-            name = vim.t[tab].vimrc__tab_page_name
+        if vim.t[tab_page].vimrc__tab_page_name then
+            name = vim.t[tab_page].vimrc__tab_page_name
         else
-            local win = vim.api.nvim_tabpage_get_win(tab)
+            local win = vim.api.nvim_tabpage_get_win(tab_page)
             local buf = vim.api.nvim_win_get_buf(win)
             name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
             if name == '' then
                 name = '[No Name]'
             end
         end
-        local name_with_tab_number = string.format('[%d] %s', tab, name)
+        local name_with_tab_page_number = string.format('[%d] %s', tab_page, name)
 
         -- Choose the tab's highlighting.
-        if tab == active_tab then
+        if tab_page == active_tab_page then
             table.insert(tabline, colors.primary)
         else
             table.insert(tabline, colors.secondary)
         end
 
         -- Label the tab.
-        table.insert(tabline, string.format(' %s ', name_with_tab_number))
+        table.insert(tabline, string.format(' %s ', name_with_tab_page_number))
     end
 
     return table.concat(tabline)
@@ -264,15 +264,15 @@ function M.tabline()
     local colors = get_colors()
 
     if #vim.api.nvim_list_tabpages() == 1 then
-        -- Just render the buffers if we only have one tab.
+        -- Just render the buffers if we only have one tab page.
         return render_buffers(colors)
     else
-        -- If we have multiple tabs, render the buffers first, then the tabs on
-        -- the right.
+        -- If we have multiple tab pages, render the buffers first, then the
+        -- tab pages on the right.
         local tabline = {}
         table.insert(tabline, render_buffers(colors))
         table.insert(tabline, '%=')
-        table.insert(tabline, render_tabs(colors))
+        table.insert(tabline, render_tab_pages(colors))
 
         return table.concat(tabline)
     end
@@ -335,14 +335,14 @@ function M.set_statusline()
     vim.o.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
 end
 
-function M.set_tab_page_name(name, tab)
-    local tab = util.default(tab, 0)
-    vim.t[tab].vimrc__tab_page_name = name
+function M.set_tab_page_name(name, tab_page)
+    local tab_page = util.default(tab_page, 0)
+    vim.t[tab_page].vimrc__tab_page_name = name
 end
 
-function M.clear_tab_page_name(tab)
-    local tab = util.default(tab, 0)
-    vim.t[tab].vimrc__tab_page_name = nil
+function M.clear_tab_page_name(tab_page)
+    local tab_page = util.default(tab_page, 0)
+    vim.t[tab_page].vimrc__tab_page_name = nil
 end
 
 util.user_command(
