@@ -1,47 +1,38 @@
-##### CONFIGURE/LIST MODULES #####
-# PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadlineOption -BellStyle None
 Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
 
-# posh-git
-# No config yet
-
-##################################
-
-# Customize prompt
 function prompt {
     $origLastExitCode = $LASTEXITCODE
 
-    # Display the username and computername
+    # Display the username and computer name.
     Write-Host "$env:UserName@$env:ComputerName" -ForegroundColor DarkGreen -NoNewline
-    Write-Host ":" -ForegroundColor White -NoNewline
+    Write-Host ':' -ForegroundColor White -NoNewline
 
-    # Display the path
+    # Display the path.
     $currPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
     if ($currPath.ToLower().StartsWith($Home.ToLower()))
     {
-        $currPath = "~" + $currPath.SubString($Home.Length)
+        $currPath = '~' + $currPath.SubString($Home.Length)
     }
     Write-Host $currPath -ForegroundColor Cyan -NoNewline
 
-    # Display the Git status text
-    # The conditional prevents the posh-git module from being loaded every time
-    # PowerShell is started. This way, it's only loaded the first time a git
-    # repo is entered.
+    # Display the Git status text. The conditional prevents the posh-git module
+    # from being loaded every time PowerShell is started. This way, it's only
+    # loaded the first time a git repo is entered.
     if (Get-GitDirectory) {
         Write-Host "$(Write-VcsStatus)" -NoNewline
     }
 
-    if ($PSVersionTable.PSEdition -eq "Desktop") {
-        Write-Host "[Desktop]" -NoNewline -ForegroundColor Red
+    if ($PSVersionTable.PSEdition -eq 'Desktop') {
+        Write-Host '[Desktop]' -NoNewline -ForegroundColor Red
     }
 
     # Display the prompt character
     If ($nestedPromptLevel -eq 0) {
-        $promptChar = "$"
+        $promptChar = '$'
     } Else {
-        $promptChar = ">"
+        $promptChar = '>'
     }
     $promptCharText = "$($promptChar * ($nestedPromptLevel + 1)) "
 
@@ -49,28 +40,26 @@ function prompt {
     $promptCharText
 }
 
-# Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
     Import-Module $ChocolateyProfile
 }
 
-# Enable access to the HKEY_USERS registry hive
+# Enable access to the HKEY_USERS registry hive.
 New-PSDrive -PSProvider Registry -Name HKU -Root HKEY_USERS > $null
 
-if (Test-Path "~\.local_profile.ps1") {
-    . "~\.local_profile.ps1"
+# Load a local profile if available.
+if (Test-Path '~\.local_profile.ps1') {
+    . '~\.local_profile.ps1'
 }
-
-##### FUNCTIONS #####
 
 # An efficient alternative to "git rev-parse" to determine if you're in a git
 # repo, and if so, what its path is.
 function Get-GitDirectory {
     [OutputType([String])]
-    $currDir = Get-Item -Path "."
+    $currDir = Get-Item -Path '.'
     while ($currDir) {
-        $gitDirPath = Join-Path $currDir.FullName ".git"
+        $gitDirPath = Join-Path $currDir.FullName '.git'
         if (Test-Path -LiteralPath $gitDirPath -PathType Container) {
             return $gitDirPath
         }
