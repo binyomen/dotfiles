@@ -191,21 +191,6 @@ function M.do_statusline()
     return result
 end
 
-local function render_single_tab(tabline, colors, buf, is_active, name)
-    -- Choose the tab's highlighting.
-    if is_active then
-        table.insert(tabline, colors.primary)
-    else
-        table.insert(tabline, colors.secondary)
-    end
-
-    local is_modified = vim.bo[buf].modified
-    local modified_string = is_modified and ' ●' or ''
-
-    -- Label the tab.
-    table.insert(tabline, string.format(' %s%s ', name, modified_string))
-end
-
 local function render_buffers(colors)
     local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
         return
@@ -221,14 +206,20 @@ local function render_buffers(colors)
         if name == '' then
             name = '[No Name]'
         end
+        local name_with_buf_number = string.format('%d %s', buf, name)
 
-        -- Label the tab with the buffer number and name.
-        render_single_tab(
-            tabline,
-            colors,
-            buf,
-            buf == active_buf,
-            string.format('%d %s', buf, name))
+        -- Choose the tab's highlighting.
+        if buf == active_buf then
+            table.insert(tabline, colors.primary)
+        else
+            table.insert(tabline, colors.secondary)
+        end
+
+        local is_modified = vim.bo[buf].modified
+        local modified_string = is_modified and ' ●' or ''
+
+        -- Label the tab.
+        table.insert(tabline, string.format(' %s%s ', name_with_buf_number, modified_string))
     end
 
     -- Fill out the empty space in the tabline.
@@ -242,20 +233,28 @@ local function render_tabs(colors)
 
     local tabline = {}
     for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-        local win = vim.api.nvim_tabpage_get_win(tab)
-        local buf = vim.api.nvim_win_get_buf(win)
-        local name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
-        if name == '' then
-            name = '[No Name]'
+        local name
+        if vim.t[tab].vimrc__tab_page_name then
+            name = vim.t[tab].vimrc__tab_page_name
+        else
+            local win = vim.api.nvim_tabpage_get_win(tab)
+            local buf = vim.api.nvim_win_get_buf(win)
+            name = absolute_path_to_file_name(vim.api.nvim_buf_get_name(buf))
+            if name == '' then
+                name = '[No Name]'
+            end
+        end
+        local name_with_tab_number = string.format('[%d] %s', tab, name)
+
+        -- Choose the tab's highlighting.
+        if tab == active_tab then
+            table.insert(tabline, colors.primary)
+        else
+            table.insert(tabline, colors.secondary)
         end
 
-        -- Label the tab with the buffer name.
-        render_single_tab(
-            tabline,
-            colors,
-            buf,
-            tab == active_tab,
-            string.format('[%d] %s', tab, name))
+        -- Label the tab.
+        table.insert(tabline, string.format(' %s ', name_with_tab_number))
     end
 
     -- Fill out the empty space in the tabline.
@@ -338,6 +337,32 @@ vim.o.tabline = [[%!v:lua.require('vimrc.statusline').tabline()]]
 function M.set_statusline()
     vim.o.statusline = [[%!v:lua.require('vimrc.statusline').do_statusline()]]
 end
+
+function M.set_tab_page_name(name, tab)
+    local tab = util.default(tab, 0)
+    vim.t[tab].vimrc__tab_page_name = name
+end
+
+function M.clear_tab_page_name(tab)
+    local tab = util.default(tab, 0)
+    vim.t[tab].vimrc__tab_page_name = nil
+end
+
+util.user_command(
+    'SetTabPageName',
+    function(args)
+        M.set_tab_page_name(args.args, args.count)
+    end,
+    {nargs = 1, range = 0}
+)
+
+util.user_command(
+    'ClearTabPageName',
+    function(args)
+        M.clear_tab_page_name(args.count)
+    end,
+    {nargs = 0, range = 0}
+)
 
 if util.vim_true(vim.g.started_by_firenvim) then
     vim.o.laststatus = 0
