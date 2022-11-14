@@ -1,4 +1,5 @@
 local util = require 'vimrc.util'
+local statusline = require 'vimrc.statusline'
 
 -- Diff two files.
 util.user_command(
@@ -10,6 +11,7 @@ util.user_command(
         local file2 = args.fargs[2]
 
         vim.cmd.tabedit(file1)
+        statusline.set_tab_page_name('Diff')
         vim.cmd.diffsplit(file2)
     end,
     {nargs = '+', complete = 'file'}
@@ -59,6 +61,8 @@ local function perform_diff(motion)
     clear_diff_state()
 
     vim.cmd.tabedit()
+    statusline.set_tab_page_name('Diff')
+
     -- Clear the initial no-name buffer on close.
     vim.bo.bufhidden = 'wipe'
 
