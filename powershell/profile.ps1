@@ -2,6 +2,7 @@
 # PSReadLine
 Set-PSReadlineOption -EditMode Emacs
 Set-PSReadlineOption -BellStyle None
+Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
 
 # posh-git
 # No config yet
