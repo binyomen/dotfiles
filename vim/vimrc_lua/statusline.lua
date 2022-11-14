@@ -257,9 +257,6 @@ local function render_tabs(colors)
         table.insert(tabline, string.format(' %s ', name_with_tab_number))
     end
 
-    -- Fill out the empty space in the tabline.
-    table.insert(tabline, colors.secondary)
-
     return table.concat(tabline)
 end
 
