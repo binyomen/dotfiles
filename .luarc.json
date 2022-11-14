@@ -3,11 +3,15 @@
     "diagnostics": {
         "globals": [
             "_G",
+            "error",
             "ipairs",
             "package",
             "pairs",
+            "pcall",
             "string",
             "table",
+            "tonumber",
+            "type",
             "vim"
         ],
         "disable": [
