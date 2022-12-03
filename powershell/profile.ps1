@@ -1,36 +1,84 @@
+using namespace System.Management
+
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
 
-# Don't precede completed files/directories with ".\" to be more unix-like.
-Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
-    param(
-        [Nullable[System.ConsoleKeyInfo]] $key,
-        [Object] $arg
+# See https://stackoverflow.com/questions/12291199/example-showing-how-to-override-tabexpansion2-in-windows-powershell-3-0
+function TabExpansion2 {
+    [CmdletBinding(DefaultParameterSetName = 'ScriptInputSet')]
+    [OutputType([Automation.CommandCompletion])]
+    Param(
+        [Parameter(ParameterSetName = 'ScriptInputSet', Mandatory, Position = 0)]
+        [String] $InputScript,
+
+        [Parameter(ParameterSetName = 'ScriptInputSet', Position = 1)]
+        [Int] $CursorColumn = $InputScript.Length,
+
+        [Parameter(ParameterSetName = 'AstInputSet', Mandatory, Position = 0)]
+        [Automation.Language.Ast] $Ast,
+
+        [Parameter(ParameterSetName = 'AstInputSet', Mandatory, Position = 1)]
+        [Automation.Language.Token[]] $Tokens,
+
+        [Parameter(ParameterSetName = 'AstInputSet', Mandatory, Position = 2)]
+        [Automation.Language.IScriptPosition] $PositionOfCursor,
+
+        [Parameter(ParameterSetName = 'ScriptInputSet', Position = 2)]
+        [Parameter(ParameterSetName = 'AstInputSet', Position = 3)]
+        [Hashtable] $Options = $null
     )
 
-    # First perform normal completion.
-    [Microsoft.PowerShell.PSConsoleReadLine]::Complete($key, $arg)
-
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
-    while (($index = $line.IndexOf(' .\')) -ne -1) {
-        # Then replace any instances of ".\" after a space.
-        [Microsoft.PowerShell.PSConsoleReadLine]::Replace($index, 3, ' ')
-
-        # Correct the cursor position.
-        $newCursor = $null
-        if ($cursor -gt $index + 2) {
-            $newCursor = $cursor - 2
-        } elseif ($cursor -gt $index + 1) {
-            $newCursor = $cursor - 1
-        } else {
-            $newCursor = $cursor
+    End
+    {
+        $completion = $null
+        if ($PSCmdlet.ParameterSetName -eq 'ScriptInputSet')
+        {
+            $completion = [Automation.CommandCompletion]::CompleteInput(
+                $InputScript,
+                $CursorColumn,
+                $Options
+            )
         }
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($newCursor)
+        else
+        {
+            $completion = [Automation.CommandCompletion]::CompleteInput(
+                $Ast,
+                $Tokens,
+                $PositionOfCursor,
+                $Options
+            )
+        }
 
-        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
+        $newCompletion = [Automation.CommandCompletion]::new(
+            @(),
+            $completion.CurrentMatchIndex,
+            $completion.ReplacementIndex,
+            $completion.ReplacementLength
+        )
+
+        foreach ($result in $completion.CompletionMatches) {
+            $newResult = $result
+
+            # Don't precede completed files/directories with ".\". This is more
+            # unix-like.
+            if (
+                ($result.ResultType -eq [Automation.CompletionResultType]::ProviderItem -or
+                    $result.ResultType -eq [Automation.CompletionResultType]::ProviderContainer) -and
+                $result.CompletionText.StartsWith('.\')
+            ) {
+                $newResult = [Automation.CompletionResult]::new(
+                    $result.CompletionText.SubString(2),
+                    $result.ListItemText,
+                    $result.ResultType,
+                    $result.ToolTip
+                )
+            }
+
+            $newCompletion.CompletionMatches.Add($newResult)
+        }
+
+        return $newCompletion
     }
 }
 
