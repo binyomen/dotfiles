@@ -50,6 +50,12 @@ function TabExpansion2 {
             )
         }
 
+        # Don't modify completion for the command itself, since we want ".\" to
+        # precede that.
+        if ($completion.ReplacementIndex -eq 0) {
+            return $completion
+        }
+
         $newCompletion = [Automation.CommandCompletion]::new(
             @(),
             $completion.CurrentMatchIndex,
