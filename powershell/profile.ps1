@@ -3,6 +3,18 @@ using namespace System.Management
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
+Set-PSReadLineOption -AddToHistoryHandler {
+    param(
+        [String] $Command
+    )
+
+    # Don't add to history if command starts with spaces.
+    if ($Command -match '^\s+.+$') {
+        return $false
+    } else {
+        return $true
+    }
+}
 
 # See https://stackoverflow.com/questions/12291199/example-showing-how-to-override-tabexpansion2-in-windows-powershell-3-0
 function TabExpansion2 {
