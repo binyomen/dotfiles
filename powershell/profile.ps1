@@ -1,6 +1,38 @@
-Set-PSReadlineOption -EditMode Emacs
-Set-PSReadlineOption -BellStyle None
+Set-PSReadLineOption -EditMode Emacs
+Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
+
+# Don't precede completed files/directories with ".\" to be more unix-like.
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock {
+    param(
+        [Nullable[System.ConsoleKeyInfo]] $key,
+        [Object] $arg
+    )
+
+    # First perform normal completion.
+    [Microsoft.PowerShell.PSConsoleReadLine]::Complete($key, $arg)
+
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
+    while (($index = $line.IndexOf(' .\')) -ne -1) {
+        # Then replace any instances of ".\" after a space.
+        [Microsoft.PowerShell.PSConsoleReadLine]::Replace($index, 3, ' ')
+
+        # Correct the cursor position.
+        $newCursor = $null
+        if ($cursor -gt $index + 2) {
+            $newCursor = $cursor - 2
+        } elseif ($cursor -gt $index + 1) {
+            $newCursor = $cursor - 1
+        } else {
+            $newCursor = $cursor
+        }
+        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($newCursor)
+
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $cursor)
+    }
+}
 
 function prompt {
     $origLastExitCode = $LASTEXITCODE
