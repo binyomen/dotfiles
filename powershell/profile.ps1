@@ -63,8 +63,11 @@ function TabExpansion2 {
         }
 
         # Don't modify completion for the command itself, since we want ".\" to
-        # precede that.
-        if ($completion.ReplacementIndex -eq 0) {
+        # precede that. Also handle if the command line begins with whitespace.
+        $line = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref] $line, [ref] $null <#cursor#>)
+        $line -match '^\s*' > $null
+        if ($completion.ReplacementIndex -eq $matches[0].Length) {
             return $completion
         }
 
