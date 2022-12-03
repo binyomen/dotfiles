@@ -43,9 +43,9 @@ function prompt {
 
     # Display the path.
     $currPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
-    if ($currPath.ToLower().StartsWith($Home.ToLower()))
+    if ($currPath.ToLower().StartsWith($HOME.ToLower()))
     {
-        $currPath = '~' + $currPath.SubString($Home.Length)
+        $currPath = '~' + $currPath.SubString($HOME.Length)
     }
     Write-Host $currPath -ForegroundColor Cyan -NoNewline
 
