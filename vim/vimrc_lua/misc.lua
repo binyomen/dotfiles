@@ -225,12 +225,14 @@ util.user_command(
         local to_extension = args.args
         local output_file = string.format('%s.%s', vim.fn.tempname(), to_extension)
 
-        local output = vim.fn.system({
+        local output = vim.fn.system {
             'pandoc',
             file_name,
+            '--css=https://cdn.simplecss.org/simple.min.css',
+            '--standalone',
             '-o',
             output_file,
-        })
+        }
         if vim.v.shell_error ~= 0 then
             util.log_error(string.format('Pandoc command failed: %s', output))
             return
