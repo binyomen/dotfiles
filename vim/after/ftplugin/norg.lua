@@ -1,8 +1,6 @@
 local util = require 'vimrc.util'
 
-vim.b.table_mode_corner = '|'
-vim.b.table_mode_corner_corner = '|'
-vim.b.table_mode_header_fillchar = '-'
+util.set_table_style(util.MARKDOWN_STYLE)
 
 vim.b.vimrc__show_word_count = true
 

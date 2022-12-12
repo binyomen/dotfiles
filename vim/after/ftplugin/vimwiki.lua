@@ -16,9 +16,7 @@ util.map('n', ']=', '<plug>VimwikiGoToNextSiblingHeader', {buffer = true})
 util.map('n', '[u', '<plug>VimwikiGoToParentHeader', {buffer = true})
 util.map('n', ']u', '<plug>VimwikiGoToParentHeader', {buffer = true})
 
-vim.b.table_mode_corner = '|'
-vim.b.table_mode_corner_corner = '|'
-vim.b.table_mode_header_fillchar = '-'
+util.set_table_style(util.MARKDOWN_STYLE)
 
 vim.b.vimrc__show_word_count = true
 

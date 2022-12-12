@@ -488,4 +488,43 @@ function M.is_floating_window(window)
     return vim.api.nvim_win_get_config(window).relative ~= ''
 end
 
+M.MARKDOWN_STYLE = 'markdown'
+M.RESTRUCTURED_TEXT_STYLE = 'reStructuredText'
+local POSSIBLE_STYLES = {M.MARKDOWN_STYLE, M.RESTRUCTURED_TEXT_STYLE}
+
+function M.set_table_style(style)
+    if style == M.MARKDOWN_STYLE then
+        vim.b.table_mode_corner = '|'
+        vim.b.table_mode_corner_corner = '|'
+        vim.b.table_mode_header_fillchar = '-'
+    elseif style == M.RESTRUCTURED_TEXT_STYLE then
+        vim.b.table_mode_corner = '+'
+        vim.b.table_mode_corner_corner = '+'
+        vim.b.table_mode_header_fillchar = '='
+    else
+        error('Invalid style.')
+    end
+end
+
+local function complete_set_table_style(arg_lead --[[cmd_line, cursor_pos]])
+    local arg_lead_lower = arg_lead:lower()
+
+    return M.filter_map(POSSIBLE_STYLES, function(style)
+        local result = style:lower():find(arg_lead_lower, 1 --[[init]], true --[[plain]])
+        if result == 1 then
+            return style
+        else
+            return nil
+        end
+    end)
+end
+
+M.user_command(
+    'SetTableStyle',
+    function(args)
+        M.set_table_style(args.args)
+    end,
+    {nargs = 1, complete = complete_set_table_style}
+)
+
 return M

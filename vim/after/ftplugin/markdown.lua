@@ -8,9 +8,7 @@ vim.b.vimrc__show_word_count = true
 
 util.map('n', '<leader>p', util.paste_image, {buffer = true, silent = false})
 
-vim.b.table_mode_corner = '|'
-vim.b.table_mode_corner_corner = '|'
-vim.b.table_mode_header_fillchar = '-'
+util.set_table_style(util.MARKDOWN_STYLE)
 
 util.map('n', '<cr>', vim.lsp.buf.definition, {buffer = true})
 
