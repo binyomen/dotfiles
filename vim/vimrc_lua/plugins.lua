@@ -114,8 +114,9 @@ return require('packer').startup {
             'preservim/vim-textobj-quote',
             config = function()
                 local util = require 'vimrc.util'
-                util.map({'n', 'x'}, '<leader>qc', '<Plug>ReplaceWithCurly')
-                util.map({'n', 'x'}, '<leader>qs', '<Plug>ReplaceWithStraight')
+                util.map({'n', 'x'}, '<leader>qc', '<plug>ReplaceWithCurly')
+                util.map({'n', 'x'}, '<leader>qs', '<plug>ReplaceWithStraight')
+                util.map({'n', 'x'}, '<leader>qt', '<cmd>ToggleEducate<cr>')
             end,
         }
 
