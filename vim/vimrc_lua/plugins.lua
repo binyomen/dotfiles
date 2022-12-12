@@ -91,25 +91,33 @@ return require('packer').startup {
         use 'kana/vim-textobj-line' -- al/il: The current line.
         use 'glts/vim-textobj-comment' -- ac/ic/aC: A comment block.
         use 'Julian/vim-textobj-variable-segment' -- av/iv: Part of a camelCase or snake_case variable.
-        use { -- aq/iq/aQ/iQ: Columns of characters.
+        use { -- ak/ik/aK/iK: Columns of characters.
             'idbrii/textobj-word-column.vim',
             config = function()
                 vim.g.textobj_wordcolumn_no_default_key_mappings = 1
 
                 vim.fn['textobj#user#map']('wordcolumn', {
                     word = {
-                        ['select-i'] = 'iq',
-                        ['select-a'] = 'aq',
+                        ['select-i'] = 'ik',
+                        ['select-a'] = 'ak',
                     },
                     WORD = {
-                        ['select-i'] = 'iQ',
-                        ['select-a'] = 'aQ',
+                        ['select-i'] = 'iK',
+                        ['select-a'] = 'aK',
                     },
                 })
             end,
         }
         use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
         use 'thinca/vim-textobj-between' -- af/if: Between a given character.
+        use { -- aq/iq/aQ/iQ: Smart quotes.
+            'preservim/vim-textobj-quote',
+            config = function()
+                local util = require 'vimrc.util'
+                util.map({'n', 'x'}, '<leader>qc', '<Plug>ReplaceWithCurly')
+                util.map({'n', 'x'}, '<leader>qs', '<Plug>ReplaceWithStraight')
+            end,
+        }
 
         -- Color schemes.
         use {
