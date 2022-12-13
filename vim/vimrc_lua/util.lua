@@ -388,33 +388,33 @@ end
 local conceal_autocmd = nil
 function M.enable_conceal()
     local function set_conceal()
-        if vim.wo.diff then
-            vim.wo.conceallevel = 0
+        if vim.b.vimrc__conceal_enabled then
+            if vim.wo.diff then
+                vim.wo.conceallevel = 0
+            else
+                vim.wo.conceallevel = 2
+            end
+        end
+    end
+
+    local function update_conceal_enabled()
+        if vim.wo.conceallevel == 0 then
+            vim.b.vimrc__conceal_enabled = false
         else
-            vim.wo.conceallevel = 2
+            vim.b.vimrc__conceal_enabled = true
         end
     end
 
-    local function callback()
-        if not vim.b.vimrc__conceal_enabled then
-            return
-        end
-
-        set_conceal()
-    end
-
+    vim.b.vimrc__conceal_enabled = true
     set_conceal()
 
     if not conceal_autocmd then
         -- Disable conceal for diff windows.
         conceal_autocmd = M.augroup('vimrc__no_conceal_in_diff', {
-            {'OptionSet', {pattern = 'diff', callback = callback}},
-            {'WinEnter', {callback = callback}},
-            {'BufWinEnter', {callback = callback}},
+            {'OptionSet', {pattern = 'diff', callback = set_conceal}},
+            {'OptionSet', {pattern = 'conceallevel', callback = update_conceal_enabled}},
         })
     end
-
-    vim.b.vimrc__conceal_enabled = true
 end
 
 function M.browse_to(uri)
