@@ -216,3 +216,23 @@ vim.schedule(function()
         vim.bo[initial_buf].bufhidden = 'wipe'
     end
 end)
+
+-- Disable conceal in diff mode.
+util.augroup('vimrc__no_conceal_in_diff', {
+    {'OptionSet', {pattern = 'diff', callback =
+        function()
+            if vim.wo.diff then
+                if vim.wo.conceallevel == 2 then
+                    vim.w.vimrc__reenable_conceal_when_diff_disabled = true
+                else
+                    vim.w.vimrc__reenable_conceal_when_diff_disabled = false
+                end
+
+                vim.wo.conceallevel = 0
+            elseif vim.w.vimrc__reenable_conceal_when_diff_disabled then
+                vim.wo.conceallevel = 2
+                vim.w.vimrc__reenable_conceal_when_diff_disabled = nil
+            end
+        end,
+    }},
+})

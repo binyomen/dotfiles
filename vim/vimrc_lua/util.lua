@@ -385,35 +385,11 @@ function M.filter_map(list, f)
     return new_list
 end
 
-local conceal_autocmd = nil
-function M.enable_conceal()
-    local function set_conceal()
-        if vim.b.vimrc__conceal_enabled then
-            if vim.wo.diff then
-                vim.wo.conceallevel = 0
-            else
-                vim.wo.conceallevel = 2
-            end
-        end
-    end
-
-    local function update_conceal_enabled()
-        if vim.wo.conceallevel == 0 then
-            vim.b.vimrc__conceal_enabled = false
-        else
-            vim.b.vimrc__conceal_enabled = true
-        end
-    end
-
-    vim.b.vimrc__conceal_enabled = true
-    set_conceal()
-
-    if not conceal_autocmd then
-        -- Disable conceal for diff windows.
-        conceal_autocmd = M.augroup('vimrc__no_conceal_in_diff', {
-            {'OptionSet', {pattern = 'diff', callback = set_conceal}},
-            {'OptionSet', {pattern = 'conceallevel', callback = update_conceal_enabled}},
-        })
+function M.enable_conceal_if_not_in_diff()
+    if not vim.wo.diff then
+        vim.wo.conceallevel = 2
+    else
+        vim.w.vimrc__reenable_conceal_when_diff_disabled = true
     end
 end
 

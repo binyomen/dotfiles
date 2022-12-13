@@ -2,7 +2,7 @@ local util = require 'vimrc.util'
 
 vim.bo.textwidth = 80
 util.set_tab_size(2)
-util.enable_conceal()
+util.enable_conceal_if_not_in_diff()
 
 vim.b.vimrc__show_word_count = true
 
