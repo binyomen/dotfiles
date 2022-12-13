@@ -3,6 +3,7 @@
     "diagnostics": {
         "globals": [
             "_G",
+            "debug",
             "error",
             "ipairs",
             "package",

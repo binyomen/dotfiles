@@ -1,5 +1,8 @@
 local util = require 'vimrc.util'
 
+local SCRIPT_DIR = util.normalize_path(vim.fs.dirname(debug.getinfo(1).source:sub(2)))
+local FILTER_DIR = string.format('%s/../../pandoc', SCRIPT_DIR)
+
 -- Convert files with Pandoc.
 util.user_command(
     'PandocConvert',
@@ -19,8 +22,11 @@ util.user_command(
         local output = vim.fn.system {
             'pandoc',
             file_name,
-            '--css=https://cdn.simplecss.org/simple.min.css',
+            '--css',
+            'https://cdn.simplecss.org/simple.min.css',
             '--standalone',
+            '--lua-filter',
+            string.format('%s/no_column_widths.lua', FILTER_DIR),
             '-o',
             output_file,
         }
