@@ -11,6 +11,7 @@ function M.slugify(text)
         {l = '/', r = '-'},
         {l = "'", r = ''},
         {l = '%.', r = ''},
+        {l = '’', r = ''},
     }
     for _, replacement in ipairs(replacements) do
         text = text:gsub(replacement.l, replacement.r)
