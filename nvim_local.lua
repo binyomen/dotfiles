@@ -17,6 +17,7 @@ return {
                 gitignore = 'gitignore',
                 bashrc = 'sh',
                 vimrc = 'vim',
+                ['config.global'] = 'i3config',
             },
         }
     end,
