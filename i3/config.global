@@ -103,6 +103,7 @@ bindsym $mod+r mode "resize"
 
 bar {
     status_command i3status
+    font pango:Ubuntu 10
 }
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/dotfiles/i3/i3-volume/volume -n -t i3status -u SIGUSR1 up 5
