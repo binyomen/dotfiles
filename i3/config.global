@@ -189,6 +189,9 @@ bindsym XF86AudioMute        exec --no-startup-id $volumepath/volume -n -t $stat
 bindsym Print exec gnome-screenshot -i
 bindsym $mod+Print exec gnome-screenshot -a
 
+# Set the wallpaper to the default Gnome background.
+exec --no-startup-id "feh --bg-scale \"$(gsettings get org.gnome.desktop.background picture-uri | awk '{print substr($0, 9, length($0) - 9) }')\""
+
 ##########################################################
 # BELOW ARE LOCAL CONFIGURATIONS FOR THE CURRENT MACHINE #
 ##########################################################
