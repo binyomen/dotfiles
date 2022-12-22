@@ -5,7 +5,7 @@ set $down n
 set $left h
 set $right s
 
-font pango:monospace 8
+font pango:Ubuntu 10
 
 # Use Mouse+$mod to drag floating windows.
 floating_modifier $mod
