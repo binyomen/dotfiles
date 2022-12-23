@@ -116,4 +116,7 @@ bindsym $mod+Print exec gnome-screenshot -a
 # Set the wallpaper to the default Gnome background.
 exec_always --no-startup-id "feh --no-fehbg --bg-fill \"$(gsettings get org.gnome.desktop.background picture-uri | awk '{print substr($0, 9, length($0) - 9) }')\""
 
+bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+
 include ~/.config/i3/conf.d/*.conf
