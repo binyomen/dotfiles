@@ -8,6 +8,10 @@ util.map('n', ']d', vim.diagnostic.goto_next)
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
 local function on_attach(_, buf)
+    -- Remove the default omnifunc (v:lua.vim.lsp.omnifunc), since it causes
+    -- issues if it's used with the extra capabilities provided by nvim-cmp.
+    vim.bo[buf].omnifunc = nil
+
     util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = buf})
     util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = buf})
     util.map('n', 'K', vim.lsp.buf.hover, {buffer = buf})
