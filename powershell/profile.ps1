@@ -1,5 +1,11 @@
 using namespace System.Management
 
+# Set input and output encodings to UTF-8, since the default is IBM codepage
+# 437 otherwise. This is important for properly redirecting command output to
+# files. See https://github.com/PowerShell/PowerShell/issues/18156 and
+# https://gist.github.com/jborean93/44b4688cc518d67bd7bc2192648384a3.
+$OutputEncoding = [Console]::InputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -Colors @{InlinePrediction = "`e[38;5;247m"}
