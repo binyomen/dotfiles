@@ -11,6 +11,10 @@ if test -d /home/linuxbrew/.linuxbrew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
+if test -d ~/.cargo/bin
+    set -xa PATH ~/.cargo/bin
+end
+
 set -x EDITOR nvim
 
 # I need to add spaces after the default prompt symbols so they don't look
