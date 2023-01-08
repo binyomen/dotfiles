@@ -127,4 +127,6 @@ bindsym $mod+Control+c exec i3-msg "rename workspace to \\\\"$(i3-msg -t get_wor
 
 for_window [all] title_window_icon on
 
+workspace_auto_back_and_forth yes
+
 include ~/.config/i3/conf.d/*.conf
