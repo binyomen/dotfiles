@@ -125,4 +125,6 @@ bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 bindsym $mod+Control+r exec i3-input -F "rename workspace to \\\\"$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num') %s\\\\"" -P 'New name: '
 bindsym $mod+Control+c exec i3-msg "rename workspace to \\\\"$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')\\\\""
 
+for_window [all] title_window_icon on
+
 include ~/.config/i3/conf.d/*.conf
