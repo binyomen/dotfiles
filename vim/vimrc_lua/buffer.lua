@@ -37,3 +37,7 @@ util.map('n', '<leader>bd', function()
 end)
 
 util.map('n', 'x', ':buffer ', {silent = false})
+
+util.map('n', '<c-m>', function()
+    vim.b.vimrc__buffer_marked = not vim.b.vimrc__buffer_marked
+end)

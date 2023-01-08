@@ -209,14 +209,6 @@ remap_c('cc', 'n')
 util.map('x', 'p', 'P')
 util.map('x', 'P', 'p')
 
--- Make the initial no name buffer disappear when navigated away from.
-vim.schedule(function()
-    local initial_buf = 1
-    if vim.api.nvim_buf_get_name(initial_buf) == '' then
-        vim.bo[initial_buf].bufhidden = 'wipe'
-    end
-end)
-
 -- Disable conceal in diff mode.
 util.augroup('vimrc__no_conceal_in_diff', {
     {'OptionSet', {pattern = 'diff', callback =

@@ -200,7 +200,8 @@ local function render_buffers(colors)
     local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
         return
             vim.api.nvim_buf_is_loaded(buf) and
-            vim.fn.buflisted(buf) ~= 0
+            vim.fn.buflisted(buf) ~= 0 and
+            vim.b[buf].vimrc__buffer_marked
     end)
 
     local active_buf = vim.api.nvim_get_current_buf()
