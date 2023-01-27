@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+declare percent=$(brightnessctl -m "$@" | awk -F, '{print $4;}' | sed 's/.$//')
+notify-send "Brightness is $percent%"
