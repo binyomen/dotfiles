@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
-#
-progress_bar() {
-    local -r percent=${1:?$(error 'Percentage is required')}
-    local -r max_percent=${2:-100}
-    local -r divisor=${3:-5}
-    local -r progress=$(( (percent > max_percent ? max_percent : percent) / divisor ))
-
-    printf -v bar "%*s" $progress ""
-    echo "${bar// /█}"
-}
 
 declare percent=$(brightnessctl -m "$@" | awk -F, '{print $4;}' | sed 's/.$//')
-declare progress=$(progress_bar "$percent")
-declare newline=$'\n'
-notify-send -h string:synchronous:brightness "Brightness is $percent%$newline$progress"
+notify-send -h string:synchronous:brightness -h int:value:$percent "Brightness  $percent%"
