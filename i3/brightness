@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-declare percent=$(brightnessctl -m "$@" | awk -F, '{print $4;}' | sed 's/.$//')
-notify-send -i sunny -h string:synchronous:brightness -h int:value:$percent "Brightness  $percent%"
+declare percent=$(brightnessctl --machine-readable "$@" | awk -F, '{print $4;}' | sed 's/.$//')
+notify-send --icon sunny --hint string:synchronous:brightness --hint int:value:$percent "Brightness  $percent%"
