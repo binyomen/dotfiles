@@ -88,3 +88,4 @@ vim.opt.fileformats = {'unix', 'dos'} -- Set Unix line endings as the default.
 vim.o.timeout = false -- Don't time out waiting for mappings.
 vim.opt.spelloptions = {'camel'}
 vim.o.spell = true
+vim.o.selection = 'old'
