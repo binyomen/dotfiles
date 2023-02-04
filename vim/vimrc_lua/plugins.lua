@@ -379,7 +379,7 @@ return require('packer').startup {
             'tpope/vim-characterize',
             after = 'vim-easy-align', -- Since vim-easy-align also maps ga
             config = function()
-                require('vimrc.util').map('n', 'g8', '<plug>(characterize)')
+                require('vimrc.util').map('n', 'g9', '<plug>(characterize)')
             end,
         }
         use {
