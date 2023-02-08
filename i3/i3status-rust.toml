@@ -1,0 +1,73 @@
+theme = 'semi-native'
+icons = 'awesome'
+
+[[block]]
+block = 'networkmanager'
+primary_only = true
+ap_format = '{ssid} ({strength})'
+device_format = '{icon} {ips} at {ap}'
+
+[[block]]
+block = 'disk_space'
+alert = 95
+warning = 90
+format = '{icon} {used} / {total} ({percentage})'
+info_type = 'used'
+
+[[block]]
+block = 'memory'
+format_mem = '{mem_used;M} / {mem_total;M} ({mem_used_percents})'
+format_swap = '{swap_used;M} / {swap_total;M} ({swap_used_percents})'
+warning_mem = 80
+warning_swap = 80
+critical_mem = 95
+critical_swap = 95
+
+[[block]]
+block = 'load'
+info = 0.3
+warning = 0.6
+critical = 0.9
+format = '{1m}'
+
+[[block]]
+block = 'cpu'
+info = 50
+warning = 90
+critical = 95
+format = '{utilization}'
+
+[[block]]
+block = 'temperature'
+good = 20
+idle = 45
+info = 60
+warning = 80
+chip = '*-isa-*'
+format = '{average}C'
+
+[[block]]
+block = 'sound'
+format = '{volume} ({output_description})'
+show_volume_when_muted = true
+
+[[block]]
+block = 'battery'
+format = '{percentage} ({time} left)'
+full_format = ''
+good = 60
+info = 60
+warning = 30
+critical = 15
+
+[[block]]
+block = 'custom'
+command = 'echo "{\"icon\": \"time\", \"text\": \"$(date +"%I:%M:%S %p")\"}"'
+interval = 5
+json = true
+
+[[block]]
+block = 'custom'
+command = 'echo "{\"icon\": \"calendar\", \"text\": \"$(date +"%a %b %e, %Y")\"}"'
+interval = 5
+json = true
