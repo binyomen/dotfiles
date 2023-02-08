@@ -39,6 +39,7 @@ format = '{utilization:1}'
 
 [[block]]
 block = 'temperature'
+collapsed = false
 good = 20
 idle = 45
 info = 60
