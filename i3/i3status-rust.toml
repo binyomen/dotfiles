@@ -4,20 +4,20 @@ icons = 'awesome'
 [[block]]
 block = 'networkmanager'
 primary_only = true
-ap_format = '{ssid} ({strength})'
+ap_format = '{ssid} ({strength:1})'
 device_format = '{icon} {ips} at {ap}'
 
 [[block]]
 block = 'disk_space'
 alert = 95
 warning = 90
-format = '{icon} {used} / {total} ({percentage})'
+format = '{icon} {used:1} / {total:1} ({percentage:1})'
 info_type = 'used'
 
 [[block]]
 block = 'memory'
-format_mem = '{mem_used;M} / {mem_total;M} ({mem_used_percents})'
-format_swap = '{swap_used;M} / {swap_total;M} ({swap_used_percents})'
+format_mem = '{mem_used:1;M} / {mem_total:1;M} ({mem_used_percents:1})'
+format_swap = '{swap_used:1;M} / {swap_total:1;M} ({swap_used_percents:1})'
 warning_mem = 80
 warning_swap = 80
 critical_mem = 95
@@ -35,7 +35,7 @@ block = 'cpu'
 info = 50
 warning = 90
 critical = 95
-format = '{utilization}'
+format = '{utilization:1}'
 
 [[block]]
 block = 'temperature'
@@ -44,18 +44,18 @@ idle = 45
 info = 60
 warning = 80
 chip = '*-isa-*'
-format = '{average}C'
+format = '{average:1}C'
 
 [[block]]
 block = 'sound'
 show_volume_when_muted = true
 [block.format]
-full = '{volume} ({output_description})'
-short = '{volume}'
+full = '{volume:1} ({output_description})'
+short = '{volume:1}'
 
 [[block]]
 block = 'battery'
-format = '{percentage} ({time} left)'
+format = '{percentage:1} ({time} left)'
 full_format = ''
 good = 60
 info = 60
