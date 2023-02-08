@@ -22,7 +22,7 @@ end)
 -- Movement
 util.map({'n', 'x', 'o'}, 'H', '^') -- H moves to first non-blank character of line.
 util.map({'n', 'x', 'o'}, 'L', '$') -- L moves to last  character of line.
-util.map({'n', 'x', 'o'}, ':', '<plug>Lightspeed_,_ft') -- Move background for f and t even with , as the leader key.
+util.map({'n', 'x', 'o'}, ':', ',') -- Move backward for f and t even with , as the leader key.
 util.map({'n', 'x', 'o'}, '<leader>h', 'H') -- Move the cursor to the top of the screen.
 util.map({'n', 'x', 'o'}, '<leader>m', 'M') -- Move the cursor to the middle of the screen.
 util.map({'n', 'x', 'o'}, '<leader>l', 'L') -- Move the cursor to the bottom of the screen.
