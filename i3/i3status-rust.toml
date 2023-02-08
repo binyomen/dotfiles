@@ -48,8 +48,10 @@ format = '{average}C'
 
 [[block]]
 block = 'sound'
-format = '{volume} ({output_description})'
 show_volume_when_muted = true
+[block.format]
+full = '{volume} ({output_description})'
+short = '{volume}'
 
 [[block]]
 block = 'battery'
