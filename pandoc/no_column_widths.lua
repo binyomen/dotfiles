@@ -1,7 +1,7 @@
 -- Unset the width attribute of HTML colspecs in tables
 -- See https://github.com/jgm/pandoc/issues/8139
 function Table (tbl)
-  if PANDOC_VERSION[1] >= 2 and PANDOC_VERSION[2] >= 10 then
+  if PANDOC_VERSION[1] > 2 or (PANDOC_VERSION[1] == 2 and PANDOC_VERSION[2] >= 10) then
     tbl.colspecs = tbl.colspecs:map(function (colspec)
         local align = colspec[1]
         local width = nil  -- default width
