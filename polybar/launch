@@ -3,10 +3,21 @@
 main() {
     polybar-msg cmd quit
 
-    echo "---" | tee -a /tmp/polybar.log
-    polybar bar 2>&1 | tee -a /tmp/polybar.log & disown
+    echo '---' | tee -a /tmp/polybar.log
 
-    echo "Bars launched…"
+    local -r primary_monitor="$(polybar --list-monitors | grep '(primary)$' | cut -d: -f1)"
+
+    for m in $(polybar --list-monitors | cut -d: -f1); do
+        if [[ "$m" == "$primary_monitor" ]]; then
+            local tray_position='right'
+        else
+            local tray_position='none'
+        fi
+
+        MONITOR="$m" TRAY_POSITION="$tray_position" polybar bar 2>&1 | tee -a /tmp/polybar.log & disown
+    done
+
+    echo 'Bars launched…'
 }
 
 main "$@"
