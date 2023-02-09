@@ -9,12 +9,10 @@ fi
 
 main() {
     local -r load="$(cat /proc/loadavg | cut -d' ' -f1)"
-    echo "$load"
-
     if [[ "$(echo "$load >= $WARN_LOAD" | bc)" == "1" ]]; then
-        exit 1
+        echo "%{F$ALERT_COLOR}%{T2}%{T-} $load%{F-}"
     else
-        exit 0
+        echo "%{F$PRIMARY_COLOR}%{T2}%{T-}%{F-} $load"
     fi
 }
 
