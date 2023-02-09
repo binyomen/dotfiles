@@ -9,7 +9,12 @@ fi
 
 main() {
     local -ri percent=$(brightnessctl --machine-readable "$@" | awk -F, '{print $4;}' | sed 's/.$//')
-    notify-send --expire-time 1500 --icon sunny --hint string:synchronous:brightness --hint "int:value:$percent" "Brightness  $percent%"
+    notify-send \
+        --expire-time 1500 \
+        --icon sunny \
+        --hint string:synchronous:brightness \
+        --hint "int:value:$percent" \
+        "Brightness  $percent%"
 }
 
 main "$@"
