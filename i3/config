@@ -101,10 +101,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bar {
-    status_command i3status-rs
-    font pango:Ubuntu, FontAwesome 10
-}
+exec_always --no-startup-id ~/dotfiles/polybar/launch
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/dotfiles/i3/i3-volume/volume -n -t i3status -u SIGUSR1 up 5
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/dotfiles/i3/i3-volume/volume -n -t i3status -u SIGUSR1 down 5
