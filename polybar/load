@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+main() {
+    local -r load="$(cat /proc/loadavg | cut -d' ' -f1)"
+    echo "$load"
+
+    if [[ "$(echo "$load >= $WARN_LOAD" | bc)" == "1" ]]; then
+        exit 1
+    else
+        exit 0
+    fi
+}
+
+main "$@"
