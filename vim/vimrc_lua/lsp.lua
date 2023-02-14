@@ -38,8 +38,8 @@ local function setup_language_server(name, config)
     lspconfig[name].setup(final_config)
 end
 
--- https://github.com/sumneko/lua-language-server
-setup_language_server('sumneko_lua', {
+-- https://github.com/LuaLS/lua-language-server
+setup_language_server('lua_ls', {
     settings = LOCAL_CONFIG.lua_ls_dynamic_settings,
 })
 
