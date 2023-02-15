@@ -41,8 +41,15 @@ end
 local function highlight_word_under_cursor()
     clear_cursor_highlight()
 
-    local word = vim.fn.escape(vim.fn.expand('<cword>'), [[\/]])
-    local pattern = string.format([[\V\<%s\>]], word)
+    -- This may throw in higher verbosity levels (e.g. with command line
+    -- argument -V1).
+    local succeeded, cursor_word = pcall(vim.fn.expand, '<cword>')
+    if not succeeded then
+        return
+    end
+
+    local escaped_word = vim.fn.escape(cursor_word, [[\/]])
+    local pattern = string.format([[\V\<%s\>]], escaped_word)
 
     vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('vimrc__CursorOver', pattern)
 end
