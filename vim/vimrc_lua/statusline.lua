@@ -299,10 +299,6 @@ local function on_cursor_hold()
 end
 
 function M.do_winbar(state)
-    if util.vim_true(vim.g.started_by_firenvim) then
-        return ''
-    end
-
     local colors = get_colors()
 
     local color
@@ -326,10 +322,12 @@ local function set_winbar(state)
     )
 end
 
-util.augroup('vimrc__winbar', {
-    {{'WinEnter', 'BufWinEnter'}, {callback = function() set_winbar('active') end}},
-    {'WinLeave', {callback = function() set_winbar('inactive') end}},
-})
+if not util.vim_true(vim.g.started_by_firenvim) then
+    util.augroup('vimrc__winbar', {
+        {{'WinEnter', 'BufWinEnter'}, {callback = function() set_winbar('active') end}},
+        {'WinLeave', {callback = function() set_winbar('inactive') end}},
+    })
+end
 
 util.augroup('vimrc__statusline', {
     {{'CursorHold', 'CursorHoldI'}, {callback = on_cursor_hold}},
