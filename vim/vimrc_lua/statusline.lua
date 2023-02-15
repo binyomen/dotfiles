@@ -329,7 +329,7 @@ if not util.vim_true(vim.g.started_by_firenvim) then
     })
 end
 
-util.augroup('vimrc__statusline', {
+util.augroup('vimrc__statusline_cursor_hold', {
     {{'CursorHold', 'CursorHoldI'}, {callback = on_cursor_hold}},
 })
 
