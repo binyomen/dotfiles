@@ -111,7 +111,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id ~/dotfiles/i3/brightness set 5%
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/dotfiles/i3/brightness set 5%-
 
 bindsym Print exec gnome-screenshot -i
-bindsym $mod+Print exec gnome-screenshot -ac
+bindsym $mod+Print exec sh -c "gnome-screenshot -acf /tmp/screenshot-tmp && cat /tmp/screenshot-tmp | xclip -i -selection clipboard -target image/png"
 bindsym $mod+Shift+Print exec gnome-screenshot -a
 
 # Set the wallpaper to the default Gnome background.
