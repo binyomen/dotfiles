@@ -144,4 +144,6 @@ mode "$mode_system" {
 
 bindsym $mod+x mode "$mode_system"
 
+hide_edge_borders vertical
+
 include ~/.config/i3/conf.d/*.conf
