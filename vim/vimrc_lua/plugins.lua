@@ -17,6 +17,10 @@ local function not_firenvim()
     return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
 end
 
+local function pets_supported()
+    return vim.env.TERM == 'xterm-kitty'
+end
+
 return require('packer').startup {
     function()
         -- Packer itself.
@@ -198,6 +202,31 @@ return require('packer').startup {
                         css_fn = true,
                     }
                 )
+            end,
+        }
+        use {
+            'giusgad/pets.nvim',
+            cond = pets_supported,
+            requires = {
+                'edluffy/hologram.nvim',
+                'MunifTanjim/nui.nvim',
+            },
+            config = function()
+                require('pets').setup {
+                    random = true,
+                    death_animation = false,
+                }
+
+                local util = require 'vimrc.util'
+                util.map('n', ',on', function()
+                    local name = vim.loop.random(20)
+                    vim.cmd.PetsNew(name)
+                end)
+                util.map('n', ',ok', '<cmd>PetsKillAll<cr>')
+                util.map('n', ',ol', '<cmd>PetsList<cr>')
+                util.map('n', ',op', '<cmd>PetsPauseToggle<cr>')
+                util.map('n', ',os', '<cmd>PetsSleepToggle<cr>')
+                util.map('n', ',oh', '<cmd>PetsHideToggle<cr>')
             end,
         }
 
