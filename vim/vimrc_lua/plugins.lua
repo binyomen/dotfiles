@@ -17,10 +17,6 @@ local function not_firenvim()
     return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
 end
 
-local function pets_supported()
-    return vim.env.TERM == 'xterm-kitty'
-end
-
 return require('packer').startup {
     function()
         -- Packer itself.
@@ -206,7 +202,7 @@ return require('packer').startup {
         }
         use {
             'giusgad/pets.nvim',
-            cond = pets_supported,
+            cond = function() return vim.env.TERM == 'xterm-kitty' end,
             requires = {
                 'edluffy/hologram.nvim',
                 'MunifTanjim/nui.nvim',
