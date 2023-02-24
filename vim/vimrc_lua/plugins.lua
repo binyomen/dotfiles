@@ -385,6 +385,7 @@ return require('packer').startup {
         -- File types.
         use 'PProvost/vim-ps1'
         use 'ElmCast/elm-vim'
+        use 'fladson/vim-kitty'
 
         -- Misc.
         use {
