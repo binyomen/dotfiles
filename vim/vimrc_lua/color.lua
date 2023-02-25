@@ -81,11 +81,11 @@ local HIGHLIGHTS = {
         replace_accent = '!Identifier.foreground',
     },
     tokyonight = {
-        base = '!StatusLine.background',
+        base = '!TabLineFill.background',
         normal_accent = '!Function.foreground',
         insert_accent = '!String.foreground',
-        visual_accent = '!Constant.foreground',
-        replace_accent = '!@keyword.foreground',
+        visual_accent = '!@parameter.foreground',
+        replace_accent = '!@variable.builtin.foreground',
         cursor_over = {background = '!StatusLineNC.foreground', bold = true}
     },
 }
@@ -96,8 +96,8 @@ end
 
 local function color_from_group_specifier(color_string)
     local tokens = vim.split(color_string, '.', {plain = true})
-    local group = tokens[1]
-    local specifier = tokens[2]
+    local group = vim.fn.join({unpack(tokens, 1, #tokens - 1)}, '.')
+    local specifier = tokens[#tokens]
 
     return color_from_group(group)[specifier]
 end
