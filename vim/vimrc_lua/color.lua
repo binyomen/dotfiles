@@ -80,6 +80,14 @@ local HIGHLIGHTS = {
         visual_accent = '!Type.foreground',
         replace_accent = '!Identifier.foreground',
     },
+    tokyonight = {
+        base = '!StatusLine.background',
+        normal_accent = '!Function.foreground',
+        insert_accent = '!String.foreground',
+        visual_accent = '!Constant.foreground',
+        replace_accent = '!@keyword.foreground',
+        cursor_over = {background = '!StatusLineNC.foreground', bold = true}
+    },
 }
 
 local function color_from_group(group)
@@ -179,9 +187,11 @@ local function set_highlight_groups()
             create_statusline_highlights(highlights)
             create_cursor_over_highlight(highlights)
             create_statusline_warning_highlight(highlights)
-            break
+            return
         end
     end
+
+    error(string.format('Color scheme not found: %s', colorscheme))
 end
 
 util.augroup('vimrc__statusline_highlight_groups', {

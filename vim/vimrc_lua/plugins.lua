@@ -130,18 +130,24 @@ return require('packer').startup {
         }
         use {'tomasr/molokai', opt = true}
         use {'joshdick/onedark.vim', opt = true}
-        use {
-            'NLKNguyen/papercolor-theme',
-            config = function()
-                vim.cmd.colorscheme 'PaperColor'
-            end,
-        }
+        use { 'NLKNguyen/papercolor-theme', opt = true }
         use {'arcticicestudio/nord-vim', opt = true}
         use {'cocopon/iceberg.vim', opt = true}
         use {'rakr/vim-one', opt = true}
         use {'mhartington/oceanic-next', opt = true}
         use {'drewtempelmeyer/palenight.vim', opt = true}
         use {'sonph/onehalf', rtp = 'vim', opt = true}
+        use {
+            'folke/tokyonight.nvim',
+            config = function()
+                require('tokyonight').setup {
+                    style = 'night',
+                    dim_inactive = true,
+                }
+
+                vim.cmd.colorscheme 'tokyonight-night'
+            end,
+        }
 
         -- User interface stuff.
         use {

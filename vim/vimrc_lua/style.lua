@@ -2,6 +2,7 @@ local util = require 'vimrc.util'
 
 local current_theme = 1
 local themes = {
+    {name = 'tokyonight-night', plugin = 'tokyonight.nvim'},
     {name = 'PaperColor', plugin = 'papercolor-theme'},
     {name = 'NeoSolarized', plugin = 'NeoSolarized'},
     {name = 'molokai', plugin = 'molokai'},
