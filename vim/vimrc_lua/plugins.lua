@@ -204,7 +204,7 @@ return require('packer').startup {
             'giusgad/pets.nvim',
             cond = function() return vim.env.TERM == 'xterm-kitty' end,
             requires = {
-                'edluffy/hologram.nvim',
+                'giusgad/hologram.nvim',
                 'MunifTanjim/nui.nvim',
             },
             config = function()
