@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+main() {
+    local -i first_iteration=1
+    while read repo; do
+        if [[ "$first_iteration" != 1 ]]; then
+            echo
+        fi
+        first_iteration=0
+
+        echo "Pulling $repo"
+        cd "$repo"
+        git pull
+    done < "$HOME/.config/pullall/repos"
+}
+
+main "$@"
