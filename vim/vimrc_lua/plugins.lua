@@ -206,31 +206,6 @@ return require('packer').startup {
                 )
             end,
         }
-        use {
-            'giusgad/pets.nvim',
-            cond = function() return vim.env.TERM == 'xterm-kitty' end,
-            requires = {
-                'giusgad/hologram.nvim',
-                'MunifTanjim/nui.nvim',
-            },
-            config = function()
-                require('pets').setup {
-                    random = true,
-                    death_animation = false,
-                }
-
-                local util = require 'vimrc.util'
-                util.map('n', ',on', function()
-                    local name = vim.loop.random(20)
-                    vim.cmd.PetsNew(name)
-                end)
-                util.map('n', ',ok', '<cmd>PetsKillAll<cr>')
-                util.map('n', ',ol', '<cmd>PetsList<cr>')
-                util.map('n', ',op', '<cmd>PetsPauseToggle<cr>')
-                util.map('n', ',os', '<cmd>PetsSleepToggle<cr>')
-                util.map('n', ',oh', '<cmd>PetsHideToggle<cr>')
-            end,
-        }
 
         -- External integration.
         use {
