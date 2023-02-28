@@ -85,15 +85,16 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym t resize grow height 10 px or 10 ppt
-    bindsym n resize shrink height 10 px or 10 ppt
-    bindsym s resize grow width 10 px or 10 ppt
+    set $resize_amount 2
+    bindsym h resize shrink width $resize_amount px or $resize_amount ppt
+    bindsym t resize grow height $resize_amount px or $resize_amount ppt
+    bindsym n resize shrink height $resize_amount px or $resize_amount ppt
+    bindsym s resize grow width $resize_amount px or $resize_amount ppt
 
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width $resize_amount px or $resize_amount ppt
+    bindsym Down resize grow height $resize_amount px or $resize_amount ppt
+    bindsym Up resize shrink height $resize_amount px or $resize_amount ppt
+    bindsym Right resize grow width $resize_amount px or $resize_amount ppt
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
