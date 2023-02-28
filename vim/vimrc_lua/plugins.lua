@@ -198,6 +198,7 @@ return require('packer').startup {
                 require('colorizer').setup(
                     {
                         'css',
+                        'i3config',
                     },
                     {
                         css = true,
