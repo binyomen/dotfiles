@@ -5,7 +5,7 @@ set $down n
 set $left h
 set $right s
 
-font pango:Ubuntu 10
+font pango:Ubuntu Bold 10
 
 # Use Mouse+$mod to drag floating windows.
 floating_modifier $mod
@@ -146,5 +146,30 @@ mode "$mode_system" {
 bindsym $mod+x mode "$mode_system"
 
 hide_edge_borders vertical
+
+# ===== COLORS =====
+# See https://github.com/folke/tokyonight.nvim
+
+set $ignored #000000
+set $black #000000
+set $white #ffffff
+set $text #15161e
+set $text_light #c0caf5
+set $focused #7aa2f7
+set $focused_ind #2ac3de
+set $focused_inactive #292e42
+set $unfocused #1a1b26
+set $urgent #f7768e
+
+# <colorclass>           <border>           <background>       <text>       <indicator>        <child_border>
+client.focused           $focused           $focused           $text        $focused_ind       $focused
+client.focused_inactive  $focused_inactive  $focused_inactive  $text_light  $focused_inactive  $focused_inactive
+client.unfocused         $unfocused         $unfocused         $text_light  $unfocused         $unfocused
+client.urgent            $urgent            $urgent            $text        $urgent            $urgent
+client.placeholder       $ignored           $black             $white       $ignored           $black
+
+client.background #ffffff
+
+# ==================
 
 include ~/.config/i3/conf.d/*.conf
