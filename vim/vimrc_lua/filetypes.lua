@@ -27,5 +27,7 @@ vim.filetype.add {
         -- I work with tree-sitter queries more than scheme at this point,
         -- although they really should have a different extension....
         scm = 'query',
+
+        wgsl = 'wgsl',
     },
 }
