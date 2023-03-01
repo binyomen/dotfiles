@@ -158,7 +158,7 @@ set $text_light #c0caf5
 set $focused #7aa2f7
 set $focused_ind #2ac3de
 set $focused_inactive #292e42
-set $unfocused #1a1b26
+set $unfocused #16161e
 set $urgent #f7768e
 
 # <colorclass>           <border>           <background>       <text>       <indicator>        <child_border>
