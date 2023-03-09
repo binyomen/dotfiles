@@ -81,7 +81,6 @@ vim.o.background = 'dark'
 vim.o.signcolumn = 'auto:9'
 vim.opt.shortmess:append 'S'
 vim.opt.fillchars:append {diff = '╱'}
-
 -- Editing
 vim.o.wrap = false -- Don't wrap lines.
 vim.o.showmatch = true -- Show matching bracket when one is inserted.
