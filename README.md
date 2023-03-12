@@ -77,7 +77,7 @@ Ubuntu 22.04 LTS], specifically “Enable Hibernate on Swap File” and skipping
 To allow hibernation without sudo, create
 `/etc/polkit-1/localauthority/50-local.d/com.0.hibernate.pkla` with the content:
 
-```
+```ini
 [Enable hibernation without sudo]
 Identity=unix-user:*
 Action=org.freedesktop.login1.hibernate;org.freedesktop.login1.handle-hibernate-key;org.freedesktop.login1;org.freedesktop.login1.hibernate-multiple-sessions;org.freedesktop.login1.hibernate-ignore-inhibit
@@ -89,13 +89,13 @@ into Hibernate?] to automatically switch to hibernate after the laptop lid is
 closed for some time. The following two new files should be created (without the
 filename comments):
 
-```
+```ini
 # /etc/systemd/sleep.conf.d/99-hibernate.conf
 [Sleep]
 HibernateDelaySec=1h
 ```
 
-```
+```ini
 # /etc/systemd/logind.conf.d/99-hibernate.conf
 [Login]
 HandleLidSwitch=suspend-then-hibernate
