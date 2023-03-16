@@ -1,12 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-echo ==== Running apt update =====
-apt update -y
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
 
-echo
-echo ==== Running apt upgrade ====
-apt upgrade -y
+main() {
+    echo ==== Running apt update =====
+    apt update -y
 
-echo
-echo === Running apt autoremove ==
-apt autoremove -y
+    echo
+    echo ==== Running apt upgrade ====
+    apt upgrade -y
+
+    echo
+    echo === Running apt autoremove ==
+    apt autoremove -y
+}
+
+main "$@"
