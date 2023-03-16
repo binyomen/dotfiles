@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+echo ==== Running apt update =====
+apt update -y
+
+echo
+echo ==== Running apt upgrade ====
+apt upgrade -y
+
+echo
+echo === Running apt autoremove ==
+apt autoremove -y
