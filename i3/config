@@ -131,7 +131,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 # https://wiki.archlinux.org/title/i3#Shutdown.2C_reboot.2C_lock_screen
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (u) shutdown
-set $locker i3lock && sleep 1
+set $locker i3lock --color=7aa2f7 && sleep 1
 mode "$mode_system" {
     bindsym l exec --no-startup-id $locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
