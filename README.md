@@ -8,6 +8,7 @@ Just a place to put my dotfiles
 #### The basics
 
 - Install Git from [ppa:git-core/ppa]
+- [Generate SSH keys] with `ssh-keygen -C "$(hostname)"`
 - Clone dotfiles (with `git clone --recurse-submodules`) and symlink
   configuration/bins
 - Install [brew]
@@ -152,3 +153,4 @@ HandleLidSwitch=suspend-then-hibernate
 [How to Enable Hibernate Function in Ubuntu 22.04 LTS]: https://ubuntuhandbook.org/index.php/2021/08/enable-hibernate-ubuntu-21-10/
 [How to go automatically from Suspend into Hibernate?]: https://askubuntu.com/questions/12383/how-to-go-automatically-from-suspend-into-hibernate
 [How to Disable Automatic Updates in Ubuntu]: https://linuxnightly.com/how-to-disable-automatic-updates-in-ubuntu/
+[Generate SSH keys]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
