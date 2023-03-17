@@ -51,7 +51,7 @@ sudo update-alternatives --config x-terminal-emulator
 #### Set up fish
 
 ```bash
-chsh -s $(which fish)
+chsh -s "$(which fish)"
 ```
 
 #### Purge snap and stand-in Firefox on Ubuntu
