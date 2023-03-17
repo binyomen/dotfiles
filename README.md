@@ -28,6 +28,13 @@ just be symlinked.
     email = ben@weedon.email
 ```
 
+#### Set up kitty
+
+```fish
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator (which kitty) 50
+sudo update-alternatives --config x-terminal-emulator
+```
+
 #### Purge snap and stand-in Firefox on Ubuntu
 
 Follow [How to Install Firefox as a .Deb on Ubuntu 22.04 (Not a Snap)] for the
