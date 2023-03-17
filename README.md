@@ -8,7 +8,8 @@ Just a place to put my dotfiles
 #### The basics
 
 - Install Git from [ppa:git-core/ppa]
-- Clone dotfiles and symlink configuration/bins
+- Clone dotfiles (with `git clone --recurse-submodules`) and symlink
+  configuration/bins
 - Install [brew]
 - Install i3, polybar, neovim, fonts-firacode, font-font-awesome,
   build-essential, feh, [fish], and [node]
