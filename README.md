@@ -140,6 +140,18 @@ HibernateDelaySec=1h
 HandleLidSwitch=suspend-then-hibernate
 ```
 
+#### Configure HiDPI monitors
+
+Specify the DPI you want in `~/.Xresources` by settings its contents to
+something like below and then running `xrdb -merge ~/.Xresources`:
+
+```
+Xft.dpi: 192
+```
+
+Run `xdpyinfo | grep -B2 resolution` to determine the current resolution of your
+monitors and try to make your new DPI an even multiple.
+
 <!-- LINKS -->
 [node]: https://github.com/nodesource/distributions#installation-instructions
 [ppa:git-core/ppa]: https://git-scm.com/download/linux
