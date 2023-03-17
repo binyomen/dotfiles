@@ -16,6 +16,17 @@ Just a place to put my dotfiles
 - Run `updatekitty`
 - Install [IDrive]
 
+#### Disable automatic APT updates
+
+Change `/etc/apt/apt.conf.d/20auto-upgrades` to contain:
+
+```
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Unattended-Upgrade "0";
+```
+
+See [How to Disable Automatic Updates in Ubuntu] for more information.
+
 #### Set up Git
 
 The `~/.gitconfig` file should be as below. Other git configuration files can
@@ -140,3 +151,4 @@ HandleLidSwitch=suspend-then-hibernate
 [How do I increase the size of swapfile without removing it in the terminal?]: https://askubuntu.com/questions/927854/how-do-i-increase-the-size-of-swapfile-without-removing-it-in-the-terminal
 [How to Enable Hibernate Function in Ubuntu 22.04 LTS]: https://ubuntuhandbook.org/index.php/2021/08/enable-hibernate-ubuntu-21-10/
 [How to go automatically from Suspend into Hibernate?]: https://askubuntu.com/questions/12383/how-to-go-automatically-from-suspend-into-hibernate
+[How to Disable Automatic Updates in Ubuntu]: https://linuxnightly.com/how-to-disable-automatic-updates-in-ubuntu/
