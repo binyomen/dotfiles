@@ -10,17 +10,30 @@ Just a place to put my dotfiles
 - Install Git from [ppa:git-core/ppa]
 - Clone dotfiles and symlink configuration/bins
 - Install [brew]
-- Install i3, polybar, neovim, [fish], and [node]
+- Install i3, polybar, neovim, fonts-firacode, font-font-awesome,
+  build-essential, feh, [fish], and [node]
 - Run `updatekitty`
 - Install [IDrive]
+
+#### Set up Git
+
+The `~/.gitconfig` file should be as below. Other git configuration files can
+just be symlinked.
+
+```gitconfig
+[include]
+    path = ~/dotfiles/git/gitconfig
+[user]
+    name = Ben Weedon
+    email = ben@weedon.email
+```
 
 #### Purge snap and stand-in Firefox on Ubuntu
 
 Follow [How to Install Firefox as a .Deb on Ubuntu 22.04 (Not a Snap)] for the
 most part. Slight modifications:
 
-1. Remove the stand-in version of Firefox with `sudo apt-get remove --purge
-  firefox`
+1. Remove the stand-in version of Firefox with `sudo apt-get remove --purge firefox`
 2. Remove the snap version of Firefox with `sudo snap remove --purge firefox`
 3. Delete the `~/.mozilla/` directory
 4. Only then attempt to install firefox from `ppa:mozillateam/ppa`
