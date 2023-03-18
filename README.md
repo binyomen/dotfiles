@@ -99,6 +99,15 @@ EndSection
 This will allow tapping the touchpad to register (rather than just clicking it)
 and will set the scroll direction to be more natural.
 
+#### Set up `brightnessctl`
+
+This is only necessary if you want to change the screen brightness using the
+brightness keys.
+
+First install `brightnessctl` using `sudo apt install brightnessctl`. Next add
+your user to the `video` group with `sudo adduser $USER video`. Then log out and
+back in for the change to take effect.
+
 #### Set up hibernation
 
 First, make sure the swap file is at least the size of the amount of memory on
