@@ -517,10 +517,8 @@ return require('packer').startup {
             end,
         }
         use 'nvim-treesitter/nvim-treesitter-textobjects'
-        use {
-            'binyomen/nvim-treesitter-refactor',
-            branch = 'disable_mapping',
-        }
+        use 'nvim-treesitter/nvim-treesitter-refactor'
+
         use 'nvim-treesitter/playground'
     end,
     config = {
