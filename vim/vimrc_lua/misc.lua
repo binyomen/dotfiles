@@ -235,3 +235,17 @@ util.augroup('vimrc__no_conceal_in_diff', {
         end,
     }},
 })
+
+-- Insert the title of a URL into the given register.
+if util.vim_has('linux') then
+    local COMMAND = [[wget -qO- '%s' | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si' | recode html..]]
+    util.map('n', '<leader>ut', function()
+        local url = vim.fn.expand('<cfile>')
+        if url == '' then
+            return
+        end
+
+        local title = vim.trim(vim.fn.system(string.format(COMMAND, url)))
+        vim.fn.setreg(vim.v.register, title, 'v')
+    end)
+end
