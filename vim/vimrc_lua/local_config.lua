@@ -1,117 +1,19 @@
 local M = {}
 
-local cm = require 'plenary.context_manager'
 local util = require 'vimrc.util'
-
-local TRUST_DIR = string.format('%s/local_config', vim.fn.stdpath('data'))
-local TRUST_FILE = string.format('%s/trust.json', TRUST_DIR)
-
-local FILE_MODE = 0b111111111 -- octal 777
 
 _G.LOCAL_CONFIG = nil
 _G.LOADED_CONFIGS = nil
 
-local function ensure_trust_file()
-    if not util.directory_exists(TRUST_DIR) then
-        assert(vim.loop.fs_mkdir(TRUST_DIR, FILE_MODE))
-    end
-
-    if not util.file_exists(TRUST_FILE) then
-        cm.with(cm.open(TRUST_FILE, 'w'), function(f)
-            assert(f:write('{}'))
-        end)
-    end
-end
-
-local function read_file(file_name)
-    return cm.with(cm.open(file_name), function (f)
-        return assert(f:read('*a'))
-    end)
-end
-
-local function read_trust_file()
-    ensure_trust_file()
-    local contents = read_file(TRUST_FILE)
-    return vim.json.decode(contents)
-end
-
-local function write_trust_file(o)
-    ensure_trust_file()
-    cm.with(cm.open(TRUST_FILE, 'w'), function(f)
-        assert(f:write(vim.json.encode(o)))
-    end)
-end
-
-local function trust(config)
-    local o = read_trust_file()
-
-    if not o[config] then
-        local contents = read_file(config)
-        o[config] = {is_trusted = true, checksum = vim.fn.sha256(contents)}
-
-        write_trust_file(o)
-    end
-end
-
-local function distrust(config)
-    local o = read_trust_file()
-
-    if not o[config] then
-        o[config] = {is_trusted = false}
-        write_trust_file(o)
-    end
-end
-
-local function is_trusted(config)
-    local o = read_trust_file()
-    if not o[config] or not o[config].is_trusted then
-        return false
-    end
-
-    local current_checksum = vim.fn.sha256(read_file(config))
-    if current_checksum ~= o[config].checksum then
-        -- The checksums don't match anymore. Remove the object from the file
-        -- and return false.
-        o[config] = nil
-        write_trust_file(o)
-
-        return false
-    end
-
-    return true
-end
-
-local function is_untrusted(config)
-    local o = read_trust_file()
-    return o[config] and not o[config].is_trusted
-end
-
 -- Currently only one config per directory is supported.
 local function add_configs_for_dir(dir, configs)
-    local file_name = string.format('%s/nvim_local.lua', dir)
-    if util.file_exists(file_name) then
-        table.insert(configs, file_name)
-    end
-end
-
-local function remove_untrusted_configs(configs)
-    local final_configs = {}
-
-    for _, config in ipairs(configs) do
-        if is_trusted(config) then
-            table.insert(final_configs, config)
-        elseif not is_untrusted(config) then
-            local choice = vim.fn.confirm(config, '&Ignore for now\n&Trust\n&Distrust', 1)
-            if choice == 2 then
-                trust(config)
-                table.insert(final_configs, config)
-            elseif choice == 3 then
-                distrust(config)
-            end
+    local path = string.format('%s/nvim_local.lua', dir)
+    if util.file_exists(path) then
+        local content = vim.secure.read(path)
+        if content ~= nil then
+            table.insert(configs, {path = path, content = content})
         end
     end
-
-    return final_configs
 end
 
 local function find_local_configs()
@@ -126,7 +28,7 @@ local function find_local_configs()
         dir = vim.fn.fnamemodify(dir, ':h')
     end
 
-    return remove_untrusted_configs(configs)
+    return configs
 end
 
 local function merge_configs(c1, c2)
@@ -165,8 +67,8 @@ function M.load_configs()
     for i = #configs,1,-1 do
         local config = configs[i]
 
-        local f = assert(loadfile(config))
-        result = merge_configs(result, f(config))
+        local f = assert(loadstring(config.content, config.path))
+        result = merge_configs(result, f(config.path))
     end
 
     _G.LOADED_CONFIGS = configs
