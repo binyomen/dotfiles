@@ -373,6 +373,10 @@ return require('packer').startup {
         use {
             'editorconfig/editorconfig-vim',
             cond = function() return not LOCAL_CONFIG.no_editorconfig end,
+            config = function()
+                -- Don't use the built-in editorconfig support yet
+                vim.g.editorconfig = false
+            end,
         }
         use {
             'kevinhwang91/nvim-bqf',
