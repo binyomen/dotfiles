@@ -171,12 +171,6 @@ return require('packer').startup {
             end,
         }
         use {
-            'rickhowe/diffchar.vim',
-            config = function()
-                vim.g.DiffUnit = 'Char'
-            end,
-        }
-        use {
             'dhruvasagar/vim-table-mode',
             config = function()
                 vim.g.table_mode_map_prefix = '<leader>0'
