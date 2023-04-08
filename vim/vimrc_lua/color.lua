@@ -221,7 +221,7 @@ util.user_command(
             local descriptions = util.tbl_map(nodes, function(node)
                 local node_type = node:type()
                 local spacing = (' '):rep(max_type_len + 1 - node_type:len())
-                local node_text = vim.treesitter.query.get_node_text(node, 0 --[[source]])
+                local node_text = vim.treesitter.get_node_text(node, 0 --[[source]])
 
                 local node_lines = vim.split(node_text, '\n')
                 local node_content
