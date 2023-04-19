@@ -435,12 +435,12 @@ return require('packer').startup {
                 require('neorg').setup {
                     load = {
                         ['core.defaults'] = {},
-                        ['core.norg.completion'] = {
+                        ['core.completion'] = {
                             config = {
                                 engine = 'nvim-cmp',
                             },
                         },
-                        ['core.norg.concealer'] = {},
+                        ['core.concealer'] = {},
                         ['core.export'] = {},
                         ['core.export.markdown'] = {},
                     }
