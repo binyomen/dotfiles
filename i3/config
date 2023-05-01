@@ -115,8 +115,7 @@ bindsym Print exec gnome-screenshot -i
 bindsym $mod+Print exec sh -c "gnome-screenshot -acf /tmp/screenshot-tmp && cat /tmp/screenshot-tmp | xclip -i -selection clipboard -target image/png"
 bindsym $mod+Shift+Print exec gnome-screenshot -a
 
-# Set the wallpaper to the default Gnome background.
-exec_always --no-startup-id "feh --no-fehbg --bg-fill \"$(gsettings get org.gnome.desktop.background picture-uri | awk '{print substr($0, 9, length($0) - 9) }')\""
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.wallpaper
 
 bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
