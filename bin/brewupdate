@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+main() {
+    echo ==== Running brew update =====
+    brew update
+
+    echo
+    echo ==== Running brew outdated ===
+    brew outdated
+
+    echo
+    echo ==== Running brew upgrade ====
+    brew upgrade
+}
+
+main "$@"
