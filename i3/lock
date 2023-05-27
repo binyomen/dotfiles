@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+main() {
+    local -r screen_resolution="$(xdpyinfo | grep dimensions | cut -d' ' -f7)"
+    convert -resize "$screen_resolution^" -gravity Center -extent "$screen_resolution" \
+            ~/.lock-screen-wallpaper RGB:- | \
+        i3lock --raw "$screen_resolution":rgb --image /dev/stdin
+}
+
+main "$@"
