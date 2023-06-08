@@ -29,7 +29,10 @@ require('nvim-treesitter.configs').setup {
         'yaml',
     },
     highlight = {enable = true},
-    indent = {enable = true},
+    indent = {
+        enable = true,
+        disable = {'markdown'},
+    },
     incremental_selection = {
         enable = true,
         keymaps = {
