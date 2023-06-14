@@ -15,6 +15,10 @@ if test -d ~/.cargo/bin
     set -xa PATH ~/.cargo/bin
 end
 
+if test -d /usr/local/go/bin
+    set -xa PATH /usr/local/go/bin
+end
+
 set -x EDITOR nvim
 
 set -g __fish_git_prompt_show_informative_status 1
