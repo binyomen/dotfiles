@@ -20,7 +20,7 @@ bindsym $mod+Shift+Return exec sensible-browser
 # Kill focused window.
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -fn Ubuntu-12 -nb \#15161e -nf \#c0caf5 -sb \#7aa2f7 -sf \#15161e
 
 bindsym $mod+$up focus up
 bindsym $mod+$down focus down
