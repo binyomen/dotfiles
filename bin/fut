@@ -10,8 +10,8 @@ fi
 main() {
     ls -A | \
         tr '\n' '\0' | \
-        du -hs --files0-from=- | \
-        sort -hr
+        while read -d '' D; do echo -e "$(find "$D" -type f | wc -l)\t$D"; done | \
+        sort -nr
 }
 
 main "$@"
