@@ -8,7 +8,8 @@ if [[ "${TRACE-0}" == "1" ]]; then
 fi
 
 main() {
-    ls -A | \
+    find . -maxdepth 1 -type d | \
+        cut -d/ -f2- | \
         tr '\n' '\0' | \
         while read -d '' D; do echo -e "$(find "$D" -type f | wc -l)\t$D"; done | \
         sort -nr
