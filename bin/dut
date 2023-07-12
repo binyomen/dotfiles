@@ -8,9 +8,12 @@ if [[ "${TRACE-0}" == "1" ]]; then
 fi
 
 main() {
-    ls -A | \
+    find . -maxdepth 1 -type d | \
+        cut -d/ -f2- | \
         tr '\n' '\0' | \
-        du -hs --files0-from=- | \
+        # Need to use `read` because for some reason `du` will stop processing
+        # after seeing the `.` directory.
+        while read -d '' D; do echo -e "$(du -hs "$D")"; done | \
         sort -hr
 }
 
