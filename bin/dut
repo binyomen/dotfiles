@@ -11,9 +11,9 @@ main() {
     find . -maxdepth 1 -type d | \
         cut -d/ -f2- | \
         tr '\n' '\0' | \
-        # Need to use `read` because for some reason `du` will stop processing
-        # after seeing the `.` directory.
-        while read -d '' D; do echo -e "$(du -hs "$D")"; done | \
+        # Need to use `xargs` because for some reason `du` will stop processing
+        # after seeing the `.` directory if it processes in bulk.
+        xargs -0 -I % du -hs % | \
         sort -hr
 }
 
