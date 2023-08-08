@@ -154,7 +154,7 @@ require('nvim-treesitter.configs').setup {
 util.augroup('vimrc__treesitter_buffers', {
     {'BufWinEnter', {callback =
         function(args)
-            if vim.b.vimrc__treesitter_folding_set then
+            if vim.w.vimrc__treesitter_folding_set then
                 return
             end
 
@@ -166,7 +166,7 @@ util.augroup('vimrc__treesitter_buffers', {
                 vim.wo.foldmethod = 'syntax'
                 vim.wo.foldexpr = ''
             end
-            vim.b.vimrc__treesitter_folding_set = true
+            vim.w.vimrc__treesitter_folding_set = true
         end,
     }},
 })
