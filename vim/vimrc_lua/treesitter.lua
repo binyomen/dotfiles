@@ -162,7 +162,7 @@ util.augroup('vimrc__treesitter_buffers', {
             -- treesitter enabled.
             if util.treesitter_active(args.buf) then
                 vim.wo.foldmethod = 'expr'
-                vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
                 vim.wo.foldenable = false
             else
                 vim.wo.foldmethod = 'syntax'
