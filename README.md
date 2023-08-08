@@ -12,7 +12,7 @@ Just a place to put my dotfiles
 - Clone dotfiles (with `git clone --recurse-submodules`) and symlink
   configuration/bins
 - Install [brew]
-- Install i3, polybar, neovim, fonts-firacode, font-font-awesome,
+- Install i3, polybar, neovim, fonts-firacode, fonts-font-awesome,
   build-essential, feh, [fish], and [node]
 - Run `updatekitty`
 - Install [IDrive]
