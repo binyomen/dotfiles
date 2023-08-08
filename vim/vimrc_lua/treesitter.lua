@@ -157,7 +157,6 @@ util.augroup('vimrc__treesitter_buffers', {
             if vim.b.vimrc__treesitter_folding_set then
                 return
             end
-            vim.b.vimrc__treesitter_folding_set = true
 
             if util.treesitter_active(args.buf) then
                 vim.wo.foldmethod = 'expr'
@@ -167,6 +166,7 @@ util.augroup('vimrc__treesitter_buffers', {
                 vim.wo.foldmethod = 'syntax'
                 vim.wo.foldexpr = ''
             end
+            vim.b.vimrc__treesitter_folding_set = true
         end,
     }},
 })
