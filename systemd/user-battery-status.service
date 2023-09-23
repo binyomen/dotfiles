@@ -1,0 +1,10 @@
+[Unit]
+Description=Displays a battery status notification if necessary
+Wants=user-battery-status.timer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/env bash -c '~/dotfiles/systemd/battery-status'
+
+[Install]
+WantedBy=multi-user.target

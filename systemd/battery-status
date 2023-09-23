@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+main() {
+    local should_send_notification='false'
+    local icon
+    local summary
+    local body
+
+    local -ri battery_level="$(acpi --battery | grep --perl-regexp --only-matching '[0-9]+(?=%)')"
+    if (( "$battery_level" < 15 )); then
+        should_send_notification='true'
+        icon='battery-low-symbolic'
+        summary='Battery low'
+        body="Battery level is $battery_level%!"
+    elif (( "$battery_level" == 100 )); then
+        should_send_notification='true'
+        icon='battery-full-symbolic'
+        summary='Battery is full'
+        body='Unplug charger'
+    fi
+
+    if [[ "$should_send_notification" == 'true' ]]; then
+        notify-send \
+            --urgency critical \
+            --icon "$icon" \
+            --hint string:synchronous:battery-status \
+            "$summary" \
+            "$body"
+    fi
+}
+
+main "$@"

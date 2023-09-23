@@ -13,7 +13,7 @@ Just a place to put my dotfiles
   configuration/bins
 - Install [brew]
 - Install i3, polybar, neovim, fonts-firacode, fonts-font-awesome,
-  build-essential, feh, [fish], and [node]
+  build-essential, feh, acpi, [fish], and [node]
 - Run `updatekitty`
 - Install [IDrive]
 
@@ -160,6 +160,14 @@ Xft.dpi: 192
 
 Run `xdpyinfo | grep -B2 resolution` to determine the current resolution of your
 monitors and try to make your new DPI an even multiple.
+
+#### Configure battery status notifications
+
+Make sure `acpi` is installed with `sudo apt install acpi`. Symlink
+`systemd/user-battery-status.service` and `systemd/user-battery-status.timer`
+into `~/.config/systemd/user/`, then enable the timer with `systemctl --user
+enable user-battery-status.timer` and start it with `systemctl --user start
+user-battery-status.timer`.
 
 <!-- LINKS -->
 [node]: https://github.com/nodesource/distributions#installation-instructions

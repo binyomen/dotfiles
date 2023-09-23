@@ -1,0 +1,10 @@
+[Unit]
+Description=Displays a battery status notification if necessary
+Requires=user-battery-status.service
+
+[Timer]
+Unit=user-battery-status.service
+OnCalendar=*-*-* *:*:00
+
+[Install]
+WantedBy=timers.target
