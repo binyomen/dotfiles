@@ -165,9 +165,9 @@ monitors and try to make your new DPI an even multiple.
 
 Make sure `acpi` is installed with `sudo apt install acpi`. Symlink
 `systemd/user-battery-status.service` and `systemd/user-battery-status.timer`
-into `~/.config/systemd/user/`, then enable the timer with `systemctl --user
-enable user-battery-status.timer` and start it with `systemctl --user start
-user-battery-status.timer`.
+into `~/.config/systemd/user/` using `systemctl --user link`, then enable the
+timer with `systemctl --user enable user-battery-status.timer` and start it with
+`systemctl --user start user-battery-status.timer`.
 
 <!-- LINKS -->
 [node]: https://github.com/nodesource/distributions#installation-instructions
