@@ -16,10 +16,12 @@ main() {
     local -ri battery_level="$(acpi --battery | grep --perl-regexp --only-matching '[0-9]+(?=%)')"
     local -r battery_status="$(acpi --battery | sed --regexp-extended 's/^Battery [0-9]+: ([^,]+),.+/\1/')"
     if (( "$battery_level" <= 15 )); then
-        should_send_notification='true'
-        icon='battery-low-symbolic'
-        summary='Battery low'
-        body="Battery level is $battery_level%!"
+        if [[ "$battery_status" != "Charging" ]]; then
+            should_send_notification='true'
+            icon='battery-low-symbolic'
+            summary='Battery low'
+            body="Battery level is $battery_level%!"
+        fi
     elif (( "$battery_level" == 100 )); then
         # This battery status means we are plugged in.
         if [[ "$battery_status" == 'Not charging' ]]; then
