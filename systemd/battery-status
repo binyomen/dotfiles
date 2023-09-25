@@ -35,6 +35,7 @@ main() {
     if [[ "$should_send_notification" == 'true' ]]; then
         notify-send \
             --urgency critical \
+            --expire-time 63000 \
             --icon "$icon" \
             --hint string:synchronous:battery-status \
             "$summary" \
