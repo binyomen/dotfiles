@@ -153,7 +153,14 @@ return require('packer').startup {
         use {
             'lukas-reineke/indent-blankline.nvim',
             config = function()
-                require('ibl').setup()
+                require('ibl').setup {
+                    scope = {
+                        -- Don't show underlines on the first and last lines of
+                        -- the current scope.
+                        show_start = false,
+                        show_end = false,
+                    },
+                }
             end,
         }
         use {
