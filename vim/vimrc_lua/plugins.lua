@@ -153,7 +153,7 @@ return require('packer').startup {
         use {
             'lukas-reineke/indent-blankline.nvim',
             config = function()
-                require('indent_blankline').setup()
+                require('ibl').setup()
             end,
         }
         use {
