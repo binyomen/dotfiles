@@ -14,6 +14,9 @@ floating_modifier $mod
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Start PolicyKit authentication agent.
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Return exec sensible-browser
 

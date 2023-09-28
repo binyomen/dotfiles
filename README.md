@@ -13,7 +13,7 @@ Just a place to put my dotfiles
   configuration/bins
 - Install [brew]
 - Install i3, polybar, neovim, fonts-firacode, fonts-font-awesome,
-  build-essential, feh, acpi, [fish], and [node]
+  build-essential, feh, acpi, policykit-1-gnome, [fish], and [node]
 - Run `updatekitty`
 - Install [IDrive]
 
