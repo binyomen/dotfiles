@@ -46,6 +46,13 @@ local function merge_configs(c1, c2)
             result[key] = new_list
         elseif type(value) == 'table' then
             result[key] = merge_configs(result[key], value)
+        elseif type(value) == 'function' then
+            -- Replace the two functions with another function which calls both.
+            local original_function = result[key]
+            result[key] = function(...)
+                original_function(...)
+                value(...)
+            end
         else
             result[key] = value
         end
