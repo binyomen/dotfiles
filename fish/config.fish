@@ -20,6 +20,7 @@ if test -d /usr/local/go/bin
 end
 
 set -x EDITOR nvim
+set -x VISUAL nvim
 
 set -g __fish_git_prompt_show_informative_status 1
 set -g __fish_git_prompt_showuntrackedfiles 1
