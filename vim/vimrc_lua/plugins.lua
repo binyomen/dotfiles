@@ -352,6 +352,8 @@ return require('packer').startup {
                     set_tkeymaps = function() end,
                     set_keymaps = function() end,
                     unset_keymaps = function() end,
+                    termwin_command = 'belowright vnew',
+                    codewin_command = 'vnew',
                 }
             end,
         }
