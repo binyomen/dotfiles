@@ -349,9 +349,8 @@ return require('packer').startup {
             setup = function()
                 vim.g.nvimgdb_disable_start_keymaps = true
                 vim.g.nvimgdb_config_override = {
-                    set_tkeymaps = function() end,
-                    set_keymaps = function() end,
-                    unset_keymaps = function() end,
+                    key_frameup = '<c-up>',
+                    key_framedown = '<c-down>',
                     termwin_command = 'belowright vnew',
                     codewin_command = 'vnew',
                 }
