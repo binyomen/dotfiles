@@ -348,6 +348,11 @@ return require('packer').startup {
             cond = function() return not require('vimrc.util').vim_has('win32') end,
             setup = function()
                 vim.g.nvimgdb_disable_start_keymaps = true
+                vim.g.nvimgdb_config_override = {
+                    set_tkeymaps = function() end,
+                    set_keymaps = function() end,
+                    unset_keymaps = function() end,
+                }
             end,
         }
 
