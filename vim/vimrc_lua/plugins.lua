@@ -343,6 +343,13 @@ return require('packer').startup {
                 util.map('n', '<leader>gvh', '<cmd>DiffviewFileHistory<cr>')
             end,
         }
+        use {
+            'sakhnik/nvim-gdb',
+            cond = function() return not require('vimrc.util').vim_has('win32') end,
+            setup = function()
+                vim.g.nvimgdb_disable_start_keymaps = true
+            end,
+        }
 
         -- Completion.
         use {
