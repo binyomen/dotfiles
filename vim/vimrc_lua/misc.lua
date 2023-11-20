@@ -111,11 +111,12 @@ end)
 
 -- errorformat
 do
-    -- `vim.opt` seems to be broken when appending for errorformat. Use `vim.o` instead.
     local old_errorformat = vim.o.errorformat
     vim.o.errorformat = ''
 
     local function append_errorformat(format)
+        -- `vim.opt` seems to be broken when appending for errorformat. Use
+        -- `vim.o` instead.
         vim.o.errorformat = vim.o.errorformat .. ',' .. format
     end
 
