@@ -13,6 +13,10 @@ util.map('i', '<c-d>', '<c-x><c-f><c-n>') -- Make file completion easier.
 util.map('i', '<c-c>', '<c-x><c-n><c-n>') -- Make context-aware word completion easier.
 util.map('i', '<c-l>', '<c-x><c-l><c-n>') -- Make line completion easier.
 
+-- Terminal mode
+util.map('t', 'uu', '<c-\\><c-n>')
+util.map('t', 'hh', '<c-\\><c-n>')
+
 -- Command mode
 -- Easily type and expand '%:h/' in command mode.
 util.map('c', '<c-h>', function()
