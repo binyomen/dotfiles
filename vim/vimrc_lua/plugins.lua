@@ -166,6 +166,8 @@ return require('packer').startup {
         use {
             'voldikss/vim-floaterm',
             config = function()
+                vim.g.floaterm_autoinsert = false
+
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>9t', [[<cmd>FloatermToggle<cr>]])
                 -- The `<cmd>echo<cr>` is necessary to prevent the "-- TERMINAL --"
