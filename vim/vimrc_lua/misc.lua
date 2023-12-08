@@ -172,9 +172,6 @@ util.augroup('vimrc__open_folds', {
     }},
 })
 
--- Customize <c-l> refresh.
-util.map('n', '<c-l>', '<cmd>IndentBlanklineRefresh<cr><c-l>')
-
 -- Yank the results of a command.
 util.user_command(
     'YankCommand',
