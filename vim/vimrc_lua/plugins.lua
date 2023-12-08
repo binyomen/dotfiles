@@ -358,6 +358,10 @@ return require('packer').startup {
                 }
             end,
         }
+        use {
+            'weirongxu/plantuml-previewer.vim',
+            requires = 'tyru/open-browser.vim',
+        }
 
         -- Completion.
         use {
