@@ -384,6 +384,7 @@ return require('packer').startup {
         use 'PProvost/vim-ps1'
         use 'ElmCast/elm-vim'
         use 'fladson/vim-kitty'
+        use 'aklt/plantuml-syntax'
 
         -- Misc.
         use {
