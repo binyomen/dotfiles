@@ -247,3 +247,8 @@ if util.vim_has('linux') then
         vim.fn.setreg(vim.v.register, title, 'v')
     end)
 end
+
+-- Sort using a motion.
+util.map({'n', 'x'}, {expr = true}, '<leader>so', util.new_operator(function()
+    util.opfunc_ex_command {cmd = 'sort'}
+end))

@@ -159,6 +159,12 @@ function M.opfunc_normal_command(motion, normal_command)
     vim.cmd.normal {command, bang = true, mods = {silent = true}}
 end
 
+function M.opfunc_ex_command(ex_command)
+    local ex_command = vim.deepcopy(ex_command)
+    ex_command.range = {vim.fn.line("'["), vim.fn.line("']")}
+    vim.cmd(ex_command)
+end
+
 function M.motion_to_visual_char(motion)
     if motion == CHAR_MOTION then
         return 'v'
