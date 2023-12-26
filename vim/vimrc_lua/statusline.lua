@@ -83,16 +83,6 @@ local function file_type(colors)
     return string.format('%s   %s   ', colors.primary, file_type_string)
 end
 
-local function treesitter_context(colors)
-    if not util.treesitter_active() then
-        return colors.secondary
-    end
-
-    local allowed_width = vim.o.columns - 50
-    local context = vim.fn['nvim_treesitter#statusline'] {indicator_size = allowed_width}
-    return string.format('%s %s %%<', colors.secondary, context)
-end
-
 local function flags(colors)
     return string.format('%s %%m%%r%%h%%w ', colors.secondary)
 end
@@ -184,7 +174,6 @@ function M.do_statusline()
     local colors = get_colors()
     local result = table.concat {
         file_type(colors),
-        treesitter_context(colors),
         flags(colors),
         '%=',
         encoding(colors),

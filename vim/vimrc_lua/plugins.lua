@@ -542,6 +542,15 @@ return require('packer').startup {
         }
         use 'nvim-treesitter/nvim-treesitter-textobjects'
         use 'nvim-treesitter/nvim-treesitter-refactor'
+        use {
+            'nvim-treesitter/nvim-treesitter-context',
+            config = function()
+                require('treesitter-context').setup()
+
+                local util = require 'vimrc.util'
+                util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
+            end,
+        }
 
         use 'nvim-treesitter/playground'
     end,
