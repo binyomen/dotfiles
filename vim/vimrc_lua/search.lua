@@ -75,9 +75,6 @@ util.map('n', '<leader>sh', function()
     vim.o.hlsearch = not vim.o.hlsearch
 end)
 
--- Make gf open the file even if it doesn't exist.
-util.map('n', 'gf', '<cmd>e <cfile><cr>')
-
 -- Search Duck Duck Go for the chosen text.
 util.map({'n', 'x'}, {expr = true}, '<leader>sd', util.new_operator(function(motion)
     local reg_backup = vim.fn.getreginfo('"')

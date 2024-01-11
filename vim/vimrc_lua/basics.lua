@@ -4,6 +4,7 @@ local util = require 'vimrc.util'
 util.map({'n', 'x'}, '<space>', ':', {silent = false}) -- Remap space to : in normal and visual mode for ease of use.
 util.map({'n', 'x'}, '<bs>', '<cmd>update<cr>') -- Remap backspace to save in normal and visual mode.
 util.map('n', '<m-q>', '@@') -- Have an easily repeatable combo for @@.
+util.map('n', 'gf', '<cmd>e <cfile><cr>') -- Make gf open the file even if it doesn't exist.
 
 -- Insert mode
 util.map('i', 'uu', '<esc>') -- Use uu to exit insert mode.
