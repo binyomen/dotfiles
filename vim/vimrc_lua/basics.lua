@@ -96,3 +96,4 @@ vim.o.timeout = false -- Don't time out waiting for mappings.
 vim.opt.spelloptions = {'camel'}
 vim.o.spell = true
 vim.o.selection = 'old'
+vim.g.editorconfig = false -- Don't use the built-in editorconfig support yet.
