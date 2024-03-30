@@ -450,27 +450,6 @@ return require('packer').startup {
             end,
         }
         use {
-            'nvim-neorg/neorg',
-            requires = 'nvim-lua/plenary.nvim',
-            after = 'nvim-treesitter',
-            run = ':Neorg sync-parsers',
-            config = function()
-                require('neorg').setup {
-                    load = {
-                        ['core.defaults'] = {},
-                        ['core.completion'] = {
-                            config = {
-                                engine = 'nvim-cmp',
-                            },
-                        },
-                        ['core.concealer'] = {},
-                        ['core.export'] = {},
-                        ['core.export.markdown'] = {},
-                    }
-                }
-            end,
-        }
-        use {
             'jakewvincent/mkdnflow.nvim',
             config = function()
                 local lead = '<leader>w'
