@@ -171,12 +171,12 @@ return require('packer').startup {
                 vim.g.floaterm_autoinsert = false
 
                 local util = require 'vimrc.util'
-                util.map('n', '<leader>9t', [[<cmd>FloatermToggle<cr>]])
+                util.map('n', '<m-t>', [[<cmd>FloatermToggle<cr>]])
                 -- The `<cmd>echo<cr>` is necessary to prevent the "-- TERMINAL --"
                 -- mode from still being displayed after exiting the terminal
                 -- window. I tried alternatives like `<cmd><esc>` and
                 -- `:<esc>` but neither of them cleared the bottom line.
-                util.map('t', '<leader>9t', [[<c-\><c-n><cmd>FloatermToggle<cr><cmd>echo<cr>]])
+                util.map('t', '<m-t>', [[<c-\><c-n><cmd>FloatermToggle<cr><cmd>echo<cr>]])
             end,
         }
         use {
