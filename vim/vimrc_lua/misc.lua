@@ -44,7 +44,7 @@ local function highlight_word_under_cursor()
     -- This may throw in higher verbosity levels (e.g. with command line
     -- argument -V1).
     local succeeded, cursor_word = pcall(vim.fn.expand, '<cword>')
-    if not succeeded then
+    if not succeeded or cursor_word == '' then
         return
     end
 
