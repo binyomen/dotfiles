@@ -2,9 +2,6 @@ local completion = require 'vimrc.completion'
 local lspconfig = require 'lspconfig'
 local util = require 'vimrc.util'
 
-util.map('n', '<leader><space>e', vim.diagnostic.open_float)
-util.map('n', '[d', vim.diagnostic.goto_prev)
-util.map('n', ']d', vim.diagnostic.goto_next)
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
 local function on_attach(_, buf)
@@ -14,7 +11,6 @@ local function on_attach(_, buf)
 
     util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = buf})
     util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = buf})
-    util.map('n', 'K', vim.lsp.buf.hover, {buffer = buf})
     util.map('n', '<leader><space>i', vim.lsp.buf.implementation, {buffer = buf})
     util.map('n', '<leader><space><c-k>', vim.lsp.buf.signature_help, {buffer = buf})
     util.map('n', '<leader><space>wa', vim.lsp.buf.add_workspace_folder, {buffer = buf})
