@@ -313,7 +313,7 @@ end
 
 if not util.vim_true(vim.g.started_by_firenvim) then
     util.augroup('vimrc__winbar', {
-        {{'WinEnter', 'BufWinEnter'}, {callback = function() set_winbar('active') end}},
+        {{'VimEnter', 'WinEnter', 'BufWinEnter'}, {callback = function() set_winbar('active') end}},
         {'WinLeave', {callback = function() set_winbar('inactive') end}},
     })
 end
