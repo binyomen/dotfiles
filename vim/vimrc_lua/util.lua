@@ -183,12 +183,8 @@ function M.highlight_opfunc_range(namespace, group, motion, reg)
     local visual_char = M.motion_to_visual_char(motion)
 
     -- We need to finagle the input of vim.highlight.range a bit due to
-    -- https://github.com/neovim/neovim/issues/18154 and
-    -- https://github.com/neovim/neovim/issues/18155.
-    if visual_char == 'V' then
-        start[2] = 0
-        finish[2] = 9999999
-    elseif visual_char == t'<c-v>' then
+    -- https://github.com/neovim/neovim/issues/18154.
+    if visual_char == t'<c-v>' then
         visual_char = reg.regtype
     end
 
