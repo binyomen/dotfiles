@@ -396,7 +396,7 @@ function M.enable_conceal_if_not_in_diff()
 end
 
 function M.browse_to(uri)
-    vim.fn['netrw#BrowseX'](uri, 0)
+    vim.ui.open(uri)
 end
 
 function M.split(s, sep)
