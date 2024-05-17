@@ -112,12 +112,8 @@ normalize_command('NormalizeSplit', 'split')
 normalize_command('NormalizeVSplit', 'vsplit')
 normalize_command('NormalizeTabEdit', 'tabedit')
 
-function M.replace_termcodes(s)
-    return vim.api.nvim_replace_termcodes(s, true --[[from_part]], true --[[do_lt]], true --[[special]])
-end
-
 -- A useful shortcut that looks like a string prefix in C++.
-_G.t = M.replace_termcodes
+_G.t = vim.keycode
 
 local LINE_MOTION = 'line'
 local CHAR_MOTION = 'char'
