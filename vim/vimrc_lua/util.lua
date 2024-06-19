@@ -44,6 +44,9 @@ end
 
 function M.echo(text, add_to_history)
     local add_to_history = M.default(add_to_history, false)
+    if type(text) ~= 'string' then
+        text = vim.inspect(text)
+    end
     vim.api.nvim_echo({{text}}, add_to_history, {})
 end
 
