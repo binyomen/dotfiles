@@ -3,7 +3,7 @@ local util = require 'vimrc.util'
 util.augroup('vimrc__nospell_file_types', {
     {'FileType', {pattern = 'git,dirvish,checkhealth,qf', callback =
         function()
-            vim.wo.spell = false
+            vim.wo[0][0].spell = false
         end
     }},
 })

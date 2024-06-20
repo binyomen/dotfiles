@@ -388,7 +388,7 @@ end
 
 function M.enable_conceal_if_not_in_diff()
     if not vim.wo.diff then
-        vim.wo.conceallevel = 2
+        vim.wo[0][0].conceallevel = 2
     else
         vim.w.vimrc__reenable_conceal_when_diff_disabled = true
     end

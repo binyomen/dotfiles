@@ -27,7 +27,7 @@ util.map('n', {expr = true, silent = false}, '<leader>zg', util.new_operator_wit
 end))
 
 util.map('n', '<leader>zt', function()
-    vim.wo.spell = not vim.wo.spell
+    vim.wo[0][0].spell = not vim.wo[0][0].spell
 end)
 
 local function clear_cursor_highlight()
@@ -225,9 +225,9 @@ util.augroup('vimrc__no_conceal_in_diff', {
                     vim.w.vimrc__reenable_conceal_when_diff_disabled = false
                 end
 
-                vim.wo.conceallevel = 0
+                vim.wo[0][0].conceallevel = 0
             elseif vim.w.vimrc__reenable_conceal_when_diff_disabled then
-                vim.wo.conceallevel = 2
+                vim.wo[0][0].conceallevel = 2
                 vim.w.vimrc__reenable_conceal_when_diff_disabled = nil
             end
         end,

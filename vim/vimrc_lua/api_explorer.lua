@@ -288,8 +288,8 @@ local function open(arg)
     vim.bo[buf].modifiable = false
     vim.bo[buf].filetype = 'api_explorer'
 
-    vim.wo[win].spell = false
-    vim.wo[win].wrap = false
+    vim.wo[win][0].spell = false
+    vim.wo[win][0].wrap = false
 
     local top_level_name, top_level_tbl
     if arg ~= '' then

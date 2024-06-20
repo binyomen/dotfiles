@@ -159,12 +159,9 @@ util.augroup('vimrc__treesitter_buffers', {
             -- Use the treesitter foldexpr for windows where the buffer has
             -- treesitter enabled.
             if util.treesitter_active(args.buf) then
-                vim.wo.foldmethod = 'expr'
-                vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
-                vim.wo.foldenable = false
-            else
-                vim.wo.foldmethod = 'syntax'
-                vim.wo.foldexpr = ''
+                vim.wo[0][0].foldmethod = 'expr'
+                vim.wo[0][0].foldexpr = 'nvim_treesitter#foldexpr()'
+                vim.wo[0][0].foldenable = false
             end
         end,
     }},
