@@ -80,7 +80,7 @@ local HIGHLIGHTS = {
         visual_accent = '!Type.foreground',
         replace_accent = '!Identifier.foreground',
     },
-    tokyonight = {
+    ['tokyonight-night'] = {
         base = '!TabLineFill.background',
         normal_accent = '!Function.foreground',
         insert_accent = '!String.foreground',
