@@ -530,8 +530,6 @@ return require('packer').startup {
                 util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
             end,
         }
-
-        use 'nvim-treesitter/playground'
     end,
     config = {
         profile = {
