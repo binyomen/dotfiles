@@ -132,6 +132,9 @@ Action=org.freedesktop.login1.hibernate;org.freedesktop.login1.handle-hibernate-
 ResultActive=yes
 ```
 
+You may also need to install `polkitd-pkla` if you still get the error “Call to
+Hibernate failed: Access denied”.
+
 Finally, if setting up a laptop, follow [How to go automatically from Suspend
 into Hibernate?] to automatically switch to hibernate after the laptop lid is
 closed for some time. The following two new files should be created (without the
