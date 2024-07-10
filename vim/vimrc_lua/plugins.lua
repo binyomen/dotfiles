@@ -402,7 +402,11 @@ return require('packer').startup {
         use {
             'kevinhwang91/nvim-bqf',
             config = function()
-                require('bqf').setup()
+                require('bqf').setup {
+                    preview = {
+                        winblend = 0,
+                    },
+                }
             end,
         }
         use 'tpope/vim-eunuch' -- Filesystem commands.
