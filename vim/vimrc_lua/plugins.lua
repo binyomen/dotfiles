@@ -534,6 +534,10 @@ return require('packer').startup {
                 util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
             end,
         }
+
+        if LOCAL_CONFIG.use_local_plugins then
+            LOCAL_CONFIG.use_local_plugins()
+        end
     end,
     config = {
         profile = {
