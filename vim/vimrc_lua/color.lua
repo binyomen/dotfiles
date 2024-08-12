@@ -84,7 +84,7 @@ local HIGHLIGHTS = {
         base = '!TabLineFill.background',
         normal_accent = '!Function.foreground',
         insert_accent = '!String.foreground',
-        visual_accent = '!@parameter.foreground',
+        visual_accent = '!Identifier.foreground',
         replace_accent = '!@variable.builtin.foreground',
         cursor_over = {background = '!StatusLineNC.foreground', bold = true}
     },
