@@ -4,94 +4,94 @@ local util = require 'vimrc.util'
 
 local HIGHLIGHTS = {
     NeoSolarized = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!Constant.foreground',
-        visual_accent = '!Search.foreground',
-        replace_accent = '!IncSearch.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!Constant.fg',
+        visual_accent = '!Search.fg',
+        replace_accent = '!IncSearch.fg',
     },
     gruvbox = {
-        base = '!StatusLine.foreground',
-        normal_accent = '!GruvboxBlue.foreground',
-        insert_accent = '!GruvboxAqua.foreground',
-        visual_accent = '!GruvboxYellow.foreground',
-        replace_accent = '!GruvboxOrange.foreground',
+        base = '!StatusLine.fg',
+        normal_accent = '!GruvboxBlue.fg',
+        insert_accent = '!GruvboxAqua.fg',
+        visual_accent = '!GruvboxYellow.fg',
+        replace_accent = '!GruvboxOrange.fg',
     },
     molokai = {
-        base = '!StatusLine.foreground',
-        normal_accent = '!Type.foreground',
-        insert_accent = '!Function.foreground',
-        visual_accent = '!String.foreground',
-        replace_accent = '!Operator.foreground',
+        base = '!StatusLine.fg',
+        normal_accent = '!Type.fg',
+        insert_accent = '!Function.fg',
+        visual_accent = '!String.fg',
+        replace_accent = '!Operator.fg',
     },
     onedark = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Type.foreground',
-        replace_accent = '!Identifier.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
     },
     PaperColor = {
-        base = '!StatusLine.background',
-        normal_accent = '!Operator.foreground',
-        insert_accent = '!Include.foreground',
-        visual_accent = '!String.foreground',
-        replace_accent = '!Constant.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Operator.fg',
+        insert_accent = '!Include.fg',
+        visual_accent = '!String.fg',
+        replace_accent = '!Constant.fg',
     },
     nord = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!SpecialChar.foreground',
-        replace_accent = '!Number.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!SpecialChar.fg',
+        replace_accent = '!Number.fg',
     },
     iceberg = {
-        base = '!TabLine.foreground',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!Special.foreground',
-        visual_accent = '!Title.foreground',
-        replace_accent = '!Constant.foreground',
+        base = '!TabLine.fg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!Special.fg',
+        visual_accent = '!Title.fg',
+        replace_accent = '!Constant.fg',
     },
     one = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Number.foreground',
-        replace_accent = '!Identifier.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Number.fg',
+        replace_accent = '!Identifier.fg',
     },
     OceanicNext = {
-        base = '!StatusLine.foreground',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Label.foreground',
-        replace_accent = '!Statement.foreground',
+        base = '!StatusLine.fg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Label.fg',
+        replace_accent = '!Statement.fg',
     },
     palenight = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Type.foreground',
-        replace_accent = '!Identifier.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
     },
     onehalfdark = {
-        base = '!StatusLine.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Type.foreground',
-        replace_accent = '!Identifier.foreground',
+        base = '!StatusLine.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Type.fg',
+        replace_accent = '!Identifier.fg',
     },
     ['tokyonight-night'] = {
-        base = '!TabLineFill.background',
-        normal_accent = '!Function.foreground',
-        insert_accent = '!String.foreground',
-        visual_accent = '!Identifier.foreground',
-        replace_accent = '!@variable.builtin.foreground',
-        cursor_over = {background = '!StatusLineNC.foreground', bold = true}
+        base = '!TabLineFill.bg',
+        normal_accent = '!Function.fg',
+        insert_accent = '!String.fg',
+        visual_accent = '!Identifier.fg',
+        replace_accent = '!@variable.builtin.fg',
+        cursor_over = {bg = '!StatusLineNC.fg', bold = true}
     },
 }
 
 local function color_from_group(group)
-    return vim.api.nvim_get_hl_by_name(group, true --[[rgb]])
+    return vim.api.nvim_get_hl(0 --[[ns_id]], {name = group, link = false})
 end
 
 local function color_from_group_specifier(color_string)
@@ -111,9 +111,9 @@ local function parse_color(color_string)
 end
 
 local function expand_color_options(options)
-    options.foreground = options.foreground and parse_color(options.foreground)
-    options.background = options.background and parse_color(options.background)
-    options.special = options.special and parse_color(options.special)
+    options.fg = options.fg and parse_color(options.fg)
+    options.bg = options.bg and parse_color(options.bg)
+    options.sp = options.sp and parse_color(options.sp)
 end
 
 local function create_highlight_group(name, options)
@@ -130,16 +130,16 @@ end
 
 local function create_statusline_highlight(mode, base, accent)
     local primary_group = string.format('vimrc__StatuslinePrimary%s', mode)
-    create_highlight_group(primary_group, {foreground = base, background = accent, bold = true})
+    create_highlight_group(primary_group, {fg = base, bg = accent, bold = true})
 
     local secondary_group = string.format('vimrc__StatuslineSecondary%s', mode)
-    create_highlight_group(secondary_group, {foreground = accent, background = base})
+    create_highlight_group(secondary_group, {fg = accent, bg = base})
 
     local winbar_active_group = string.format('vimrc__WinbarActive%s', mode)
-    create_highlight_group(winbar_active_group, {foreground = accent, background = base, bold = true})
+    create_highlight_group(winbar_active_group, {fg = accent, bg = base, bold = true})
 
     local winbar_inactive_group = string.format('vimrc__WinbarInactive%s', mode)
-    create_highlight_group(winbar_inactive_group, {foreground = accent, background = base})
+    create_highlight_group(winbar_inactive_group, {fg = accent, bg = base})
 end
 
 local function create_statusline_highlights(highlights)
@@ -158,7 +158,7 @@ local function create_cursor_over_highlight(highlights)
             color = highlights.cursor_over
         end
     else
-        color = {background = '!TabLine.background', bold = true}
+        color = {bg = '!TabLine.bg', bold = true}
     end
 
     create_highlight_group('vimrc__CursorOver', color)
@@ -173,7 +173,7 @@ local function create_statusline_warning_highlight(highlights)
             color = highlights.statusline_warning
         end
     else
-        color = {foreground = '!WarningMsg.foreground', background = highlights.base, bold = true}
+        color = {fg = '!WarningMsg.fg', bg = highlights.base, bold = true}
     end
 
     create_highlight_group('vimrc__StatuslineWarning', color)
