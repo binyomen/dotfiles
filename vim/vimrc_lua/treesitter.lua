@@ -263,6 +263,6 @@ vim.schedule(function()
         local options = vim.deepcopy(options)
 
         options.default = true
-        vim.api.nvim_set_hl(0 --[[namespace]], capture, options)
+        vim.api.nvim_set_hl(0 --[[ns_id]], capture, options)
     end
 end)

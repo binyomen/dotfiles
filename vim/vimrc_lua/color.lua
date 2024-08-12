@@ -125,7 +125,7 @@ local function create_highlight_group(name, options)
         return
     end
 
-    vim.api.nvim_set_hl(0 --[[namespace]], name, options)
+    vim.api.nvim_set_hl(0 --[[ns_id]], name, options)
 end
 
 local function create_statusline_highlight(mode, base, accent)
