@@ -54,10 +54,30 @@ local function highlight_word_under_cursor()
     vim.w.vimrc__cursor_highlight_match_id = vim.fn.matchadd('vimrc__CursorOver', pattern)
 end
 
-util.augroup('vimrc__highlight_word_under_cursor', {
-    {{'CursorMoved', 'CursorMovedI'}, {callback = highlight_word_under_cursor}},
-    {'WinLeave', {callback = clear_cursor_highlight}},
-})
+local cursor_word_enabled
+local function enable_cursor_word()
+    util.augroup('vimrc__highlight_word_under_cursor', {
+        {{'CursorMoved', 'CursorMovedI'}, {callback = highlight_word_under_cursor}},
+        {'WinLeave', {callback = clear_cursor_highlight}},
+    })
+    highlight_word_under_cursor()
+    cursor_word_enabled = true
+end
+local function disable_cursor_word()
+    vim.api.nvim_del_augroup_by_name('vimrc__highlight_word_under_cursor')
+    clear_cursor_highlight()
+    cursor_word_enabled = false
+end
+
+enable_cursor_word()
+
+util.map('n', 'cz', function()
+    if cursor_word_enabled then
+        disable_cursor_word()
+    else
+        enable_cursor_word()
+    end
+end)
 
 -- Center mode.
 local in_center_mode
