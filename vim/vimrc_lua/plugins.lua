@@ -180,7 +180,7 @@ return require('packer').startup {
         use {
             'rickhowe/diffchar.vim',
             config = function()
-                vim.g.DiffUnit = 'Char'
+                vim.g.DiffUnit = 'word'
             end,
         }
         use {
