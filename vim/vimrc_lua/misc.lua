@@ -58,7 +58,7 @@ local cursor_word_enabled
 local function enable_cursor_word()
     util.augroup('vimrc__highlight_word_under_cursor', {
         {{'CursorMoved', 'CursorMovedI'}, {callback = highlight_word_under_cursor}},
-        {'WinLeave', {callback = clear_cursor_highlight}},
+        {{'WinLeave', 'TermEnter'}, {callback = clear_cursor_highlight}},
     })
     highlight_word_under_cursor()
     cursor_word_enabled = true
