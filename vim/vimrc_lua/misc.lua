@@ -272,3 +272,12 @@ end
 util.map({'n', 'x'}, {expr = true}, '<leader>so', util.new_operator(function()
     util.opfunc_ex_command {cmd = 'sort'}
 end))
+
+util.augroup('vimrc__reset_match_paren', {
+    {'TermEnter', {callback =
+        function()
+            vim.cmd.NoMatchParen()
+            vim.cmd.DoMatchParen()
+        end
+    }},
+})
