@@ -57,6 +57,7 @@ return require('packer').startup {
         }
         use {
             'smjonas/live-command.nvim',
+            tag = '1.x',
             config = function()
                 require('live-command').setup {
                     defaults = {
