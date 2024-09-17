@@ -17,6 +17,7 @@ util.map('i', '<c-l>', '<c-x><c-l><c-n>') -- Make line completion easier.
 -- Terminal mode
 util.map('t', 'uu', '<c-\\><c-n>')
 util.map('t', 'hh', '<c-\\><c-n>')
+util.map('t', '<c-h>', '<cmd>wall<cr>')
 
 -- Command mode
 -- Easily type and expand '%:h/' in command mode.
