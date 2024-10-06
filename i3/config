@@ -49,7 +49,7 @@ bindsym $mod+Shift+v split v
 
 bindsym $mod+f fullscreen toggle
 
-bindsym $mod+k layout stacking
+bindsym $mod+z layout stacking
 bindsym $mod+b layout tabbed
 bindsym $mod+w layout toggle split
 
