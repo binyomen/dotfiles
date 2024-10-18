@@ -23,6 +23,8 @@ local function on_attach(_, buf)
     util.map('n', '<leader><space>f', function() vim.lsp.buf.format {async = true} end, {buffer = buf})
     util.map('n', '<leader><space>s', vim.lsp.buf.document_symbol, {buffer = buf})
     util.map('n', '<leader><space>S', function() vim.lsp.buf.workspace_symbol('') end, {buffer = buf})
+    util.map('n', '<leader><space>h', '<cmd>ClangdSwitchSourceHeader<cr>', {buffer = buf})
+    util.map('n', '<leader><space>cs', '<cmd>ClangdShowSymbolInfo<cr>', {buffer = buf})
 end
 
 local function setup_language_server(name, config)
