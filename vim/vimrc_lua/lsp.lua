@@ -83,7 +83,9 @@ setup_language_server('efm', {
 
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
-        lspconfig[server.name] = server.default_options
+        if server.default_options then
+            lspconfig[server.name] = server.default_options
+        end
         setup_language_server(server.name, server.setup_options)
     end
 end
