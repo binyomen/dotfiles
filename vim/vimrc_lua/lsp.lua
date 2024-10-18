@@ -81,6 +81,9 @@ setup_language_server('efm', {
     },
 })
 
+-- https://clangd.llvm.org/
+setup_language_server('clangd')
+
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
         if server.default_options then
