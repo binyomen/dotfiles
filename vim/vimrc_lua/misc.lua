@@ -277,6 +277,7 @@ end))
 util.user_command(
     'RelativizeBuffersInternal',
     function()
+        local current_buf = vim.api.nvim_get_current_buf()
         local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
             return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
         end)
@@ -285,6 +286,12 @@ util.user_command(
                 local name = vim.api.nvim_buf_get_name(buf)
                 local relative_name = util.relative_path(name)
                 vim.api.nvim_buf_set_name(buf, relative_name)
+
+                -- Editing the file in place will enable you to write it
+                -- without needing a bang.
+                vim.api.nvim_set_current_buf(buf)
+                vim.cmd.edit()
+                vim.api.nvim_set_current_buf(current_buf)
             end
         end
     end,
