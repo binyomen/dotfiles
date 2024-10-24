@@ -272,3 +272,21 @@ end
 util.map({'n', 'x'}, {expr = true}, '<leader>so', util.new_operator(function()
     util.opfunc_ex_command {cmd = 'sort'}
 end))
+
+-- Set all buffers to their relative paths.
+util.user_command(
+    'RelativizeBuffers',
+    function()
+        local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
+            return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
+        end)
+        for _, buf in ipairs(bufs) do
+            if util.buffer_is_file(buf) then
+                local name = vim.api.nvim_buf_get_name(buf)
+                local relative_name = util.relative_path(name)
+                vim.api.nvim_buf_set_name(buf, relative_name)
+            end
+        end
+    end,
+    {nargs = 0}
+)

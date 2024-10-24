@@ -504,4 +504,15 @@ M.user_command(
     {nargs = 1, complete = complete_set_table_style}
 )
 
+function M.relative_path(path)
+    local command = {'realpath', '--relative-to', '.', path}
+    local result = vim.system(command, {text = true}):wait()
+    if result.code ~= 0 then
+        M.log_error(string.format('realpath exited with code %d and error \'%s\'', result.code, result.stderr))
+        return path
+    end
+
+    return vim.trim(result.stdout)
+end
+
 return M
