@@ -275,7 +275,7 @@ end))
 
 -- Set all buffers to their relative paths.
 util.user_command(
-    'RelativizeBuffers',
+    'RelativizeBuffersInternal',
     function()
         local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
             return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
@@ -290,3 +290,4 @@ util.user_command(
     end,
     {nargs = 0}
 )
+util.user_command('RelativizeBuffers', 'keepalt RelativizeBuffersInternal', {nargs = 0})
