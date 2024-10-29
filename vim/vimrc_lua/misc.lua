@@ -71,7 +71,7 @@ end
 
 enable_cursor_word()
 
-util.map('n', 'cz', function()
+util.map('n', 'c<space>', function()
     if cursor_word_enabled then
         disable_cursor_word()
     else
