@@ -274,27 +274,39 @@ util.map({'n', 'x'}, {expr = true}, '<leader>so', util.new_operator(function()
 end))
 
 -- Set all buffers to their relative paths.
+local function relativize_buffer(previous_buf, buf)
+    if util.buffer_is_file(buf) then
+        local name = vim.api.nvim_buf_get_name(buf)
+        local relative_name = util.relative_path(name)
+        vim.api.nvim_buf_set_name(buf, relative_name)
+
+        -- Editing the file in place will enable you to write it
+        -- without needing a bang.
+        vim.api.nvim_set_current_buf(buf)
+        vim.cmd.edit()
+        vim.api.nvim_set_current_buf(previous_buf)
+    end
+end
 util.user_command(
     'RelativizeBuffersInternal',
     function()
-        local current_buf = vim.api.nvim_get_current_buf()
+        local previous_buf = vim.api.nvim_get_current_buf()
         local bufs = util.filter(vim.api.nvim_list_bufs(), function(buf)
             return vim.api.nvim_buf_is_loaded(buf) and vim.fn.buflisted(buf) ~= 0
         end)
         for _, buf in ipairs(bufs) do
-            if util.buffer_is_file(buf) then
-                local name = vim.api.nvim_buf_get_name(buf)
-                local relative_name = util.relative_path(name)
-                vim.api.nvim_buf_set_name(buf, relative_name)
-
-                -- Editing the file in place will enable you to write it
-                -- without needing a bang.
-                vim.api.nvim_set_current_buf(buf)
-                vim.cmd.edit()
-                vim.api.nvim_set_current_buf(current_buf)
-            end
+            relativize_buffer(previous_buf, buf)
         end
     end,
     {nargs = 0}
 )
+util.user_command(
+    'RelativizeBufferInternal',
+    function()
+        local buf = vim.api.nvim_get_current_buf()
+        relativize_buffer(buf, buf)
+    end,
+    {nargs = 0}
+)
 util.user_command('RelativizeBuffers', 'keepalt RelativizeBuffersInternal', {nargs = 0})
+util.user_command('RelativizeBuffer', 'keepalt RelativizeBufferInternal', {nargs = 0})
