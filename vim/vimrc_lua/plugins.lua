@@ -207,6 +207,28 @@ return require('packer').startup {
                 )
             end,
         }
+        use {
+            'giusgad/pets.nvim',
+            requires = {
+                'giusgad/hologram.nvim',
+                'MunifTanjim/nui.nvim',
+            },
+            config = function()
+                require('pets').setup()
+
+                local util = require 'vimrc.util'
+                local name_number = 1;
+                util.map('n', '<leader>pn', function()
+                    local name = 'John' .. name_number
+                    vim.cmd.PetsNew(name)
+                    name_number = name_number + 1
+                end)
+                util.map('n', '<leader>pr', '<cmd>PetsRemoveAll<cr>')
+                util.map('n', '<leader>pp', '<cmd>PetsPauseToggle<cr>')
+                util.map('n', '<leader>ph', '<cmd>PetsHideToggle<cr>')
+                util.map('n', '<leader>pi', '<cmd>PetsIdleToggle<cr>')
+            end,
+        }
 
         -- External integration.
         use {
