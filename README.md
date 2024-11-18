@@ -56,7 +56,7 @@ chsh -s "$(which fish)"
 
 #### Purge snap and stand-in Firefox on Ubuntu
 
-Follow [How to Install Firefox as a .Deb on Ubuntu 22.04 (Not a Snap)] for the
+Follow [Install Firefox .deb package for Debian-based distributions] for the
 most part. Slight modifications:
 
 1. Remove the stand-in version of Firefox with `sudo apt-get remove --purge firefox`
@@ -176,7 +176,7 @@ timer with `systemctl --user enable user-battery-status.timer` and start it with
 [node]: https://github.com/nodesource/distributions#installation-instructions
 [ppa:git-core/ppa]: https://git-scm.com/download/linux
 [IDrive]: https://www.idrivedownloads.com/downloads/linux/download-for-linux/LinuxScripts/IDriveForLinux.zip
-[How to Install Firefox as a .Deb on Ubuntu 22.04 (Not a Snap)]: https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+[Install Firefox .deb package for Debian-based distributions]: https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended
 [fish]: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
 [Dark theme not applying in Nautilus 42.1.1]: https://www.reddit.com/r/gnome/comments/ukx8k9/dark_theme_not_applying_in_nautilus_4211/
 [Error opening terminal: xterm-kitty]: https://www.reddit.com/r/commandline/comments/prenxh/error_opening_terminal_xtermkitty/
