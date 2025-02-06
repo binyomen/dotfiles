@@ -8,15 +8,15 @@ if [[ "${TRACE-0}" == "1" ]]; then
 fi
 
 main() {
-    echo ==== Running apt update =====
+    echo ====== Running apt update ======
     apt update -y
 
     echo
-    echo ==== Running apt upgrade ====
+    echo ===== Running apt upgrade ======
     apt upgrade -y
 
     echo
-    echo === Running apt autoremove ==
+    echo ==== Running apt autoremove ====
     apt autoremove -y
 }
 
