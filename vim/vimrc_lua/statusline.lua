@@ -279,9 +279,11 @@ local function on_cursor_hold()
         vim.b.vimrc__word_count = result.total
     end
 
-    vim.b.vimrc__trailing_space_count = vim.fn.searchcount {pattern = [[\s\+$]], timeout = 0, maxcount = 0}.total
-    if vim.b.vimrc__trailing_space_count > 0 then
-        vim.b.vimrc__trailing_space_line = vim.fn.search([[\s\+$]], 'n')
+    if vim.bo.buftype ~= 'terminal' then
+        vim.b.vimrc__trailing_space_count = vim.fn.searchcount {pattern = [[\s\+$]], timeout = 0, maxcount = 0}.total
+        if vim.b.vimrc__trailing_space_count > 0 then
+            vim.b.vimrc__trailing_space_line = vim.fn.search([[\s\+$]], 'n')
+        end
     end
 end
 
