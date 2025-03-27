@@ -36,9 +36,6 @@ local function grep(args)
 end
 util.user_command('Grep', function(args) grep(args.args) end, {nargs = 1})
 
-util.map('n', '[q', '<cmd>cprev<cr>')
-util.map('n', ']q', '<cmd>cnext<cr>')
-
 util.map('n', '<leader>co', '<cmd>COpen<cr>')
 util.map('n', '<leader>cc', '<cmd>cclose | lclose<cr>')
 
