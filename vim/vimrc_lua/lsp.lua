@@ -2,6 +2,14 @@ local completion = require 'vimrc.completion'
 local lspconfig = require 'lspconfig'
 local util = require 'vimrc.util'
 
+-- Unmap default mappings that conflict with vim-ReplaceWithRegister and other
+-- plugins.
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'gO')
+vim.keymap.del({'n', 'x'}, 'gra')
+
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
 local function on_attach(_, buf)
