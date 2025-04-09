@@ -12,6 +12,10 @@ vim.keymap.del({'n', 'x'}, 'gra')
 
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
 
+vim.diagnostic.config {
+    virtual_text = true,
+}
+
 local function on_attach(_, buf)
     -- Remove the default omnifunc (v:lua.vim.lsp.omnifunc), since it causes
     -- issues if it's used with the extra capabilities provided by nvim-cmp.
