@@ -209,6 +209,7 @@ return require('packer').startup {
         }
         use {
             'giusgad/pets.nvim',
+            cond = function() return not require('vimrc.util').vim_has('win32') end,
             requires = {
                 'giusgad/hologram.nvim',
                 'MunifTanjim/nui.nvim',
