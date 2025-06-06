@@ -26,7 +26,7 @@
         "defaults": {
             "bellStyle": "none",
             "font": {
-                "face": "Fira Code",
+                "face": "Cascadia Code",
                 "size": 12
             },
             "intenseTextStyle": "bold"
