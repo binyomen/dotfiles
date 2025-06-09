@@ -210,8 +210,7 @@ local function render_buffers(colors)
             table.insert(tabline, colors.secondary)
         end
 
-        local is_modified = vim.bo[buf].modified
-        local modified_string = is_modified and ' ●' or ''
+        local modified_string = vim.bo[buf].modified and ' ●' or ''
 
         -- Label the tab.
         table.insert(tabline, string.format(' %s%s ', name_with_buf_number, modified_string))
@@ -297,7 +296,10 @@ function M.do_winbar(state)
         color = colors.winbar_inactive
     end
 
-    return string.format('%s %%f %s', color, colors.winbar_inactive)
+    local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+    local modified_string = vim.bo[buf].modified and ' ●' or ''
+
+    return string.format('%s %%f%s %s', color, modified_string, colors.winbar_inactive)
 end
 
 local function set_winbar(state)
