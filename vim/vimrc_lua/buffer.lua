@@ -4,11 +4,6 @@ local SCRATCH_BUFFER_NAME = '__SCRATCH__'
 
 -- Open a scratch buffer.
 util.map('n', '<leader>bs', function()
-    if vim.o.modified then
-        util.log_error 'Cannot open a scratch buffer in a modified buffer.'
-        return
-    end
-
     local buf = vim.fn.bufnr(SCRATCH_BUFFER_NAME)
     if buf == -1 then
         -- The scratch buffer doesn't exist. Create it.
