@@ -36,6 +36,7 @@ require('lazy').setup {
         },
         {
             'ggandor/leap.nvim',
+            dependencies = {'tpope/vim-repeat'},
             config = function()
                 util.map('n', 's', '<plug>(leap-forward-to)')
                 util.map('n', 'S', '<plug>(leap-backward-to)')
@@ -48,6 +49,7 @@ require('lazy').setup {
         },
         {
             'ggandor/leap-spooky.nvim',
+            dependencies = {'ggandor/leap.nvim'},
             config = function()
                 require('leap-spooky').setup()
             end,
@@ -73,7 +75,6 @@ require('lazy').setup {
         },
 
         -- Custom text objects.
-        {'kana/vim-textobj-user'}, -- Framework for creating custom text objects.
         {'kana/vim-textobj-entire', dependencies = {'kana/vim-textobj-user'}}, -- ae/ie: The entire buffer.
         {'kana/vim-textobj-indent', dependencies = {'kana/vim-textobj-user'}}, -- ai/ii/aI/iI: Similarly indented groups.
         {'kana/vim-textobj-line', dependencies = {'kana/vim-textobj-user'}}, -- al/il: The current line.
@@ -534,15 +535,24 @@ require('lazy').setup {
         -- Tree-sitter
         {
             'nvim-treesitter/nvim-treesitter',
+            lazy = false,
+            branch = 'master',
             build = ':TSUpdate',
             config = function()
                 require 'vimrc.treesitter'
             end,
         },
-        {'nvim-treesitter/nvim-treesitter-textobjects'},
-        {'nvim-treesitter/nvim-treesitter-refactor'},
+        {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            dependencies = {'nvim-treesitter/nvim-treesitter'},
+        },
+        {
+            'nvim-treesitter/nvim-treesitter-refactor',
+            dependencies = {'nvim-treesitter/nvim-treesitter'},
+        },
         {
             'nvim-treesitter/nvim-treesitter-context',
+            dependencies = {'nvim-treesitter/nvim-treesitter'},
             config = function()
                 require('treesitter-context').setup()
 
