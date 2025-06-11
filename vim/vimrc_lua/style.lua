@@ -23,7 +23,6 @@ util.map('n', '<leader>NS', function()
     end
 
     local theme = themes[current_theme]
-    vim.cmd(string.format('packadd %s', theme.plugin))
     vim.cmd(string.format('colorscheme %s', theme.name))
     util.echo(string.format('Switched to theme %s.', theme.name))
 end)

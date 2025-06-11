@@ -197,6 +197,9 @@ end
 util.augroup('vimrc__statusline_highlight_groups', {
     {'ColorScheme', {callback = set_highlight_groups}},
 })
+if vim.g.colors_name ~= nil then
+    set_highlight_groups()
+end
 
 util.user_command('HiTest', 'source $VIMRUNTIME/syntax/hitest.vim', {nargs = 0})
 util.user_command(

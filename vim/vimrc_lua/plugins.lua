@@ -1,42 +1,42 @@
--- Install packer on first run.
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if require('vimrc.util').vim_empty(vim.fn.glob(install_path)) then
-    vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd.packadd 'packer.nvim'
+-- Bootstrap lazy.nvim.
+local lazy_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.uv.fs_stat(lazy_path) then
+  local lazy_repo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system {'git', 'clone', '--filter=blob:none', '--branch=stable', lazy_repo, lazy_path}
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      {'Failed to clone lazy.nvim:\n', 'ErrorMsg'},
+      {out, 'WarningMsg'},
+      {'\nPress any key to exit...'},
+    }, true --[[history]], {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
-
-local packer = require 'packer'
-local use = packer.use
-
--- Automatically compile packer when plugins.lua is changed.
-require('vimrc.util').augroup('vimrc__packer_auto_compile', {
-    {'BufWritePost', {pattern = 'plugins.lua', command = 'source <afile> | PackerCompile'}},
-})
+vim.opt.rtp:prepend(lazy_path)
 
 local function not_firenvim()
     return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
 end
 
-return require('packer').startup {
-    function()
-        -- Packer itself.
-        use 'wbthomason/packer.nvim'
-
+-- Setup lazy.nvim.
+require('lazy').setup {
+    spec = {
         -- Cache lua module bytecode.
-        use 'lewis6991/impatient.nvim'
+        {'lewis6991/impatient.nvim'},
 
         -- General text editing.
-        use 'tpope/vim-commentary' -- Commenting functionality.
-        use 'tpope/vim-surround' -- Surround text in quotes, HTML tags, etc.
-        use 'tpope/vim-repeat' -- Repeatable plugin actions.
-        use 'inkarkat/vim-ReplaceWithRegister' -- Easy replacement without overwriting registers.
-        use {
+        {'tpope/vim-commentary'}, -- Commenting functionality.
+        {'tpope/vim-surround'}, -- Surround text in quotes, HTML tags, etc.
+        {'tpope/vim-repeat'}, -- Repeatable plugin actions.
+        {'inkarkat/vim-ReplaceWithRegister'}, -- Easy replacement without overwriting registers.
+        {
             'junegunn/vim-easy-align',
             config = function()
                 require('vimrc.util').map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
             end,
-        }
-        use {
+        },
+        {
             'ggandor/leap.nvim',
             config = function()
                 local util = require 'vimrc.util'
@@ -48,14 +48,14 @@ return require('packer').startup {
                 util.map({'o', 'x'}, 'X', '<plug>(leap-backward-till)')
                 util.map('n', 'gs', '<plug>(leap-cross-window)')
             end,
-        }
-        use {
+        },
+        {
             'ggandor/leap-spooky.nvim',
             config = function()
                 require('leap-spooky').setup()
             end,
-        }
-        use {
+        },
+        {
             'smjonas/live-command.nvim',
             tag = '1.x',
             config = function()
@@ -73,17 +73,18 @@ return require('packer').startup {
                     },
                 }
             end,
-        }
+        },
 
         -- Custom text objects.
-        use 'kana/vim-textobj-user' -- Framework for creating custom text objects.
-        use 'kana/vim-textobj-entire' -- ae/ie: The entire buffer.
-        use 'kana/vim-textobj-indent' -- ai/ii/aI/iI: Similarly indented groups.
-        use 'kana/vim-textobj-line' -- al/il: The current line.
-        use 'glts/vim-textobj-comment' -- ac/ic/aC: A comment block.
-        use 'Julian/vim-textobj-variable-segment' -- av/iv: Part of a camelCase or snake_case variable.
-        use { -- ak/ik/aK/iK: Columns of characters.
+        {'kana/vim-textobj-user'}, -- Framework for creating custom text objects.
+        {'kana/vim-textobj-entire', dependencies = {'kana/vim-textobj-user'}}, -- ae/ie: The entire buffer.
+        {'kana/vim-textobj-indent', dependencies = {'kana/vim-textobj-user'}}, -- ai/ii/aI/iI: Similarly indented groups.
+        {'kana/vim-textobj-line', dependencies = {'kana/vim-textobj-user'}}, -- al/il: The current line.
+        {'glts/vim-textobj-comment', dependencies = {'kana/vim-textobj-user'}}, -- ac/ic/aC: A comment block.
+        {'Julian/vim-textobj-variable-segment', dependencies = {'kana/vim-textobj-user'}}, -- av/iv: Part of a camelCase or snake_case variable.
+        { -- ak/ik/aK/iK: Columns of characters.
             'idbrii/textobj-word-column.vim',
+            dependencies = {'kana/vim-textobj-user'},
             config = function()
                 vim.g.textobj_wordcolumn_no_default_key_mappings = 1
 
@@ -98,38 +99,47 @@ return require('packer').startup {
                     },
                 })
             end,
-        }
-        use 'sgur/vim-textobj-parameter' -- a,/i,: Function arguments and parameters.
-        use 'thinca/vim-textobj-between' -- af/if: Between a given character.
-        use { -- aq/iq/aQ/iQ: Smart quotes.
+        },
+        {'sgur/vim-textobj-parameter', dependencies = {'kana/vim-textobj-user'}}, -- a,/i,: Function arguments and parameters.
+        {'thinca/vim-textobj-between', dependencies = {'kana/vim-textobj-user'}}, -- af/if: Between a given character.
+        { -- aq/iq/aQ/iQ: Smart quotes.
             'preservim/vim-textobj-quote',
+            dependencies = {'kana/vim-textobj-user'},
             config = function()
                 local util = require 'vimrc.util'
                 util.map({'n', 'x'}, '<leader>qc', '<plug>ReplaceWithCurly')
                 util.map({'n', 'x'}, '<leader>qs', '<plug>ReplaceWithStraight')
                 util.map({'n', 'x'}, '<leader>qt', '<cmd>ToggleEducate<cr>')
             end,
-        }
+        },
 
         -- Color schemes.
-        use {
+        {
             'iCyMind/NeoSolarized',
-            opt = true,
+            lazy = true,
             config = function()
                 vim.g.neosolarized_contrast = 'high'
             end,
-        }
-        use {'tomasr/molokai', opt = true}
-        use {'joshdick/onedark.vim', opt = true}
-        use { 'NLKNguyen/papercolor-theme', opt = true }
-        use {'arcticicestudio/nord-vim', opt = true}
-        use {'cocopon/iceberg.vim', opt = true}
-        use {'rakr/vim-one', opt = true}
-        use {'mhartington/oceanic-next', opt = true}
-        use {'drewtempelmeyer/palenight.vim', opt = true}
-        use {'sonph/onehalf', rtp = 'vim', opt = true}
-        use {
+        },
+        {'tomasr/molokai', lazy = true},
+        {'joshdick/onedark.vim', lazy = true},
+        {'NLKNguyen/papercolor-theme', lazy = true},
+        {'arcticicestudio/nord-vim', lazy = true},
+        {'cocopon/iceberg.vim', lazy = true},
+        {'rakr/vim-one', lazy = true},
+        {'mhartington/oceanic-next', lazy = true},
+        {'drewtempelmeyer/palenight.vim', lazy = true},
+        {
+            'sonph/onehalf',
+            lazy = true,
+            config = function(plugin)
+                vim.opt.rtp:append(plugin.dir .. '/vim')
+            end
+        },
+        {
             'folke/tokyonight.nvim',
+            lazy = false,
+            priority = 1000,
             config = function()
                 require('tokyonight').setup {
                     style = 'night',
@@ -138,10 +148,10 @@ return require('packer').startup {
 
                 vim.cmd.colorscheme 'tokyonight-night'
             end,
-        }
+        },
 
         -- User interface stuff.
-        use {
+        {
             'lukas-reineke/indent-blankline.nvim',
             config = function()
                 require('ibl').setup {
@@ -153,8 +163,8 @@ return require('packer').startup {
                     },
                 }
             end,
-        }
-        use {
+        },
+        {
             'voldikss/vim-floaterm',
             config = function()
                 vim.g.floaterm_width = 0.99
@@ -169,20 +179,20 @@ return require('packer').startup {
                 -- `:<esc>` but neither of them cleared the bottom line.
                 util.map('t', '<m-t>', [[<c-\><c-n><cmd>FloatermToggle<cr><cmd>echo<cr>]])
             end,
-        }
-        use {
+        },
+        {
             'rickhowe/diffchar.vim',
             config = function()
                 vim.g.DiffUnit = 'word'
             end,
-        }
-        use {
+        },
+        {
             'dhruvasagar/vim-table-mode',
             config = function()
                 vim.g.table_mode_map_prefix = '<leader>0'
             end,
-        }
-        use {
+        },
+        {
             'kosayoda/nvim-lightbulb',
             config = function()
                 require('nvim-lightbulb').setup {
@@ -191,8 +201,8 @@ return require('packer').startup {
                     },
                 }
             end,
-        }
-        use {
+        },
+        {
             'norcalli/nvim-colorizer.lua',
             config = function()
                 require('colorizer').setup(
@@ -206,11 +216,11 @@ return require('packer').startup {
                     }
                 )
             end,
-        }
-        use {
+        },
+        {
             'giusgad/pets.nvim',
-            cond = function() return not require('vimrc.util').vim_has('win32') end,
-            requires = {
+            enabled = function() return not require('vimrc.util').vim_has('win32') end,
+            dependencies = {
                 'giusgad/hologram.nvim',
                 'MunifTanjim/nui.nvim',
             },
@@ -229,23 +239,23 @@ return require('packer').startup {
                 util.map('n', '<leader>ph', '<cmd>PetsHideToggle<cr>')
                 util.map('n', '<leader>pi', '<cmd>PetsIdleToggle<cr>')
             end,
-        }
+        },
 
         -- External integration.
-        use {
+        {
             'glacambre/firenvim',
-            run = function()
+            build = function()
                 vim.fn['firenvim#install'](0)
             end,
-        }
-        use {
+        },
+        {
             'tpope/vim-fugitive',
             cond = not_firenvim,
             config = function()
                 require('vimrc.util').map('n', '<leader>gfd', ':Gvdiff<cr>') -- Display a diff view of the current file.
             end,
-        }
-        use {
+        },
+        {
             'lewis6991/gitsigns.nvim',
             cond = not_firenvim,
             config = function()
@@ -298,24 +308,24 @@ return require('packer').startup {
                     end
                 }
             end,
-        }
-        use {
+        },
+        {
             'neovim/nvim-lspconfig',
-            after = 'nvim-cmp',
+            dependencies = {'nvim-cmp'},
             config = function()
                 require 'vimrc.lsp'
             end,
-        }
-        use 'img-paste-devs/img-paste.vim'
-        use {
+        },
+        {'img-paste-devs/img-paste.vim'},
+        {
             'justinmk/vim-dirvish',
             config = function()
                 require('vimrc.util').map('n', '<leader>-', '<plug>(dirvish_up)')
             end,
-        }
-        use {
+        },
+        {
             'sindrets/diffview.nvim',
-            requires = 'nvim-lua/plenary.nvim',
+            dependencies = {'nvim-lua/plenary.nvim'},
             config = function()
                 local actions = require('diffview.actions')
                 require('diffview').setup {
@@ -364,11 +374,11 @@ return require('packer').startup {
                 util.map('n', '<leader>gvo', '<cmd>DiffviewOpen<cr>')
                 util.map('n', '<leader>gvh', '<cmd>DiffviewFileHistory<cr>')
             end,
-        }
-        use {
+        },
+        {
             'sakhnik/nvim-gdb',
-            cond = function() return not require('vimrc.util').vim_has('win32') end,
-            setup = function()
+            enabled = function() return not require('vimrc.util').vim_has('win32') end,
+            init = function()
                 vim.g.nvimgdb_disable_start_keymaps = true
                 vim.g.nvimgdb_config_override = {
                     key_frameup = '<c-up>',
@@ -377,16 +387,16 @@ return require('packer').startup {
                     codewin_command = 'vnew',
                 }
             end,
-        }
-        use {
+        },
+        {
             'weirongxu/plantuml-previewer.vim',
-            requires = 'tyru/open-browser.vim',
-        }
+            dependencies = {'tyru/open-browser.vim'},
+        },
 
         -- Completion.
-        use {
+        {
             'hrsh7th/nvim-cmp',
-            requires = {
+            dependencies = {
                 'hrsh7th/cmp-nvim-lsp',
                 'hrsh7th/cmp-buffer',
                 'hrsh7th/cmp-path',
@@ -402,20 +412,20 @@ return require('packer').startup {
                 require('luasnip.loaders.from_snipmate').lazy_load()
                 require 'vimrc.completion'
             end,
-        }
+        },
 
         -- File types.
-        use 'PProvost/vim-ps1'
-        use 'ElmCast/elm-vim'
-        use 'fladson/vim-kitty'
-        use 'aklt/plantuml-syntax'
+        {'PProvost/vim-ps1'},
+        {'ElmCast/elm-vim'},
+        {'fladson/vim-kitty'},
+        {'aklt/plantuml-syntax'},
 
         -- Misc.
-        use {
+        {
             'editorconfig/editorconfig-vim',
             cond = function() return not LOCAL_CONFIG.no_editorconfig end
-        }
-        use {
+        },
+        {
             'kevinhwang91/nvim-bqf',
             config = function()
                 require('bqf').setup {
@@ -424,21 +434,21 @@ return require('packer').startup {
                     },
                 }
             end,
-        }
-        use 'tpope/vim-eunuch' -- Filesystem commands.
-        use 'milisims/nvim-luaref' -- Documentation for built-in Lua functions.
-        use 'nvim-lua/plenary.nvim' -- Useful utilities.
-        use {
+        },
+        {'tpope/vim-eunuch'}, -- Filesystem commands.
+        {'milisims/nvim-luaref'}, -- Documentation for built-in Lua functions.
+        {'nvim-lua/plenary.nvim'}, -- Useful utilities.
+        {
             'tpope/vim-characterize',
-            after = 'vim-easy-align', -- Since vim-easy-align also maps ga
+            dependencies = {'vim-easy-align'}, -- Since vim-easy-align also maps ga
             config = function()
                 require('vimrc.util').map('n', 'g9', '<plug>(characterize)')
             end,
-        }
-        use {
+        },
+        {
             'vimwiki/vimwiki',
             branch = 'dev',
-            setup = function()
+            init = function()
                 vim.g.vimwiki_key_mappings = {all_maps = 0}
                 vim.g.vimwiki_toc_header_level = 2
                 vim.g.vimwiki_auto_chdir = 1
@@ -472,8 +482,8 @@ return require('packer').startup {
 
                 vim.g.vimwiki_list = vimwiki_list
             end,
-        }
-        use {
+        },
+        {
             'jakewvincent/mkdnflow.nvim',
             config = function()
                 local lead = '<leader>w'
@@ -523,25 +533,25 @@ return require('packer').startup {
                     }
                 }
             end,
-        }
-        use {
+        },
+        {
             'binyomen/vim-emoji-abbreviations',
             config = function()
                 require('vim-emoji-abbreviations').setup()
             end,
-        }
+        },
 
         -- Tree-sitter
-        use {
+        {
             'nvim-treesitter/nvim-treesitter',
-            run = ':TSUpdate',
+            build = ':TSUpdate',
             config = function()
                 require 'vimrc.treesitter'
             end,
-        }
-        use 'nvim-treesitter/nvim-treesitter-textobjects'
-        use 'nvim-treesitter/nvim-treesitter-refactor'
-        use {
+        },
+        {'nvim-treesitter/nvim-treesitter-textobjects'},
+        {'nvim-treesitter/nvim-treesitter-refactor'},
+        {
             'nvim-treesitter/nvim-treesitter-context',
             config = function()
                 require('treesitter-context').setup()
@@ -549,20 +559,6 @@ return require('packer').startup {
                 local util = require 'vimrc.util'
                 util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
             end,
-        }
-
-        if LOCAL_CONFIG.use_local_plugins then
-            LOCAL_CONFIG.use_local_plugins()
-        end
-    end,
-    config = {
-        profile = {
-            -- Enable profiling plugin loads.
-            enable = false,
-        },
-        git = {
-            -- Don't timeout when cloning new plugins.
-            clone_timeout = false,
         },
     },
 }
