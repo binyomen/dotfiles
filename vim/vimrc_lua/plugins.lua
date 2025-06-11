@@ -22,9 +22,6 @@ end
 -- Setup lazy.nvim.
 require('lazy').setup {
     spec = {
-        -- Cache lua module bytecode.
-        {'lewis6991/impatient.nvim'},
-
         -- General text editing.
         {'tpope/vim-commentary'}, -- Commenting functionality.
         {'tpope/vim-surround'}, -- Surround text in quotes, HTML tags, etc.
