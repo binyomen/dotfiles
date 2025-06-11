@@ -25,7 +25,6 @@ end
 require('lazy').setup {
     spec = {
         -- General text editing.
-        {'tpope/vim-commentary'}, -- Commenting functionality.
         {'tpope/vim-surround'}, -- Surround text in quotes, HTML tags, etc.
         {'tpope/vim-repeat'}, -- Repeatable plugin actions.
         {'inkarkat/vim-ReplaceWithRegister'}, -- Easy replacement without overwriting registers.
