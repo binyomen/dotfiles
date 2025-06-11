@@ -1,3 +1,5 @@
+local util = require 'vimrc.util'
+
 -- Bootstrap lazy.nvim.
 local lazy_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazy_path) then
@@ -16,7 +18,7 @@ end
 vim.opt.rtp:prepend(lazy_path)
 
 local function not_firenvim()
-    return not require('vimrc.util').vim_true(vim.g.started_by_firenvim)
+    return not util.vim_true(vim.g.started_by_firenvim)
 end
 
 -- Setup lazy.nvim.
@@ -30,13 +32,12 @@ require('lazy').setup {
         {
             'junegunn/vim-easy-align',
             config = function()
-                require('vimrc.util').map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
+                util.map({'n', 'x'}, 'ga', '<plug>(EasyAlign)')
             end,
         },
         {
             'ggandor/leap.nvim',
             config = function()
-                local util = require 'vimrc.util'
                 util.map('n', 's', '<plug>(leap-forward-to)')
                 util.map('n', 'S', '<plug>(leap-backward-to)')
                 util.map({'o', 'x'}, 'z', '<plug>(leap-forward-to)')
@@ -103,7 +104,6 @@ require('lazy').setup {
             'preservim/vim-textobj-quote',
             dependencies = {'kana/vim-textobj-user'},
             config = function()
-                local util = require 'vimrc.util'
                 util.map({'n', 'x'}, '<leader>qc', '<plug>ReplaceWithCurly')
                 util.map({'n', 'x'}, '<leader>qs', '<plug>ReplaceWithStraight')
                 util.map({'n', 'x'}, '<leader>qt', '<cmd>ToggleEducate<cr>')
@@ -168,7 +168,6 @@ require('lazy').setup {
                 vim.g.floaterm_height = 0.99
                 vim.g.floaterm_autoinsert = false
 
-                local util = require 'vimrc.util'
                 util.map('n', '<m-t>', [[<cmd>FloatermToggle<cr>]])
                 -- The `<cmd>echo<cr>` is necessary to prevent the "-- TERMINAL --"
                 -- mode from still being displayed after exiting the terminal
@@ -216,7 +215,7 @@ require('lazy').setup {
         },
         {
             'giusgad/pets.nvim',
-            enabled = function() return not require('vimrc.util').vim_has('win32') end,
+            enabled = function() return not util.vim_has('win32') end,
             dependencies = {
                 'giusgad/hologram.nvim',
                 'MunifTanjim/nui.nvim',
@@ -224,7 +223,6 @@ require('lazy').setup {
             config = function()
                 require('pets').setup()
 
-                local util = require 'vimrc.util'
                 local name_number = 1;
                 util.map('n', '<leader>pn', function()
                     local name = 'John' .. name_number
@@ -249,7 +247,7 @@ require('lazy').setup {
             'tpope/vim-fugitive',
             cond = not_firenvim,
             config = function()
-                require('vimrc.util').map('n', '<leader>gfd', ':Gvdiff<cr>') -- Display a diff view of the current file.
+                util.map('n', '<leader>gfd', ':Gvdiff<cr>') -- Display a diff view of the current file.
             end,
         },
         {
@@ -260,8 +258,6 @@ require('lazy').setup {
 
                 gitsigns.setup {
                     on_attach = function(buf)
-                        local util = require 'vimrc.util'
-
                         local function gitsigns_map(mode, lhs, rhs, opts)
                             local opts = util.default(opts, {})
                             opts.buffer = buf
@@ -317,7 +313,7 @@ require('lazy').setup {
         {
             'justinmk/vim-dirvish',
             config = function()
-                require('vimrc.util').map('n', '<leader>-', '<plug>(dirvish_up)')
+                util.map('n', '<leader>-', '<plug>(dirvish_up)')
             end,
         },
         {
@@ -367,14 +363,13 @@ require('lazy').setup {
                     },
                 }
 
-                local util = require 'vimrc.util'
                 util.map('n', '<leader>gvo', '<cmd>DiffviewOpen<cr>')
                 util.map('n', '<leader>gvh', '<cmd>DiffviewFileHistory<cr>')
             end,
         },
         {
             'sakhnik/nvim-gdb',
-            enabled = function() return not require('vimrc.util').vim_has('win32') end,
+            enabled = function() return not util.vim_has('win32') end,
             init = function()
                 vim.g.nvimgdb_disable_start_keymaps = true
                 vim.g.nvimgdb_config_override = {
@@ -439,7 +434,7 @@ require('lazy').setup {
             'tpope/vim-characterize',
             dependencies = {'vim-easy-align'}, -- Since vim-easy-align also maps ga
             config = function()
-                require('vimrc.util').map('n', 'g9', '<plug>(characterize)')
+                util.map('n', 'g9', '<plug>(characterize)')
             end,
         },
         {
@@ -455,7 +450,6 @@ require('lazy').setup {
                 vim.g.vimwiki_valid_html_tags = 'p,blockquote,ul,ol,li'
                 vim.g.vimwiki_tags_header_level = 2
 
-                local util = require 'vimrc.util'
                 util.map('n', '<leader>ww', '<plug>VimwikiIndex')
                 util.map('n', '<leader>ws', '<plug>VimwikiUISelect')
 
@@ -553,7 +547,6 @@ require('lazy').setup {
             config = function()
                 require('treesitter-context').setup()
 
-                local util = require 'vimrc.util'
                 util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
             end,
         },
