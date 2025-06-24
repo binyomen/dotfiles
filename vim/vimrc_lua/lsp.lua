@@ -80,21 +80,6 @@ setup_language_server('marksman')
 -- https://github.com/microsoft/pyright
 setup_language_server('pyright')
 
--- https://github.com/mattn/efm-langserver
-setup_language_server('efm', {
-    filetypes = {'markdown'},
-    init_options = {documentFormatting = true},
-    settings = {
-        rootMarkers = {'.git/'},
-        languages = {
-            markdown = {{
-                formatCommand = 'prettier --stdin-filepath ${INPUT}',
-                formatStdin = true,
-            }},
-        },
-    },
-})
-
 if LOCAL_CONFIG.language_servers then
     for _, server in ipairs(LOCAL_CONFIG.language_servers) do
         if server.default_options then
