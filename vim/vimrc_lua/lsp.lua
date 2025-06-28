@@ -5,7 +5,6 @@ local util = require 'vimrc.util'
 -- Unmap default mappings that conflict with vim-ReplaceWithRegister and other
 -- plugins.
 vim.keymap.del('n', 'grn')
-vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'gO')
 vim.keymap.del({'n', 'x'}, 'gra')
