@@ -37,7 +37,7 @@ local function merge_configs(c1, c2)
     for key, value in pairs(c2) do
         if result[key] == nil then
             result[key] = value
-        elseif vim.tbl_islist(value) then
+        elseif vim.islist(value) then
             local new_list = result[key]
             for _, item in ipairs(value) do
                 table.insert(new_list, item)
