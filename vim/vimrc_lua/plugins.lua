@@ -559,5 +559,7 @@ require('lazy').setup {
                 util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
             end,
         },
+
+        LOCAL_CONFIG.local_plugins and LOCAL_CONFIG.local_plugins() or {},
     },
 }
