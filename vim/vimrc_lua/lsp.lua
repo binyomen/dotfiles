@@ -58,7 +58,8 @@ setup_language_server('rust_analyzer', {
     cmd = {'rustup', 'run', 'stable', 'rust-analyzer'},
     settings = {
         ['rust-analyzer'] = {
-            checkOnSave = {
+            checkOnSave = true,
+            check = {
                 command = 'clippy',
             },
         },
