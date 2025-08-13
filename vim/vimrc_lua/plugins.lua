@@ -83,9 +83,10 @@ require('lazy').setup {
         { -- ak/ik/aK/iK: Columns of characters.
             'idbrii/textobj-word-column.vim',
             dependencies = {'kana/vim-textobj-user'},
-            config = function()
+            init = function()
                 vim.g.textobj_wordcolumn_no_default_key_mappings = 1
-
+            end,
+            config = function()
                 vim.fn['textobj#user#map']('wordcolumn', {
                     word = {
                         ['select-i'] = 'ik',
