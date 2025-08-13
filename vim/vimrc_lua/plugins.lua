@@ -115,7 +115,7 @@ require('lazy').setup {
         {
             'iCyMind/NeoSolarized',
             lazy = true,
-            config = function()
+            init = function()
                 vim.g.neosolarized_contrast = 'high'
             end,
         },
@@ -164,11 +164,12 @@ require('lazy').setup {
         },
         {
             'voldikss/vim-floaterm',
-            config = function()
+            init = function()
                 vim.g.floaterm_width = 0.99
                 vim.g.floaterm_height = 0.99
                 vim.g.floaterm_autoinsert = false
-
+            end,
+            config = function()
                 util.map('n', '<m-t>', [[<cmd>FloatermToggle<cr>]])
                 -- The `<cmd>echo<cr>` is necessary to prevent the "-- TERMINAL --"
                 -- mode from still being displayed after exiting the terminal
@@ -179,13 +180,13 @@ require('lazy').setup {
         },
         {
             'rickhowe/diffchar.vim',
-            config = function()
+            init = function()
                 vim.g.DiffUnit = 'word'
             end,
         },
         {
             'dhruvasagar/vim-table-mode',
-            config = function()
+            init = function()
                 vim.g.table_mode_map_prefix = '<leader>0'
             end,
         },
