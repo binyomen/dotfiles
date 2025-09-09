@@ -177,7 +177,7 @@ timer with `systemctl --user enable user-battery-status.timer` and start it with
 [ppa:git-core/ppa]: https://git-scm.com/download/linux
 [IDrive]: https://www.idrivedownloads.com/downloads/linux/download-for-linux/LinuxScripts/IDriveForLinux.zip
 [Install Firefox .deb package for Debian-based distributions]: https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended
-[fish]: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
+[fish]: https://launchpad.net/~fish-shell/+archive/ubuntu/release-4
 [Dark theme not applying in Nautilus 42.1.1]: https://www.reddit.com/r/gnome/comments/ukx8k9/dark_theme_not_applying_in_nautilus_4211/
 [Error opening terminal: xterm-kitty]: https://www.reddit.com/r/commandline/comments/prenxh/error_opening_terminal_xtermkitty/
 [brew]: https://docs.brew.sh/Homebrew-on-Linux
