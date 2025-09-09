@@ -173,7 +173,7 @@ timer with `systemctl --user enable user-battery-status.timer` and start it with
 `systemctl --user start user-battery-status.timer`.
 
 <!-- LINKS -->
-[node]: https://github.com/nodesource/distributions#installation-instructions
+[node]: https://nodesource.com/products/distributions
 [ppa:git-core/ppa]: https://git-scm.com/download/linux
 [IDrive]: https://www.idrivedownloads.com/downloads/linux/download-for-linux/LinuxScripts/IDriveForLinux.zip
 [Install Firefox .deb package for Debian-based distributions]: https://support.mozilla.org/en-US/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions-recommended
