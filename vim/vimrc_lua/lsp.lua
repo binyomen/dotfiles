@@ -45,7 +45,8 @@ local function setup_language_server(name, config)
     local base_config = {on_attach = on_attach, capabilities = completion.capabilities}
     local final_config = vim.tbl_extend('force', base_config, config)
 
-    lspconfig[name].setup(final_config)
+    vim.lsp.config(name, final_config)
+    vim.lsp.enable(name)
 end
 
 -- https://github.com/LuaLS/lua-language-server
