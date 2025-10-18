@@ -97,9 +97,10 @@ local function encoding(colors)
 end
 
 local function search_count(colors)
-    local result = vim.fn.searchcount {maxcount = 0}
+    local succeeded, result = pcall(vim.fn.searchcount, {maxcount = 0})
 
-    if result == nil or
+    if not succeeded or
+        result == nil or
         result.incomplete == nil or
         result.current == nil or
         result.total == nil then
