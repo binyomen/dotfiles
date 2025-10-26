@@ -38,13 +38,13 @@ require('lazy').setup {
             'ggandor/leap.nvim',
             dependencies = {'tpope/vim-repeat'},
             config = function()
-                util.map('n', 's', '<plug>(leap-forward-to)')
-                util.map('n', 'S', '<plug>(leap-backward-to)')
-                util.map({'o', 'x'}, 'z', '<plug>(leap-forward-to)')
-                util.map({'o', 'x'}, 'Z', '<plug>(leap-backward-to)')
+                util.map('n', 's', '<plug>(leap-forward)')
+                util.map('n', 'S', '<plug>(leap-backward)')
+                util.map({'o', 'x'}, 'z', '<plug>(leap-forward)')
+                util.map({'o', 'x'}, 'Z', '<plug>(leap-backward)')
                 util.map({'o', 'x'}, 'x', '<plug>(leap-forward-till)')
                 util.map({'o', 'x'}, 'X', '<plug>(leap-backward-till)')
-                util.map('n', 'gs', '<plug>(leap-cross-window)')
+                util.map('n', 'gs', '<plug>(leap-from-window)')
             end,
         },
         {
