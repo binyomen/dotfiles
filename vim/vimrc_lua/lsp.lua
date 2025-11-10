@@ -16,33 +16,36 @@ vim.diagnostic.config {
     virtual_text = true,
 }
 
-local function on_attach(_, buf)
-    -- Remove the default omnifunc (v:lua.vim.lsp.omnifunc), since it causes
-    -- issues if it's used with the extra capabilities provided by nvim-cmp.
-    vim.bo[buf].omnifunc = nil
+util.augroup('vimrc__lsp_attach', {
+    {'LspAttach', {callback = function(args)
+        -- Remove the default omnifunc (v:lua.vim.lsp.omnifunc), since it
+        -- causes issues if it's used with the extra capabilities provided by
+        -- nvim-cmp.
+        vim.bo[args.buf].omnifunc = nil
 
-    util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = buf})
-    util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = buf})
-    util.map('n', '<leader><space>i', vim.lsp.buf.implementation, {buffer = buf})
-    util.map('n', '<leader><space><c-k>', vim.lsp.buf.signature_help, {buffer = buf})
-    util.map('n', '<leader><space>wa', vim.lsp.buf.add_workspace_folder, {buffer = buf})
-    util.map('n', '<leader><space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = buf})
-    util.map('n', '<leader><space>wl', function() util.echo(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = buf})
-    util.map('n', '<leader><space>td', vim.lsp.buf.type_definition, {buffer = buf})
-    util.map('n', '<leader><space>n', vim.lsp.buf.rename, {buffer = buf})
-    util.map('n', '<leader><space>ca', vim.lsp.buf.code_action, {buffer = buf})
-    util.map('n', '<leader><space>r', vim.lsp.buf.references, {buffer = buf})
-    util.map('n', '<leader><space>f', function() vim.lsp.buf.format {async = true} end, {buffer = buf})
-    util.map('n', '<leader><space>s', vim.lsp.buf.document_symbol, {buffer = buf})
-    util.map('n', '<leader><space>S', function() vim.lsp.buf.workspace_symbol('') end, {buffer = buf})
-    util.map('n', '<leader><space>h', '<cmd>ClangdSwitchSourceHeader<cr>', {buffer = buf})
-    util.map('n', '<leader><space>cs', '<cmd>ClangdShowSymbolInfo<cr>', {buffer = buf})
-end
+        util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = args.buf})
+        util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = args.buf})
+        util.map('n', '<leader><space>i', vim.lsp.buf.implementation, {buffer = args.buf})
+        util.map('n', '<leader><space><c-k>', vim.lsp.buf.signature_help, {buffer = args.buf})
+        util.map('n', '<leader><space>wa', vim.lsp.buf.add_workspace_folder, {buffer = args.buf})
+        util.map('n', '<leader><space>wr', vim.lsp.buf.remove_workspace_folder, {buffer = args.buf})
+        util.map('n', '<leader><space>wl', function() util.echo(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {buffer = args.buf})
+        util.map('n', '<leader><space>td', vim.lsp.buf.type_definition, {buffer = args.buf})
+        util.map('n', '<leader><space>n', vim.lsp.buf.rename, {buffer = args.buf})
+        util.map('n', '<leader><space>ca', vim.lsp.buf.code_action, {buffer = args.buf})
+        util.map('n', '<leader><space>r', vim.lsp.buf.references, {buffer = args.buf})
+        util.map('n', '<leader><space>f', function() vim.lsp.buf.format {async = true} end, {buffer = args.buf})
+        util.map('n', '<leader><space>s', vim.lsp.buf.document_symbol, {buffer = args.buf})
+        util.map('n', '<leader><space>S', function() vim.lsp.buf.workspace_symbol('') end, {buffer = args.buf})
+        util.map('n', '<leader><space>h', '<cmd>LspClangdSwitchSourceHeader<cr>', {buffer = args.buf})
+        util.map('n', '<leader><space>cs', '<cmd>LspClangdShowSymbolInfo<cr>', {buffer = args.buf})
+    end}},
+})
 
 local function setup_language_server(name, config)
     local config = util.default(config, {})
 
-    local base_config = {on_attach = on_attach, capabilities = completion.capabilities}
+    local base_config = {capabilities = completion.capabilities}
     local final_config = vim.tbl_extend('force', base_config, config)
 
     vim.lsp.config(name, final_config)
