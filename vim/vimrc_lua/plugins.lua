@@ -558,7 +558,7 @@ require('lazy').setup {
             config = function()
                 require('treesitter-context').setup()
 
-                util.map('n', '<leader>ct', '<cmd>TSContextToggle<cr>')
+                util.map('n', '<leader>ct', '<cmd>TSContext toggle<cr>')
             end,
         },
 
