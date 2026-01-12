@@ -1,7 +1,3 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __fish_initialized:3800
-SETUVAR fish_color_cancel:\x2dr
-SETUVAR fish_color_history_current:\x2d\x2dbold
-SETUVAR fish_color_valid_path:\x2d\x2dunderline
-SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR __fish_initialized:4300
