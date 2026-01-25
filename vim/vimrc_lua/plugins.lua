@@ -35,7 +35,7 @@ require('lazy').setup {
             end,
         },
         {
-            'ggandor/leap.nvim',
+            url = 'https://codeberg.org/andyg/leap.nvim',
             dependencies = {'tpope/vim-repeat'},
             config = function()
                 util.map('n', 's', '<plug>(leap-forward)')
@@ -49,7 +49,7 @@ require('lazy').setup {
         },
         {
             'ggandor/leap-spooky.nvim',
-            dependencies = {'ggandor/leap.nvim'},
+            dependencies = {url = 'https://codeberg.org/andyg/leap.nvim'},
             config = function()
                 require('leap-spooky').setup()
             end,
