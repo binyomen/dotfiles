@@ -8,6 +8,7 @@ vim.keymap.del('n', 'gO')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'grx')
 vim.keymap.del({'n', 'x'}, 'gra')
 
 util.map('n', '<leader><space>q', vim.diagnostic.setloclist)
