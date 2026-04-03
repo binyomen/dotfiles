@@ -538,19 +538,174 @@ require('lazy').setup {
         {
             'nvim-treesitter/nvim-treesitter',
             lazy = false,
-            branch = 'master',
             build = ':TSUpdate',
             config = function()
                 require 'vimrc.treesitter'
+
+                local treesitter = require 'nvim-treesitter'
+
+                treesitter.install {
+                    'bash',
+                    'c_sharp',
+                    'comment',
+                    'cpp',
+                    'css',
+                    'fish',
+                    'git_rebase',
+                    'gitattributes',
+                    'gitignore',
+                    'html',
+                    'javascript',
+                    'json',
+                    'lua',
+                    'markdown',
+                    'markdown_inline',
+                    'matlab',
+                    'python',
+                    'query',
+                    'regex',
+                    'rust',
+                    'sql',
+                    'toml',
+                    'typescript',
+                    'vim',
+                    'vimdoc',
+                    'wgsl',
+                    'yaml',
+                }
+
+                util.augroup('vimrc__treesitter_buffers', {
+                    {'BufWinEnter', {callback =
+                        function(args)
+                            -- Use the treesitter foldexpr and indentation for windows where
+                            -- the buffer has treesitter enabled.
+                            if util.treesitter_active(args.buf) then
+                                vim.wo[0][0].foldmethod = 'expr'
+                                vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                                vim.wo[0][0].foldenable = false
+
+                                vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+                            end
+                        end,
+                    }},
+                })
             end,
         },
         {
             'nvim-treesitter/nvim-treesitter-textobjects',
             dependencies = {'nvim-treesitter/nvim-treesitter'},
-        },
-        {
-            'nvim-treesitter/nvim-treesitter-refactor',
-            dependencies = {'nvim-treesitter/nvim-treesitter'},
+            config = function()
+                local textobjects = require 'nvim-treesitter-textobjects'
+                textobjects.setup {
+                    selection_modes = {
+                        ['@attribute.inner'] = 'v',
+                        ['@attribute.outer'] = 'v',
+                        ['@block.inner'] = 'V',
+                        ['@block.outer'] = 'V',
+                        ['@call.inner'] = 'v',
+                        ['@call.outer'] = 'v',
+                        ['@class.inner'] = 'V',
+                        ['@class.outer'] = 'V',
+                        ['@comment.outer'] = 'V',
+                        ['@conditional.inner'] = 'V',
+                        ['@conditional.outer'] = 'V',
+                        ['@frame.inner'] = 'V',
+                        ['@frame.outer'] = 'V',
+                        ['@function.inner'] = 'V' ,
+                        ['@function.outer'] = 'V',
+                        ['@loop.inner'] = 'V',
+                        ['@loop.outer'] = 'V',
+                        ['@parameter.inner'] = 'v',
+                        ['@parameter.outer'] = 'v',
+                        ['@scopename.inner'] = 'v',
+                        ['@statement.outer'] = 'v',
+                    },
+
+                    move = {
+                        set_jumps = true,
+                    }
+                }
+
+                local textobjects_select = require 'nvim-treesitter-textobjects.select'
+                local function select_keymap(lhs, textobject)
+                    util.map({'x', 'o'}, lhs, function()
+                        textobjects_select.select_textobject(textobject, 'textobjects')
+                    end)
+                end
+                select_keymap('isa', '@attribute.inner')
+                select_keymap('asa', '@attribute.outer')
+                select_keymap('isb', '@block.inner')
+                select_keymap('asb', '@block.outer')
+                select_keymap('isC', '@call.inner')
+                select_keymap('asC', '@call.outer')
+                select_keymap('isc', '@class.inner')
+                select_keymap('asc', '@class.outer')
+                select_keymap('as/', '@comment.outer')
+                select_keymap('isi', '@conditional.inner')
+                select_keymap('asi', '@conditional.outer')
+                select_keymap('isF', '@frame.inner')
+                select_keymap('asF', '@frame.outer')
+                select_keymap('isf', '@function.inner')
+                select_keymap('asf', '@function.outer')
+                select_keymap('isl', '@loop.inner')
+                select_keymap('asl', '@loop.outer')
+                select_keymap('isp', '@parameter.inner')
+                select_keymap('asp', '@parameter.outer')
+                select_keymap('isS', '@scopename.inner')
+                select_keymap('ass', '@statement.outer')
+
+                local textobjects_swap = require 'nvim-treesitter-textobjects.swap'
+                local function swap_keymap(lhs, textobject, is_next)
+                    util.map('n', lhs, function()
+                        if is_next then
+                            textobjects_swap.swap_next(textobject)
+                        else
+                            textobjects_swap.swap_previous(textobject)
+                        end
+                    end)
+                end
+                swap_keymap('<leader><right>', '@parameter.inner', true --[[is_next]])
+                swap_keymap('<leader><left>', '@parameter.inner', false --[[is_next]])
+
+                local textobjects_move = require 'nvim-treesitter-textobjects.move'
+                local function move_keymap(lhs, textobject, is_next, is_start)
+                    util.map({'n', 'x', 'o'}, lhs, function()
+                        if is_next then
+                            if is_start then
+                                textobjects_move.goto_next_start(textobject, 'textobjects')
+                            else
+                                textobjects_move.goto_next_end(textobject, 'textobjects')
+                            end
+                        else
+                            if is_start then
+                                textobjects_move.goto_previous_start(textobject, 'textobjects')
+                            else
+                                textobjects_move.goto_previous_end(textobject, 'textobjects')
+                            end
+                        end
+                    end)
+                end
+                -- next, start
+                move_keymap(']f', '@function.outer', true --[[is_next]], true --[[is_start]])
+                move_keymap(']k', '@class.outer', true --[[is_next]], true --[[is_start]])
+                move_keymap(']p', '@parameter.outer', true --[[is_next]], true --[[is_start]])
+                move_keymap(']]', {'@function.outer', '@class.outer'}, true --[[is_next]], true --[[is_start]])
+                -- next, end
+                move_keymap(']F', '@function.outer', true --[[is_next]], false --[[is_start]])
+                move_keymap(']K', '@class.outer', true --[[is_next]], false --[[is_start]])
+                move_keymap(']P', '@parameter.outer', true --[[is_next]], false --[[is_start]])
+                move_keymap('][', {'@function.outer', '@class.outer'}, true --[[is_next]], false --[[is_start]])
+                -- previous, start
+                move_keymap('[f', '@function.outer', false --[[is_next]], true --[[is_start]])
+                move_keymap('[k', '@class.outer', false --[[is_next]], true --[[is_start]])
+                move_keymap('[p', '@parameter.outer', false --[[is_next]], true --[[is_start]])
+                move_keymap('[[', {'@function.outer', '@class.outer'}, false --[[is_next]], true --[[is_start]])
+                -- previous, end
+                move_keymap('[F', '@function.outer', false --[[is_next]], false --[[is_start]])
+                move_keymap('[K', '@class.outer', false --[[is_next]], false --[[is_start]])
+                move_keymap('[P', '@parameter.outer', false --[[is_next]], false --[[is_start]])
+                move_keymap('[]', {'@function.outer', '@class.outer'}, false --[[is_next]], false --[[is_start]])
+            end,
         },
         {
             'nvim-treesitter/nvim-treesitter-context',
