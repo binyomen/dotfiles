@@ -97,28 +97,6 @@ local function encoding(colors)
     return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
 end
 
-local function search_count(colors)
-    local succeeded, result = pcall(vim.fn.searchcount, {maxcount = 0})
-
-    if not succeeded or
-        result == nil or
-        result.incomplete == nil or
-        result.current == nil or
-        result.total == nil then
-            return ''
-    end
-
-    local index_string
-    -- If we timed out.
-    if result.incomplete == 1 then
-        index_string = '?/??'
-    else
-        index_string = string.format('%d/%d', result.current, result.total)
-    end
-
-    return string.format('%s %s ', colors.secondary, index_string)
-end
-
 local function file_info(colors)
     local word_count_string = ''
     if vim.b.vimrc__show_word_count then
@@ -179,7 +157,6 @@ function M.do_statusline()
         flags(colors),
         '%=',
         encoding(colors),
-        search_count(colors),
         file_info(colors),
         warnings(),
     }

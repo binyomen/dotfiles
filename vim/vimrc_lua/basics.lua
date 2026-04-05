@@ -89,7 +89,6 @@ vim.opt.diffopt:append('linematch:60') -- Try to make more aesthetically pleasin
 vim.o.termguicolors = true
 vim.o.background = 'dark'
 vim.o.signcolumn = 'auto:9'
-vim.opt.shortmess:append 'S'
 vim.opt.fillchars:append {diff = '╱'}
 -- Editing
 vim.o.wrap = false -- Don't wrap lines.
