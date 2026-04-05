@@ -85,7 +85,6 @@ vim.opt.mouse = {a = true} -- Enable interaction using the mouse.
 vim.o.updatetime = 1000
 vim.opt.diffopt:append('vertical') -- Always open diffs in vertical splits.
 vim.opt.diffopt:append('algorithm:histogram') -- Use the histogram algorithm for more readable diffs.
-vim.opt.diffopt:append('indent-heuristic') -- Try to make more aesthetically pleasing diffs.
 vim.opt.diffopt:append('linematch:60') -- Try to make more aesthetically pleasing diffs.
 vim.o.termguicolors = true
 vim.o.background = 'dark'
