@@ -84,7 +84,8 @@ local function file_type(colors)
 end
 
 local function flags(colors)
-    return string.format('%s %%m%%r%%h%%w ', colors.secondary)
+    local busy_flag = vim.bo.busy > 0 and '[Busy]' or ''
+    return string.format('%s %%m%%r%%h%%w%s ', colors.secondary, busy_flag)
 end
 
 local function encoding(colors)
