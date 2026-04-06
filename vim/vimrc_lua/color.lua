@@ -206,7 +206,7 @@ util.user_command(
     'SynStack',
     function()
         if util.treesitter_active() then
-            local node = require('nvim-treesitter.ts_utils').get_node_at_cursor()
+            local node = vim.treesitter.get_node()
             local nodes = {}
             while node ~= nil do
                 table.insert(nodes, node)
