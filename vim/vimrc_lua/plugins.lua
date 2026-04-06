@@ -574,20 +574,41 @@ require('lazy').setup {
                     'yaml',
                 }
 
-                util.augroup('vimrc__treesitter_buffers', {
-                    {'BufWinEnter', {callback =
-                        function(args)
-                            -- Use the treesitter foldexpr and indentation for windows where
-                            -- the buffer has treesitter enabled.
-                            if util.treesitter_active(args.buf) then
-                                vim.wo[0][0].foldmethod = 'expr'
-                                vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-                                vim.wo[0][0].foldenable = false
+                local function treesitter_autocmd(filetype)
+                    return {'FileType', {pattern = filetype, callback = function()
+                        vim.treesitter.start()
 
-                                vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
-                            end
-                        end,
-                    }},
+                        vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                        vim.wo[0][0].foldmethod = 'expr'
+                        vim.wo[0][0].foldenable = false
+
+                        vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+                    end}}
+                end
+
+                util.augroup('vimrc__treesitter_filetype', {
+                    treesitter_autocmd('bash'),
+                    treesitter_autocmd('cs'),
+                    treesitter_autocmd('cpp'),
+                    treesitter_autocmd('css'),
+                    treesitter_autocmd('fish'),
+                    treesitter_autocmd('gitrebase'),
+                    treesitter_autocmd('gitattributes'),
+                    treesitter_autocmd('gitignore'),
+                    treesitter_autocmd('html'),
+                    treesitter_autocmd('javascript'),
+                    treesitter_autocmd('json'),
+                    treesitter_autocmd('lua'),
+                    treesitter_autocmd('markdown'),
+                    treesitter_autocmd('matlab'),
+                    treesitter_autocmd('python'),
+                    treesitter_autocmd('query'),
+                    treesitter_autocmd('rust'),
+                    treesitter_autocmd('sql'),
+                    treesitter_autocmd('toml'),
+                    treesitter_autocmd('typescript'),
+                    treesitter_autocmd('vim'),
+                    treesitter_autocmd('yaml'),
                 })
             end,
         },
