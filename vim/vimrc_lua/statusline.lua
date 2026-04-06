@@ -97,6 +97,14 @@ local function encoding(colors)
     return string.format('%s %s[%s]%s ', colors.secondary, encoding, line_endings, eol_text)
 end
 
+local function diagnostics(colors)
+    local status = vim.diagnostic.status()
+    if status == '' then
+        return ''
+    end
+    return string.format('%s%s ', colors.secondary, status)
+end
+
 local function file_info(colors)
     local word_count_string = ''
     if vim.b.vimrc__show_word_count then
@@ -157,6 +165,7 @@ function M.do_statusline()
         flags(colors),
         '%=',
         encoding(colors),
+        diagnostics(colors),
         file_info(colors),
         warnings(),
     }
