@@ -608,6 +608,7 @@ require('lazy').setup {
                     treesitter_autocmd('toml'),
                     treesitter_autocmd('typescript'),
                     treesitter_autocmd('vim'),
+                    treesitter_autocmd('vimdoc'),
                     treesitter_autocmd('wgsl'),
                     treesitter_autocmd('yaml'),
                 })
