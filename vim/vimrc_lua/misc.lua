@@ -155,7 +155,7 @@ end
 util.augroup('vimrc__highlight_on_yank', {
     {'TextYankPost', {callback =
         function()
-            vim.highlight.on_yank {higroup = 'Search'}
+            vim.hl.on_yank {higroup = 'Search'}
         end,
     }},
 })
