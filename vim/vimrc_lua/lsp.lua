@@ -25,6 +25,7 @@ util.augroup('vimrc__lsp_attach', {
         vim.bo[args.buf].omnifunc = nil
 
         util.map('n', '<leader><space>d', vim.lsp.buf.definition, {buffer = args.buf})
+        util.map('n', 'gd', vim.lsp.buf.definition, {buffer = args.buf})
         util.map('n', '<leader><space>D', vim.lsp.buf.declaration, {buffer = args.buf})
         util.map('n', '<leader><space>i', vim.lsp.buf.implementation, {buffer = args.buf})
         util.map('n', '<leader><space><c-k>', vim.lsp.buf.signature_help, {buffer = args.buf})
