@@ -8,15 +8,15 @@ if [[ "${TRACE-0}" == "1" ]]; then
 fi
 
 main() {
-    echo ==== Running brew update =====
+    echo ===== Running brew update =====
     brew update
 
     echo
-    echo ==== Running brew outdated ===
+    echo ==== Running brew outdated ====
     brew outdated
 
     echo
-    echo ==== Running brew upgrade ====
+    echo ==== Running brew upgrade =====
     brew upgrade
 }
 
