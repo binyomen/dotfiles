@@ -583,7 +583,7 @@ require('lazy').setup {
                         vim.wo[0][0].foldmethod = 'expr'
                         vim.wo[0][0].foldenable = false
 
-                        vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+                        -- vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
                     end}}
                 end
 
