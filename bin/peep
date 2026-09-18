@@ -71,10 +71,10 @@ main() {
         fi
     done
 
-    while true
-        do echo -n .
+    for i in $(seq $seconds); do
+        echo -n .
         sleep 1
-    done | pv --size "$seconds" --stop-at-size --format '%t %p' > /dev/null
+    done | pv --size "$seconds" --format '%t %p' > /dev/null
 }
 
 main "$@"
