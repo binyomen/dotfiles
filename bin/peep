@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+show_help() {
+cat << EOF
+Usage: peep <time quantity 1> <time quantity 2> ...
+
+Sleep with a progress bar. Accepts arguments formatted similar to the sleep
+command, e.g. "120", "120s", "2m", and "1m 60s" all mean "120 seconds".
+
+Options:
+
+-h, --help
+  • Print help
+EOF
+}
+
+main() {
+    local -r longopts='help'
+    local -r opts='h'
+    PARSED="$(getopt --longoptions "$longopts" --options "$opts" --name "$0" -- "$@")"
+    eval set -- "$PARSED"
+
+    while true; do
+        case "$1" in
+            --help | -h)
+                show_help
+                exit 0
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                echo "Internal error: unexpected argument '$1'." >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    local -ar times=("$@")
+    local seconds='0'
+    for t in "${times[@]}"; do
+        # Regex needs to be put in a variable, since including it literally
+        # won't work for whatever reason.
+        local base_r='^[0-9]+$'
+        local seconds_r='^([0-9]+)s$'
+        local minutes_r='^([0-9]+)m$'
+        local hours_r='^([0-9]+)h$'
+        local days_r='^([0-9]+)d$'
+
+        if [[ "$t" =~ $base_r ]]; then
+            seconds=$((seconds + "$t"))
+        elif [[ "$t" =~ $seconds_r ]]; then
+            seconds=$((seconds + "${BASH_REMATCH[1]}"))
+        elif [[ "$t" =~ $minutes_r ]]; then
+            seconds=$((seconds + ("${BASH_REMATCH[1]}" * 60)))
+        elif [[ "$t" =~ $hours_r ]]; then
+            seconds=$((seconds + ("${BASH_REMATCH[1]}" * 60 * 60)))
+        elif [[ "$t" =~ $days_r ]]; then
+            seconds=$((seconds + ("${BASH_REMATCH[1]}" * 60 * 60 * 24)))
+        else
+            echo "Invalid time format '$t'." >&2
+            exit 1
+        fi
+    done
+
+    while true
+        do echo -n .
+        sleep 1
+    done | pv --size "$seconds" --stop-at-size --format '%t %p' > /dev/null
+}
+
+main "$@"
